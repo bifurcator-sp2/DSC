@@ -1,22 +1,22 @@
-vec2 GetOffsetFromCenter(vec2 screenCoords, vec2 screenSize)
-{
-    vec2 halfScreenSize = screenSize / 2.0;
-    
-	return (screenCoords.xy - halfScreenSize) / min(halfScreenSize.x, halfScreenSize.y);
-}
+//vignette from https://www.assetstore.unity3d.com/en/#!/content/83912
+
+#define saturate(value) clamp(value,0.0,1.0) 
 
 void main()
 {
-	float Falloff = 0.01;//02
-	float intensity = 120;//120
-	vec2 uv = TexCoord;
-    vec2 coord = GetOffsetFromCenter(uv,vec2(1.0));
-    float vig = pow(intensity, Falloff);
-	
-    float rf = sqrt(dot(coord, coord)) * vig;
-    float rf2_1 = rf * rf + 1.0;
-    float e = 1.0 / (rf2_1 * rf2_1);
-    
-    vec4 src = texture(InputTexture, TexCoord);
-	FragColor = vec4(src.rgb * e, 1.0);
+    vec4 color = texture(InputTexture, TexCoord);
+    ivec2 screenSize = textureSize(InputTexture, 0);
+    vec4 vignetteColor = vec4(0.0,0.0,0.0,1.0);
+    vec2 vignetteCenter = vec2(0.5,0.5);
+    float vignetteRoundness = 1.0;
+    float roundness = (1.0 - 1.0) * 6.0 + 1.0;
+    vec4 vignetteSettings = vec4( 0.45 * 3.0, 0.2 * 5.0,roundness, 0.0);
+ 
+    vec2 d = abs(TexCoord - vignetteCenter) * vignetteSettings.x;
+    d.x *= mix(1.0, screenSize.x / screenSize.y, vignetteSettings.w);
+    d = pow(d, vec2(vignetteSettings.z)); // Roundness
+    float vfactor = pow(saturate(1.0 - dot(d, d)), vignetteSettings.y);
+    color *= mix(vignetteColor, vec4(1.0), vfactor);
+
+	FragColor = color;
 }
