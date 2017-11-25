@@ -212,14 +212,14 @@ Texture "METALS", 256, 512
 	Patch "METALS", 0, 0
 }
 
-Texture "SCULLCOL", 66, 512
+Texture "SCULLCOL", 64, 512
 {
 	XScale 4.000
 	YScale 4.000
 	Patch "SCULLCOL", 0, 0
 }
 
-Texture "SCULCOL2", 66, 512
+Texture "SCULCOL2", 64, 512
 {
 	XScale 4.000
 	YScale 4.000
