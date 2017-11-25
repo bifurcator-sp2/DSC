@@ -97,7 +97,7 @@ Override void WorldThingDamaged(WorldEvent e)
 			monCount.monsterCount = 0;
 		}
 		monsterCounter = monCount.monsterCount;
-		players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
+		if ( !(level.mapName == "TITLEMAP") ) players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
 	}
 
 /*	override void WorldThingRevived(WorldEvent e)
