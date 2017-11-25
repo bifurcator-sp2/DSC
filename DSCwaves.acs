@@ -121,7 +121,7 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 Script "TimeKillVoiceSec1" (int soundID){
 	ACS_NamedExecuteAlways("MuteMusic", 0, 35+15);
 	delay(15);
-	for(int i = 0; i<=7; i++){
+	for(int i = 0; i<=9; i++){
 		SoundVolume (0, i, 0.0);
 	}
 	switch (soundID) {
@@ -248,16 +248,17 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 
 		if( ScullTag != 888888 ){
 			WaveOnline = true;
-			Delay(35*3);
-			AmbientSound("Howling",127);
-			Delay(35*3);
+			if(!NOspawn){//debug thing
+				Delay(35*3);
+				AmbientSound("Howling",127);
+				Delay(35*3);
 
-			for(int i = 5; i > 0; i--)
-			{
-				Print(s:"Wave will come in ",d:i,s:" seconds");
-				Delay(35);
+				for(int i = 5; i > 0; i--)
+				{
+					Print(s:"Wave will come in ",d:i,s:" seconds");
+					Delay(35);
+				}
 			}
-
 
 		}
 		if(!NOspawn){
@@ -276,15 +277,17 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 
 			CurrentWave ++;
 
-			Delay(35*3);
+			if(!NOspawn){//debug thing
+				Delay(35*3);
+			}
 			Thing_Destroy(666667,0,0);//Previusly spawned vanilla weapon
 
 			ACS_NamedExecute("SpawnWeapon", 0, WeaponTag);
 
 
-
+			if(!NOspawn){//debug thing
 			Delay(35*3);
-
+			}
 			ACS_NamedExecuteAlways("RestoreMusic", 0);
 
 			SpawnSpotFacingForced("WaveScullDEC", ScullTag, 100600);
