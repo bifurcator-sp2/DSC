@@ -1,0 +1,76 @@
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+
+SCRIPT "StartControl" ENTER
+{
+
+	if(Atrium1Active){
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888); //notag nocount
+		Thing_Activate(106);
+	}
+
+}
+script "StartHelp" (void){
+	if(!Atrium1Active){
+		Thing_Activate(101);
+	}
+}
+
+script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
+
+	if (Time==0){Time=3;}
+
+	switch (HelpID) {
+		case 1:
+			hudmessageBold(s:"Welcome to Doom Slayer Chronicles!"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 2:
+			hudmessageBold(s:"It is an endless HELL\nwith infinit increasing difficulty."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 3:
+			hudmessageBold(s:"There are a separate piece of hell\nbehind each of these doors."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 4:
+			hudmessageBold(s:"You can visit them\nin any order and any number of times.\nThe game will each time give you new hordes of demons\ndepending on the overall progress of the game."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 5:
+			hudmessageBold(s:"Here you are the Doom Slayer.\nAnd this is your type of eternity.\nThe battle with the forces of hell - until the end of time."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 6:
+			hudmessageBold(s:"To\n\"Cemetery of the fallen\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 7:
+			hudmessageBold(s:"To\n\"Bloodrain plaza\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 8:
+			hudmessageBold(s:"To\n\"The Coliseum\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 9:
+			hudmessageBold(s:"To\n\"Salvation\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		default:
+			PrintBold(s:"Be strong!");
+
+	}
+	Delay((Time+2)*35);
+	if(NextHelpTag>0){
+		Thing_Activate(NextHelpTag);
+	}
+}
+
+script "GotoCemetery" (void){
+	delay(15);
+	ChangeLevel ("DSCMAP02", 0, CHANGELEVEL_NOINTERMISSION);
+}
+script "GotoPlaza" (void){
+	delay(15);
+	ChangeLevel ("DSCMAP03", 0, CHANGELEVEL_NOINTERMISSION);
+}
+script "GotoArena" (void){
+	delay(15);
+	ChangeLevel ("DSCMAP04", 0, CHANGELEVEL_NOINTERMISSION);
+}
+script "GotoSalvation" (void){
+	delay(15);
+	ChangeLevel ("DSCMAP05", 0, CHANGELEVEL_NOINTERMISSION);
+}
