@@ -1,0 +1,174 @@
+SCRIPT "HellThunder" (void)
+{
+
+	PlaySound(1206, "world/Thunder1", CHAN_BODY, 0.7, false, ATTN_NONE);
+	Thing_Activate(100);
+	Delay(random(5,10));
+	Thing_Deactivate(100);
+	Delay(random(5,10));
+	Thing_Activate(100);
+	Delay(random(5,10));
+	Thing_Deactivate(100);
+	Delay(random(5,10));
+	Thing_Activate(100);
+	Delay(random(5,10));
+	Thing_Deactivate(100);
+
+}
+script "CreepySounds" (void)
+{
+	While(TRUE)
+	{
+	AmbientSound("CREEPYTILE",127);
+	Delay(35*random(10,20));
+	}
+}
+
+SCRIPT "SlideDoor" (int pilyID, int dist, int angle)
+{
+	if(!dist){dist=128;}
+
+Polyobj_DoorSlide(pilyID, 16, angle, dist, 35*2);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+
+}
+SCRIPT "RotateDoorLeft" (int pilyID, int speed, int angle)
+{
+if(speed==0){speed=16;}
+Polyobj_RotateLeft(pilyID, speed, angle);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+delay(35*5);
+Polyobj_RotateRight(pilyID, speed, angle);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+
+}
+SCRIPT "RotateDoorRight" (int pilyID, int speed, int angle)
+{
+if(speed==0){speed=16;}
+Polyobj_RotateRight(pilyID, speed, angle);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+delay(35*5);
+Polyobj_RotateLeft(pilyID, speed, angle);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+
+}
+
+SCRIPT "FadeOutMusic" (void){
+	int vol = 1.0;
+	for (int counter = 0; counter < 100; counter++)
+	{
+		vol = vol-0.01;
+		SetMusicVolume(vol);
+		delay(1);
+	}
+	SetMusicVolume(0.0);
+}
+SCRIPT "FadeInMusic" (void){
+	int vol = 0.0;
+	for (int counter = 0; counter < 100; counter++)
+	{
+		vol = vol+0.01;
+		SetMusicVolume(vol);
+		delay(1);
+	}
+	SetMusicVolume(1.0);
+}
+
+SCRIPT "MuteMusic" (int ticks){
+	SetMusicVolume(0.0);
+		delay(ticks);
+	SetMusicVolume(1.0);
+}
+
+
+SCRIPT "Halos" ENTER
+{
+
+	ACS_NamedExecuteAlways("SetBigFireHalo",0, 777);
+
+}
+
+script "SetHalo" (int tid){
+	if(CheckSight (0, tid, "") ){
+		HudMessageOnActor(tid, 0, 0, 0, 0, 0, 2048, "HALSA0", "", 1.0 / 35 + 1, 0);
+	}
+	delay(1);
+	restart;
+}
+
+script "SetBigFireHalo" (int tid){
+
+	if(CheckSight (0, tid, "") ){
+		HudMessageOnActor(tid, 0, 0, 0, 0, 0, 4096, "B1FHA0", "", 1.0 / 35 + 1, 0);
+	}
+	delay(1);
+	restart;
+}
+
+script "DisplayActorHealth" (int tid){
+
+	if(CheckSight (0, tid, "") ){
+		HudMessageOnActor(tid, 0, 0, 0, 0, -64, 1024, -1, "Health: ", 1.0 / 35 + 1, 0);
+	}
+	//+GetActorProperty(tid, APROP_Health)
+	delay(1);
+	restart;
+}
+
+
+
+
+function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOffset, int yOffset, int range, str sprite, str text, int holdTime, str colour)
+{
+
+	int dist, angle, vang, pitch, x, y;
+
+	if (holdTime == 0) { holdTime = 0.1; }
+	if (hudX == 0) { hudX = 640; }
+	if (hudY == 0) { hudY = 480; }
+
+	if(sprite != -1)
+	{
+
+		SetFont(sprite);
+		text = "A";
+
+	}
+
+	SetHudSize(hudX, hudY, 1);
+	x = GetActorX(tid) - GetActorX(0);
+	y = GetActorY(tid) - GetActorY(0);
+
+	vang = VectorAngle(x,y);
+	angle = (vang - GetActorAngle(0) + 1.0) % 1.0;
+
+	if(((vang+0.125)%0.5) > 0.25) dist = FixedDiv(y, sin(vang));
+	else dist = FixedDiv(x, cos(vang));
+
+	if ((angle < 0.23 || angle > 0.85) && (dist >> 16) < range)
+	{
+
+		if (GetActorPitch(0) >= -0.5 && GetActorPitch(0) <= 0.5)
+		{
+
+			pitch = VectorAngle(dist, GetActorZ(tid) - (GetActorZ(0) + GetActorViewHeight(0)));
+			pitch += FixedMul(GetActorPitch(0), 1.2) % 1.0;
+
+			if ((hudX/2) * sin(angle) != 0 && cos(angle) != 0 && (hudX/2) * sin(pitch) != 0 && cos(pitch) != 0)
+			{
+
+				x = hudX/2 - ((hudX/2) * sin(angle) / cos(angle));
+				y = hudY/2 - ((HUDX/2) * sin(pitch) / cos(pitch));
+
+				x+=xOffset;
+				y+=yOffset;
+
+				HudMessage(s:text; HUDMSG_PLAIN | HUDMSG_ADDBLEND | HUDMSG_LAYER_UNDERHUD, msgID, colour, (x << 16), (y << 16), holdTime);
+
+			}
+
+		}
+
+	}
+
+}

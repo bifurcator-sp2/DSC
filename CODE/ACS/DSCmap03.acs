@@ -1,0 +1,203 @@
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+
+INT MapWave = 0;
+BOOL DoorOut1Closed = false;
+BOOL ArmorTook = false;
+BOOL SecondZoneClosed = false;
+BOOL ItemTook = false;
+
+SCRIPT "StartFirstWave" (void){
+	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 2, 100401);
+}
+
+
+
+SCRIPT "StartControl" ENTER
+{
+	Thing_Deactivate(100);
+	PlaySound(1, "world/BFRAIN", CHAN_BODY, 1.0, TRUE, ATTN_NONE);
+	ACS_NamedExecute("CreepySounds",0);
+
+	//
+
+
+
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	ACS_NamedExecuteAlways("WaveSlideDoor", 0, 1, 120, 192);
+	ACS_NamedExecuteAlways("WaveSlideDoor", 0, 2, 120, 192);
+	ACS_NamedExecuteAlways("Mus_L1", 0);
+
+
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 2, 100401);
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+
+	ACS_NamedExecuteAlways("Mus_L1", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999, 999999); //no such tid!!!! this is right!!!
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 2, 100401);
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+
+	ACS_NamedExecuteAlways("Mus_L1", 0);
+	//ACS_NamedExecuteAlways("WaveSlideDoor", 0, 3, 120, 0);
+	ACS_NamedExecuteAlways("WaveSlideDoor", 0, 4, 120, 0);
+	PrintBold(s:"South door\nhas been opened");
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100506, 3, 100402);
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	ACS_NamedExecuteAlways("Mus_M1", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 3, 100402);
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	ACS_NamedExecuteAlways("Mus_M2", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 3, 100402);
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	ACS_NamedExecuteAlways("Mus_M3", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999, 999999); //notag
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 3, 100402);
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+
+	Delay(35);
+	ACS_NamedExecuteAlways("OpenSecondZone", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 888888, 888888); //notag
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+
+	ACS_NamedExecuteAlways("Mus_G1", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 4, 100403);
+	delay(35*30);
+	//delay(1);while(WaveOnline){delay(1);}
+	//PrintBold(s:"next");
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 888888, 888888); //notag
+
+
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	ACS_NamedExecuteAlways("Mus_G2", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100507, 4, 100403);
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+
+
+
+	PrintBold(s: "Go to central chamber\nand finish the challenge");
+	delay(35*5);
+	ACS_NamedExecuteAlways("Mus_G2", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100511, 2, 100401);
+
+	Door_Open (30, 16);
+	ACS_NamedExecuteAlways("WaveSlideDoor", 0, 3, 120, 0);
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+
+
+
+	for(int i = 5; i > 0; i--)
+	{
+		Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
+		Delay(35);
+	}
+
+	TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+	Atrium1Active = true;
+	Exit_Normal(0);
+}
+
+
+SCRIPT "WaveSlideDoor" (int pilyID, int dist, int angle)
+{
+	if(!dist){dist=128;}
+
+Polyobj_DoorSlide(pilyID, 16, angle, dist, -1);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+
+}
+script "DoorOut1Close"(void){
+	if(!DoorOut1Closed){
+		//ACS_NamedExecuteAlways("WaveSlideDoor", 0, 4, 120, 128);
+		Floor_RaiseByValue(24, 32, 128);
+		DoorOut1Closed = true;
+		Door_Close(29, 64);
+		Door_Close(30, 64);
+	}
+}
+
+Script "OpenSecondZone" (void){
+	Delay(35*3);
+	PrintBold(s:"Hidden passages\nto other side of the wall\nhas been opened");
+	Door_Open(26, 16);
+	Door_Open(28, 16);
+	ceiling_lowerbyvalue(23, 4, 128);
+	//world/WaterOut
+	PlaySound(27, "world/WaterOut", CHAN_BODY, 1.0, false, ATTN_NORM);
+
+
+}
+Script "CloseSecondZone" (void){
+	if(!SecondZoneClosed){
+		SecondZoneClosed = true;
+		Door_Close(28, 16);
+		Door_Close(22, 16);
+		ceiling_raisebyvalue(23, 4, 128);
+		//world/WaterOut
+		PlaySound(27, "world/WaterOut", CHAN_BODY, 1.0, false, ATTN_NORM);
+	}
+
+}
+
+Script "ArmorWave" (void){
+	if(!ArmorTook){
+		ArmorTook = true;
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 888888, 888888); //notag
+	}
+}
+
+Script "ItemWave" (void){
+	if(!ItemTook){
+		ItemTook = true;
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888); //notag
+	}
+}
+
+
+
+Script "MapWaveControll" (void){
+	MapWave++;
+}
