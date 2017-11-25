@@ -23,18 +23,17 @@ class DSCMonsterPopulation : Thinker
 }
 Class IncKillCounter : CustomInventory
 {
+  Default
+  {
+    Inventory.Maxamount 0x7FFFFFFF;
+  }
 
-	Default
-	{
-		Inventory.Maxamount 0x7FFFFFFF;
-	}
-	
-	States
-	{
-		Pickup:
-			TNT1 A 0 Acs_NamedExecuteAlways("MonsterKilled");
-		Stop;
-	}
+  States
+  {
+    Pickup:
+    TNT1 A 0 Acs_NamedExecuteAlways("MonsterKilled");
+    Stop;
+  }
 }
 
 Class DSCMonstersEvent : EventHandler
@@ -55,25 +54,24 @@ Override void WorldThingDamaged(WorldEvent e)
 	override void WorldThingDied(WorldEvent e)
 	{
 
-
 		PlayerInfo players = players[consoleplayer];
 		let mo = e.Thing;
 		let monCount = DSCMonsterPopulation.Get();
-		
-		
+
+
 		if ( mo is "DSCZombieMan" || mo is "DSCdoomImp" || mo is "DSCcacodemon" || "DSCHellKnight")
 		{
 			if(monCount) --monCount.monsterCount;
 			//players.mo.Acs_NamedExecuteAlways("MonsterDied",0);
 		}
 		if ( !mo.bISMONSTER || mo.bNOINTERACTION) return;
-        
+
 		if(monCount) {
 			--monCount.monsterCount;
 			players.mo.Acs_NamedExecuteAlways("MonsterDied",0);
 		}
 	}
-	
+
 	override void WorldTick()
 	{
 		PlayerInfo players = players[consoleplayer];
@@ -93,9 +91,9 @@ Override void WorldThingDamaged(WorldEvent e)
 			monCount.monsterCount = 0;
 		}
 		monsterCounter = monCount.monsterCount;
-		players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);		
+		players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
 	}
-	
+
 /*	override void WorldThingRevived(WorldEvent e)
 	{
 		let mo = e.Thing;
@@ -108,7 +106,7 @@ Override void WorldThingDamaged(WorldEvent e)
 		if (!mo || !mo.bISMONSTER || mo.bNOINTERACTION) return;
 		monsterCount--;
 	}*/
-	
+
 override void RenderOverlay(RenderEvent e)
 	{
         //Screen.DrawText(SmallFont, Font.CR_GRAY, 200, 50, string.format("%i",monsterCounter), DTA_Clean, true);

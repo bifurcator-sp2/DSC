@@ -155,10 +155,6 @@ script "SaintHealthUp" (void){
 	SaintHealthUpMultipler = 0;
 }
 
-
-
-
-
 script "MonsterKilled" (void){
 	AchiveKillInSEc1++;
 	SaintHealthUpMultipler++;
@@ -189,15 +185,10 @@ Script "GetProgress" (void)
 {
 	SetResultValue((currentWave * 100) / maxWaveCount);
 }
+
 Script "GetLiveMonstersCount" (void)
 {
-	int total = SpawnedMonstersOnTheMap;
-	if(total>0){
-		SetResultValue(total);
-	} else {
-		SetResultValue(0);
-	}
-
+	SetResultValue(SpawnedMonstersOnTheMap);
 }
 
 
@@ -207,21 +198,13 @@ Script "NewMonsterIsSpawned" (int monstersCount)
 }
 
 
-
-
 function int GetTotalMonsters(void)
 {
 	if (!CheckActorClass(0, "BEDoomer") && !CheckActorClass(0, "BESemiDoomer") && !CheckActorClass(0, "DoomPlayer")){
-		int total = SpawnedMonstersOnTheMap;
-		if(total>0){
-			return total;
-		}
-		return 0;
+		return SpawnedMonstersOnTheMap;
 	}
-		return ThingCount(T_NONE, 666666);
-
+	return ThingCount(T_NONE, 666666);
 }
-
 
 
 
