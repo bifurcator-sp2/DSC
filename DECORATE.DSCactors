@@ -1,5 +1,5 @@
 
-actor AIDSpawnerDEC : AIDSpawner 22000 { //$Sprite AID1A0 
+actor AIDSpawnerDEC : AIDSpawner 22000 { //$Sprite AID1A0
 }
 actor WaveScullDEC : WaveScull 22001 { //$Sprite SCLSA0
 }
@@ -23,11 +23,11 @@ actor DSCweaponSpawnerDEC : DSCweaponSpawner 22007 { //$Sprite WPN1A0
 
 actor DSCdoomImpDEC : DSCdoomImp 22029 { //$Sprite TROOA1
 }
-actor DSCmonsterSpawnerTribuneDEC : DSCmonsterSpawnerTribune 22030 { 
+actor DSCmonsterSpawnerTribuneDEC : DSCmonsterSpawnerTribune 22030 {
 }
-actor DSCportalDEC : DSCportal 22031 { 
+actor DSCportalDEC : DSCportal 22031 {
 }
-actor HSChelperDEC : HSChelper 22032 { 
+actor HSChelperDEC : HSChelper 22032 {
 }
 actor DSCprisonedSaintDEC : DSCprisonedSaint 22033 { //$Sprite MFLYA0
 		Scale 0.5

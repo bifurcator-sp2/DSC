@@ -89,15 +89,15 @@ Class FireFlame : Actor
 		//DistanceCheck "user_MaxDrawDistanceTorchFire";
 	}
 	Override void PostBeginPlay()
-	{	
+	{
 		FadeoutSpeed = 0.1;
 		ScaleDecrease = 0.03;
 		ThisScale = 0.25;
-		
+
 		RollSpeed = Random(-30, 30);
 		A_SetRoll(random(0, 360));
 		Super.PostBeginPlay();
-	}	
+	}
 	virtual void ParticleLife()
 	{
 		ThisScale = ThisScale-ScaleDecrease;
@@ -106,14 +106,14 @@ Class FireFlame : Actor
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 		roll%=360;
 		A_fadeOut(FadeoutSpeed);
-	}	
+	}
 	States
 	{
-		
+
 		Spawn:
 			FL1M A 2 {ParticleLife();}
 			LOOP;
-			
+
 	}
 }
 
@@ -136,15 +136,15 @@ int RollSpeed;
 		//DistanceCheck "user_MaxDrawDistanceTorchFire";
 	}
 	Override void PostBeginPlay()
-	{	
+	{
 		FadeoutSpeed = 0.1;
 		ScaleDecrease = 0.1;
 		ThisScale = 3.0;
-		
+
 		RollSpeed = Random(-30, 30);
 		A_SetRoll(random(0, 360));
 		Super.PostBeginPlay();
-	}	
+	}
 	virtual void ParticleLife()
 	{
 		ThisScale = ThisScale-ScaleDecrease;
@@ -153,25 +153,25 @@ int RollSpeed;
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 		roll%=360;
 		A_fadeOut(FadeoutSpeed);
-	}	
+	}
 	States
 	{
-		
+
 		Spawn:
 			FL1M A 2 {ParticleLife();}
 			LOOP;
-			
+
 	}
 }
 Class FireFlameGreatGreen : FireFlameGreat
 {
 	States
 	{
-		
+
 		Spawn:
 			FL2M A 2 {ParticleLife();}
 			LOOP;
-			
+
 	}
 }
 
@@ -179,22 +179,22 @@ Class FireFlameGreen : FireFlame
 {
 	States
 	{
-		
+
 		Spawn:
 			FL2M A 2 {ParticleLife();}
 			LOOP;
-			
+
 	}
 }
 Class FireFlameBlue : FireFlame
 {
 	States
 	{
-		
+
 		Spawn:
 			FL3M A 2 {ParticleLife();}
 			LOOP;
-			
+
 	}
 }
 
@@ -230,13 +230,13 @@ Class FireFlameSpawnerGREAT : Actor
 		Inv:
 			TNT1 A 1;
 			Goto Spawn;
-			
+
 	}
 }
 Class FireFlameSpawnerGREATgreen : Actor
 {
 	int r;
-	
+
 	Default
 	{
 		radius 64;
@@ -260,7 +260,7 @@ Class FireFlameSpawnerGREATgreen : Actor
 		Inv:
 			TNT1 A 1;
 			Goto Spawn;
-			
+
 	}
 }
 
@@ -269,7 +269,7 @@ Class FireFlameSpawnerTorch : Actor
 {
 
 	int r;
-	
+
 	Default
 	{
 		radius 8;
@@ -293,7 +293,7 @@ Class FireFlameSpawnerTorch : Actor
 		Inv:
 			TNT1 A 1;
 			Goto Spawn;
-			
+
 	}
 }
 
@@ -311,7 +311,7 @@ Class FireFlameSpawnerTorchRed : FireFlameSpawnerTorch
 		LOOP;
 		Inv:
 			TNT1 A 1;
-			Goto Spawn;		
+			Goto Spawn;
 	}
 }
 Class FireFlameSpawnerTorchGreen : FireFlameSpawnerTorch
@@ -328,7 +328,7 @@ Class FireFlameSpawnerTorchGreen : FireFlameSpawnerTorch
 		LOOP;
 		Inv:
 			TNT1 A 1;
-			Goto Spawn;		
+			Goto Spawn;
 	}
 }
 Class FireFlameSpawnerTorchBlue : FireFlameSpawnerTorch
@@ -345,7 +345,7 @@ Class FireFlameSpawnerTorchBlue : FireFlameSpawnerTorch
 		LOOP;
 		Inv:
 			TNT1 A 1;
-			Goto Spawn;		
+			Goto Spawn;
 	}
 }
 Class BigDoomTorch  : Actor
@@ -358,7 +358,7 @@ Class BigDoomTorch  : Actor
 		Scale 0.12;
 		//FlareBaseClass.DrawFlare true;
 		//FlareBaseClass.FlareGraphics "HALO1";
-		//FlareBaseClass.FlareZoffset 64;	
+		//FlareBaseClass.FlareZoffset 64;
 		//RenderStyle "Add";
 	}
 	States
@@ -428,7 +428,7 @@ Class DoomTorchHalo  : Actor
 	States
 	{
 		Spawn:
-			HAL1 A 3 
+			HAL1 A 3
 			{
 				A_FadeTo(frandom(0.1, 0.3), 0.1);
 			}
@@ -437,7 +437,7 @@ Class DoomTorchHalo  : Actor
 }
 
 Class Bif_spawned_stone : Actor {
-	Default 
+	Default
 	{
 		+FORCEXYBILLBOARD;
 		Scale 0.5;
@@ -461,7 +461,7 @@ Class DSCrandomGrass : Actor //22015
 	};
 
 	bool bSloped;
-	
+
 	Default
 	{
 		+FORCEXYBILLBOARD;
@@ -469,7 +469,7 @@ Class DSCrandomGrass : Actor //22015
 		Radius 16;
 		Scale 0.2;
 	}
-	
+
 	override void Tick()
 	{
 		if(!bSloped)
@@ -479,17 +479,17 @@ Class DSCrandomGrass : Actor //22015
 		}
 		Super.Tick();
 	}
-	
+
 	Override void PostBeginPlay()
 	{
 		A_SetScale(frandom(0.05, 0.12));
 		Super.PostBeginPlay();
 	}
-	
+
 	bool CheckFloorTexture()
 	{
 		int fTexLenght = floorTex.Size();
-	
+
 		for (int i = 0; i < fTexLenght;i++)
 		{
 			TextureID tx=TexMan.CheckForTexture(floorTex[i],TexMan.Type_Flat);
@@ -500,7 +500,7 @@ Class DSCrandomGrass : Actor //22015
 		}
 		return false;
 	}
-	
+
     static void AlignToSlope(Actor self, double dAng, double dPitch)
     {
         vector3 fNormal = self.CurSector.FloorPlane.Normal;
@@ -513,8 +513,8 @@ Class DSCrandomGrass : Actor //22015
         self.Pitch = fPitch * dDiff2 + dPitch;
         self.Roll = fPitch * dDiff1;
         self.Angle = dAng;
-    }	
-	
+    }
+
 	States
 	{
 		Spawn:
@@ -531,16 +531,16 @@ Class DSCrandomGrass : Actor //22015
 			}
 			BDG1 A 1  A_Jump (256, "tre1", "tre2", "tre3", "tre4") ;
 			loop;
-		tre1: 
+		tre1:
 			BDG1 A -1;
 			stop;
-		tre2: 
+		tre2:
 			BDG2 A -1;
 			stop;
-		tre3: 
+		tre3:
 			BDG3 A -1;
 			stop;
-		tre4: 
+		tre4:
 			BDG4 A -1;
 			stop;
 	}
@@ -582,22 +582,22 @@ Class DSCbloodRainDrop : Actor
 		"F_SKY1"
 	};
 
-	
+
 	Default
 	{
 
 	}
-	
+
 	override void Tick()
 	{
 		Super.Tick();
 	}
-	
-	
+
+
 	bool CheckFloorTexture()
 	{
 		int fTexLenght = floorTex.Size();
-	
+
 		for (int i = 0; i < fTexLenght;i++)
 		{
 			TextureID tx=TexMan.CheckForTexture(floorTex[i],TexMan.Type_Flat);
@@ -608,9 +608,9 @@ Class DSCbloodRainDrop : Actor
 		}
 		return false;
 	}
-	
 
-	
+
+
 	States
 	{
 		Spawn:
@@ -661,7 +661,7 @@ Class DSCexplosiveVAZA : Actor
 		VZX1 A 5 Bright Light("VazaBreak1");
 		VZX1 B 5 Bright Light("VazaBreak2") A_Scream;
 		VZX1 C 5 Bright Light("VazaBreak3")A_Explode(128, 192, true );
-		TNT1 A 0 A_SpawnItemEx("DSCExplosion", 0, 0, 24, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);		
+		TNT1 A 0 A_SpawnItemEx("DSCExplosion", 0, 0, 24, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
 		TNT1 A 15 Light("VazaBreak3");
 		TNT1 A 0 A_PlaySound("misc/VazaBreak");
 		TNT1 A 5 Light("VazaBreak2");
@@ -692,14 +692,14 @@ Class DSCExplosion : Actor
 		{
 			A_SpawnItemEx("DscSmokeSpot", Random(-16, 16), Random(-16, 16), Random(-16, 16), fRandom(-2, 2), fRandom(-2, 2), fRandom(0, 2), 0, SXF_NOCHECKPOSITION, 0, 0);
 		}
-	}	
+	}
 	Action Void SpawnBurstDscDebris(int count = 9)
 	{
 		for(int i = 0; i < count; i++)
 		{
 			A_SpawnItemEx("DSCVazsDebris", Random(-16, 16), Random(-16, 16), Random(-16, 16), Random(-12, 12), Random(-12, 12), Random(2, 18), 0, SXF_NOCHECKPOSITION, 0, 0);
 		}
-	}	
+	}
 
 	States
 	{
@@ -726,8 +726,8 @@ Class DSCExplosion : Actor
 		VZEX U 1;
 		VZEX V 1 A_FadeOut(1.0);
 		STOP;
-	}	
-	
+	}
+
 }
 Class DSCExplosionSpark : Actor
 {
@@ -751,10 +751,10 @@ Class DSCExplosionSpark : Actor
 			GOTO Halt;
 		S3:
 			FRS3 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		S4:
 			FRS4 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		Halt:
 			"####" "A" 1 BRIGHT A_FadeOut(0.04);
 			LOOP;
@@ -779,15 +779,15 @@ Class DscSmokeSpot : Actor
 		//DistanceCheck "user_MaxDrawDistanceTorchFire";
 	}
 	Override void PostBeginPlay()
-	{	
+	{
 		FadeoutSpeed = 0.03;
 		ScaleINcrease = 0.03;
 		ThisScale = 0.15;
-		
+
 		RollSpeed = Random(-30, 30);
 		A_SetRoll(random(0, 360));
 		Super.PostBeginPlay();
-	}	
+	}
 	virtual void ParticleLife()
 	{
 		ThisScale = ThisScale+ScaleINcrease;
@@ -796,20 +796,20 @@ Class DscSmokeSpot : Actor
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 		roll%=360;
 		A_fadeOut(FadeoutSpeed);
-	}	
+	}
 	States
 	{
-		
+
 		Spawn:
 			S1MK A 2 {ParticleLife();}
 			LOOP;
-			
+
 	}
 }
 Class DSCVazsDebris : Actor
 {
 	int RollSpeed;
-	
+
 	Default
 	{
 	Alpha 1.0;
@@ -820,16 +820,16 @@ Class DSCVazsDebris : Actor
 	-NOGRAVITY;
 	}
 	Override void PostBeginPlay()
-	{	
+	{
 		RollSpeed = Random(-30, 30);
 		Super.PostBeginPlay();
-	}	
+	}
 	virtual void ParticleLife()
 	{
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 		roll%=360;
 
-	}		
+	}
 	States
 	{
 		Spawn:
@@ -843,26 +843,26 @@ Class DSCVazsDebris : Actor
 			GOTO Halt;
 		S3:
 			VZEP C 1;
-			GOTO Halt;	
+			GOTO Halt;
 		S4:
 			VZEP D 1;
-			GOTO Halt;	
+			GOTO Halt;
 		S5:
 			VZEP E 1;
-			GOTO Halt;				
+			GOTO Halt;
 		S6:
 			VZEP F 1;
-			GOTO Halt;				
+			GOTO Halt;
 		S7:
 			VZEP J 1;
-			GOTO Halt;	
+			GOTO Halt;
 		S8:
 			VZEP H 1;
-			GOTO Halt;	
+			GOTO Halt;
 		S9:
 			VZEP K 1;
-			GOTO Halt;				
-	
+			GOTO Halt;
+
 		Halt:
 			"####" "#" 1
 			{
@@ -884,11 +884,11 @@ Class DSCbloodWave : Actor
 	float ScaleSpeed;
 
 	Override void PostBeginPlay()
-	{	
+	{
 		Scale = 0.05;
 		ScaleSpeed = 0.01;
 	}
-	
+
 	virtual void ParticleLife()
 	{
 		Scale = Scale+ScaleSpeed;
@@ -899,7 +899,7 @@ Class DSCbloodWave : Actor
 	{
 		ParticleLife();
 		Super.Tick();
-	}	
+	}
 	Default
 	{
 		Alpha 1.0;
@@ -908,7 +908,7 @@ Class DSCbloodWave : Actor
 		+FLATSPRITE;
 		Renderstyle "Translucent";
 	}
-	
+
 	States
 	{
 		Spawn:
@@ -917,5 +917,5 @@ Class DSCbloodWave : Actor
 		 BW1E C 5;
 		Loop;
 	}
-	
+
 }

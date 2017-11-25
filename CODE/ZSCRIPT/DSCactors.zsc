@@ -134,25 +134,25 @@ Class WaveScull : CustomInventory
 	+FLOATBOB;
 	-SOLID;
 	}
-	
+
 	Override void PostBeginPlay()
 	{
 		CallACS("ScullHasCome",0,0,0);
 		A_PlaySound("misc/scullspawn", CHAN_BODY, 1.0, 0, ATTN_NONE);
-		
+
 		Super.PostBeginPlay();
-	}	
+	}
 	States
 	{
 		Spawn:
 			SCLS ABCDEFGH 5 Light("FlickerYel64")
 			{
-			
+
 			A_SpawnItemEx("MorFlare", random(-16, 16), random(-16, 16), random(0, 16), 0, 0, frandom(0.5,1),0,SXF_NOCHECKPOSITION, 32, 0);
 			A_SpawnItemEx("GiveAMMOsparckle", random(-4, 4), random(-4, 4), random(32, 40), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION, 0, 0);
 			A_SpawnItemEx("HellRingFlare", 0, 0, random(0, 16), 0, 0, frandom(0.5,2),0,SXF_NOCHECKPOSITION, 32, 0);
 			}
-			
+
 		LOOP;
 	}
 }
@@ -168,7 +168,7 @@ Class GiveAMMOsparckle : Actor
 	+NoInteraction;
 	+FORCEXYBILLBOARD;
 	DistanceCheck "user_MaxDrawDistanceAMMOsparks";
-	
+
 	}
 	States
 	{
@@ -183,10 +183,10 @@ Class GiveAMMOsparckle : Actor
 			GOTO Halt;
 		S3:
 			FRS3 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		S4:
 			FRS4 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		Halt:
 			"####" "A" 1 BRIGHT A_FadeOut(0.04);
 			LOOP;
@@ -205,11 +205,11 @@ Class AMMOspawner : Actor
 	int AMMOslot;
 	bool AMMOgived;
 
-	
+
 	Array<string> ammo;
 	Array<string> ammoBox;
 
-	
+
 	Default
 	{
 		+FORCEXYBILLBOARD;
@@ -224,7 +224,7 @@ Class AMMOspawner : Actor
 		timerWaitForAgainGiveAmmo= 35*20;
 		clockForAmmo = 0;
 		AMMOgived = false;
-		
+
 		ammo.Push("Clip");
 		ammo.Push("Shell");
 		ammo.Push("RocketAmmo");
@@ -234,7 +234,7 @@ Class AMMOspawner : Actor
 		ammoBox.Push("ShellBox");
 		ammoBox.Push("RocketBox");
 		ammoBox.Push("CellPack");
-		
+
 		Super.PostBeginPlay();
 	}
 
@@ -261,8 +261,8 @@ Class AMMOspawner : Actor
 					A_SpawnItemEx("GiveAMMOsparckle", random(-4, 4), random(-4, 4), random(32, 40), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION);
 				}
 			}
-			
-			
+
+
 		Super.Tick();
 	}
 	void GiveAMMO()
@@ -281,7 +281,7 @@ Class AMMOspawner : Actor
 			SetStateLabel("Invisible");
 		}
 	}
-	
+
 	States
 	{
 		Spawn:
@@ -293,7 +293,7 @@ Class AMMOspawner : Actor
 			AMM1 A 1 BRIGHT
 			{
 				GiveAMMO();
-			}			
+			}
 			Loop;
 		Invisible:
 			TNT1 A 1;
@@ -326,7 +326,7 @@ Class DSCmonsterSpawner: SwitchableDecoration
 	virtual	void CalcRespawnRepeats()
 	{
 		Repeats = 1;
-		
+
 		if ( RespawnChance > 100)
 		{
 			int RespawnChanceDubl = RespawnChance;
@@ -413,7 +413,7 @@ Class DSCmonsterSpawnerTribune : DSCmonsterSpawner
 		if(MonstersTier1.Size() > 0)
 		{
 			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier1[ random(0, MonstersTier1.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel: 
+			A_SpawnItemEx(MonstersTier1[ random(0, MonstersTier1.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
 
 random(5,10),flags: SXF_NOCHECKPOSITION, tid: 131313);
     //    let monCount = DSCMonsterPopulation.Get();
@@ -437,14 +437,14 @@ random(5,10),flags: SXF_NOCHECKPOSITION, tid: 131313);
 		if(WeaponGotID>=2)
 		{
 			MonstersTier1.Push("DSCcacodemon");
-			
+
 		}
 		if(WeaponGotID>=3)
 		{
 			MonstersTier1.Push("DSCHellKnight");
-		
-		}		
-		
+
+		}
+
     }
 }
 
@@ -461,7 +461,7 @@ Class DSCmonsterSpawner1 : DSCmonsterSpawner
 		if(MonstersTier1.Size() > 0)
 		{
 			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier1[ random(0, MonstersTier1.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel: 
+			A_SpawnItemEx(MonstersTier1[ random(0, MonstersTier1.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
 
 random(5,10),flags: SXF_NOCHECKPOSITION, tid: 666666);
 			let monCount = DSCMonsterPopulation.Get();
@@ -498,7 +498,7 @@ Class DSCmonsterSpawner2 : DSCmonsterSpawner
 		if(MonstersTier2.Size() > 0)
 		{
 			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier2[ random(0, MonstersTier2.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel: 
+			A_SpawnItemEx(MonstersTier2[ random(0, MonstersTier2.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
 
 random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 			let monCount = DSCMonsterPopulation.Get();
@@ -522,7 +522,7 @@ random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 			if(Args[2]!=1){
 				MonstersTier2.Push("ChaingunGuy");
 			}
-			
+
 		}
 		if(WeaponGotID>=4)
 		{
@@ -538,16 +538,16 @@ Class DSCmonsterSpawner3 : DSCmonsterSpawner
 	override void SpawnMonsters()
 	{
 		if(MonstersTier3.Size() > 0)
-		{	
+		{
 			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier3[ random(0, MonstersTier3.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel: 
+			A_SpawnItemEx(MonstersTier3[ random(0, MonstersTier3.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
 
 random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 			let monCount = DSCMonsterPopulation.Get();
 			if(monCount) ++monCount.monsterCount;
 		}
 	}
-	
+
     Override void FillMonsters()
     {
 		MonstersTier3.Clear();
@@ -557,7 +557,7 @@ random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 			MonstersTier3.Push("BaronOfHell");
 			MonstersTier3.Push("Archvile");
 			MonstersTier3.Push("PainElemental");
-		}		
+		}
     }
 }
 
@@ -585,20 +585,20 @@ Class DSCmonsterSpawner4 : DSCmonsterSpawner
 	}
 
 
-	
+
 	override void SpawnMonsters()
 	{
 		if(MonstersTier4.Size() > 0)
-		{	
+		{
 			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier4[ random(0, MonstersTier4.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel: 
+			A_SpawnItemEx(MonstersTier4[ random(0, MonstersTier4.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
 
 random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 			let monCount = DSCMonsterPopulation.Get();
 			if(monCount) ++monCount.monsterCount;
 		}
-	}	
-	
+	}
+
     Override void FillMonsters()
     {
 		WeaponGotID = CallACS("GetWeaponGotID",0,0,0);
@@ -607,13 +607,13 @@ random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 			MonstersTier4.Push("SpiderMastermind");
 		}	else {
 			MonstersTier4.Push("BaronOfHell");
-		}		
+		}
     }
 }
 Class DSCmonsterSpawner5 : DSCmonsterSpawner
 {
 	Array<string> MonstersTier5;
-	
+
 	override void CalcRespawnRepeats()
 	{
 		Repeats = 1;
@@ -633,21 +633,21 @@ Class DSCmonsterSpawner5 : DSCmonsterSpawner
 		}
 		*/
 	}
-	
-	
+
+
 	override void SpawnMonsters()
 	{
 		if(MonstersTier5.Size() > 0)
-		{	
+		{
 			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier5[ random(0, MonstersTier5.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel: 
+			A_SpawnItemEx(MonstersTier5[ random(0, MonstersTier5.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
 
 random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 			let monCount = DSCMonsterPopulation.Get();
 			if(monCount) ++monCount.monsterCount;
 		}
-	}	
-	
+	}
+
     Override void FillMonsters()
     {
 		WeaponGotID = CallACS("GetWeaponGotID",0,0,0);
@@ -656,7 +656,7 @@ random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 			MonstersTier5.Push("Cyberdemon");
 		} else {
 			MonstersTier5.Push("BaronOfHell");
-		}	
+		}
     }
 }
 
@@ -671,7 +671,7 @@ Class GiveWeaponSparckle : Actor
 	+NoInteraction;
 	+FORCEXYBILLBOARD;
 	YScale  2;
-	
+
 	}
 	States
 	{
@@ -686,10 +686,10 @@ Class GiveWeaponSparckle : Actor
 			GOTO Halt;
 		S3:
 			FRS3 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		S4:
 			FRS4 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		Halt:
 			"####" "A" 1 BRIGHT A_FadeOut(0.02);
 			LOOP;
@@ -702,7 +702,7 @@ Class GiveWeaponSparckle : Actor
 Class WeaponMarker : CustomInventory
 {
 	int timer;
-	
+
 	Default
 	{
 	Radius 48;
@@ -714,20 +714,20 @@ Class WeaponMarker : CustomInventory
 	Inventory.PickupMessage  "";
 	Inventory.PickupSound  "null";
 	}
-	
+
 	Override void PostBeginPlay()
 	{
 		timer = 0;
-	}	
-	
-	
+	}
+
+
 	Override void Tick()
 	{
 		if(timer<35*30){timer++;}
 		else { SetStateLabel("Death"); }
 		Super.Tick();
-	}	
-	
+	}
+
 	States
 	{
 		Spawn:
@@ -735,14 +735,14 @@ Class WeaponMarker : CustomInventory
 			{
 				A_SpawnItemEx("GiveWeaponSparckle", random(-2, 2), random(-2, 2), random(32, 40), 0, 0, frandom(1,2),200,SXF_NOCHECKPOSITION);
 			}
-			
+
 		LOOP;
-		
+
 		Death:
 			TNT1 A 1 A_Fadeout(1.0);
 			Stop;
 	}
-	
+
 }
 
 Class DSCweaponSpawner   : SwitchableDecoration
@@ -766,7 +766,7 @@ Class DSCweaponSpawner   : SwitchableDecoration
 		Super.PostBeginPlay();
 	}
 
-	
+
 	States
 	{
 		Spawn:
@@ -786,7 +786,7 @@ Class DSCweaponSpawner   : SwitchableDecoration
 				A_SpawnItemEx( Weapons[droppedWeapon], 0, 0, 0, 0, 0, 0,0,SXF_NOCHECKPOSITION | SXF_SETMASTER, 0, 666667);
 			}
 			Goto Inactive;
-	}	
+	}
 }
 
 Class ItemSpawnFogFlare : Actor
@@ -801,7 +801,7 @@ Class ItemSpawnFogFlare : Actor
 	}
 	States
 	{
-		Spawn:	
+		Spawn:
 			ISFL A 1 BRIGHT A_FadeOut(0.04);
 	}
 }
@@ -813,14 +813,14 @@ Class ItemSpawnFog : Actor
 		Alpha 1.0;
 		+NoInteraction;
 	}
-	
+
 	States
 	{
 		Spawn:
 			TNT1 A 1
 			{
 				A_Playsound("misc/itemspawn", 1, 1, 0);
-				A_SpawnItemEx("ItemSpawnFogFlare", 0, 0, random(0, 8), 0, 0, frandom(1,5),0,SXF_NOCHECKPOSITION);		
+				A_SpawnItemEx("ItemSpawnFogFlare", 0, 0, random(0, 8), 0, 0, frandom(1,5),0,SXF_NOCHECKPOSITION);
 				A_fadeOut(0.1);
 			}
 			Loop;
@@ -844,16 +844,16 @@ Class HellRingFlare : Actor
 		RollSpeed = Random(-20, 20);
 		A_SetRoll(random(0, 360));
 		Super.PostBeginPlay();
-	}		
+	}
 	void ParticleLife()
 	{
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 		roll%=360;
 		A_fadeOut(0.03);
-	}	
+	}
 	States
 	{
-		Spawn:	
+		Spawn:
 			HRNS A 1 BRIGHT ParticleLife();
 			LOOP;
 	}
@@ -877,16 +877,16 @@ Class MorFlare : Actor
 		RollSpeed = Random(-10, 10);
 		A_SetRoll(random(0, 360));
 		Super.PostBeginPlay();
-	}		
+	}
 	void ParticleLife()
 	{
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 		roll%=360;
 		A_fadeOut(0.002);
-	}	
+	}
 	States
 	{
-		Spawn:	
+		Spawn:
 			MOR1 A 1 ParticleLife();
 			LOOP;
 	}
@@ -895,7 +895,7 @@ Class MorFlare : Actor
 Class DSCdoomImp : DoomImp
 {
 	bool lookForTarget;
-	
+
 	override void PostBeginPlay()
 	{
 		lookForTarget = false;
@@ -915,7 +915,7 @@ Class DSCdoomImp : DoomImp
 			{
 				A_Look();
 			}
-			
+
 		}
 		Loop;
 		BecomeMonster:
@@ -935,7 +935,7 @@ Class DSCdoomImp : DoomImp
 Class DSCZombieMan : ZombieMan
 {
 	bool lookForTarget;
-	
+
 	override void PostBeginPlay()
 	{
 		lookForTarget = false;
@@ -955,8 +955,8 @@ Class DSCZombieMan : ZombieMan
 			{
 				A_Look();
 			}
-			
-		}		
+
+		}
 		Loop;
 		BecomeMonster:
 			TNT1 A 0
@@ -967,13 +967,13 @@ Class DSCZombieMan : ZombieMan
 				lookForTarget = true;
 				return ResolveState(null);
 			}
-		Goto See;		
+		Goto See;
 	}
 }
 Class DSCcacodemon : Cacodemon
 {
 	bool lookForTarget;
-	
+
 	override void PostBeginPlay()
 	{
 		lookForTarget = false;
@@ -991,7 +991,7 @@ Class DSCcacodemon : Cacodemon
 			{
 				A_Look();
 			}
-			
+
 		}
 		Loop;
 		BecomeMonster:
@@ -1003,13 +1003,13 @@ Class DSCcacodemon : Cacodemon
 				lookForTarget = true;
 				return ResolveState(null);
 			}
-		Goto See;		
+		Goto See;
 	}
 }
 Class DSCHellKnight : HellKnight
 {
 	bool lookForTarget;
-	
+
 	override void PostBeginPlay()
 	{
 		lookForTarget = false;
@@ -1027,8 +1027,8 @@ Class DSCHellKnight : HellKnight
 			{
 				A_Look();
 			}
-			
-		}		
+
+		}
 		Loop;
 		BecomeMonster:
 			TNT1 A 0
@@ -1039,20 +1039,20 @@ Class DSCHellKnight : HellKnight
 				lookForTarget = true;
 				return ResolveState(null);
 			}
-		Goto See;		
+		Goto See;
 	}
 }
 
 Class DSCportal : Actor
 {
-	int Time; 
+	int Time;
 	int Xoffset;
 	int Yoffset;
 	int Zoffset;
 	double Xvel;
 	double Yvel;
 	double Zvel;
-	
+
 	Default
 	{
 		+NoInteraction;
@@ -1061,7 +1061,7 @@ Class DSCportal : Actor
 	{
 		Time = 30;
 		Super.PostBeginPlay();
-	}	
+	}
 	void A_SpawnItemIn()
 	{
 		Xoffset = random(-64, 64);
@@ -1071,7 +1071,7 @@ Class DSCportal : Actor
 		Yvel = -Yoffset/Time;
 		Zvel = -Zoffset/Time;
 		A_SpawnItemEx("DSCportalParticle", Xoffset, Yoffset, Zoffset, Xvel, Yvel, Zvel,0,SXF_NOCHECKPOSITION);
-	}	
+	}
 	States
 	{
 	 Spawn:
@@ -1088,7 +1088,7 @@ Class DSCportalParticle : Actor
 	RenderStyle "Add";
 	+NoInteraction;
 	+FORCEXYBILLBOARD;
-	
+
 	}
 	States
 	{
@@ -1103,12 +1103,12 @@ Class DSCportalParticle : Actor
 			GOTO Halt;
 		S3:
 			FRS3 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		S4:
 			FRS4 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		Halt:
-			"####" "A" 1 BRIGHT 
+			"####" "A" 1 BRIGHT
 			{
 				A_SpawnItemEx("DSCportalParticleTracer", 0, 0, 0, 0, 0, 0, 0,SXF_NOCHECKPOSITION);
 				A_FadeOut(0.03);
@@ -1129,7 +1129,7 @@ Class DSCportalParticleTracer : Actor
 	RenderStyle "Add";
 	+NoInteraction;
 	+FORCEXYBILLBOARD;
-	
+
 	}
 	States
 	{
@@ -1144,12 +1144,12 @@ Class DSCportalParticleTracer : Actor
 			GOTO Halt;
 		S3:
 			FRS3 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		S4:
 			FRS4 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		Halt:
-			"####" "A" 1 BRIGHT 
+			"####" "A" 1 BRIGHT
 			{
 				A_FadeOut(0.05);
 			}
@@ -1178,7 +1178,7 @@ Class DSCMegaZombieMan : ZombieMan
 	   POSS E 0 A_PlaySound ("grunt/attack");
 	   POSS F 8 A_CustomBulletAttack (0, 0, 1, 999999, "BulletPuff", 0, CBAF_NORANDOM);
 	   POSS E 8;
-	   goto See	;	
+	   goto See	;
 	  Death:
 		POSS H 5;
 		POSS I 5 A_Scream;
@@ -1203,18 +1203,18 @@ Class HSChelper : SwitchableDecoration
 	+FLOATBOB;
 	-SOLID;
 	}
-	
+
 	Override void PostBeginPlay()
 	{
 		Super.PostBeginPlay();
-	}	
+	}
 	Action Void SpawnBurstSparkles(int count = 15)
 	{
 		for(int i = 0; i < count; i++)
 		{
 			A_SpawnItemEx("DSCExplosionSpark", Random(-16, 16), Random(-16, 16), Random(-16, 16), Random(-8, 8), Random(-8, 8), Random(0, 16), 0, SXF_NOCHECKPOSITION, 0, 0);
 		}
-	}	
+	}
 	void A_HSChelper()
 	{
 		if(CheckIfCloser(players[0].mo, 64, false)){
@@ -1224,9 +1224,9 @@ Class HSChelper : SwitchableDecoration
 		}
 			A_SpawnItemEx("MorFlareRed", random(-16, 16), random(-16, 16), random(32, 40), 0, 0, frandom(0.5,1),0,SXF_NOCHECKPOSITION, 32, 0);
 			A_SpawnItemEx("FireFlame", random(-4, 4), random(-4, 4), random(40, 64), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION, 0, 0);
-			A_SpawnItemEx("FireFlame", random(-4, 4), random(-4, 4), random(40, 64), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION, 0, 0);		
-	}	
-	
+			A_SpawnItemEx("FireFlame", random(-4, 4), random(-4, 4), random(40, 64), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION, 0, 0);
+	}
+
 	States
 	{
 		Spawn:
@@ -1236,15 +1236,15 @@ Class HSChelper : SwitchableDecoration
 			TNT1 A 1;
 			LOOP;
 		Active:
-			DSCH A 1 BRIGHT 
-			{ 
+			DSCH A 1 BRIGHT
+			{
 			A_PlaySound("HelpSpawn", 64, 1.0, false, ATTN_NONE);
 			SpawnBurstSparkles(64);
 			}
 			GOTO ActiveState;
 		ActiveState:
 			DSCH A 1 BRIGHT A_HSChelper();
-			LOOP;		
+			LOOP;
 	}
 }
 Class MorFlareRed : Actor
@@ -1264,16 +1264,16 @@ Class MorFlareRed : Actor
 		RollSpeed = Random(-10, 10);
 		A_SetRoll(random(0, 360));
 		Super.PostBeginPlay();
-	}		
+	}
 	void ParticleLife()
 	{
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 		roll%=360;
 		A_fadeOut(0.002);
-	}	
+	}
 	States
 	{
-		Spawn:	
+		Spawn:
 			MOR2 A 1 ParticleLife();
 			LOOP;
 	}
@@ -1302,7 +1302,7 @@ Class DSCprisonedSaint : Actor
 	int NopainSpeed;
 	bool scullSpawned;
 	int RaiseDebugDelay;
-	
+
 	Default
 	{
 		Health 300;
@@ -1315,16 +1315,16 @@ Class DSCprisonedSaint : Actor
 		MONSTER;
 		-IsMonster;
 		+FLOAT
-		+NOGRAVITY		
+		+NOGRAVITY
 		//+DONTTHRUST;
 		Scale 0.5;
 		RenderStyle "Add";
 		+ROLLSPRITE;
-		+FORCEXYBILLBOARD;	
+		+FORCEXYBILLBOARD;
 		+MISSILEEVENMORE;
-		+FRIENDLY;		
-		PainSound "PureSoulPain";	
-	
+		+FRIENDLY;
+		PainSound "PureSoulPain";
+
 	}
 	Override void PostBeginPlay()
 	{
@@ -1339,7 +1339,7 @@ Class DSCprisonedSaint : Actor
 		NopainSpeed = 150;
 		RaiseMahHeigth = 384;
 		RaiseDebugDelay = 35*60;
-	}	
+	}
 	Override void Tick()
 	{
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
@@ -1365,9 +1365,9 @@ Class DSCprisonedSaint : Actor
 		}
 
 		Super.Tick();
-	}	
+	}
 	void SaintLook()
-	{	
+	{
 		A_LookEx();
 		A_SpawnItemEx("MorFlare", Random(-8,8), Random(-8,8), Random(-8,8), 0, 0, 0, 0, 128, 0);
 	}
@@ -1384,22 +1384,22 @@ Class DSCprisonedSaint : Actor
 		SaintHealing();
 		bDontThrust = true;
 		RaiseDebugDelay--;
-			
-		if(pos.z - floorz < RaiseMahHeigth && RaiseDebugDelay>0) { 
-			SetZ(pos.z+0.2); 
+
+		if(pos.z - floorz < RaiseMahHeigth && RaiseDebugDelay>0) {
+			SetZ(pos.z+0.2);
 			if(random(1, 70)==70){
 				A_PlaySound("puresoul/attack", CHAN_WEAPON, 1.0, false, ATTN_NONE);
 				A_SpawnItemEx("DSCcombatSeraphimGliphBig", 0, 0, 0, 0, 0, 0, 0,SXF_NOCHECKPOSITION, 0, 0);
 				A_Explode(damage:random(4, 8), distance:384, flags:XF_NOTMISSILE);
-				A_Blast(strength:256, radius:128);			
+				A_Blast(strength:256, radius:128);
 			}
 		} else {
 			if(!scullSpawned){
 				Acs_NamedExecuteAlways("SpawnSaintRaisedScull",0, args[0]);
 				A_PlaySound("world/SaintSaved", CHAN_WEAPON, 1.0, false, ATTN_NONE);
-				
+
 				scullSpawned = true;
-				
+
 			} else {
 				A_FadeOut(0.1);
 			}
@@ -1430,10 +1430,10 @@ Class DSCprisonedSaint : Actor
 				HealDivisorCounter = 0;
 			}
 			HealDivisorCounter ++;
-		}	
+		}
 	}
 
-	
+
 	void SaintChase()
 	{
 		SaintHealing();
@@ -1448,8 +1448,8 @@ Class DSCprisonedSaint : Actor
 		A_SpawnItemEx("MorFlare", Random(-8,8), Random(-8,8), Random(-8,8), 0, 0, 0, 0, 128, 0);
 		LiveMonstersNum = CallACS("GetLiveMonstersCount",0,0,0);
 		Speed = Default.Speed+LiveMonstersNum*SpeedCombatMultipler;
-	
-	}	
+
+	}
 	States
 	{
 		Spawn:
@@ -1457,7 +1457,7 @@ Class DSCprisonedSaint : Actor
 			LOOP;
 		See:
 			MFLY A 4 SaintChase();
-			LOOP;	
+			LOOP;
 		GliphSmall:
 			TNT1 A 0 A_PlaySound("puresoul/prepare", CHAN_WEAPON, 1.0, false, ATTN_NONE );
 			MFLY C 15;
@@ -1473,8 +1473,8 @@ Class DSCprisonedSaint : Actor
 			TNT1 A 0 A_SpawnItemEx("DSCcombatSeraphimGliphBig", 0, 0, 0, 0, 0, 0, 0,SXF_NOCHECKPOSITION, 0, 0);
 			TNT1 A 0  A_Explode(damage:random(32, 64+DamageCombatMultipler*LiveMonstersNum), distance:256, flags:XF_NOTMISSILE);
 			TNT1 A 0 A_Blast(strength:256, radius:512);
-			TNT1 A 0 { 
-				//Teleport( (target.pos.x + 30, target.pos.y, target.pos.z),target.angle); 
+			TNT1 A 0 {
+				//Teleport( (target.pos.x + 30, target.pos.y, target.pos.z),target.angle);
 			}
 			MFLY C 35;
 			GOTO See;
@@ -1498,7 +1498,7 @@ Class DSCprisonedSaint : Actor
 			MFLY A 1 SaintRaise();
 			Loop;
 		Death:
-			TNT1 A -1 Acs_NamedExecuteAlways("SaintDead",0); 
+			TNT1 A -1 Acs_NamedExecuteAlways("SaintDead",0);
 			Stop;
 	}
 }
@@ -1528,7 +1528,7 @@ Class DSCSeraphimRaiserLight : SwitchableDecoration
 				A_FadeOut(0.01, false);
 				A_SetRoll(roll+1,SPF_INTERPOLATE);
 			}
-			Loop;		
+			Loop;
 		Active:
 			HAL1 A 1 BRIGHT Light("PureSoulChase") {
 				A_FadeTo(1.0, 0.01);
@@ -1541,7 +1541,7 @@ Class DSCSeraphimRaiserLight : SwitchableDecoration
 		Halt:
 			TNT1 A 1 A_StopSound(6);
 			Loop;
-	}	
+	}
 }
 Class DSCSeraphimRaiserLightSmoke : Actor
 {
@@ -1560,16 +1560,16 @@ Class DSCSeraphimRaiserLightSmoke : Actor
 		RollSpeed = Random(-10, 10);
 		A_SetRoll(random(0, 360));
 		Super.PostBeginPlay();
-	}		
+	}
 	void ParticleLife()
 	{
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 		roll%=360;
 		A_fadeOut(0.002);
-	}	
+	}
 	States
 	{
-		Spawn:	
+		Spawn:
 			MOR1 A 1 ParticleLife();
 			LOOP;
 	}
@@ -1591,14 +1591,14 @@ Class DSCcombatSeraphimGliph : Actor
 			Rotation = 10;
 		} else {Rotation = -10;}
 		A_QuakeEx(4,4,0,20,0,512,"",QF_SCALEDOWN);
-	}	
+	}
 	Action Void SpawnBurstSparks(int count = 10)
 	{
 		for(int i = 0; i < count; i++)
 		{
 			A_SpawnItemEx("SeraphimSparkBallTracer", random(8, 8), random(8, 8), random(8, 8), frandom(-12,12), frandom(-12,12), frandom(-12,12),0,SXF_NOCHECKPOSITION);
 		}
-	}	
+	}
 	States
 	{
 		Spawn:
@@ -1630,14 +1630,14 @@ Class DSCcombatSeraphimGliphBig : Actor
 			Rotation = 15;
 		} else {Rotation = -15;}
 		A_QuakeEx(8,8,0,20,0,512,"",QF_SCALEDOWN);
-	}	
+	}
 	Action Void SpawnBurstSparks(int count = 10)
 	{
 		for(int i = 0; i < count; i++)
 		{
 			A_SpawnItemEx("SeraphimSparkBallTracer", random(-8*scaleY*10, 8*scaleY*10), random(-8*scaleY*10, 8*scaleY*10), random(-8*scaleY*10, 8*scaleY*10), frandom(-12,12), frandom(-12,12), frandom(-12,12),0,SXF_NOCHECKPOSITION);
 		}
-	}	
+	}
 	States
 	{
 		Spawn:
@@ -1676,7 +1676,7 @@ Class SeraphimSparkBall : Actor
 		{
 			A_SpawnItemEx("SeraphimSparkBallTracer", random(4, 4), random(4, 4), random(4, 4), frandom(-8,8), frandom(-8,8), frandom(-8,8),0,SXF_NOCHECKPOSITION);
 		}
-	}	
+	}
 	States
 	{
 		Spawn:
@@ -1696,7 +1696,7 @@ Class SeraphimSparkBallTracer : Actor
 	RenderStyle "Add";
 	+NoInteraction;
 	+FORCEXYBILLBOARD;
-	
+
 	}
 	States
 	{
@@ -1711,9 +1711,9 @@ Class SeraphimSparkBallTracer : Actor
 			GOTO Halt;
 		S3:
 			SRS4 A 1;
-			GOTO Halt;	
+			GOTO Halt;
 		Halt:
-			"####" "A" 1 BRIGHT 
+			"####" "A" 1 BRIGHT
 			{
 				A_FadeOut(0.05);
 			}
@@ -1733,7 +1733,7 @@ Class DSCeyeBounder : Actor
 		Height 48;
 		Mass 3000;
 		PainChance 128;
-		+NOGRAVITY	
+		+NOGRAVITY
 		+SOLID;
 		+SHOOTABLE;
 		-PUSHABLE;
@@ -1748,28 +1748,28 @@ Class DSCeyeBounder : Actor
 		for(int i = 0; i < count; i++)
 		{
 			A_SpawnItemEx("DSCbloodTrail", 0, 0, random(32, 40), frandom(-6,6), frandom(-6,6), frandom(0.5,3),0,SXF_NOCHECKPOSITION);
-		}	
+		}
 	}
 	void SpawnDeathBlood(int count = 5)
 	{
 		for(int i = 0; i < count; i++)
 		{
 			A_SpawnItemEx("DSCbloodTrail", 0, 0, random(32, 40), frandom(-12,12), frandom(-12,12), frandom(0.5,12),0,SXF_NOCHECKPOSITION);
-		}	
-	}	
+		}
+	}
 	Override void Tick()
 	{
 		if(!IsDead){
 			A_SpawnItemEx("BloodDropBig", random(-16, 16), random(-16, 16), random(-48, -32), 0, 0, -4,0,SXF_NOCHECKPOSITION, 64);
 			if(pos.z - floorz <32.0) SetZ(floorz+32.0);
-			if(pos.z - floorz >128.0) SetZ(floorz+128.0);			
+			if(pos.z - floorz >128.0) SetZ(floorz+128.0);
 		} else {
 			if(scaleY>0.1){
 			scaleY-=0.001;
 			}
 		}
 		Super.Tick();
-	}	
+	}
 	States
 	{
 		Spawn:
@@ -1783,14 +1783,14 @@ Class DSCeyeBounder : Actor
 		}
 			LOOP;
 		Pain:
-			HEYE DDDE 5 
+			HEYE DDDE 5
 			{
 				A_PlaySound("EYEPAIN");
 				SpawnBlood();
 			}
-			GOTO Spawn;		
+			GOTO Spawn;
 		Death:
-			TNT1 A 0 { 
+			TNT1 A 0 {
 				A_PlaySound("eyebound/death", 7, 1.0, false, ATTN_NONE);
 				A_ChangeFlag("FLOATBOB", false);
 				IsDead = true;
@@ -1813,7 +1813,7 @@ class DSCbloodTrail : Actor
 		Scale 0.2;
 		+ROLLSPRITE;
 		+FORCEXYBILLBOARD;
-	}	
+	}
 	States
 	{
 		Spawn:
@@ -1821,7 +1821,7 @@ class DSCbloodTrail : Actor
 			B1LD A 1 A_Jump (256, 1, 2, 3);
 			B1LD A 1 A_Jump (256, "Fly");
 			B1LD B 1 A_Jump (256, "Fly");
-			B1LD C 1 A_Jump (256, "Fly");			
+			B1LD C 1 A_Jump (256, "Fly");
 			LOOP;
 		Fly:
 			"####" "#" 1
@@ -1831,7 +1831,7 @@ class DSCbloodTrail : Actor
 			}
 			LOOP;
 
-	}	
+	}
 }
 
 Class BloodDropBig : Actor
@@ -1884,7 +1884,7 @@ Class DSCtentyacleBounder : Actor
 			T1NT A 0 A_Jump (256, 1, 2, 3);
 			T1NT A 1 A_Jump (256, "Live");
 			T1NT B 1 A_Jump (256, "Live");
-			T1NT C 1 A_Jump (256, "Live");			
+			T1NT C 1 A_Jump (256, "Live");
 			LOOP;
 		Pain:
 			"####" "#" 5 { scaleX = frandom(0.15, 0.22); }
@@ -1898,7 +1898,7 @@ Class DSCtentyacleBounder : Actor
 				if(scaleY>0.0){
 					scaleY-=0.001;
 					A_SpawnItemEx("DSCbloodTrail", random(-8, 8), random(-8, 8), random(0, 32), random(-5, 5), random(-5, 5), random(1, 8),0,SXF_NOCHECKPOSITION, 200);
-				}	
+				}
 				if(scaleX>0.0){
 					scaleX-=0.001;
 				}
@@ -1912,4 +1912,3 @@ Class DSCtentyacleBounder : Actor
 			Loop;
 	}
 }
-
