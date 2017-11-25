@@ -30,6 +30,14 @@ int AchiveDieInSec1 = 0;
 
 int AchiveKillInSEc10 = 0;
 
+SCRIPT "ResetCounters" ENTER {
+	NextWaveReady = false;
+	WaveOnline = false;
+	IgnoreWaveMusicChange = false;
+	SpawnedMonstersOnTheMap = 0;
+	AchiveKillInSEc1 = 0;
+	AchiveDieInSec1 = 0;
+}
 SCRIPT "AchiveKillInSEc10Counter" (void)
 {
 	delay(35*10);
