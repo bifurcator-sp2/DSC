@@ -1,0 +1,66 @@
+GameInfo
+{
+	AddEventHandlers = "SDPWHScreenEffects", "DSCMonstersEvent"
+}
+
+episode DSCMAP01 {
+	name = "DoomSlayer Chronicles"
+}
+
+map DSCMAP01 "Atrium 1"
+{
+next = "DSCMAP02"
+InterMusic = MT
+music = "ATRIUM"
+EnterPic = "ATRIUM1"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+
+map DSCMAP02 "Cemetery of the fallen"
+{
+next = "DSCMAP01"
+InterMusic = MT
+music = "SEMETE"
+ExitPic = "ATRIUM1"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+	
+
+
+map DSCMAP03 "Bloodrain plaza"
+{
+next = "DSCMAP01"
+music = "PLAZA"
+InterMusic = MT
+ExitPic = "ATRIUM1"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+
+
+map DSCMAP04 "The Coliseum"
+{
+next = "DSCMAP01"
+music = "COLISE"
+InterMusic = MT
+ExitPic = "ATRIUM1"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+
+map DSCMAP05 "Salvation"
+{
+next = "DSCMAP01"
+music = "SALVAT"
+InterMusic = MT
+ExitPic = "ATRIUM1"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}

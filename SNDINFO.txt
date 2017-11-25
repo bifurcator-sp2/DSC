@@ -1,0 +1,131 @@
+Ambient/Wind1 WINDL
+$alias Wind1 Ambient/Wind1
+$ambient 50 Wind1 point continuous 1.0
+
+Ambient/Wind2 WINDM
+$alias Wind2 Ambient/Wind2
+$ambient 51 Wind2 point continuous 1.0
+
+Ambient/WISPER WISPER
+$alias WISPER Ambient/WISPER
+$ambient 52 WISPER point continuous 1.0
+
+Ambient/BLDPOOL BLDPOOL
+$alias BloodPool Ambient/BLDPOOL
+$ambient 53 BloodPool point continuous 1.0
+
+Ambient/WTRDRP1 WTRDRP1
+$alias WaterDrips Ambient/WTRDRP1
+$ambient 54 WaterDrips point continuous 1.0
+
+
+
+world/BFRAIN BFRAIN
+world/Thunder1 THUNDER1
+Ambient/StrongFire	STRONGFI
+
+
+world/StoneMove STONEMOV
+world/BigStonemov BIGSTONE
+world/BigClose BIGCLOSE
+world/BigFire STRONGFI
+
+world/WaterOut WATEROUT
+world/SaintSaved TRAILER_
+
+
+$random PickupHealth { Health1 Health2 }
+Health1	HEALTHB
+Health2	HEALTHS
+
+$random Howling { PickupScull1 PickupScull2 PickupScull3 }
+PickupScull1	HOWL1
+PickupScull2	HOWL2
+PickupScull3	HOWL3
+
+$random BloodSpawn { BloodSpawn1 BloodSpawn2 BloodSpawn3 }
+BloodSpawn1	BLDCVK1
+BloodSpawn2	BLDCVK2
+BloodSpawn3	BLDCVK3
+
+
+
+$random ExploVaza { EXPLOSM1 EXPLOSM2 EXPLOSM3 }
+EXPLOSM1	EXPLOSM1
+EXPLOSM2	EXPLOSM2
+EXPLOSM3	EXPLOSM3
+
+misc/VazaBreak VAZABREA
+misc/DSCexplosion DSCEXPLO
+
+$random HelpSpawn { BOOOM3 BOOOM6 BOOOM7 }
+BOOOM3	BOOOM3
+BOOOM6	BOOOM6
+BOOOM7	BOOOM7
+
+$random HelpAct { TREJLER1 TREJLER2 TREJLER3}
+TREJLER1	TREJLER1
+TREJLER2	TREJLER2
+TREJLER3	TREJLER3
+
+
+/////terrain
+
+
+
+world/DSCsludgegloop	DSCBLDSP
+world/DSCsludgegloopsmall		DSCBLDSS
+
+$limit world/DSCsludgegloop 4
+$limit world/DSCsludgegloopsmall 4
+
+misc/ammospawn PCKUP1
+misc/ammospawn2 PICKUP4
+
+misc/itemspawn ITEMSPAW
+misc/scullpickup SCULLPIC
+misc/scullspawn SCLSPWN
+
+
+
+Ambient/DSCtorch DSCTRCH
+Ambient/DSCtorch2 DSCTRCH2
+
+
+world/DSCACHV1 DSCACHV1
+world/DSCACHV2 DSCACHV2
+world/DSCACHV3 DSCACHV3
+world/DSCACHV4 DSCACHV4
+world/DSCACHV5 DSCACHV5
+world/DSCACHV6 DSCACHV6
+world/DSCACHV7 DSCACHV7
+world/DSCACHV8 DSCACHV8
+
+
+puresoul/sight SOULSEE
+$random PureSoulPain { puresoul/pain1 puresoul/pain2 puresoul/pain3 }
+puresoul/pain1 PS_PAIN1
+puresoul/pain2 PS_PAIN2
+puresoul/pain3 PS_PAIN3
+
+puresoul/active ZVUK_ANG
+puresoul/prepare SOULSTR
+puresoul/attack SOULGLPH
+puresoul/raising RISING
+
+
+eyebound/death EYEDEATH
+$random EYEPAIN { eyebound/pain1 eyebound/pain2 }
+eyebound/pain1 EYEPAIN1
+eyebound/pain2 EYEPAIN2
+
+eyebound/active BLDRN1
+
+
+
+
+
+
+
+
+

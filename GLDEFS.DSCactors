@@ -1,0 +1,112 @@
+PointLight AIDlight
+{
+	offset 0 32 0
+	color 0.5 0.0 0.0
+    size 64
+}
+Object AIDSpawnerDEC
+{
+//FRAME AID1 { light AIDlight }
+FRAME AID1 { light AIDlight }
+/*FRAME AID1B { light AIDlight }
+FRAME AID1C { light AIDlight }*/
+}
+
+PointLight HELPERlight
+{
+	offset 0 64 0
+	color 1.0 0.0 0.0
+    size 64
+}
+Object HSChelperDEC
+{
+FRAME DSCH { light HELPERlight }
+}
+PointLight White64
+{
+	offset 0 32 0
+	color 1.0 1.0 1.0
+    size 64
+	dontlightself 1
+}
+
+Object AMMOspawnerDEC
+{
+	FRAME AMM1 { light White64 }
+}
+
+PointLight Yel64
+{
+	color 1.0 0.8 0.0
+    size 64
+	dontlightself 1
+}
+
+
+
+PointLight Blue64
+{
+	color 0.0 0.8 0.8
+    size 64
+	dontlightself 1
+}
+
+flickerlight FlickerYel64
+{
+    color 1.0 0.8 0.0
+    size 64
+    secondarySize 48
+    chance 0.5
+    attenuate 1
+}
+flickerlight PureSoulChase
+{
+    color 0.75 0.49 0.34
+    size 384
+	secondarySize 330
+    offset 0 0 0
+	chance 0.5
+} 
+flickerlight PureSoulPain
+{
+    color 1.0 0.0 0.0
+    size 384
+	secondarySize 330
+    offset 0 0 0
+	chance 0.8
+} 
+flickerlight PureSoulGliph
+{
+    color 0.0 0.5 0.8
+    size 256
+    secondarySize 192
+    chance 0.2
+    attenuate 1
+}
+flickerlight PureSoulBall
+{
+    color 0.0 0.5 0.8
+    size 128
+    secondarySize 32
+    chance 0.2
+    attenuate 1
+}
+
+
+Object DSCSeraphimRaiserLight
+{
+FRAME HAL1A { light PureSoulChase }
+}
+
+
+Object SeraphimSparkBall
+{
+FRAME BAL1 { light PureSoulBall }
+}
+Object DSCprisonedSaintDEC
+{
+FRAME MFLY { light PureSoulChase }
+FRAME MFLYB { light PureSoulPain }
+FRAME MFLYC { light PureSoulGliph }
+}
+//

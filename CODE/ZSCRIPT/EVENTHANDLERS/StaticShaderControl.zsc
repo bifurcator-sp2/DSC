@@ -1,0 +1,70 @@
+Class SDPWHScreenEffects : StaticEventHandler
+{
+	override void RenderOverlay(RenderEvent e)
+	{
+		PlayerInfo players = players[consoleplayer];
+		if (Cvar.GetCVar("dpwh_filmictonemap", players).GetInt() > 0)
+		{
+			Cvar.GetCvar("gl_tonemap",players).SetInt(0);
+			EnableFilmicToneMap();
+		}
+		else
+		{
+			DisableFilmicToneMap();
+		}
+		if (Cvar.GetCVar("dpwh_chromaticAberration", players).GetInt() > 0)
+		{
+			Cvar.GetCvar("gl_lens",players).SetInt(0);
+			EnableCubicCA();
+		}
+		else
+		{
+			DisableCubicCA();
+		}
+		if (Cvar.GetCVar("dpwh_naturalVignette", players).GetInt() > 0)
+		{
+			EnableNaturalVignette();
+		}
+		else
+		{
+			DisableNaturalVignette();
+		}		
+	}	
+
+	ui void EnableNaturalVignette(void)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetEnabled(players, "NaturalVignette", true);
+	}
+
+	ui void DisableNaturalVignette(void)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetEnabled(players, "NaturalVignette", false);
+	}
+
+	ui void EnableCubicCA(void)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetEnabled(players, "CubicCA", true);
+	}
+
+	ui void DisableCubicCA(void)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetEnabled(players, "CubicCA", false);
+	}
+
+	ui void EnableFilmicToneMap(void)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetEnabled(players, "FilmicTonemap", true);
+	}
+
+	ui void DisableFilmicToneMap(void)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetEnabled(players, "FilmicTonemap", false);
+	}
+
+}

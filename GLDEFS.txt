@@ -1,0 +1,164 @@
+
+
+HardwareShader Sprite BDG1A0
+{
+	Shader "shaders/grass.shader"
+	Speed 4.0
+}
+HardwareShader Sprite BDG2A0
+{
+	Shader "shaders/grass.shader"
+	Speed 4.1
+}
+HardwareShader Sprite BDG3A0
+{
+	Shader "shaders/grass.shader"
+	Speed 4.2
+}
+HardwareShader Sprite BDG4A0
+{
+	Shader "shaders/grass.shader"
+	Speed 4.3
+}
+
+
+
+HardwareShader Sprite T1NTA0
+{
+	Shader "shaders/grass.shader"
+	Speed 3.0
+}
+HardwareShader Sprite T1NTB0
+{
+	Shader "shaders/grass.shader"
+	Speed 4.0
+}
+HardwareShader Sprite T1NTC0
+{
+	Shader "shaders/grass.shader"
+	Speed 5.0
+}
+
+
+
+
+
+HardwareShader Texture BF_WATER
+{
+	Shader "shaders/water.fp"
+	Speed 1.0
+}
+HardwareShader Texture DSCLWA
+{
+	Shader "shaders/water.fp"
+	Speed 1.0
+}
+HardwareShader Texture freplce
+{
+	Shader "shaders/fireplace.fp"
+	Speed 1.0
+}
+
+
+HardwareShader Texture bwater
+{
+	Shader "shaders/water.fp"
+	Speed 1.0
+}
+
+HardwareShader Texture bwater2
+{
+	Shader "shaders/water.fp"
+	Speed 1.0
+}
+
+HardwareShader Texture BlankSky
+{
+	Shader "shaders/sky.fp"
+	Speed 1.0
+}
+
+HardwareShader Sprite TFTSA0
+{
+	Shader "shaders/fireStatic.fp"
+	Speed 1.0
+}
+
+HardwareShader Sprite TDE1A0
+{
+	Shader "shaders/fire.fp"
+	Speed 0.2
+}
+HardwareShader Sprite TDE2A0
+{
+	Shader "shaders/fire.fp"
+	Speed 0.2
+}
+HardwareShader Texture DSCBLD
+{
+	Shader "shaders/water.fp"
+	Speed 1.0
+}
+HardwareShader Texture BLDBRTM
+{
+	Shader "shaders/water.fp"
+	Speed 1.0
+}
+
+HardwareShader Sprite DSB1A0
+{
+	Shader "shaders/Flag.fp"
+	Speed 2.0
+}
+HardwareShader Sprite DSB2A0
+{
+	Shader "shaders/Flag.fp"
+	Speed 3.0
+}
+
+
+HardwareShader PostProcess scene
+{
+	Name "FilmicTonemap"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+
+HardwareShader PostProcess scene
+{
+	Name "CubicCA"
+	Shader "Shaders/PostProcessing/CubicCA.fp" 330
+}
+
+HardwareShader PostProcess scene
+{
+	Name "NaturalVignette"
+	Shader "Shaders/PostProcessing/NaturalVignette.fp" 330
+}
+
+
+brightmap texture MRBW5
+{
+   map MRBW4SM
+}
+
+brightmap texture MRBLBO
+{
+   map MRBLBOSB
+}
+brightmap texture VCBR
+{
+   map VCBRM
+}
+brightmap texture MRBW6
+{
+   map MRBW6BM
+}
+brightmap texture HLRT6S
+{
+   map HLRT6SM
+}
+
+brightmap texture SPTBA0
+{
+   map SFT1A0
+}

@@ -1,0 +1,116 @@
+class DSCMonsterPopulation : Thinker
+{
+    int monsterCount;
+
+    DSCMonsterPopulation Init ()
+    {
+        ChangeStatNum(STAT_STATIC);
+        return self;
+    }
+
+    static DSCMonsterPopulation Get ()
+    {
+        ThinkerIterator it = ThinkerIterator.Create("DSCMonsterPopulation", STAT_STATIC);
+        let p = DSCMonsterPopulation(it.Next());
+
+        if(p == null)
+        {
+            p = new("DSCMonsterPopulation").Init();
+        }
+
+        return p;
+    }
+}
+Class IncKillCounter : CustomInventory
+{
+
+	Default
+	{
+		Inventory.Maxamount 0x7FFFFFFF;
+	}
+	
+	States
+	{
+		Pickup:
+			TNT1 A 0 Acs_NamedExecuteAlways("MonsterKilled");
+		Stop;
+	}
+}
+
+Class DSCMonstersEvent : EventHandler
+{
+	int monsterCounter;
+	int timerForKill;
+
+Override void WorldThingDamaged(WorldEvent e)
+{
+	let plr = PlayerPawn(e.DamageSource);
+	let mo = e.Thing;
+	if (plr && e.Thing.Health <= 0 && e.Thing.bISMONSTER && e.Thing.bCOUNTKILL)
+	{
+		plr.GiveInventory("IncKillCounter",1);
+	}
+}
+
+	override void WorldThingDied(WorldEvent e)
+	{
+
+
+		PlayerInfo players = players[consoleplayer];
+		let mo = e.Thing;
+		let monCount = DSCMonsterPopulation.Get();
+		
+		
+		if ( mo is "DSCZombieMan" || mo is "DSCdoomImp" || mo is "DSCcacodemon" || "DSCHellKnight")
+		{
+			if(monCount) --monCount.monsterCount;
+			//players.mo.Acs_NamedExecuteAlways("MonsterDied",0);
+		}
+		if ( !mo.bISMONSTER || mo.bNOINTERACTION) return;
+        
+		if(monCount) {
+			--monCount.monsterCount;
+			players.mo.Acs_NamedExecuteAlways("MonsterDied",0);
+		}
+	}
+	
+	override void WorldTick()
+	{
+		PlayerInfo players = players[consoleplayer];
+		let monCount = DSCMonsterPopulation.Get();
+		if(monCount.monsterCount < 0) monCount.monsterCount = 0;
+		if(monCount.monsterCount == 0)
+		{
+			timerForKill = 0;
+		}
+		if(monCount.monsterCount == 1)
+		{
+			timerForKill++;
+		}
+		if (timerForKill >= 2100)
+		{
+			timerForKill = 0;
+			monCount.monsterCount = 0;
+		}
+		monsterCounter = monCount.monsterCount;
+		players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);		
+	}
+	
+/*	override void WorldThingRevived(WorldEvent e)
+	{
+		let mo = e.Thing;
+		if (!mo || !mo.bISMONSTER || mo.bNOINTERACTION) return;
+		monsterCount++;
+	}
+	override void WorldThingDestroyed(WorldEvent e)
+	{
+		let mo = e.Thing;
+		if (!mo || !mo.bISMONSTER || mo.bNOINTERACTION) return;
+		monsterCount--;
+	}*/
+	
+override void RenderOverlay(RenderEvent e)
+	{
+        //Screen.DrawText(SmallFont, Font.CR_GRAY, 200, 50, string.format("%i",monsterCounter), DTA_Clean, true);
+	}
+}

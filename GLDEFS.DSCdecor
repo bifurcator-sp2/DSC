@@ -1,0 +1,115 @@
+PointLight AIDlight
+{
+	color 0.5 0.0 0.0
+    size 64
+}
+Object AIDSpawnerDEC
+{
+//FRAME AID1 { light AIDlight }
+FRAME AID1A { light AIDlight }
+FRAME AID1B { light AIDlight }
+FRAME AID1C { light AIDlight }
+}
+
+flickerlight VazaBreak1
+{
+    color 0.8 0.4 0.0
+    size 64
+    secondarySize 48
+    chance 0.2
+
+}
+flickerlight VazaBreak2
+{
+    color 0.8 0.4 0.0
+    size 256
+    secondarySize 192
+    chance 0.2
+
+}
+flickerlight VazaBreak3
+{
+    color 0.8 0.4 0.0
+    size 384
+    secondarySize 256
+    chance 0.2
+
+}
+
+
+
+flickerlight DSCtorchLight
+{
+    color 0.6 0.3 0.0
+    size 256
+    secondarySize 192
+    chance 0.2
+    attenuate 1
+}
+flickerlight DSCcandleLight
+{
+    color 0.4 0.2 0.0
+    size 24
+    secondarySize 20
+    chance 0.2
+    attenuate 1
+}
+flickerlight DSCtorchLightRed
+{
+    color 0.7 0.0 0.0
+    size 256
+    secondarySize 192
+    chance 0.2
+    attenuate 1
+}
+flickerlight DSCtorchLightGreen
+{
+    color 0.2 0.8 0.2
+    size 256
+    secondarySize 192
+    chance 0.2
+    attenuate 1
+}
+flickerlight DSCtorchLightBlue
+{
+    color 0.0 0.5 0.8
+    size 256
+    secondarySize 192
+    chance 0.2
+    attenuate 1
+}
+//
+Object FireFlameSpawnerTorch
+{
+	FRAME TNT1 { light DSCtorchLight }
+}
+
+Object FireFlameSpawnerTorchRed
+{
+	FRAME TNT1 { light DSCtorchLightRed }
+}
+Object FireFlameSpawnerTorchGreen
+{
+
+FRAME TNT1 { light DSCtorchLightGreen }
+
+}
+
+Object FireFlameSpawnerTorchBlue
+{
+
+FRAME TNT1 { light DSCtorchLightBlue }
+
+}
+
+brightmap sprite VAZ1A0
+{
+   map VZEBA0
+   //[iwad]
+  // [thiswad]
+   //[disablefullbright]
+}
+brightmap texture MRBBRTM
+{
+   map BLDBRTM
+}

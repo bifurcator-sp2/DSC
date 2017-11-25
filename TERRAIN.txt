@@ -1,0 +1,38 @@
+splash 	blood
+{
+ smallclass 	bloodsplashbasesmall
+ smallclip		16
+ smallsound	world/DSCsludgegloopsmall
+
+
+ baseclass		bloodsplashbase3
+ chunkclass	bloodsplash
+ chunkxvelshift	8
+ chunkyvelshift	8
+ chunkzvelshift	8
+ chunkbasezvel	2
+ sound		world/DSCsludgegloop
+ NoAlert
+}
+
+
+
+terrain	blood
+{
+ footclip	 10
+ liquid
+ splash 	blood
+}
+
+
+
+
+
+
+ifdoom
+
+floor DSCBLD Blood
+
+endif
+
+

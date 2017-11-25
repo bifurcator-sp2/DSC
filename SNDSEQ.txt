@@ -1,0 +1,30 @@
+// dpwh hell doors ---------------------------------
+/*
+world/BigStonemov BIGSTONE
+world/BigClose BIGCLOSE
+*/
+:DoorOpenHell
+   playrepeat	world/BigStonemov
+   stopsound	world/BigClose
+end
+
+:DoorCloseHell
+   playrepeat	world/BigStonemov
+   stopsound	world/BigClose
+end
+
+[DoorHell
+	0		DoorOpenHell
+	1		DoorCloseHell
+	 2		DoorOpenHell
+	 3		DoorCloseHell	
+]
+
+:StoneThingMove
+   playrepeat	world/StoneMove
+   stopsound	world/BigClose
+end
+
+:WaterMove
+   playrepeat	world/WaterOut
+end

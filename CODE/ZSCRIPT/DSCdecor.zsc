@@ -1,0 +1,921 @@
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Class Bif_Haze_Gen : Actor
+{
+	//Args[0] - radius
+	//Args[1] - iterationNumber
+	//Args[2] - maxSpawnHeight
+	int radius;
+	int iterationNumber;
+
+	Default
+	{
+		radius 64;
+		+NoBlockMap;
+		+NoGravity;
+		+NoSector;
+		+NoInteraction;
+		+NoClip;
+		-Solid;
+		+ClientSideOnly;
+
+		alpha 0.0;
+	}
+
+	Override void PostBeginPlay()
+	{
+		if(!Args[0])
+		{
+			radius = 256;
+		}
+		else
+		{
+			radius = Args[0];
+		}
+		if(!Args[1])
+		{
+			iterationNumber = 25;
+		}
+		else
+		{
+			iterationNumber = Args[1];
+		}
+		Super.PostBeginPlay();
+	}
+
+	void GenerateHazeIndoor()
+	{
+		for (int i = 0; i < iterationNumber; i++)
+		{
+			A_SpawnItemEx("BIF_haze_indoor", Random(-radius, radius), Random(-radius, radius), Random(-8, Args[2]) );
+		}
+	}
+
+	States
+	{
+	  Spawn:
+		HZMR A 1;
+		GOTO Active;
+	  Active:
+		TNT1 A 1
+		{
+			if(!Args[3])
+			{
+			GenerateHazeIndoor();
+			}
+		}
+		TNT1 A -1;
+		Stop;
+	}
+}
+
+
+
+
+Class FireFlame : Actor
+{
+	int RollSpeed;
+	float ThisScale;
+	float ScaleDecrease;
+	float FadeoutSpeed;
+	Default
+	{
+		Scale 0.25;
+		+NoInteraction;
+		+Rollsprite
+		+FORCEXYBILLBOARD
+		-SOLID;
+		RenderStyle "Add";
+		//DistanceCheck "user_MaxDrawDistanceTorchFire";
+	}
+	Override void PostBeginPlay()
+	{	
+		FadeoutSpeed = 0.1;
+		ScaleDecrease = 0.03;
+		ThisScale = 0.25;
+		
+		RollSpeed = Random(-30, 30);
+		A_SetRoll(random(0, 360));
+		Super.PostBeginPlay();
+	}	
+	virtual void ParticleLife()
+	{
+		ThisScale = ThisScale-ScaleDecrease;
+		if(ThisScale<0){ThisScale=0;}
+		A_SetScale(ThisScale);
+		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
+		roll%=360;
+		A_fadeOut(FadeoutSpeed);
+	}	
+	States
+	{
+		
+		Spawn:
+			FL1M A 2 {ParticleLife();}
+			LOOP;
+			
+	}
+}
+
+
+Class FireFlameGreat : Actor
+{
+
+int RollSpeed;
+	float ThisScale;
+	float ScaleDecrease;
+	float FadeoutSpeed;
+	Default
+	{
+		Scale 1.0;
+		+NoInteraction;
+		+Rollsprite
+		+FORCEXYBILLBOARD
+		-SOLID;
+		RenderStyle "Add";
+		//DistanceCheck "user_MaxDrawDistanceTorchFire";
+	}
+	Override void PostBeginPlay()
+	{	
+		FadeoutSpeed = 0.1;
+		ScaleDecrease = 0.1;
+		ThisScale = 3.0;
+		
+		RollSpeed = Random(-30, 30);
+		A_SetRoll(random(0, 360));
+		Super.PostBeginPlay();
+	}	
+	virtual void ParticleLife()
+	{
+		ThisScale = ThisScale-ScaleDecrease;
+		if(ThisScale<0){ThisScale=0;}
+		A_SetScale(ThisScale);
+		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
+		roll%=360;
+		A_fadeOut(FadeoutSpeed);
+	}	
+	States
+	{
+		
+		Spawn:
+			FL1M A 2 {ParticleLife();}
+			LOOP;
+			
+	}
+}
+Class FireFlameGreatGreen : FireFlameGreat
+{
+	States
+	{
+		
+		Spawn:
+			FL2M A 2 {ParticleLife();}
+			LOOP;
+			
+	}
+}
+
+Class FireFlameGreen : FireFlame
+{
+	States
+	{
+		
+		Spawn:
+			FL2M A 2 {ParticleLife();}
+			LOOP;
+			
+	}
+}
+Class FireFlameBlue : FireFlame
+{
+	States
+	{
+		
+		Spawn:
+			FL3M A 2 {ParticleLife();}
+			LOOP;
+			
+	}
+}
+
+
+
+Class FireFlameSpawnerGREAT : Actor
+{
+	int r;
+	int minYvel;
+	int maxYvel;
+	Default
+	{
+		radius 64;
+		+NoInteraction;
+	}
+	Override void PostBeginPlay()
+	{
+		r = !Args[0] ? 48 : Args[0];
+		minYvel =  !Args[1] ? 10 : Args[1];
+		maxYvel =  !Args[2] ? 34 : Args[2];
+		Super.PostBeginPlay();
+	}
+	States
+	{
+		Spawn:
+			//TNT1 A 0 A_CheckSight("Inv");
+			TNT1 A 1
+			{
+				A_Playsound("world/BigFire", 1, 1, 1);
+				A_SpawnItemEx("FireFlameGreat", Random(-r, r), Random(-r, r), Random(0, 24), 0, 0, Frandom(minYvel, maxYvel), 0, SXF_NOCHECKPOSITION, 32, 0);
+			}
+		LOOP;
+		Inv:
+			TNT1 A 1;
+			Goto Spawn;
+			
+	}
+}
+Class FireFlameSpawnerGREATgreen : Actor
+{
+	int r;
+	
+	Default
+	{
+		radius 64;
+		+NoInteraction;
+	}
+	Override void PostBeginPlay()
+	{
+		r = 48;
+		Super.PostBeginPlay();
+	}
+	States
+	{
+		Spawn:
+			//TNT1 A 0 A_CheckSight("Inv");
+			TNT1 A 1
+			{
+				A_Playsound("Ambient/DSCtorch2", 1, 1, 1);
+				A_SpawnItemEx("FireFlameGreatGreen", Random(-r, r), Random(-r, r), Random(0, 24), 0, 0, Frandom(10, 34), 0, SXF_NOCHECKPOSITION, 32, 0);
+			}
+		LOOP;
+		Inv:
+			TNT1 A 1;
+			Goto Spawn;
+			
+	}
+}
+
+
+Class FireFlameSpawnerTorch : Actor
+{
+
+	int r;
+	
+	Default
+	{
+		radius 8;
+		+NoInteraction;
+	}
+	Override void PostBeginPlay()
+	{
+		r = 2;
+		Super.PostBeginPlay();
+	}
+	States
+	{
+		Spawn:
+			TNT1 A 0 A_CheckSight("Inv");
+			TNT1 A 1
+			{
+				A_Playsound("Ambient/DSCtorch2", 1, 1, 1);
+				A_SpawnItemEx("FireFlame", Random(-r, r), Random(-r, r), Random(0, 4), 0, 0, Frandom(1, 2), 0, SXF_NOCHECKPOSITION, 32, 0);
+			}
+		LOOP;
+		Inv:
+			TNT1 A 1;
+			Goto Spawn;
+			
+	}
+}
+
+Class FireFlameSpawnerTorchRed : FireFlameSpawnerTorch
+{
+	States
+	{
+		Spawn:
+			TNT1 A 0 A_CheckSight("Inv");
+			TNT1 A 1
+			{
+				A_Playsound("Ambient/DSCtorch2", 1, 1, 1);
+				A_SpawnItemEx("FireFlame", Random(-r, r), Random(-r, r), Random(0, 4), 0, 0, Frandom(1, 2), 0, SXF_NOCHECKPOSITION, 32, 0);
+			}
+		LOOP;
+		Inv:
+			TNT1 A 1;
+			Goto Spawn;		
+	}
+}
+Class FireFlameSpawnerTorchGreen : FireFlameSpawnerTorch
+{
+	States
+	{
+		Spawn:
+			TNT1 A 0 A_CheckSight("Inv");
+			TNT1 A 1
+			{
+				A_Playsound("Ambient/DSCtorch2", 1, 1, 1);
+				A_SpawnItemEx("FireFlameGreen", Random(-r, r), Random(-r, r), Random(0, 4), 0, 0, Frandom(1, 2), 0, SXF_NOCHECKPOSITION, 32, 0);
+			}
+		LOOP;
+		Inv:
+			TNT1 A 1;
+			Goto Spawn;		
+	}
+}
+Class FireFlameSpawnerTorchBlue : FireFlameSpawnerTorch
+{
+	States
+	{
+		Spawn:
+			TNT1 A 0 A_CheckSight("Inv");
+			TNT1 A 1
+			{
+				A_Playsound("Ambient/DSCtorch2", 1, 1, 1);
+				A_SpawnItemEx("FireFlameBlue", Random(-r, r), Random(-r, r), Random(0, 4), 0, 0, Frandom(1, 2), 0, SXF_NOCHECKPOSITION, 32, 0);
+			}
+		LOOP;
+		Inv:
+			TNT1 A 1;
+			Goto Spawn;		
+	}
+}
+Class BigDoomTorch  : Actor
+{
+	Default
+	{
+		+SOLID;
+		Radius 8;
+		Height 64;
+		Scale 0.12;
+		//FlareBaseClass.DrawFlare true;
+		//FlareBaseClass.FlareGraphics "HALO1";
+		//FlareBaseClass.FlareZoffset 64;	
+		//RenderStyle "Add";
+	}
+	States
+	{
+		Spawn:
+			BFT1 A 1 NODELAY
+			{
+				A_SpawnItemEx("FireFlameSpawnerTorch", 0, 0, 52, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+				A_SpawnItemEx("DoomTorchHalo", 0, 0, 64, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+			}
+			GOTO ACTIVE;
+		Active:
+			BFT1 A -1;
+			STOP;
+	}
+}
+
+Class BigDoomTorchGreen : BigDoomTorch
+{
+	States
+	{
+		Spawn:
+			BFT1 A 1 NODELAY
+			{
+				A_SpawnItemEx("FireFlameSpawnerTorchGreen", 0, 0, 52, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+				A_SpawnItemEx("DoomTorchHalo", 0, 0, 64, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+			}
+			 Goto Super::ACTIVE;
+	}
+}
+Class BigDoomTorchRed : BigDoomTorch
+{
+	States
+	{
+		Spawn:
+			BFT1 A 1 NODELAY
+			{
+				A_SpawnItemEx("FireFlameSpawnerTorchRed", 0, 0, 52, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+				A_SpawnItemEx("DoomTorchHalo", 0, 0, 64, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+			}
+			 Goto Super::ACTIVE;
+	}
+}
+Class BigDoomTorchBlue : BigDoomTorch
+{
+	States
+	{
+		Spawn:
+			BFT1 A 1 NODELAY
+			{
+				A_SpawnItemEx("FireFlameSpawnerTorchBlue", 0, 0, 52, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+				A_SpawnItemEx("DoomTorchHalo", 0, 0, 64, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+			}
+			 Goto Super::ACTIVE;
+	}
+}
+
+Class DoomTorchHalo  : Actor
+{
+
+	Default
+	{
+		Scale 0.35;
+		+NoInteraction;
+		RenderStyle "Add";
+	}
+	States
+	{
+		Spawn:
+			HAL1 A 3 
+			{
+				A_FadeTo(frandom(0.1, 0.3), 0.1);
+			}
+			LOOP;
+	}
+}
+
+Class Bif_spawned_stone : Actor {
+	Default 
+	{
+		+FORCEXYBILLBOARD;
+		Scale 0.5;
+		//DistanceCheck "user_MaxDrawDistanceStones";
+	}
+	States
+	{
+		Spawn:
+		"####" "#"  1 NODELAY A_SetScale(frandom(0.25, 0.75));
+		//"####" "##########" 2 A_FadeTo(1.0, 0.1)
+		"####" "#" -1;
+		Stop;
+	}
+}
+
+
+Class DSCrandomGrass : Actor //22015
+{
+	static const string floorTex[] = {
+		"BLOOD1", "BLOOD2", "MARS_GR2", "SEMIGR"
+	};
+
+	bool bSloped;
+	
+	Default
+	{
+		+FORCEXYBILLBOARD;
+		//+NOINTERACTION;
+		Radius 16;
+		Scale 0.2;
+	}
+	
+	override void Tick()
+	{
+		if(!bSloped)
+		{
+			AlignToSlope(self,self.angle,0.0f);
+			bSloped = true;
+		}
+		Super.Tick();
+	}
+	
+	Override void PostBeginPlay()
+	{
+		A_SetScale(frandom(0.05, 0.12));
+		Super.PostBeginPlay();
+	}
+	
+	bool CheckFloorTexture()
+	{
+		int fTexLenght = floorTex.Size();
+	
+		for (int i = 0; i < fTexLenght;i++)
+		{
+			TextureID tx=TexMan.CheckForTexture(floorTex[i],TexMan.Type_Flat);
+			if (tx == floorpic)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+    static void AlignToSlope(Actor self, double dAng, double dPitch)
+    {
+        vector3 fNormal = self.CurSector.FloorPlane.Normal;
+        vector2 fNormalP1 = (fNormal.X != 0 || fNormal.Y != 0) ? (fNormal.X, fNormal.Y).Unit() : (0, 0);
+        vector2 fNormalP2 = ((fNormal.X, fNormal.Y).Length(), fNormal.Z);
+        double fAng = atan2(fNormalP1.Y, fNormalP1.X);
+        double fPitch = -atan2(fNormalP2.X, fNormalP2.Y);
+        double dDiff1 = sin(fAng - (dAng + dPitch));
+        double dDiff2 = cos(fAng - dAng);
+        self.Pitch = fPitch * dDiff2 + dPitch;
+        self.Roll = fPitch * dDiff1;
+        self.Angle = dAng;
+    }	
+	
+	States
+	{
+		Spawn:
+			BDG1 A 0 nodelay
+			{
+				if(!CheckFloorTexture() )
+				{
+					return ResolveState("Null");
+				}
+				else
+				{
+					return ResolveState(Null);
+				}
+			}
+			BDG1 A 1  A_Jump (256, "tre1", "tre2", "tre3", "tre4") ;
+			loop;
+		tre1: 
+			BDG1 A -1;
+			stop;
+		tre2: 
+			BDG2 A -1;
+			stop;
+		tre3: 
+			BDG3 A -1;
+			stop;
+		tre4: 
+			BDG4 A -1;
+			stop;
+	}
+}
+
+
+Class DSCcandleLight : Actor
+{
+
+	Default
+	{
+		+NOINTERACTION
+		Renderstyle "Add";
+		Scale 0.05;
+	}
+
+
+	States
+	{
+	Spawn:
+		CLGH ABC 2 light("DSCcandleLight")
+		{
+			if ( Random(1,101) > 50)
+			{
+				frame = random(0,2);
+			}
+		}
+	Loop;
+
+	Inactive:
+		TNT1 A 1;
+		Loop;
+	}
+}
+
+Class DSCbloodRainDrop : Actor
+{
+	static const string floorTex[] = {
+		"F_SKY1"
+	};
+
+	
+	Default
+	{
+
+	}
+	
+	override void Tick()
+	{
+		Super.Tick();
+	}
+	
+	
+	bool CheckFloorTexture()
+	{
+		int fTexLenght = floorTex.Size();
+	
+		for (int i = 0; i < fTexLenght;i++)
+		{
+			TextureID tx=TexMan.CheckForTexture(floorTex[i],TexMan.Type_Flat);
+			if (tx == floorpic)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
+	
+	States
+	{
+		Spawn:
+			BDG1 A 1 nodelay
+			{
+				if(!CheckFloorTexture() )
+				{
+					return ResolveState("Null");
+				}
+				else
+				{
+					return ResolveState(Null);
+				}
+			}
+			loop;
+	}
+}
+
+
+
+Class DSCexplosiveVAZA : Actor
+{
+
+	Default
+	{
+	  Health 20;
+	  Radius 10;
+	  Height 42;
+	  +SOLID;
+	  +SHOOTABLE;
+	  +NOBLOOD;
+	  +ACTIVATEMCROSS;
+	  +DONTGIB;
+	  +NOICEDEATH;
+	  +OLDRADIUSDMG;
+	// DeathSound "misc/VazaBreak";
+	  Scale 0.25;
+	}
+
+
+	States
+	{
+	Spawn:
+		VAZ1 A 1 ;
+		Loop;
+
+	  Death:
+		VZX1 A 5 Bright Light("VazaBreak1");
+		VZX1 B 5 Bright Light("VazaBreak2") A_Scream;
+		VZX1 C 5 Bright Light("VazaBreak3")A_Explode(128, 192, true );
+		TNT1 A 0 A_SpawnItemEx("DSCExplosion", 0, 0, 24, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);		
+		TNT1 A 15 Light("VazaBreak3");
+		TNT1 A 0 A_PlaySound("misc/VazaBreak");
+		TNT1 A 5 Light("VazaBreak2");
+		TNT1 A 5 Light("VazaBreak1");
+		TNT1 A 1050 Bright A_BarrelDestroy;
+		TNT1 A 5 A_Respawn;
+		Wait;
+	}
+}
+Class DSCExplosion : Actor
+{
+	Default
+	{
+		+FORCEXYBILLBOARD;
+		+NOINTERACTION;
+		Renderstyle "Add";
+	}
+	Action Void SpawnBurstSparkles(int count = 15)
+	{
+		for(int i = 0; i < count; i++)
+		{
+			A_SpawnItemEx("DSCExplosionSpark", Random(-16, 16), Random(-16, 16), Random(-16, 16), Random(-8, 8), Random(-8, 8), Random(0, 8), 0, SXF_NOCHECKPOSITION, 0, 0);
+		}
+	}
+	Action Void SpawnBurstDscSmokeSpots(int count = 15)
+	{
+		for(int i = 0; i < count; i++)
+		{
+			A_SpawnItemEx("DscSmokeSpot", Random(-16, 16), Random(-16, 16), Random(-16, 16), fRandom(-2, 2), fRandom(-2, 2), fRandom(0, 2), 0, SXF_NOCHECKPOSITION, 0, 0);
+		}
+	}	
+	Action Void SpawnBurstDscDebris(int count = 9)
+	{
+		for(int i = 0; i < count; i++)
+		{
+			A_SpawnItemEx("DSCVazsDebris", Random(-16, 16), Random(-16, 16), Random(-16, 16), Random(-12, 12), Random(-12, 12), Random(2, 18), 0, SXF_NOCHECKPOSITION, 0, 0);
+		}
+	}	
+
+	States
+	{
+	Spawn:
+		VZEX B 1 NODELAY SpawnBurstDscDebris();
+		VZEX C 1 ;
+		VZEX D 1 A_PlaySound("misc/DSCexplosion");
+		VZEX E 1 SpawnBurstSparkles();
+		VZEX F 1 ;
+		VZEX G 1 SpawnBurstSparkles();
+		VZEX H 1 ;
+		VZEX I 1 SpawnBurstSparkles();
+		VZEX J 1 SpawnBurstDscSmokeSpots();
+		VZEX K 1;
+		VZEX L 1;
+		VZEX M 1 SpawnBurstDscSmokeSpots();
+		VZEX N 1;
+		VZEX O 1;
+		VZEX P 1;
+		VZEX Q 1;
+		VZEX R 1;
+		VZEX S 1;
+		VZEX T 1;
+		VZEX U 1;
+		VZEX V 1 A_FadeOut(1.0);
+		STOP;
+	}	
+	
+}
+Class DSCExplosionSpark : Actor
+{
+	Default
+	{
+	Alpha 1.0;
+	Scale 0.25;
+	RenderStyle "Add";
+	-NOGRAVITY;
+	}
+	States
+	{
+		Spawn:
+			TNT1 A 1 A_Jump(256, "S1", "S2", "S3", "S4");
+			Loop;
+		S1:
+			FRS1 A 1;
+			GOTO Halt;
+		S2:
+			FRS2 A 1;
+			GOTO Halt;
+		S3:
+			FRS3 A 1;
+			GOTO Halt;	
+		S4:
+			FRS4 A 1;
+			GOTO Halt;	
+		Halt:
+			"####" "A" 1 BRIGHT A_FadeOut(0.04);
+			LOOP;
+		Death:
+			TNT1 A 1;
+			stop;
+	}
+}
+Class DscSmokeSpot : Actor
+{
+	int RollSpeed;
+	float ThisScale;
+	float ScaleINcrease;
+	float FadeoutSpeed;
+	Default
+	{
+		Scale 0.15;
+		+NoInteraction;
+		+Rollsprite
+		+FORCEXYBILLBOARD
+		Renderstyle "Translucent";
+		//DistanceCheck "user_MaxDrawDistanceTorchFire";
+	}
+	Override void PostBeginPlay()
+	{	
+		FadeoutSpeed = 0.03;
+		ScaleINcrease = 0.03;
+		ThisScale = 0.15;
+		
+		RollSpeed = Random(-30, 30);
+		A_SetRoll(random(0, 360));
+		Super.PostBeginPlay();
+	}	
+	virtual void ParticleLife()
+	{
+		ThisScale = ThisScale+ScaleINcrease;
+		//if(ThisScale<0){ThisScale=0;}
+		A_SetScale(ThisScale);
+		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
+		roll%=360;
+		A_fadeOut(FadeoutSpeed);
+	}	
+	States
+	{
+		
+		Spawn:
+			S1MK A 2 {ParticleLife();}
+			LOOP;
+			
+	}
+}
+Class DSCVazsDebris : Actor
+{
+	int RollSpeed;
+	
+	Default
+	{
+	Alpha 1.0;
+	Scale 0.25;
+	+FORCEXYBILLBOARD
+	+Rollsprite
+	Renderstyle "Translucent";
+	-NOGRAVITY;
+	}
+	Override void PostBeginPlay()
+	{	
+		RollSpeed = Random(-30, 30);
+		Super.PostBeginPlay();
+	}	
+	virtual void ParticleLife()
+	{
+		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
+		roll%=360;
+
+	}		
+	States
+	{
+		Spawn:
+			TNT1 A 1 A_Jump(256, "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9");
+			Loop;
+		S1:
+			VZEP A 1;
+			GOTO Halt;
+		S2:
+			VZEP B 1;
+			GOTO Halt;
+		S3:
+			VZEP C 1;
+			GOTO Halt;	
+		S4:
+			VZEP D 1;
+			GOTO Halt;	
+		S5:
+			VZEP E 1;
+			GOTO Halt;				
+		S6:
+			VZEP F 1;
+			GOTO Halt;				
+		S7:
+			VZEP J 1;
+			GOTO Halt;	
+		S8:
+			VZEP H 1;
+			GOTO Halt;	
+		S9:
+			VZEP K 1;
+			GOTO Halt;				
+	
+		Halt:
+			"####" "#" 1
+			{
+				A_FadeOut(0.01);
+				ParticleLife();
+			}
+			LOOP;
+		Death:
+			TNT1 A 1;
+			stop;
+	}
+}
+
+
+Class DSCbloodWave : Actor
+{
+
+	float Scale;
+	float ScaleSpeed;
+
+	Override void PostBeginPlay()
+	{	
+		Scale = 0.05;
+		ScaleSpeed = 0.01;
+	}
+	
+	virtual void ParticleLife()
+	{
+		Scale = Scale+ScaleSpeed;
+		A_SetScale(Scale);
+
+	}
+	Override void Tick()
+	{
+		ParticleLife();
+		Super.Tick();
+	}	
+	Default
+	{
+		Alpha 1.0;
+		Scale 0.25;
+		+NOINTERACTION;
+		+FLATSPRITE;
+		Renderstyle "Translucent";
+	}
+	
+	States
+	{
+		Spawn:
+		 BW1E A 5 A_fadeOut(0.33);
+		 BW1E B 5;
+		 BW1E C 5;
+		Loop;
+	}
+	
+}
