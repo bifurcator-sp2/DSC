@@ -221,7 +221,7 @@ Class AMMOspawner : Actor
 
 	Override void PostBeginPlay()
 	{
-		timerWaitForAgainGiveAmmo= 35*20;
+		timerWaitForAgainGiveAmmo= 35*10;
 		clockForAmmo = 0;
 		AMMOgived = false;
 

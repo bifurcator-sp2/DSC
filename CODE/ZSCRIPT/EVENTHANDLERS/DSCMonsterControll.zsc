@@ -45,7 +45,7 @@ Override void WorldThingDamaged(WorldEvent e)
 {
 	let plr = PlayerPawn(e.DamageSource);
 	let mo = e.Thing;
-	if (plr && e.Thing.Health <= 0 && e.Thing.bISMONSTER && e.Thing.bCOUNTKILL)
+	if (plr && e.Thing.Health <= 0 && e.Thing.bISMONSTER && e.Thing.bCOUNTKILL && e.Thing.default.Health>=20)
 	{
 		plr.GiveInventory("IncKillCounter",1);
 	}
