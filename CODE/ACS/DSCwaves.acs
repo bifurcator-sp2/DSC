@@ -27,6 +27,7 @@ int SaintHealthUpBaseAmount = 10;//basic value for SaintHealthUp DSCprisonedSain
 
 int AchiveKillInSEc1 = 0;
 int AchiveDieInSec1 = 0;
+//int ArmorBonusToGive = 0;
 
 int AchiveKillInSEc10 = 0;
 
@@ -38,6 +39,15 @@ SCRIPT "ResetCounters" ENTER {
 	AchiveKillInSEc1 = 0;
 	AchiveDieInSec1 = 0;
 }
+/*
+SCRIPT "GiveArmorBonus" enter {
+		if(ArmorBonusToGive>0){
+			GiveInventory("DSCarmorBonus",ArmorBonusToGive);
+			ArmorBonusToGive = 0;
+		}
+		delay(15);
+	restart;
+}*/
 SCRIPT "AchiveKillInSEc10Counter" (void)
 {
 	delay(35*10);
@@ -72,6 +82,7 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 	//PrintBold(i:AchiveKillInSEc1);
 
 	if(AchiveDieInSec1>=20 || AchiveKillInSEc1>=20){
+		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
 		Log(s:"Real epic doomslayer tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -80,6 +91,7 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 		terminate;
 	}
 	if(AchiveDieInSec1>=15){
+		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
 		Log(s:"Tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -87,7 +99,8 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 		SaintHealthUpMultipler+=AchiveKillInSEc1;
 		terminate;
 	}
-	if(AchiveDieInSec1>=10 || AchiveKillInSEc1>=10){
+	if(AchiveDieInSec1>=10 ){
+		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
 		Log(s:"Yeah...Great bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -95,7 +108,8 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 		SaintHealthUpMultipler+=AchiveKillInSEc1;
 		terminate;
 	}
-	if(AchiveDieInSec1>3 || AchiveKillInSEc1>3){
+	if(AchiveDieInSec1>3){
+		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
 		Log(s:"Bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -105,6 +119,7 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 	}
 
 	if(AchiveKillInSEc1==3){
+		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
 		Log(s:"Tripple death\n", i:AchiveKillInSEc1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -113,7 +128,8 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 		terminate;
 	}
 	if(AchiveKillInSEc1==2){
-
+		//ArmorBonusToGive = AchiveKillInSEc1;
+		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
 		Log(s:"Double death\n", i:AchiveKillInSEc1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;

@@ -8,10 +8,10 @@ bool TribuneTeleportsActive = false;
 
 SCRIPT "StartLevel" ENTER
 {
-
+//NOspawn = true;
 //TEST!
 /*
-//NOspawn = true;
+
 
 CurrentWave = 35;
 AmmoMaxRnd = 3;
