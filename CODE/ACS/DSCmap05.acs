@@ -1,0 +1,543 @@
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+
+bool Door1Locked = true;
+bool Door1_2Locked = false;
+bool Door2Locked = true;
+bool Door3Locked = true;
+bool Door4Locked = true;
+bool Door5Locked = false;
+bool saint34raiseUnlocked = false;
+bool saint34raiseStarted = false;
+bool saint45raiseUnlocked = false;
+bool saint45raiseStarted = false;
+bool saint60raiseUnlocked = false;
+bool saint60raiseStarted = false;
+
+
+int SaintsRaisedNum = 0;
+
+SCRIPT "StartLevel" ENTER
+{
+Thing_SetGoal(34, 0, 0, 1);
+Thing_SetGoal(45, 0, 0, 1);
+Thing_SetGoal(60, 0, 0, 1);
+SetMusicVolume(0);
+Thing_Deactivate(59);
+
+//TEST!
+
+//NOspawn = true;
+/*
+CurrentWave = 35;
+AmmoMaxRnd = 3;
+WeaponGotID = 4;
+saint34raiseUnlocked = true;
+saint60raiseUnlocked = true;
+saint45raiseUnlocked = true;
+Door4Locked = false;
+//ACS_NamedExecute("DisplaySaintHealth", 0, 60);
+ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 100100, 100400);
+delay(20*35);
+ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
+delay(20*35);
+ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
+*/
+//TEST!
+
+}
+
+
+
+SCRIPT "SpawnFirstScull" (void){
+		SpawnSpotFacingForced("WaveScullDEC", 100100, 100600);
+		SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
+}
+
+/*
+Сначало все двери закрыты
+Выносим 2 волны - двери открываются
+Когда идем в одну из дверей все они закрываются и лочатся
+Генерится волна, вынос которой спавнит череп возле святого
+
+*/
+
+SCRIPT "StartControl" ENTER
+{
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 100100, 100400);
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_M1", 0);
+
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 100100, 100400);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_L1", 0);
+
+
+	//while(WaveOnline){ Delay(5);}
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	Delay(35*5);
+	Door1Locked = false;
+	Door2Locked = FALSE;
+	Door3Locked = FALSE;
+	Thing_Activate(29);
+	Thing_Activate(30);
+	Thing_Activate(31);
+}
+
+script "spawnSequence2firstScull"(void){
+	SpawnSpotFacingForced("WaveScullDEC", 100104, 48);
+	SetThingSpecial(48, ACS_NamedExecute, "Sequence2");
+}
+script "spawnSequence3firstScull"(void){
+	SpawnSpotFacingForced("WaveScullDEC", 100105, 61);
+	SetThingSpecial(61, ACS_NamedExecute, "Sequence3");
+}
+script "Sequence3" (void){
+	Door1Locked = TRUE;
+	Door2Locked = TRUE;
+	Door3Locked = TRUE;
+	Thing_DeActivate(29);
+	Thing_DeActivate(30);
+	Thing_DeActivate(31);
+	Door_Open(76, 16);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100507, 100106, 100406);
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_M2", 0);
+	while(!NextWaveReady){
+		delay(1);
+	}
+	ACS_NamedExecute("LowerRoundFloor", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 131313, 131313);//черепа не будет, но волна учтется
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_M3", 0);
+	while(WaveOnline){ Delay(5);}//ждем пока все сдохнут
+	ACS_NamedExecuteAlways("RestoreMusic", 0);
+	//тут надо спавнить глаз
+	SpawnSpotFacingForced("TeleportFog", 67, 0);
+	delay(5);
+	SpawnSpotFacingForced("DSCeyeBounder", 67, 69);
+	SetThingSpecial(69, ACS_NamedExecute, "EyeKill_3");
+	Delay(35*3);
+	Thing_Activate(68);//helper
+	NextWaveReady = false;
+	//Scull will spawned by killing of eye
+	//освобождение святого делает NextWaveReady
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 100107, 100407);
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_L1", 0);
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	Door_Open(77, 16);
+	Door4Locked = FALSE;
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//волна будет учтена, но череп не появится
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_G2", 0);
+
+}
+script "EyeKill_3" (void){
+
+	Delay(35*3);
+	Thing_Destroy(62);
+	Thing_Deactivate(68);//helper
+	//SpawnSpotFacingForced("WaveScullDEC", 100103, 100600);
+	//SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
+
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	ACS_NamedExecute("HoldActorSpeed", 0, 60, 0, 35*5);
+	Thing_Activate(66);//camera
+	ChangeCamera(66, 0, 0);//camera
+	Delay(35*5);
+	ChangeCamera(0, 0, 0);
+	Thing_DeActivate(66);//camera
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+	ACS_NamedExecute("DisplaySaintHealth", 0, 60);
+	saint60raiseUnlocked = true;
+	Thing_SetGoal(60, 0, 0, 1);
+	ACS_NamedExecuteAlways("NextWaveReady", 0);
+
+}
+script "Sequence2" (void){
+	Door1Locked = TRUE;
+	Door2Locked = TRUE;
+	Door3Locked = TRUE;
+	Thing_DeActivate(29);
+	Thing_DeActivate(30);
+	Thing_DeActivate(31);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 100102, 100402);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100506, 888888, 888888);
+
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_L1", 0);
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	SpawnSpotFacingForced("TeleportFog", 47, 0);
+	delay(5);
+	SpawnSpotFacingForced("DSCeyeBounder", 47, 50);
+	SetThingSpecial(50, ACS_NamedExecute, "EyeKill_2");
+	Delay(35*3);
+	Thing_Activate(49);//helper
+	//Scull will spawned by killing of eye
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 100104, 100404);
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_M1", 0);
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
+	Door3Locked = FALSE;
+
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//волна будет учтена, но череп не появится
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_G2", 0);
+
+}
+script "EyeKill_2" (void){
+
+	Delay(35*3);
+	Thing_Destroy(46);
+	Thing_Deactivate(49);
+	SpawnSpotFacingForced("WaveScullDEC", 100103, 100600);
+	SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
+
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	ACS_NamedExecute("HoldActorSpeed", 0, 45, 0, 35*5);
+	Thing_Activate(54);//camera
+	ChangeCamera(54, 0, 0);//camera
+	Delay(35*5);
+	ChangeCamera(0, 0, 0);
+	Thing_DeActivate(54);//camera
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+	ACS_NamedExecute("DisplaySaintHealth", 0, 45);
+	saint45raiseUnlocked = true;
+	Thing_SetGoal(45, 0, 0, 1);
+}
+
+script "Sequence1" (void){
+	Door1Locked = TRUE;
+	Door2Locked = TRUE;
+	Door3Locked = TRUE;
+	Thing_DeActivate(29);
+	Thing_DeActivate(30);
+	Thing_DeActivate(31);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 100099, 100401);//no sculltag
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_M1", 0);
+	while(WaveOnline){ Delay(5);}
+	ACS_NamedExecuteAlways("RestoreMusic", 0);
+	//Scull will spawned by killing of eye
+	Delay(35*5);
+
+	SpawnSpotFacingForced("TeleportFog", 39, 40);
+	delay(5);
+	SpawnSpotFacingForced("DSCeyeBounder", 39, 40);
+	SetThingSpecial(40, ACS_NamedExecute, "EyeKill_1");
+	Delay(35*3);
+	Thing_Activate(24);
+
+	while(!NextWaveReady){ delay(1); } NextWaveReady = false;
+
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100101, 100401);
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_M2", 0);
+	delay(15*35);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 888888, 888888);
+
+
+	while(!NextWaveReady){ delay(1); } NextWaveReady = false;
+	Door5Locked = false;
+	Door1Locked = false;
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 131313, 100400);//череп не появится но волна учтется
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);
+	Delay(35*5);
+	ACS_NamedExecuteAlways("Mus_G2", 0);
+
+}
+
+
+script "EyeKill_1" (void){
+
+	Delay(35*3);
+	Thing_Destroy(23);
+	Thing_Deactivate(24);
+	SpawnSpotFacingForced("WaveScullDEC", 100101, 100600);
+	SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
+	WaveOnline = false;
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	ACS_NamedExecute("HoldActorSpeed", 0, 34, 0, 35*5);
+	Thing_Activate(38);
+	ChangeCamera(38, 0, 0);
+	Delay(35*5);
+	ChangeCamera(0, 0, 0);
+	Thing_DeActivate(38);
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+	ACS_NamedExecute("DisplaySaintHealth", 0, 34);
+	saint34raiseUnlocked = true;
+	Thing_SetGoal(34, 0, 0, 1);
+}
+script "SpawnSaintRaisedScull" (int tid){
+	//1 - 34
+	SetMusicVolume(0.0);
+	ACS_NamedExecute("SaintRaisedFlash", 0);
+	ACS_NamedExecute("DrawHelp", 0, 7, 5);
+	Thing_Deactivate(44);//saint raise fx
+	Delay(35*3);
+	ACS_NamedExecute("RestoreMusic", 0);
+	Delay(35*2);
+	if(!ThingCountName("DSCprisonedSaintDEC", 0)){
+		ACS_NamedExecute("AllSaintsRaised", 0);
+	} else{
+		SpawnSpotFacingForced("WaveScullDEC", 100100, 100600);
+	}
+	if(tid == 34){
+		SetThingSpecial(100600, ACS_NamedExecute, "Saint34RaiseDoneScull");
+	}
+	if(tid == 45){
+		SetThingSpecial(100600, ACS_NamedExecute, "Saint45RaiseDoneScull");
+	}
+	if(tid == 60){
+		SetThingSpecial(100600, ACS_NamedExecute, "Saint60RaiseDoneScull");
+	}
+}
+script "SaintRaisedFlash"(void){
+	Thing_activate(59);
+	Delay(35);
+	Thing_Deactivate(59);
+}
+
+script "Saint60RaiseDoneScull"(void){
+	Door1Locked = FALSE;
+	Door2Locked = FALSE;
+	Door3Locked = FALSE;
+	Door_Close(74, 64);
+}
+script "Saint45RaiseDoneScull"(void){
+	Door1Locked = FALSE;
+	Door2Locked = FALSE;
+	Door3Locked = FALSE;
+	Door_Close(42, 64);
+}
+script "Saint34RaiseDoneScull"(void){
+	Door1_2Locked = true;
+	Door1Locked = FALSE;
+	Door2Locked = FALSE;
+	Door3Locked = FALSE;
+}
+script "saint34raisestart" (void){
+	if(saint34raiseUnlocked){
+		Thing_SetGoal(34, 42, 0, 1);
+		Thing_Remove(100600);
+		saint34raiseUnlocked = false;
+		ACS_NamedExecuteAlways("Mus_G2", 0);
+		Thing_Activate(44);
+		ACS_NamedExecute("SaintDelayedTrasaction", 0, 34, 57, 35*20);
+	}
+}
+script "saint45raisestart" (void){
+	if(saint45raiseUnlocked){
+		Thing_SetGoal(45, 55, 0, 1);
+		Thing_Remove(100600);
+		saint45raiseUnlocked = false;
+		ACS_NamedExecuteAlways("Mus_G2", 0);
+		Thing_Activate(44);
+		ACS_NamedExecute("SaintDelayedTrasaction", 0, 45, 73, 35*20);
+
+	}
+}
+script "saint60raisestart" (void){
+	if(saint60raiseUnlocked){
+		Thing_SetGoal(60, 72, 0, 1);
+		Thing_Remove(100600);
+		saint60raiseUnlocked = false;
+		ACS_NamedExecuteAlways("Mus_G2", 0);
+		Thing_Activate(44);
+		ACS_NamedExecute("SaintDelayedTrasaction", 0, 60, 70, 35*20);
+
+	}
+}
+
+script "saintStartRaise" (int tid){
+	PrintBold(s:"Saint statred his raising");
+	if(tid==34){saint34raiseStarted=true;}
+	if(tid==45){saint45raiseStarted=true;}
+	if(tid==60){saint60raiseStarted=true;}
+	SetActorState (tid, "Raise");
+	Thing_Move (tid, 58, true);//ставим его точно в центр
+}
+
+function bool TestStartRaise (int tid){
+	if(tid==34){return saint34raiseStarted;}
+	if(tid==45){return saint45raiseStarted;}
+	if(tid==60){return saint60raiseStarted;}
+	return false;
+}
+
+script "SaintDelayedTrasaction"(int tid, int teletid, int delayInTicks){
+	int couner;
+	int mass;
+	while(couner<delayInTicks){
+		couner++;
+		delay(1);
+	}
+	//это если он потерялся и тупит где-то в углу
+	while(!TestStartRaise(tid)){
+		//это если ему долго мешают начать восходить - то он отступает
+		Thing_Move (tid, teletid, false);
+		delay(35*30);
+	}
+}
+script "AllSaintsRaised" (int tid){
+	for(int i = 5; i > 0; i--)
+	{
+		PrintBold(s:"Well done!\nYour personal HELL will restart \nin ",d:i,s:" seconds");
+		Delay(35);
+	}
+	TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+	Atrium1Active = true;
+	Exit_Normal(0);
+}
+script "HoldActorSpeed" (int tid, int speed, int ticks){
+	int ActorSpeed = GetActorProperty(tid, APROP_SPEED);
+	for(int i = 0; i < ticks; i++){
+		SetActorProperty(tid, APROP_SPEED, speed);
+		delay(1);
+	}
+	SetActorProperty(tid, APROP_SPEED, ActorSpeed);
+}
+script "DisplaySaintHealth" (int tid){
+	int h;
+	while (GetActorProperty(tid, APROP_Health)>0) {
+		h = GetActorProperty(tid, APROP_Health);
+		if(h<=0){ break;}
+		SetFont("BIGFONT");
+		hudmessageBold(s:"Prisoned Saint: ", d:h, s:"hp" ; HUDMSG_PLAIN, 35, CR_RED, 1.5, 0.1, 1);
+		Delay(35);
+	}
+
+	hudmessageBold(s:"" ; HUDMSG_PLAIN, 35, CR_RED, 1.5, 0.1, 1);
+
+}
+
+script "SaintDead" (void){
+	for(int i = 5; i > 0; i--)
+	{
+		PrintBold(s:"Prisoned Saint Dead!\nMap will be restarted\nin ",d:i,s:" seconds");
+		Delay(35);
+	}
+	str lvlName = StrParam(n: PRINTNAME_LEVEL);
+	ChangeLevel(lvlName,0,CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION);
+}
+
+SCRIPT "Door1" (void){
+	if(!Door1Locked){
+		Generic_Door(25, 64, 0, 12, 0);
+	}
+}
+SCRIPT "Door1_2" (void){
+	if(!Door1_2Locked){
+		Generic_Door(41, 64, 0, 12, 0);
+	}
+}
+SCRIPT "Door2" (void){
+	if(!Door2Locked){
+		Generic_Door(26, 16, 0, 34, 0);
+	}
+}
+SCRIPT "Door3" (void){
+	if(!Door3Locked){
+		Generic_Door(27, 64, 0, 12, 0);
+	}
+}
+SCRIPT "Door4" (void){
+	if(!Door4Locked){
+		Generic_Door(28, 16, 0, 34, 0);
+	}
+}
+
+SCRIPT "Door5" (void){
+	if(!Door5Locked){
+		Generic_Door(32, 64, 0, 12, 0);
+	}
+}
+
+SCRIPT "LockDoor5" (void){
+	Door5Locked = true;
+	Thing_Activate(33);
+}
+
+SCRIPT "LowerRoundFloor" (void){
+	Floor_LowerByValue(70, 8, 180);
+}
+script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
+
+	if (Time==0){Time=3;}
+
+	switch (HelpID) {
+		case 1:
+			hudmessageBold(s:"You have to find and release \nthree Prisoned Saints."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 2:
+			hudmessageBold(s:"Each of them must be escorted\ninto this hall alive."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 3:
+			hudmessageBold(s:"Protect the saint while he ascends."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 4:
+			hudmessageBold(s:"Kill the Eye-Controller\n to set free the Prisoned Saint."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 5:
+			hudmessageBold(s:"Door unlocked"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 6:
+			hudmessageBold(s:"You must release the Prisoned Saint\nto pass this way"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 7:
+			int saintsLeft = ThingCountName("DSCprisonedSaintDEC", 0)-1;
+			hudmessageBold(s:"Prisoned Saint\nfinishes his raising.\n", d:saintsLeft, s:" left to salvate"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		default:
+			PrintBold(s:"Be strong!");
+
+	}
+	if(!NOspawn){
+	Delay((Time+2)*35);
+	}
+	if(HelpID==3){
+		SetMusic("*", 0);
+		SetMusicVolume(1.0);
+		ACS_NamedExecute("SpawnFirstScull", 0);
+	}
+	if(NextHelpTag>0){
+		Thing_Activate(NextHelpTag);
+	}
+}
