@@ -38,6 +38,7 @@ SCRIPT "ResetCounters" ENTER {
 	SpawnedMonstersOnTheMap = 0;
 	AchiveKillInSEc1 = 0;
 	AchiveDieInSec1 = 0;
+
 }
 /*
 SCRIPT "GiveArmorBonus" enter {
@@ -77,7 +78,7 @@ SCRIPT "AchiveKillInSEc10Counter" (void)
 
 SCRIPT "AchiveKillInSEc1Counter" (void)
 {
-
+//GiveActorInventory(0, "DSCarmorBonus", 5);
 	delay(35);
 	//PrintBold(i:AchiveKillInSEc1);
 
