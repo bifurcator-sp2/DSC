@@ -162,3 +162,7 @@ brightmap texture SPTBA0
 {
    map SFT1A0
 }
+brightmap texture ITMPLACE
+{
+   map ITMPLACM
+}

@@ -14,7 +14,7 @@ global int 6:MonsterCountMethod;
 #define PlasmaGunSpawnProgressInPercent 70
 #define BFG9000SpawnProgressInPercent 80
 
-#define maxWaveCount 50
+#define maxWaveCount 40
 Bool NextWaveReady = false;
 Bool WaveOnline = false;
 Bool IgnoreWaveMusicChange = false;

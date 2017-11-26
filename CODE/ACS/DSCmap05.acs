@@ -311,7 +311,6 @@ script "SpawnSaintRaisedScull" (int tid){
 	ACS_NamedExecute("SaintRaisedFlash", 0);
 	ACS_NamedExecute("DrawHelp", 0, 7, 5);
 	Thing_Deactivate(44);//saint raise fx
-	ACS_NamedTerminate("DisplaySaintHealth", 0);
 	Delay(35*3);
 	ACS_NamedExecute("RestoreMusic", 0);
 	Delay(35*2);
@@ -444,6 +443,9 @@ script "DisplaySaintHealth" (int tid){
 		hudmessageBold(s:"Prisoned Saint: ", d:h, s:"hp" ; HUDMSG_PLAIN, 35, CR_RED, 1.5, 0.1, 1);
 		Delay(35);
 	}
+
+	hudmessageBold(s:"" ; HUDMSG_PLAIN, 35, CR_RED, 1.5, 0.1, 1);
+
 }
 
 script "SaintDead" (void){
