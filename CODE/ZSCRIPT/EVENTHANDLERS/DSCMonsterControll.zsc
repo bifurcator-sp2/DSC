@@ -44,7 +44,7 @@ Class DSCMonstersEvent : EventHandler
 Override void WorldThingDamaged(WorldEvent e)
 {
 	let plr = PlayerPawn(e.DamageSource);
-	let mo = e.Thing;
+
 	if (plr && e.Thing.Health <= 0 && e.Thing.bISMONSTER && e.Thing.bCOUNTKILL && e.Thing.default.Health>=20)
 	{
 		plr.GiveInventory("IncKillCounter",1);
@@ -72,6 +72,12 @@ Override void WorldThingDamaged(WorldEvent e)
 		}
 	}
 
+	void WorldUnloaded(WorldEvent e)
+	{
+		let monCount = DSCMonsterPopulation.Get();
+		if(monCount) monCount.monsterCount = 0;
+	}
+
 	override void WorldTick()
 	{
 		PlayerInfo players = players[consoleplayer];
@@ -91,7 +97,7 @@ Override void WorldThingDamaged(WorldEvent e)
 			monCount.monsterCount = 0;
 		}
 		monsterCounter = monCount.monsterCount;
-		players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
+		if ( !(level.mapName == "TITLEMAP") ) players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
 	}
 
 /*	override void WorldThingRevived(WorldEvent e)
@@ -106,9 +112,4 @@ Override void WorldThingDamaged(WorldEvent e)
 		if (!mo || !mo.bISMONSTER || mo.bNOINTERACTION) return;
 		monsterCount--;
 	}*/
-
-override void RenderOverlay(RenderEvent e)
-	{
-        //Screen.DrawText(SmallFont, Font.CR_GRAY, 200, 50, string.format("%i",monsterCounter), DTA_Clean, true);
-	}
 }
