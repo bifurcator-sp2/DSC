@@ -72,7 +72,7 @@ Override void WorldThingDamaged(WorldEvent e)
 		}
 	}
 
-	void WorldUnloaded(WorldEvent e)
+	override void WorldUnloaded(WorldEvent e)
 	{
 		let monCount = DSCMonsterPopulation.Get();
 		if(monCount) monCount.monsterCount = 0;

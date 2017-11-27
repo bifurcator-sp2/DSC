@@ -8,10 +8,10 @@ bool TribuneTeleportsActive = false;
 
 SCRIPT "StartLevel" ENTER
 {
-
+//NOspawn = true;
 //TEST!
 /*
-//NOspawn = true;
+
 
 CurrentWave = 35;
 AmmoMaxRnd = 3;
@@ -81,7 +81,7 @@ SCRIPT "StartControl" ENTER
 	while(WaveOnline){ Delay(5);}
 
 
-	Ceiling_RaiseByValue (10, 8, 120);//РІРѕСЂРѕС‚Р° РЅР° Р°СЂРµРЅСѓ
+	Ceiling_RaiseByValue (10, 8, 120);//ворота на арену
 ///////////////////////////////////////////////
 //Arena battle
 ///////////////////////////////////////////////
@@ -93,7 +93,7 @@ SCRIPT "StartControl" ENTER
 	ACS_NamedExecuteAlways("Mus_M2", 0);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100506, 8, 100402);
 	Delay(35*15);
-	Ceiling_RaiseByValue (12, 8, 120);//РІС‚РѕСЂС‹Рµ РІРѕСЂРѕС‚Р° Р°СЂРµРЅС‹
+	Ceiling_RaiseByValue (12, 8, 120);//вторые ворота арены
 
 
 
@@ -142,15 +142,15 @@ SCRIPT "StartControl" ENTER
 	Ceiling_RaiseByValue (12, 8, 120);
 
 	delay(35*20);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);//Р±РѕСЃСЃС‹ Рё СЃРІРёС‚Р°
-	//СЃСѓС‚СЊ РїСЂРѕР±Р»РµРјС‹ РІ С‚РѕРј, С‡С‚Рѕ РІ Р±СЂСѓС‚Р°Р»СЊРЅС‹С… РјРѕРґР°С… РїРѕРїСЂР°РІС‰РёРє РєРіР»СЋРєР° СЃС‚РµСЂР°РµС‚ РїСЂРёР·РЅР°Рє РєСЂР°Р№РЅРёС… РїР°СЂС‹ РјРѕРЅСЃС‚СЂРѕРІ
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);//боссы и свита
+	//суть проблемы в том, что в брутальных модах поправщик кглюка стерает признак крайних пары монстров
 
 
 	 NoiseAlert(0, 131313);
 	ACS_NamedExecute("TribuneLiftsStart", 0);
 
 	while(ThingCount(T_NONE, 131313)>50){
-		//Р¶РґРµРј РїРѕРєР° РѕСЃС‚Р°РЅРµС‚СЃСЏ РЅРµ РјРµРЅРµРµ 50 Р·СЂРёС‚РµР»РµР№
+		//ждем пока останется не менее 50 зрителей
 		delay(15);
 	}
 
@@ -162,14 +162,22 @@ SCRIPT "StartControl" ENTER
 	Door_Raise(13, 8, -1);
 	//Teleport_NoStop (tid, sectortag, nofog);
 	while(ThingCount(T_NONE, 131313)>10){
-		//Р¶РґРµРј РїРѕРєР° Р·СЂРёС‚РµР»РµР№ Р±РѕР»СЊС€Рµ 10
+		//ждем пока зрителей больше 10
 		delay(15);
 	}
+	//InvulnerabilitySphere
+	//Megasphere
+	//Soulsphere
+	int Rand = Random(1,3);
+	if(Rand==1){ SpawnSpotFacingForced("InvulnerabilitySphere", 30, 0);}
+	if(Rand==2){ SpawnSpotFacingForced("Megasphere", 30, 0);}
+	if(Rand==3){ SpawnSpotFacingForced("Soulsphere", 30, 0);}
+	PrintBold(s:"Sphere spawned");
 
 	ArenaFloorActive = false;
-	delay(35*5);//Р¶РґРµРј РїРѕРєР° РѕСЃС‚Р°РЅРѕРІСЏС‚СЃСЏ РїРѕР»С‹ Р°СЂРµРЅС‹
-	Floor_MoveToValue(14, 16, 8);//РѕРїСѓСЃРєР°РµРј Р»РёС„С‚С‹ СЃ Р±РѕСЃСЃР°РјРё
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 8, 100402);//РµС‰Рµ РЅР°СЂРѕРґСѓ С‡С‚РѕР±С‹ С‡РµСЂРµРї РїРѕСЏРІРёР»СЃСЏ
+	delay(35*5);//ждем пока остановятся полы арены
+	Floor_MoveToValue(14, 16, 8);//опускаем лифты с боссами
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 8, 100402);//еще народу чтобы череп появился
 
 	while(!NextWaveReady){
 		delay(1);

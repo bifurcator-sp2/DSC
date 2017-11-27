@@ -30,6 +30,14 @@ Class AIDHealth : HealthBonus
 	Inventory.MaxAmount 100;
 	}
 }
+Class DSCarmorBonus : ArmorBonus
+{
+	Default
+	{
+	-INVENTORY.ALWAYSPICKUP;
+	Armor.SaveAmount 5;
+	}
+}
 
 Class AIDSpawner : Actor
 {
@@ -221,7 +229,7 @@ Class AMMOspawner : Actor
 
 	Override void PostBeginPlay()
 	{
-		timerWaitForAgainGiveAmmo= 35*10;
+		timerWaitForAgainGiveAmmo= 35*20;
 		clockForAmmo = 0;
 		AMMOgived = false;
 
