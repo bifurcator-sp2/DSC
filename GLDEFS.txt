@@ -120,6 +120,7 @@ HardwareShader Sprite DSB2A0
 HardwareShader PostProcess scene
 {
 	Name "FilmicTonemap"
+	Texture ColourmapLUT "textures/lut.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
 
