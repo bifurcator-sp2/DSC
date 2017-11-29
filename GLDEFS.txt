@@ -128,6 +128,18 @@ HardwareShader PostProcess scene
 	Texture ColourmapLUT "textures/lut.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
+HardwareShader PostProcess scene
+{
+	Name "TonemapDefault"
+	Texture ColourmapLUT "textures/lut.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapArena"
+	Texture ColourmapLUT "textures/lut_arena.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
 
 HardwareShader PostProcess scene
 {
