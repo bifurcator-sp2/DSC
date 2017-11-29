@@ -77,6 +77,11 @@ HardwareShader Texture BlankSky
 	Shader "shaders/sky.fp"
 	Speed 1.0
 }
+HardwareShader Texture BlankSk2
+{
+	Shader "shaders/skyDiff.fp"
+	Speed 1.0
+}
 
 HardwareShader Sprite TFTSA0
 {
@@ -120,6 +125,7 @@ HardwareShader Sprite DSB2A0
 HardwareShader PostProcess scene
 {
 	Name "FilmicTonemap"
+	Texture ColourmapLUT "textures/lut.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
 

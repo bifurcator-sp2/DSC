@@ -28,6 +28,11 @@ SCRIPT "IamReady" (void){
 
 SCRIPT "StartControl" ENTER
 {
+	//test!!!!!!!!!!
+	/*CurrentWave = 35;
+	AmmoMaxRnd = 3;
+	WeaponGotID = 4;*/
+	//test!!!!!!
 
 	//SetThingSpecial(100700, ACS_NamedExecute, "ArmorWave");
 
