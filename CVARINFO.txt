@@ -1,6 +1,7 @@
 user bool dpwh_filmictonemap = true;
 user bool dpwh_chromaticAberration = true;
 user bool dpwh_naturalVignette = false;
+user bool dpwh_filmgrain = true;
 
 server int user_MaxDrawDistanceAMMOsparks = 1024;
 server int user_MaxDrawDistanceHaze = 4096;
