@@ -28,8 +28,31 @@ Class SDPWHScreenEffects : StaticEventHandler
 		else
 		{
 			DisableNaturalVignette();
-		}		
+		}
+
+		if (Cvar.GetCVar("dpwh_filmgrain", players).GetInt() > 0)
+		{
+			EnableFilmGrain(e);
+		}
+		else
+		{
+			DisableFilmGrain();
+		}	
+
 	}	
+
+	ui void EnableFilmGrain(RenderEvent e)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetUniform1f(players, "FilmGrain", "timer", gametic + e.FracTic);
+		Shader.SetEnabled(players, "FilmGrain", true);		
+	}
+
+	ui void DisableFilmGrain(void)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetEnabled(players, "FilmGrain", false);		
+	}
 
 	ui void EnableNaturalVignette(void)
 	{
