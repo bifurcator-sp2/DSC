@@ -3,6 +3,5 @@ AddOptionMenu "OpenGLOptions"
 	StaticText " "
 	Option "Filmic Tonemap", dpwh_filmictonemap, "OnOff"
 	Option "Cubic Chromatic Aberration", dpwh_chromaticAberration, "OnOff"
-	Option "Film Grain",dpwh_filmgrain, "OnOff"
 	Option "Vignette", dpwh_naturalVignette, "OnOff"
 }

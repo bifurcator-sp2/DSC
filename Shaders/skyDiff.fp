@@ -10,8 +10,6 @@ const float cloudalpha = 8.0;
 const float skytint = 0.5;
 const vec3 skycolour1 = vec3(0.0, 0.0, 0.0);
 const vec3 skycolour2 = vec3(0.0, 0.0, 0.0);
-const vec3 cloudcolour1 = vec3(1.1, 1.1, 0.9);
-const vec3 cloudcolour2 = vec3(1.1, 1.1, 0.9);
 
 const mat2 m = mat2( 1.6,  1.2, -1.2,  1.6 );
 
@@ -53,7 +51,7 @@ float fbm(vec2 n) {
 	for (int i = 0; i < 7; ++i) {
 		total += noise(n) * amplitude;
 		n = m * n;
-		amplitude *= 0.2;
+		amplitude *= 0.4;
 	}
 	return total;
 }
@@ -119,8 +117,7 @@ float fbm(vec2 n) {
     c += c1;
     
     vec3 skycolour = mix(skycolour2, skycolour1, p.y);
-    float clampedCloudColor = clamp((clouddark + cloudlight*c), 0.0, 1.0);
-    vec3 cloudcolour = mix(cloudcolour2,cloudcolour1,clampedCloudColor) * clampedCloudColor;
+    vec3 cloudcolour = vec3(1.1, 1.1, 0.9) * clamp((clouddark + cloudlight*c), 0.0, 1.0);
    
     f = cloudcover + cloudalpha*f*r;
     
