@@ -42,7 +42,19 @@ Class SDPWHScreenEffects : StaticEventHandler
 		{
 			DisableNaturalVignette();
 		}		
+		
+		if (Cvar.GetCVar("dpwh_filmgrain", players).GetInt() > 0)
+		{
+			EnableFilmGrain(e);
+		}
+		else
+		{
+			DisableFilmGrain();
+		}		
 	}	
+
+
+
 
 	ui void DisableLUTshaders(void)
 	{
@@ -52,6 +64,22 @@ Class SDPWHScreenEffects : StaticEventHandler
 		Shader.SetEnabled(players, "TonemapSalvation", false);
 		Shader.SetEnabled(players, "TonemapPlaza", false);
 	}
+
+
+	ui void EnableFilmGrain(RenderEvent e)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetUniform1f(players, "FilmGrain", "timer", gametic + e.FracTic);
+		Shader.SetEnabled(players, "FilmGrain", true);		
+	}
+
+	ui void DisableFilmGrain(void)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetEnabled(players, "FilmGrain", false);		
+	}
+
+
 
 	ui void EnableNaturalVignette(void)
 	{

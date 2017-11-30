@@ -165,6 +165,12 @@ HardwareShader PostProcess scene
 	Shader "Shaders/PostProcessing/NaturalVignette.fp" 330
 }
 
+HardwareShader PostProcess scene
+{
+	Name "FilmGrain"
+	Uniform float timer
+	Shader "Shaders/PostProcessing/FilmGrain.fp" 330
+}
 
 brightmap texture MRBW5
 {
