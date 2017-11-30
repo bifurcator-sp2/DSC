@@ -151,7 +151,7 @@ Script "TimeKillVoiceSec1" (int soundID){
 	}
 	switch (soundID) {
 		case 1:
-		PlaySound (0, "world/DSCACHV2" , 64, 1.0, false, ATTN_NONE);
+		PlaySound (0, "DSCACHV2R" , 64, 1.0, false, ATTN_NONE);
 		break;
 		case 2:
 		PlaySound (0, "world/DSCACHV4" , 64, 1.0, false, ATTN_NONE);

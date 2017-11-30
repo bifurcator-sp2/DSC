@@ -35,7 +35,7 @@ Class DSCarmorBonus : ArmorBonus
 	Default
 	{
 	-INVENTORY.ALWAYSPICKUP;
-	Armor.SaveAmount 5;
+	Armor.SaveAmount 2;
 	}
 }
 
@@ -1446,7 +1446,7 @@ Class DSCprisonedSaint : Actor
 	{
 		SaintHealing();
 		if(pos.z - floorz <32.0) SetZ(floorz+32.0);
-		if(pos.z - floorz >128.0) SetZ(floorz+128.0);
+		if(pos.z - floorz >96.0) SetZ(floorz+96.0);
 		A_Chase("GliphSmall", "Missle");
 		A_PlaySound("puresoul/active", 7, 1.0, true);
 		if(!ChaseStarted){
