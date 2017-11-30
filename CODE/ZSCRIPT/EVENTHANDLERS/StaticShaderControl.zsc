@@ -4,26 +4,24 @@ Class SDPWHScreenEffects : StaticEventHandler
 	{
 		PlayerInfo players = players[consoleplayer];
 		
-		/*
-		if (Cvar.GetCVar("dpwh_filmictonemap", players).GetInt() > 0)
-		{
-			Cvar.GetCvar("gl_tonemap",players).SetInt(0);
-			EnableFilmicToneMap();
-		}
-		else
-		{
-			DisableFilmicToneMap();
-		}
-		*/
 
 		if (Cvar.GetCVar("dpwh_filmictonemap", players).GetInt() > 0){
-			if(Cvar.GetCVar("dsc_scene_lut", players).GetString()=="TonemapArena"){
+			DisableLUTshaders();
+			Shader.SetEnabled(players, "TonemapDefault", true);				
+			if((level.mapName == "DSCMAP03")){
 				DisableLUTshaders();
-				Shader.SetEnabled(players, "TonemapArena", true);			  
-			} else {
-				DisableLUTshaders();
-				Shader.SetEnabled(players, "TonemapDefault", true);			  
+				Shader.SetEnabled(players, "TonemapPlaza", true);			
 			}
+			if((level.mapName == "DSCMAP04")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapArena", true);			
+			}
+			if((level.mapName == "DSCMAP05")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapSalvation", true);			
+			}			
+				
+			
 		} else {DisableLUTshaders();}
 		
 		
@@ -51,6 +49,8 @@ Class SDPWHScreenEffects : StaticEventHandler
 		PlayerInfo players = players[consoleplayer];
 		Shader.SetEnabled(players, "TonemapDefault", false);
 		Shader.SetEnabled(players, "TonemapArena", false);
+		Shader.SetEnabled(players, "TonemapSalvation", false);
+		Shader.SetEnabled(players, "TonemapPlaza", false);
 	}
 
 	ui void EnableNaturalVignette(void)
