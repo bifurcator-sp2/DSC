@@ -93,10 +93,10 @@ vec2 coordRot(in vec2 tc, in float angle)
 
 void main()
 {
-    float grainamount = 0.05;
-    float coloramount = 0.6;
+    float grainamount = 0.03;
+    float coloramount = 0.3;
     float lumamount = 1.0;
-    float grainsize = 1.6;
+    float grainsize = 2.0;
 	vec3 rotOffset = vec3(1.425, 3.892, 5.835); // Rotation offset values
     ivec2 screensize = textureSize(InputTexture, 0);
     AspectRatio = screensize.x / screensize.y;
