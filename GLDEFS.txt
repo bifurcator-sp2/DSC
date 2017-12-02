@@ -82,6 +82,11 @@ HardwareShader Texture BlankSk2
 	Shader "shaders/skyDiff.fp"
 	Speed 1.0
 }
+HardwareShader Texture BlankSk3
+{
+	Shader "shaders/skyDiff2.fp"
+	Speed 1.0
+}
 
 HardwareShader Sprite TFTSA0
 {
@@ -128,6 +133,36 @@ HardwareShader PostProcess scene
 	Texture ColourmapLUT "textures/lut.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
+HardwareShader PostProcess scene
+{
+	Name "TonemapDefault"
+	Texture ColourmapLUT "textures/lut.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapArena"
+	Texture ColourmapLUT "textures/lut_arena.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapSalvation"
+	Texture ColourmapLUT "textures/lut_salvation.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapPlaza"
+	Texture ColourmapLUT "textures/lut_plaza.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapCemetery"
+	Texture ColourmapLUT "textures/lut_Cemetery.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
 
 HardwareShader PostProcess scene
 {
@@ -137,17 +172,16 @@ HardwareShader PostProcess scene
 
 HardwareShader PostProcess scene
 {
-	Name "FilmGrain"
-	Uniform float timer
-	Shader "Shaders/PostProcessing/FilmGrain.fp" 330
-}
-
-HardwareShader PostProcess scene
-{
 	Name "NaturalVignette"
 	Shader "Shaders/PostProcessing/NaturalVignette.fp" 330
 }
 
+HardwareShader PostProcess scene
+{
+	Name "FilmGrain"
+	Uniform float timer
+	Shader "Shaders/PostProcessing/FilmGrain.fp" 330
+}
 
 brightmap texture MRBW5
 {
