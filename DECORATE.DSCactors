@@ -41,3 +41,12 @@ actor DSCtentyacleBounderDEC : DSCtentyacleBounder 22035 { //$Sprite T1NTA0
 actor DSCSeraphimRaiserLightDEC : DSCSeraphimRaiserLight 22036 { //$Sprite HAL1A0
 		//Scale 1.0
 }
+actor DSCwindowGlowDEC : DSCwindowGlow 22037 { //$Sprite LTSRA1
+		//Scale 1.0
+}
+actor DSCskySmokeSpawnerDEC : DSCskySmokeSpawner 22038 { //
+		//Scale 1.0
+}
+actor DSCtitleDEC : DSCtitle 22039 { ////$Sprite DSCTA0
+		//Scale 0.3
+}

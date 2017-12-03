@@ -163,7 +163,12 @@ HardwareShader PostProcess scene
 	Texture ColourmapLUT "textures/lut_Cemetery.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
-
+HardwareShader PostProcess scene
+{
+	Name "TonemapTitlemap"
+	Texture ColourmapLUT "textures/lut_titlemap.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
 HardwareShader PostProcess scene
 {
 	Name "CubicCA"

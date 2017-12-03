@@ -8,6 +8,10 @@ Class SDPWHScreenEffects : StaticEventHandler
 		if (Cvar.GetCVar("dpwh_filmictonemap", players).GetInt() > 0){
 			DisableLUTshaders();
 			Shader.SetEnabled(players, "TonemapDefault", true);		
+			if((level.mapName == "TITLEMAP")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapTitlemap", true);			
+			}				
 			if((level.mapName == "DSCMAP02")){
 				DisableLUTshaders();
 				Shader.SetEnabled(players, "TonemapCemetery", true);			
@@ -68,6 +72,7 @@ Class SDPWHScreenEffects : StaticEventHandler
 		Shader.SetEnabled(players, "TonemapSalvation", false);
 		Shader.SetEnabled(players, "TonemapPlaza", false);
 		Shader.SetEnabled(players, "TonemapCemetery", false);
+		Shader.SetEnabled(players, "TonemapTitlemap", false);
 	}
 
 

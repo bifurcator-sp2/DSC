@@ -919,3 +919,18 @@ Class DSCbloodWave : Actor
 	}
 
 }
+Class DSCwindowGlow : Actor
+{
+	Default
+	{
+		+NOINTERACTION;
+		+FORCEYBILLBOARD
+		Renderstyle "Add";
+	}
+	States
+	{
+		Spawn:
+		 LTSR A 1;
+		Loop;
+	}
+}
