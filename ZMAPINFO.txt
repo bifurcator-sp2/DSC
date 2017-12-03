@@ -7,6 +7,14 @@ episode DSCMAP01 {
 	name = "DoomSlayer Chronicles"
 }
 
+map TITLEMAP "Unholy Ministry"
+{
+next = "DSCMAP01"
+music = "MAINTTL"
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+
 map DSCMAP01 "Atrium 1"
 {
 next = "DSCMAP02"

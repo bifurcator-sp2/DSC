@@ -14,7 +14,7 @@ vec4 rnm(in vec2 tc)
 {
 	// A random texture generator, but you can also use a pre-computed perturbation texture
 	//float noise = sin(dot(tc + timer.xx * 0.5, vec2(12.9898, 78.233))) * 43758.5453;
-	float noise = sin(dot(tc + vec2(timer) * 0.5, vec2(12.9898, 78.233))) * 43758.5453;
+	float noise = sin(dot(vec3(tc.x, tc.y, timer), vec3(12.9898, 78.233,1.0))) * 43758.5453;
 	
 	float noiseR = fract(noise) * 2.0 - 1.0;
 	float noiseG = fract(noise * 1.2154) * 2.0 - 1.0;
