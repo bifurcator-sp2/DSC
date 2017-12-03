@@ -72,10 +72,7 @@ Class SDPWHScreenEffects : StaticEventHandler
 		Shader.SetEnabled(players, "TonemapSalvation", false);
 		Shader.SetEnabled(players, "TonemapPlaza", false);
 		Shader.SetEnabled(players, "TonemapCemetery", false);
-<<<<<<< HEAD
-=======
 		Shader.SetEnabled(players, "TonemapTitlemap", false);
->>>>>>> e913fadb9af5d77092781ae15b8ec9774e359b08
 	}
 
 
