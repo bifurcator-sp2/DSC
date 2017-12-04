@@ -83,34 +83,75 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 	//PrintBold(i:AchiveKillInSEc1);
 
 	if(AchiveDieInSec1>=20 || AchiveKillInSEc1>=20){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
+		ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		if(BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+			GiveActorInventory(0, "d4haste", 1);
+		}
 		Log(s:"Real epic doomslayer tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
 		ACS_NamedExecute("TimeKillVoiceSec1", 0, 6);
 		SaintHealthUpMultipler+=AchiveKillInSEc1;
+		if(BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
 		terminate;
 	}
 	if(AchiveDieInSec1>=15){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
+		ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		if(Random(1, 100)<=40 && BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+		}
+		if(Random(1, 100)<=40 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
 		Log(s:"Tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
 		ACS_NamedExecute("TimeKillVoiceSec1", 0, 5);
 		SaintHealthUpMultipler+=AchiveKillInSEc1;
+		if(BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
 		terminate;
 	}
 	if(AchiveDieInSec1>=10 ){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
+		ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		if(Random(1, 100)<=30 && BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+		}
+		if(Random(1, 100)<=30 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
 		Log(s:"Yeah...Great bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
 		ACS_NamedExecute("TimeKillVoiceSec1", 0, 4);
 		SaintHealthUpMultipler+=AchiveKillInSEc1;
+		if(BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
+		if(Random(1, 100)<=20 && BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+		}
 		terminate;
 	}
+	if(AchiveDieInSec1>=5){
+		if(BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
+	}
+	//D4QuadDamage
 	if(AchiveDieInSec1>3){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
+		ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		if(Random(1, 100)<=20 && BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+		}
+		if(Random(1, 100)<=20 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
+
 		Log(s:"Bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -120,7 +161,13 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 	}
 
 	if(AchiveKillInSEc1==3){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
+		ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		if(Random(1, 100)<=15 && BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+		}
+		if(Random(1, 100)<=15 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
 		Log(s:"Tripple death\n", i:AchiveKillInSEc1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -129,8 +176,11 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 		terminate;
 	}
 	if(AchiveKillInSEc1==2){
-		//ArmorBonusToGive = AchiveKillInSEc1;
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
+		ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		if(Random(1, 100)<=10 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
+
 		Log(s:"Double death\n", i:AchiveKillInSEc1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -142,6 +192,18 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 	AchiveDieInSec1 = 0;
 
 }
+
+
+
+Script "ArmorBonus" (int amount, int multipler){
+	if(multipler<=0){multipler=1;}
+	if(BE()){
+		GiveActorInventory(0, "DSCarmorBonus", amount*multipler*2);
+		terminate;
+	}
+	GiveActorInventory(0, "DSCarmorBonus", amount*multipler);
+}
+
 
 Script "TimeKillVoiceSec1" (int soundID){
 	ACS_NamedExecuteAlways("MuteMusic", 0, 35+15);
@@ -222,10 +284,22 @@ Script "NewMonsterIsSpawned" (int monstersCount)
 	SpawnedMonstersOnTheMap = monstersCount;
 }
 
+function bool BEorvanilla (void){
+	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer") || CheckActorClass(0, "DoomPlayer")){
+		return true;
+	}
+	return false;
+}
+function bool BE (void){
+	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer")){
+		return true;
+	}
+	return false;
+}
 
 function int GetTotalMonsters(void)
 {
-	if (!CheckActorClass(0, "BEDoomer") && !CheckActorClass(0, "BESemiDoomer") && !CheckActorClass(0, "DoomPlayer")){
+	if (!BEorvanilla()){
 		return SpawnedMonstersOnTheMap;
 	}
 	return ThingCount(T_NONE, 666666);
@@ -323,57 +397,57 @@ script "SpawnWeapon" (int WeaponTag)
 	int progression = (currentWave * 100) / maxWaveCount ;
 	//PrintBold(s:"Your progress ", d:progression, s:"%");
 	Thing_Remove(666667);
-	if(progression >= shotGunSpawnProgressInPercent && WeaponGotID<1)
+	if(progression >= shotGunSpawnProgressInPercent )
 	{
-
-		PrintBold(s:"Shotgun spawned");
-		AmmoMaxRnd = 1;
-		WeaponGotID = 1;
-
+		if(WeaponGotID<1){
+			PrintBold(s:"Shotgun spawned");
+			AmmoMaxRnd = 1;
+			WeaponGotID = 1;
+		}
 		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("Shotgun",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
 	}
-	else if (progression >= SSGSpawnProgressInPercent && WeaponGotID<2)
+	else if (progression >= SSGSpawnProgressInPercent)
 	{
-		PrintBold(s:"SuperShotgun spawned");
-		WeaponGotID = 2;
-
+		if(WeaponGotID<2){
+			PrintBold(s:"SuperShotgun spawned");
+			WeaponGotID = 2;
+		}
 		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("SuperShotgun",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
 	}
-	else if (progression >= ChaingunSpawnProgressInPercent && WeaponGotID<3)
+	else if (progression >= ChaingunSpawnProgressInPercent )
 	{
-		PrintBold(s:"Chaingun spawned");
-		WeaponGotID = 3;
-		Thing_Destroy(666667,0,0);
+		if(WeaponGotID<3){
+			PrintBold(s:"Chaingun spawned");
+			WeaponGotID = 3;
+			Thing_Destroy(666667,0,0);
+		}
 		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("Chaingun",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
 	}
-	else if (progression >= RLSpawnProgressInPercent && WeaponGotID<4)
+	else if (progression >= RLSpawnProgressInPercent)
 	{
-		PrintBold(s:"RocketLauncher spawned");
-		WeaponGotID = 4;
-		AmmoMaxRnd = 2;
-
+		if(WeaponGotID<4){
+			PrintBold(s:"RocketLauncher spawned");
+			WeaponGotID = 4;
+			AmmoMaxRnd = 2;
+		}
 		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("RocketLauncher",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
 	}
-	else if (progression >= PlasmaGunSpawnProgressInPercent && WeaponGotID<5)
+	else if (progression >= PlasmaGunSpawnProgressInPercent )
 	{
-		PrintBold(s:"PlasmaRifle spawned");
-		WeaponGotID = 5;
-		AmmoMaxRnd = 3;
-
+		if(WeaponGotID<5){
+			PrintBold(s:"PlasmaRifle spawned");
+			WeaponGotID = 5;
+			AmmoMaxRnd = 3;
+		}
 		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("PlasmaRifle",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
 	}
-	else if (progression >= BFG9000SpawnProgressInPercent && WeaponGotID<6)
+	else if (progression >= BFG9000SpawnProgressInPercent)
 	{
-		PrintBold(s:"BFG9000 spawned");
-		WeaponGotID = 6;
-
+		if(WeaponGotID<6){
+			PrintBold(s:"BFG9000 spawned");
+			WeaponGotID = 6;
+		}
 		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("BFG9000",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
 	}
 }
 

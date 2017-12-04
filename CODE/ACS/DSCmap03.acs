@@ -134,7 +134,7 @@ SCRIPT "StartControl" ENTER
 		Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
 		Delay(35);
 	}
-
+	GiveInventory("map03done", 1);
 	TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 	Atrium1Active = true;
 	Exit_Normal(0);

@@ -1050,7 +1050,39 @@ Class DSCHellKnight : HellKnight
 		Goto See;
 	}
 }
+Class DSCportalToMap : CustomInventory
+{
+	int Time;
+	int Xoffset;
+	int Yoffset;
+	int Zoffset;
+	double Xvel;
+	double Yvel;
+	double Zvel;
+	
+	Default
+	{
+	Radius 32;
+	+INVENTORY.ALWAYSPICKUP;
+	Inventory.PickUpSound "misc/scullpickup";
+	+NOGRAVITY;
+	-SOLID;
+	}
+	Override void PostBeginPlay()
+	{
+		Time = 30;
+		Super.PostBeginPlay();
+	}
 
+	States
+	{
+	 Spawn:
+		TNT1 A 1 A_SpawnItemEx("DSCportalParticle", random(-8, 8), random(-8, 8), random(0, 8), Frandom(-2, 2), Frandom(-2, 2), Frandom(2, 8),0,SXF_NOCHECKPOSITION);
+		Loop;
+	}
+
+
+}
 Class DSCportal : Actor
 {
 	int Time;
@@ -1063,6 +1095,7 @@ Class DSCportal : Actor
 
 	Default
 	{
+		
 		+NoInteraction;
 	}
 	Override void PostBeginPlay()
@@ -1159,7 +1192,7 @@ Class DSCportalParticleTracer : Actor
 		Halt:
 			"####" "A" 1 BRIGHT
 			{
-				A_FadeOut(0.05);
+				A_FadeOut(0.08);
 			}
 			LOOP;
 		Death:
@@ -1978,3 +2011,8 @@ Class DSCtitle : SwitchableDecoration
 			Loop;
 	}
 }
+
+Class map02done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF; } }
+Class map03done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF;} }
+Class map04done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF; } }
+Class map05done : Inventory {  Default { Inventory.MaxAmount 0x7FFFFFFF; } }

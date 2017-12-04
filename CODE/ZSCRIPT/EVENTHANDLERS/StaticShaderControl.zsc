@@ -4,13 +4,21 @@ Class SDPWHScreenEffects : StaticEventHandler
 	{
 		PlayerInfo players = players[consoleplayer];
 		
-
+		if((level.mapName == "TITLEMAP")){
+			Shader.SetEnabled(players, "TiltShiftPass1", true);
+			Shader.SetEnabled(players, "TiltShiftPass2", true);
+			Shader.SetEnabled(players, "TiltShiftPass3", true);
+		} else {
+			Shader.SetEnabled(players, "TiltShiftPass1", false);
+			Shader.SetEnabled(players, "TiltShiftPass2", false);
+			Shader.SetEnabled(players, "TiltShiftPass3", false);		
+		}
 		if (Cvar.GetCVar("dpwh_filmictonemap", players).GetInt() > 0){
 			DisableLUTshaders();
 			Shader.SetEnabled(players, "TonemapDefault", true);		
 			if((level.mapName == "TITLEMAP")){
 				DisableLUTshaders();
-				Shader.SetEnabled(players, "TonemapTitlemap", true);			
+				Shader.SetEnabled(players, "TonemapTitlemap", true);	
 			}				
 			if((level.mapName == "DSCMAP02")){
 				DisableLUTshaders();
