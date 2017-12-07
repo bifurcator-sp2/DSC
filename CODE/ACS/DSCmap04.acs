@@ -1,5 +1,6 @@
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
 
 bool ArenaFloorActive = true;
 bool ArenaLiftsActive = true;
@@ -10,14 +11,14 @@ SCRIPT "StartLevel" ENTER
 {
 //NOspawn = true;
 //TEST!
+
+
 /*
-
-
 CurrentWave = 35;
 AmmoMaxRnd = 3;
 WeaponGotID = 4;
-
 */
+
 //TEST!
 
 }
@@ -72,7 +73,7 @@ SCRIPT "StartControl" ENTER
 
 	ACS_NamedExecuteAlways("Mus_M2", 0);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 8, 100402);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
+	//ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
 
 	Delay(35*5);
 	Door_Raise(9, 8, -1);
@@ -205,7 +206,7 @@ script "TribuneCount" (void){
 
 script "CloseDoorToArena" (void){
 
-	ACS_NamedExecuteAlways("Mus_G1", 0);
+	ACS_NamedExecuteAlways("Mus_G3", 0);
 	delay(5);
 	IgnoreWaveMusicChange = true;
 	Ceiling_LowerByValue(10, 500, 120);

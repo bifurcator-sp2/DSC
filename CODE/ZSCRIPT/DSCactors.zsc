@@ -38,7 +38,14 @@ Class DSCarmorBonus : ArmorBonus
 	Armor.SaveAmount 2;
 	}
 }
-
+Class DSChealthBonus : Health
+{
+	Default
+	{
+	-INVENTORY.ALWAYSPICKUP;
+	Inventory.Amount 1;
+	}
+}
 Class AIDSpawner : Actor
 {
 	int giveHealthCount;
@@ -677,7 +684,7 @@ Class GiveWeaponSparckle : Actor
 	Scale 0.15;
 	RenderStyle "Add";
 	+NoInteraction;
-	+FORCEXYBILLBOARD;
+	+FORCEYBILLBOARD;
 	YScale  2;
 
 	}
@@ -1050,15 +1057,9 @@ Class DSCHellKnight : HellKnight
 		Goto See;
 	}
 }
+/*
 Class DSCportalToMap : CustomInventory
 {
-	int Time;
-	int Xoffset;
-	int Yoffset;
-	int Zoffset;
-	double Xvel;
-	double Yvel;
-	double Zvel;
 	
 	Default
 	{
@@ -1068,21 +1069,58 @@ Class DSCportalToMap : CustomInventory
 	+NOGRAVITY;
 	-SOLID;
 	}
-	Override void PostBeginPlay()
-	{
-		Time = 30;
-		Super.PostBeginPlay();
-	}
 
+	Action void A_SpawnItemIn()
+	{
+		int Time = 30;
+		int Xoffset = random(-64, 64);
+		int Yoffset = random(-64, 64);
+		int Zoffset = random(64, 128);
+		double Xvel = -Xoffset/Time;
+		double Yvel = -Yoffset/Time;
+		double Zvel = -Zoffset/Time;
+		A_SpawnItemEx("DSCportalParticle", Xoffset, Yoffset, Zoffset, Xvel, Yvel, Zvel,0,SXF_NOCHECKPOSITION);
+	}
 	States
 	{
 	 Spawn:
-		TNT1 A 1 A_SpawnItemEx("DSCportalParticle", random(-8, 8), random(-8, 8), random(0, 8), Frandom(-2, 2), Frandom(-2, 2), Frandom(2, 8),0,SXF_NOCHECKPOSITION);
+		TNT1 A 1 A_SpawnItemIn(); //A_SpawnItemEx("DSCportalParticle", random(-8, 8), random(-8, 8), random(0, 8), Frandom(-2, 2), Frandom(-2, 2), Frandom(2, 8),0,SXF_NOCHECKPOSITION);
 		Loop;
 	}
 
 
 }
+*/
+Class DSCportalToMap : CustomInventory
+{
+	
+	Default
+	{
+	Radius 32;
+	+INVENTORY.ALWAYSPICKUP;
+	Inventory.PickUpSound "misc/scullpickup";
+	+NOGRAVITY;
+	-SOLID;
+	}
+
+	States
+	{
+	 Spawn:
+		TNT1 A 3 Light("FlickerYel64")
+			{
+
+			A_SpawnItemEx("MorFlare", random(-16, 16), random(-16, 16), random(0, 16), 0, 0, frandom(0.5,1),0,SXF_NOCHECKPOSITION, 32, 0);
+			A_SpawnItemEx("GiveAMMOsparckle", random(-4, 4), random(-4, 4), random(32, 40), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION, 0, 0);
+			A_SpawnItemEx("HellRingFlare", 0, 0, random(0, 16), 0, 0, frandom(0.5,2),0,SXF_NOCHECKPOSITION, 32, 0);
+			A_SpawnItemEx("GiveWeaponSparckle", random(-8, 8), random(-8, 8), random(0, 16), 0, 0, frandom(2,4),200,SXF_NOCHECKPOSITION);
+			}
+		Loop;
+	}
+
+
+}
+
+
 Class DSCportal : Actor
 {
 	int Time;
