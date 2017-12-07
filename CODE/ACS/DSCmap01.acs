@@ -28,11 +28,14 @@ SCRIPT "StartControl" ENTER
 
 	if(CheckInventory("map02done")>0){
 		Door10Locked = false;
+		Thing_Activate(107);
 	}
 	if(CheckInventory("map03done")>0){
 		Door11Locked = false;
+		Thing_Activate(108);
 	}
 	if(CheckInventory("map04done")>0){
+		Thing_Activate(109);
 		Door12Locked = false;
 	}
 	if(CheckInventory("map05done")>0){
