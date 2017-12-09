@@ -16,11 +16,15 @@ global int 7:DSCplayerRank;
 #define BFG9000SpawnProgressInPercent 80
 
 #define maxWaveCount 40
+bool isBE = false;
 Bool NextWaveReady = false;
 Bool WaveOnline = false;
 Bool IgnoreWaveMusicChange = false;
 int SpawnedMonstersOnTheMap = 0;
+
+
 bool NOspawn = false; //dev staff
+
 
 int SaintHealthUpMultipler = 0; //current health up for Zscript for DSCprisonedSaint
 int SaintHealthUpBaseAmount = 10;//basic value for SaintHealthUp DSCprisonedSaint
@@ -64,15 +68,16 @@ function bool BEorvanilla (void){
 	return false;
 }
 function bool BE (void){
-	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer")){
+	if (isBE){
 		return true;
 	}
 	return false;
 }
 Script "BE" (void)
 {
-	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer")){
+	if (isBE){
 		SetResultValue(true);
+		terminate;
 	}
 	SetResultValue(false);
 }
@@ -93,7 +98,9 @@ function int GetTotalMonsters(void)
 
 Script "DisplayInfo" ENTER
 {
-	//ACS_NamedExecute("KillAchivesStarter", 0);
+	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer")){
+		isBE = true;
+	} else { isBE = false; }
 
 	while (TRUE) {
 		int mtotal = GetTotalMonsters();
