@@ -15,7 +15,7 @@ FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }
 
-map DSCMAP01 "Atrium 1"
+map DSCMAP01 "Atrium"
 {
 next = "DSCMAP02"
 InterMusic = MT
@@ -68,6 +68,18 @@ next = "DSCMAP01"
 music = "SALVAT"
 InterMusic = MT
 ExitPic = "ATRIUM1"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+
+
+map DSCMAP06 "Unholy Ministry"
+{
+next = "DSCMAP07"
+InterMusic = MT
+music = "ATRIUM"
+EnterPic = "ATRIUM1"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
