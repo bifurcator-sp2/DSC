@@ -42,6 +42,7 @@ SCRIPT "StartControl" ENTER
 		int progression = (currentWave * 100) / maxWaveCount ;
 		if(progression>150){
 			SpawnSpotFacingForced("DSCportalToMap", 200, 201);
+			SetThingSpecial(201, ACS_NamedExecute, "GotoMinistry");
 			Thing_Activate(110);
 		} else {
 			Thing_Activate(111);
@@ -124,6 +125,10 @@ script "GotoArena" (void){
 script "GotoSalvation" (void){
 	delay(15);
 	ChangeLevel ("DSCMAP05", 0, CHANGELEVEL_NOINTERMISSION);
+}
+script "GotoMinistry" (void){
+	delay(15);
+	ChangeLevel ("DSCMAP06", 0, CHANGELEVEL_NOINTERMISSION);
 }
 
 

@@ -1,0 +1,14 @@
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+
+
+script "StartControl" ENTER
+{
+	//Thing_Activate(1);
+
+	Thing_Deactivate(100);
+	Thing_Activate(200);
+
+}
+
