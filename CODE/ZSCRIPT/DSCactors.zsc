@@ -100,8 +100,12 @@ Class AIDSpawner : Actor
 		else
 		{
 			giveHealthCount -= A_RadiusGive("AIDHealth", 64.0, RGF_PLAYERS);
+			
 			if (giveHealthCount <= 0)
 			{
+				if(CallACS("BE")){
+					A_RadiusGive("DSCarmorBonus", 64.0, RGF_PLAYERS, 5);
+				}
 				A_PlaySound("PickupHealth", CHAN_BODY, 1.0, 0, ATTN_NONE);
 				alreadyHealed = true;
 				SpawnBurstAidi();
@@ -236,7 +240,7 @@ Class AMMOspawner : Actor
 
 	Override void PostBeginPlay()
 	{
-		timerWaitForAgainGiveAmmo= 35*20;
+		timerWaitForAgainGiveAmmo= 35*30;
 		clockForAmmo = 0;
 		AMMOgived = false;
 

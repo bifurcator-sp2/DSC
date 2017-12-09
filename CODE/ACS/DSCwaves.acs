@@ -69,6 +69,13 @@ function bool BE (void){
 	}
 	return false;
 }
+Script "BE" (void)
+{
+	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer")){
+		SetResultValue(true);
+	}
+	SetResultValue(false);
+}
 
 function int GetTotalMonsters(void)
 {
@@ -173,58 +180,52 @@ script "SpawnWeapon" (int WeaponTag)
 	int progression = (currentWave * 100) / maxWaveCount ;
 	//PrintBold(s:"Your progress ", d:progression, s:"%");
 	Thing_Remove(666667);
-	if(progression >= shotGunSpawnProgressInPercent )
+	if(progression >= shotGunSpawnProgressInPercent && WeaponGotID<1)
 	{
-		if(WeaponGotID<1){
-			PrintBold(s:"Shotgun spawned");
-			AmmoMaxRnd = 1;
-			WeaponGotID = 1;
-		}
-		Thing_Activate(WeaponTag);
+		PrintBold(s:"Shotgun spawned");
+		AmmoMaxRnd = 1;
+		WeaponGotID = 1;
+
+		//Thing_Activate(WeaponTag);
 	}
-	else if (progression >= SSGSpawnProgressInPercent)
+	else if (progression >= SSGSpawnProgressInPercent && WeaponGotID<2)
 	{
-		if(WeaponGotID<2){
-			PrintBold(s:"SuperShotgun spawned");
-			WeaponGotID = 2;
-		}
-		Thing_Activate(WeaponTag);
+		PrintBold(s:"SuperShotgun spawned");
+		WeaponGotID = 2;
+
+		//Thing_Activate(WeaponTag);
 	}
-	else if (progression >= ChaingunSpawnProgressInPercent )
+	else if (progression >= ChaingunSpawnProgressInPercent && WeaponGotID<3)
 	{
-		if(WeaponGotID<3){
-			PrintBold(s:"Chaingun spawned");
-			WeaponGotID = 3;
-			Thing_Destroy(666667,0,0);
-		}
-		Thing_Activate(WeaponTag);
+		PrintBold(s:"Chaingun spawned");
+		WeaponGotID = 3;
+		Thing_Destroy(666667,0,0);
+		//Thing_Activate(WeaponTag);
 	}
-	else if (progression >= RLSpawnProgressInPercent)
+	else if (progression >= RLSpawnProgressInPercent && WeaponGotID<4)
 	{
-		if(WeaponGotID<4){
-			PrintBold(s:"RocketLauncher spawned");
-			WeaponGotID = 4;
-			AmmoMaxRnd = 2;
-		}
-		Thing_Activate(WeaponTag);
+		PrintBold(s:"RocketLauncher spawned");
+		WeaponGotID = 4;
+		AmmoMaxRnd = 2;
+
+		//Thing_Activate(WeaponTag);
 	}
-	else if (progression >= PlasmaGunSpawnProgressInPercent )
+	else if (progression >= PlasmaGunSpawnProgressInPercent && WeaponGotID<5)
 	{
-		if(WeaponGotID<5){
-			PrintBold(s:"PlasmaRifle spawned");
-			WeaponGotID = 5;
-			AmmoMaxRnd = 3;
-		}
-		Thing_Activate(WeaponTag);
+		PrintBold(s:"PlasmaRifle spawned");
+		WeaponGotID = 5;
+		AmmoMaxRnd = 3;
+
+		//Thing_Activate(WeaponTag);
 	}
-	else if (progression >= BFG9000SpawnProgressInPercent)
+	else if (progression >= BFG9000SpawnProgressInPercent && WeaponGotID<6)
 	{
-		if(WeaponGotID<6){
-			PrintBold(s:"BFG9000 spawned");
-			WeaponGotID = 6;
-		}
-		Thing_Activate(WeaponTag);
+		PrintBold(s:"BFG9000 spawned");
+		WeaponGotID = 6;
+
+		//Thing_Activate(WeaponTag);
 	}
+	Thing_Activate(WeaponTag);
 }
 
 

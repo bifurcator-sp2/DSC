@@ -299,7 +299,7 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 			GiveActorInventory(0, "d4haste", 1);
 		}
 	}
-	//D4QuadDamage
+
 	if(AchiveDieInSec1>3){
 		ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
 		if(Random(1, 100)<=20 && BE()){
