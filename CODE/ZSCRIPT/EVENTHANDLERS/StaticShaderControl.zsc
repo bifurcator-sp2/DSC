@@ -19,7 +19,11 @@ Class SDPWHScreenEffects : StaticEventHandler
 			if((level.mapName == "TITLEMAP")){
 				DisableLUTshaders();
 				Shader.SetEnabled(players, "TonemapTitlemap", true);	
-			}				
+			}	
+			if((level.mapName == "DSCMAP01")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapCemetery", true);			
+			}			
 			if((level.mapName == "DSCMAP02")){
 				DisableLUTshaders();
 				Shader.SetEnabled(players, "TonemapCemetery", true);			

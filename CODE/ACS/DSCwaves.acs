@@ -7,6 +7,7 @@ global int 4:TotalKills;
 global BOOL 5:Atrium1Active;
 global int 6:MonsterCountMethod;
 global int 7:DSCplayerRank;
+global str 8:DSCplayerAbilities;
 
 #define shotGunSpawnProgressInPercent 3
 #define SSGSpawnProgressInPercent 15
@@ -84,9 +85,7 @@ Script "BE" (void)
 
 function int GetTotalMonsters(void)
 {
-	if(getRank()>DSCplayerRank){
-		ACS_NamedExecuteAlways("DisplayNextRank", 0);
-	}
+
 	if (!BEorvanilla()){
 		return SpawnedMonstersOnTheMap;
 	}
@@ -104,12 +103,17 @@ Script "DisplayInfo" ENTER
 
 	while (TRUE) {
 		int mtotal = GetTotalMonsters();
+		int progress = (currentWave * 100) / maxWaveCount;
+
+		SetFont("SMALLFONT");
 
 		HudMessage(
-		s:"\n", d:mtotal, s:" Monsters",
-		s:"\n", d:(currentWave * 100) / maxWaveCount,s:" %", s:" Progress",
-		s:"\n", d:TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS), s:" Kills total";
-		HUDMSG_PLAIN,20,CR_RED,1.0,0.3,1,0);
+		d:mtotal, s:" demons on map";
+		HUDMSG_PLAIN,779,CR_DARKBROWN,0.2,0.039,1,0);
+
+		HudMessage(
+		d:progress, s:"%", s:" progress";
+		HUDMSG_PLAIN,780,CR_DARKBROWN,0.8,0.039,1,0);
 		Delay(35);
 	}
 }
@@ -156,9 +160,14 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 
 			ACS_NamedExecute("SpawnWeapon", 0, WeaponTag);
 
-
+			if(getRank()>DSCplayerRank){
+				Delay(35*1);
+				ACS_NamedExecuteAlways("DisplayNextRank", 0);
+				Delay(35*2);
+			}
 			if(!NOspawn){//debug thing
-			Delay(35*3);
+
+				Delay(35*3);
 			}
 			ACS_NamedExecuteAlways("RestoreMusic", 0);
 

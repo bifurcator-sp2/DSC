@@ -50,8 +50,72 @@ Class DSChealthBonus : Health
 {
 	Default
 	{
-	-INVENTORY.ALWAYSPICKUP;
-	Inventory.Amount 1;
+		-INVENTORY.ALWAYSPICKUP;
+		Inventory.Amount 1;
+		Inventory.MaxAmount 200;
+	}
+}
+Class DSChealthBonus220 : Health
+{
+	Default
+	{
+		-INVENTORY.ALWAYSPICKUP;
+		Inventory.Amount 1;
+		Inventory.MaxAmount 220;
+	}
+}
+Class DSChealthBonus250 : Health
+{
+	Default
+	{
+		-INVENTORY.ALWAYSPICKUP;
+		Inventory.Amount 1;
+		Inventory.MaxAmount 250;
+	}
+}
+Class DSChealthBonus270 : Health
+{
+	Default
+	{
+		-INVENTORY.ALWAYSPICKUP;
+		Inventory.Amount 1;
+		Inventory.MaxAmount 270;
+	}
+}
+Class DSChealthBonus300 : Health
+{
+	Default
+	{
+		-INVENTORY.ALWAYSPICKUP;
+		Inventory.Amount 1;
+		Inventory.MaxAmount 300;
+	}
+}
+Class DSChealthBonus330 : Health
+{
+	Default
+	{
+		-INVENTORY.ALWAYSPICKUP;
+		Inventory.Amount 1;
+		Inventory.MaxAmount 330;
+	}
+}
+Class DSChealthBonus370 : Health
+{
+	Default
+	{
+		-INVENTORY.ALWAYSPICKUP;
+		Inventory.Amount 1;
+		Inventory.MaxAmount 370;
+	}
+}
+Class DSChealthBonus400 : Health
+{
+	Default
+	{
+		-INVENTORY.ALWAYSPICKUP;
+		Inventory.Amount 1;
+		Inventory.MaxAmount 400;
 	}
 }
 Class AIDSpawner : Actor
