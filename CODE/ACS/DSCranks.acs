@@ -224,7 +224,7 @@ function str getRankString (int rank){
 
 script "FadePlayerScreen" ENTER {
 	delay(5);
-	ACS_NamedExecute("DisplayNextRank", 0);
+	//ACS_NamedExecute("DisplayNextRank", 0);
 	while(1){
 		if(DSCscreenFade>0){
 			FadeTo (0, 0, 0, 0.5, 1.0);
@@ -267,7 +267,7 @@ Script "DisplayRankInfo" ENTER
 script "DisplayNextRank" (void){
 	int NewRank = getRank();
 	delay(1);
-	DSCscreenFade = 35*10;
+	DSCscreenFade = 35*5;
 	for(int i = 0; i<=9; i++){
 		SoundVolume (0, i, 0.0);
 	}
@@ -276,14 +276,14 @@ script "DisplayNextRank" (void){
 	if(DSCplayerRank !=NewRank){
 		DSCplayerRank = getRank();
 		HudMessageBold(s:"You gained ", s:getRankString(0), s:" rank" ;
-			HUDMSG_PLAIN, 0, CR_RED, 0.5, 0.3, 10.0);
+			HUDMSG_PLAIN, 0, CR_RED, 0.5, 0.3, 5.0);
 	} else {
 		HudMessageBold(s:"Current rank is: ", s:getRankString(0);
-			HUDMSG_PLAIN, 0, CR_RED, 0.5, 0.3, 10.0);
+			HUDMSG_PLAIN, 0, CR_RED, 0.5, 0.3, 5.0);
 	}
 	SetFont("SMALLFONT");
 	HudMessageBold(s:"Abilities:\n", s:DSCplayerAbilities;
-		HUDMSG_PLAIN, 0, CR_CREAM, 0.5, 0.4, 10.0);
+		HUDMSG_PLAIN, 0, CR_CREAM, 0.5, 0.4, 5.0);
 
 
 	for( i = 0; i<=9; i++){

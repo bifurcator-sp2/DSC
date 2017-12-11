@@ -202,21 +202,21 @@ script "SpawnWeapon" (int WeaponTag)
 		AmmoMaxRnd = 1;
 		WeaponGotID = 1;
 
-		//Thing_Activate(WeaponTag);
+		Thing_Activate(WeaponTag);
 	}
 	else if (progression >= SSGSpawnProgressInPercent && WeaponGotID<2)
 	{
 		PrintBold(s:"SuperShotgun spawned");
 		WeaponGotID = 2;
 
-		//Thing_Activate(WeaponTag);
+		Thing_Activate(WeaponTag);
 	}
 	else if (progression >= ChaingunSpawnProgressInPercent && WeaponGotID<3)
 	{
 		PrintBold(s:"Chaingun spawned");
 		WeaponGotID = 3;
 		Thing_Destroy(666667,0,0);
-		//Thing_Activate(WeaponTag);
+		Thing_Activate(WeaponTag);
 	}
 	else if (progression >= RLSpawnProgressInPercent && WeaponGotID<4)
 	{
@@ -224,7 +224,7 @@ script "SpawnWeapon" (int WeaponTag)
 		WeaponGotID = 4;
 		AmmoMaxRnd = 2;
 
-		//Thing_Activate(WeaponTag);
+		Thing_Activate(WeaponTag);
 	}
 	else if (progression >= PlasmaGunSpawnProgressInPercent && WeaponGotID<5)
 	{
@@ -232,16 +232,16 @@ script "SpawnWeapon" (int WeaponTag)
 		WeaponGotID = 5;
 		AmmoMaxRnd = 3;
 
-		//Thing_Activate(WeaponTag);
+		Thing_Activate(WeaponTag);
 	}
 	else if (progression >= BFG9000SpawnProgressInPercent && WeaponGotID<6)
 	{
 		PrintBold(s:"BFG9000 spawned");
 		WeaponGotID = 6;
 
-		//Thing_Activate(WeaponTag);
+		Thing_Activate(WeaponTag);
 	}
-	Thing_Activate(WeaponTag);
+	//Thing_Activate(WeaponTag);
 }
 
 

@@ -23,18 +23,22 @@ WeaponGotID = 4;
 
 }
 
-
-
-SCRIPT "StartFirstWave" (void){
-	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 5, 100400);
-	ACS_NamedExecuteAlways("Mus_L1", 0);
-
+SCRIPT "SpawnFirstScull" (void){
+		SpawnSpotFacingForced("WaveScullDEC", 5, 100600);
+		SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
 }
+
+
 
 SCRIPT "StartControl" ENTER
 {
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
 
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 5, 100400);
+	ACS_NamedExecuteAlways("Mus_L1", 0);
 
 	while(!NextWaveReady){
 		delay(1);
