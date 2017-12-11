@@ -47,11 +47,6 @@ SCRIPT "StartControl" ENTER
 	ACS_NamedExecuteAlways("Mus_L1", 0);
 
 
-	while(!NextWaveReady){
-		delay(1);
-	}
-	NextWaveReady = false;
-	ACS_NamedExecuteAlways("StartFirstWave", 0);
 
 	while(!NextWaveReady){
 		delay(1);
