@@ -87,7 +87,7 @@ SCRIPT "StartControl" ENTER
 
 	Delay(35);
 	ACS_NamedExecuteAlways("OpenSecondZone", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 100509, 100403); //notag
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 4, 100403); //notag
 
 	while(!NextWaveReady){
 		delay(1);

@@ -219,6 +219,7 @@ Class WaveScull : CustomInventory
 	{
 	+INVENTORY.ALWAYSPICKUP;
 	Inventory.PickUpSound "misc/scullpickup";
+	Inventory.pickupmessage "You got a mystic scull";
 	Scale 0.1;
 	+NOGRAVITY;
 	+DONTSPLASH;

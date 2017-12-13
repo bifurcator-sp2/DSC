@@ -243,7 +243,7 @@ ACTOR BIF_HellFlash_generator 15029{
 ACTOR BIF_Sceleton_random 15070
 {
 	+FORCEXYBILLBOARD
-	SCALE 0.15
+	SCALE 0.10
 	States
 	{
 		Spawn:

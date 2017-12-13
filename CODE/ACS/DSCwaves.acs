@@ -22,7 +22,9 @@ Bool NextWaveReady = false;
 Bool WaveOnline = false;
 Bool IgnoreWaveMusicChange = false;
 int SpawnedMonstersOnTheMap = 0;
-
+int DSCscreenFade = 0;//for DSCranks
+bool waitForWeaponSpawnedMassage = false;
+bool waitForScullSpawnedMassage = false;
 
 bool NOspawn = false; //dev staff
 
@@ -195,58 +197,73 @@ script "SpawnWeapon" (int WeaponTag)
 	if(!WeaponTag){WeaponTag = 100400; }
 	int progression = (currentWave * 100) / maxWaveCount ;
 	//PrintBold(s:"Your progress ", d:progression, s:"%");
+	delay(35*2);
+	while(DSCscreenFade>0){
+		delay(1);
+	}
 	Thing_Remove(666667);
 	if(progression >= shotGunSpawnProgressInPercent && WeaponGotID<1)
 	{
-		PrintBold(s:"Shotgun spawned");
+
 		AmmoMaxRnd = 1;
 		WeaponGotID = 1;
+		PrintBold(s:"Shotgun spawned");
 
-		Thing_Activate(WeaponTag);
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= SSGSpawnProgressInPercent && WeaponGotID<2)
 	{
-		PrintBold(s:"SuperShotgun spawned");
-		WeaponGotID = 2;
 
-		Thing_Activate(WeaponTag);
+		WeaponGotID = 2;
+		PrintBold(s:"SuperShotgun spawned");
+
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= ChaingunSpawnProgressInPercent && WeaponGotID<3)
 	{
-		PrintBold(s:"Chaingun spawned");
+
 		WeaponGotID = 3;
 		Thing_Destroy(666667,0,0);
-		Thing_Activate(WeaponTag);
+		PrintBold(s:"Chaingun spawned");
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= RLSpawnProgressInPercent && WeaponGotID<4)
 	{
-		PrintBold(s:"RocketLauncher spawned");
+
 		WeaponGotID = 4;
 		AmmoMaxRnd = 2;
+		PrintBold(s:"RocketLauncher spawned");
 
-		Thing_Activate(WeaponTag);
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= PlasmaGunSpawnProgressInPercent && WeaponGotID<5)
 	{
-		PrintBold(s:"PlasmaRifle spawned");
+
 		WeaponGotID = 5;
 		AmmoMaxRnd = 3;
+		PrintBold(s:"PlasmaRifle spawned");
 
-		Thing_Activate(WeaponTag);
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= BFG9000SpawnProgressInPercent && WeaponGotID<6)
 	{
-		PrintBold(s:"BFG9000 spawned");
-		WeaponGotID = 6;
 
+		WeaponGotID = 6;
+		PrintBold(s:"BFG9000 spawned");
+		//Thing_Activate(WeaponTag);
+	}
+	if(WeaponGotID>=1){
 		Thing_Activate(WeaponTag);
 	}
-	//Thing_Activate(WeaponTag);
 }
 
 
 Script "ScullHasCome" (void){
-	PrintBold(s:"Mistic Scull has arrived.\nPick it up for continiue.");
+	while(DSCscreenFade>0){
+		delay(1);
+	}
+	delay(35*3);//to not intersect with weapon spawn message
+	PrintBold(s:"Mystic Scull has arrived.\nPick it up for continiue.");
 }
 
 
