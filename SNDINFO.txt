@@ -86,7 +86,7 @@ misc/itemspawn ITEMSPAW
 misc/scullpickup SCULLPIC
 misc/scullspawn SCLSPWN
 
-
+misc/dscranks DSCRANKS
 
 Ambient/DSCtorch DSCTRCH
 Ambient/DSCtorch2 DSCTRCH2
@@ -100,6 +100,11 @@ world/DSCCH2_2 DSCCH2_2
 
 
 world/RACHIVE RNKUP3
+
+$random WAVEDONE { world/WAVEDONE }
+world/WAVEDONE WAVEDONE
+
+
 
 
 world/DSCACHV1 DSCACHV1

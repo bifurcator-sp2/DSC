@@ -1,0 +1,3 @@
+addmenukey "DSC Rank menu" dscRankMenu
+alias dscRankMenu"pukename DisplayNextRank"
+defaultbind I dscRankMenu

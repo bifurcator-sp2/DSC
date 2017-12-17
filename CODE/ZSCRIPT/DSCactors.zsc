@@ -26,7 +26,7 @@ Class AIDHealth : HealthBonus
 	Default
 	{
 	-INVENTORY.ALWAYSPICKUP;
-	Inventory.Amount 25;
+	Inventory.Amount 1;
 	Inventory.MaxAmount 100;
 	}
 }
@@ -46,69 +46,8 @@ Class DSCarmorBonus5 : ArmorBonus
 	Armor.SaveAmount 5;
 	}
 }
-Class DSChealthBonus : Health
-{
-	Default
-	{
-		-INVENTORY.ALWAYSPICKUP;
-		Inventory.Amount 1;
-		Inventory.MaxAmount 200;
-	}
-}
-Class DSChealthBonus220 : Health
-{
-	Default
-	{
-		-INVENTORY.ALWAYSPICKUP;
-		Inventory.Amount 1;
-		Inventory.MaxAmount 220;
-	}
-}
-Class DSChealthBonus250 : Health
-{
-	Default
-	{
-		-INVENTORY.ALWAYSPICKUP;
-		Inventory.Amount 1;
-		Inventory.MaxAmount 250;
-	}
-}
-Class DSChealthBonus270 : Health
-{
-	Default
-	{
-		-INVENTORY.ALWAYSPICKUP;
-		Inventory.Amount 1;
-		Inventory.MaxAmount 270;
-	}
-}
-Class DSChealthBonus300 : Health
-{
-	Default
-	{
-		-INVENTORY.ALWAYSPICKUP;
-		Inventory.Amount 1;
-		Inventory.MaxAmount 300;
-	}
-}
-Class DSChealthBonus330 : Health
-{
-	Default
-	{
-		-INVENTORY.ALWAYSPICKUP;
-		Inventory.Amount 1;
-		Inventory.MaxAmount 330;
-	}
-}
-Class DSChealthBonus370 : Health
-{
-	Default
-	{
-		-INVENTORY.ALWAYSPICKUP;
-		Inventory.Amount 1;
-		Inventory.MaxAmount 370;
-	}
-}
+
+
 Class DSChealthBonus400 : Health
 {
 	Default
@@ -138,7 +77,7 @@ Class AIDSpawner : Actor
 	{
 		giveHealthCount = 1;
 		timerCount = 0;
-		timerWaitForAgainHealingInSec = 35*30;
+		timerWaitForAgainHealingInSec = 35*CallACS("GetAIDhealthRecallTime",0,0,0);
 		alreadyHealed = false;
 		Super.PostBeginPlay();
 	}
@@ -171,11 +110,11 @@ Class AIDSpawner : Actor
 		}
 		else
 		{
-			giveHealthCount -= A_RadiusGive("AIDHealth", 64.0, RGF_PLAYERS);
-	
+
+			giveHealthCount -= A_RadiusGive("AIDHealth", 64.0, RGF_PLAYERS, CallACS("GetAIDhealthAmount",0,0,0));
 			if (giveHealthCount <= 0)
 			{
-			
+
 				if(CallACS("BE",0,0,0,0)){
 					//A_printBold("ok");
 					A_RadiusGive("DSCarmorBonus5", 64.0, RGF_PLAYERS, 5);
@@ -315,7 +254,7 @@ Class AMMOspawner : Actor
 
 	Override void PostBeginPlay()
 	{
-		timerWaitForAgainGiveAmmo= 35*30;
+		timerWaitForAgainGiveAmmo= 35*CallACS("GetAmmoRecallTime",0,0,0);
 		clockForAmmo = 0;
 		AMMOgived = false;
 
@@ -1139,7 +1078,7 @@ Class DSCHellKnight : HellKnight
 /*
 Class DSCportalToMap : CustomInventory
 {
-	
+
 	Default
 	{
 	Radius 32;
@@ -1172,7 +1111,7 @@ Class DSCportalToMap : CustomInventory
 */
 Class DSCportalToMap : CustomInventory
 {
-	
+
 	Default
 	{
 	Radius 32;
@@ -1212,7 +1151,7 @@ Class DSCportal : Actor
 
 	Default
 	{
-		
+
 		+NoInteraction;
 	}
 	Override void PostBeginPlay()
@@ -2120,7 +2059,7 @@ Class DSCtitle : SwitchableDecoration
 				A_FadeTo(1.0, 0.01);
 				//A_SpawnItemEx("DSCSeraphimRaiserLightSmoke", random(-128, 128), random(-128, 128), random(-32, 32), 0, 0, random(3, 5), 0,SXF_NOCHECKPOSITION, 0, 0);
 				A_SpawnItemEx("GiveAMMOsparckle", random(-256, 256), random(-256, 256), random(0, 256), random(-2, 2), random(-2, 2), random(-2, 2), 0,SXF_NOCHECKPOSITION, 0, 0);
-				
+
 				}
 			Loop;
 		Halt:

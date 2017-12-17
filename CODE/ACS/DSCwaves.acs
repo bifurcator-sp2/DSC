@@ -123,7 +123,6 @@ Script "DisplayInfo" ENTER
 
 script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 {
-
 		if( ScullTag != 888888 ){
 			WaveOnline = true;
 			if(!NOspawn){//debug thing
@@ -146,12 +145,9 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 			if(!NOspawn){ //debug thing
 				Delay(35*30);
 			}
-
 			while ( GetTotalMonsters()>0){ Delay(35); }
-
+			AmbientSound("WAVEDONE",127);
 			PrintBold(s:"Wave ", d:CurrentWave+1,  s:" complete!");
-
-			//ACS_NamedExecute("MapWaveControll", 0);
 
 			CurrentWave ++;
 
@@ -171,12 +167,10 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 
 				Delay(35*3);
 			}
+
 			ACS_NamedExecuteAlways("RestoreMusic", 0);
-
 			SpawnSpotFacingForced("WaveScullDEC", ScullTag, 100600);
-
 			SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
-
 			WaveOnline = false;
 
 		}
