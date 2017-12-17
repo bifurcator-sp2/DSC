@@ -188,6 +188,28 @@ HardwareShader PostProcess scene
 	Shader "Shaders/PostProcessing/FilmGrain.fp" 330
 }
 
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass1"
+	Shader "Shaders/PostProcessing/TiltShift1.fp" 330
+}
+
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass2"
+	Shader "Shaders/PostProcessing/TiltShift2.fp" 330
+}
+
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass3"
+	Shader "Shaders/PostProcessing/TiltShift3.fp" 330
+}
+
+
+
+
+
 brightmap texture MRBW5
 {
    map MRBW4SM

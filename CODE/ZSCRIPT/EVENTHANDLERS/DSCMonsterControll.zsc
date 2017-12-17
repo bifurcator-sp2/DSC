@@ -21,35 +21,37 @@ class DSCMonsterPopulation : Thinker
         return p;
     }
 }
-Class IncKillCounter : CustomInventory
-{
-  Default
-  {
-    Inventory.Maxamount 0x7FFFFFFF;
-  }
+	Class IncKillCounter : CustomInventory
+	{
+	  Default
+	  {
+		Inventory.Maxamount 0x7FFFFFFF;
+	  }
 
-  States
-  {
-    Pickup:
-    TNT1 A 0 Acs_NamedExecuteAlways("MonsterKilled");
-    Stop;
-  }
-}
+	  States
+	  {
+		Pickup:
+		TNT1 A 0 Acs_NamedExecuteAlways("MonsterKilled");
+		Stop;
+	  }
+	}
 
 Class DSCMonstersEvent : EventHandler
 {
 	int monsterCounter;
 	int timerForKill;
 
-Override void WorldThingDamaged(WorldEvent e)
-{
-	let plr = PlayerPawn(e.DamageSource);
-
-	if (plr && e.Thing.Health <= 0 && e.Thing.bISMONSTER && e.Thing.bCOUNTKILL && e.Thing.default.Health>=20)
+	Override void WorldThingDamaged(WorldEvent e)
 	{
-		plr.GiveInventory("IncKillCounter",1);
+		let plr = PlayerPawn(e.DamageSource);
+
+		if (plr && e.Thing.Health <= 0 && e.Thing.bISMONSTER && e.Thing.bCOUNTKILL && e.Thing.default.Health>=20)
+		{
+			//A_PrintBold(Thing.default.Health);
+			plr.GiveInventory("IncKillCounter",1);
+			CallACS("AbsorbHealth", e.Thing.default.Health);
+		}
 	}
-}
 
 	override void WorldThingDied(WorldEvent e)
 	{

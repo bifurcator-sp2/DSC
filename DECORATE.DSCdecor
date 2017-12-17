@@ -243,11 +243,11 @@ ACTOR BIF_HellFlash_generator 15029{
 ACTOR BIF_Sceleton_random 15070
 {
 	+FORCEXYBILLBOARD
-	SCALE 0.5
+	SCALE 0.10
 	States
 	{
 		Spawn:
-			TNT1 A 1 A_Jump(256, "S1", "S2", "S3")
+			TNT1 A 1 A_Jump(256, "S1", "S2", "S3", "S4", "S5", "S6")
 			Loop
 		S1:
 			SCL1 A -1
@@ -258,6 +258,15 @@ ACTOR BIF_Sceleton_random 15070
 		S3:
 			SCL3 A -1
 			Stop
+		S4:
+			SCL4 A -1
+			Stop
+		S5:
+			SCL5 A -1
+			Stop
+		S6:
+			SCL6 A -1
+			Stop			
 	}
 }
 

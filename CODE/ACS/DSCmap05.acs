@@ -1,5 +1,6 @@
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
 
 bool Door1Locked = true;
 bool Door1_2Locked = false;
@@ -14,6 +15,7 @@ bool saint45raiseStarted = false;
 bool saint60raiseUnlocked = false;
 bool saint60raiseStarted = false;
 
+bool allsaintsRaised = false;
 
 int SaintsRaisedNum = 0;
 
@@ -44,6 +46,10 @@ delay(20*35);
 ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 */
 //TEST!
+	while(!allsaintsRaised){
+		delaY(15);
+	}
+	GiveInventory("map05done", 1);
 
 }
 
@@ -54,13 +60,7 @@ SCRIPT "SpawnFirstScull" (void){
 		SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
 }
 
-/*
-Сначало все двери закрыты
-Выносим 2 волны - двери открываются
-Когда идем в одну из дверей все они закрываются и лочатся
-Генерится волна, вынос которой спавнит череп возле святого
 
-*/
 
 SCRIPT "StartControl" ENTER
 {
@@ -409,9 +409,7 @@ script "SaintDelayedTrasaction"(int tid, int teletid, int delayInTicks){
 		couner++;
 		delay(1);
 	}
-	//это если он потерялся и тупит где-то в углу
 	while(!TestStartRaise(tid)){
-		//это если ему долго мешают начать восходить - то он отступает
 		Thing_Move (tid, teletid, false);
 		delay(35*30);
 	}
@@ -419,6 +417,7 @@ script "SaintDelayedTrasaction"(int tid, int teletid, int delayInTicks){
 script "AllSaintsRaised" (int tid){
 	for(int i = 5; i > 0; i--)
 	{
+		allsaintsRaised = true;
 		PrintBold(s:"Well done!\nYour personal HELL will restart \nin ",d:i,s:" seconds");
 		Delay(35);
 	}
