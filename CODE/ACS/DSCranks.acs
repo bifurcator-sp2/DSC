@@ -48,57 +48,78 @@ script "invuBONUS" (void){
 		}
 	}
 }
-script "GetAmmoRecallTime" (void){
+
+script "ammoRespawnedIn" (int time){
 	if(DSCplayerRank>=4){
-		Log(s:"Gunner: ammo respawned in ", d:AmmoRecallBaseTime-AmmoRecallBaseTime/100*50);
-		SetResultValue(AmmoRecallBaseTime-AmmoRecallBaseTime/100*50);
+		Log(s:"Gunner: ammo respawned in ", d:time);
 	} else {
 		Log(s:"Ammo respawned in", d:AmmoRecallBaseTime);
+	}
+}
+script "GetAmmoRecallTime" (void){
+	if(DSCplayerRank>=4){
+		int val = AmmoRecallBaseTime - ((AmmoRecallBaseTime * 0.5) >> 16);
+		SetResultValue(val);
+	} else {
 		SetResultValue(AmmoRecallBaseTime);
 	}
 }
+
+script "AidRespawned" (int time){
+	Log(s:"Health respawned in ", d:time);
+}
 script "GetAIDhealthRecallTime" (void){
+	int val;
 	if(DSCplayerRank==0){
-		Log(s:"Health respawned in ", d:AIDhealthRecallBaseTime);
+		//Log(s:"Health respawned in ", d:AIDhealthRecallBaseTime);
 		SetResultValue(AIDhealthRecallBaseTime);
 	}
 	if(DSCplayerRank==1){
-		Log(s:"Vitality: Health respawned in ", d:AIDhealthRecallBaseTime-AIDhealthRecallBaseTime/100*15);
-		SetResultValue(AIDhealthRecallBaseTime-AIDhealthRecallBaseTime/100*15);
+		val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.15) >> 16);
+		//Log(s:"Vitality 3/1: Health respawned in ", d:val);
+		SetResultValue(val);
 	}
 	if(DSCplayerRank==2){
-		Log(s:"Vitality: Health respawned in ", d:AIDhealthRecallBaseTime-AIDhealthRecallBaseTime/100*30);
-		SetResultValue(AIDhealthRecallBaseTime-AIDhealthRecallBaseTime/100*30);
+		val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.3) >> 16);
+		//Log(s:"Vitality 3/2: Health respawned in ", d:val);
+		SetResultValue(val);
 	}
 	if(DSCplayerRank>=3){
-		Log(s:"Vitality: Health respawned in ", d:AIDhealthRecallBaseTime-AIDhealthRecallBaseTime/100*50);
-		SetResultValue(AIDhealthRecallBaseTime-AIDhealthRecallBaseTime/100*50);
+		val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.5) >> 16);
+		//Log(s:"Vitality 3/3: Health respawned in ", d:val);
+		SetResultValue(val);
 	}
 }
 
 script "GetAIDhealthAmount" (void){
+	int val;
 	if(DSCplayerRank==0){
 		Log(s:"Health bonus ", i:DSCbaseHealthBonus);
 		SetResultValue(DSCbaseHealthBonus);
 	}
 	if(DSCplayerRank==1){
-		Log(s:"Vitality 1/3: Health bonus ", d:DSCbaseHealthBonus+DSCbaseHealthBonus/100*15);
-		SetResultValue(DSCbaseHealthBonus+Ceil(DSCbaseHealthBonus/100*15));
+		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.15) >> 16);
+		Log(s:"Vitality 3/1: Health bonus ", d:val);
+		SetResultValue(val);
 	}
 	if(DSCplayerRank==2){
-		Log(s:"Vitality 2/3: Health bonus ", d:DSCbaseHealthBonus+DSCbaseHealthBonus/100*30);
-		SetResultValue(DSCbaseHealthBonus+DSCbaseHealthBonus/100*30);
+		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.3) >> 16);
+		Log(s:"Vitality 3/2: Health bonus ", d:val);
+		SetResultValue(val);
 	}
 	if(DSCplayerRank>=3){
-		Log(s:"Vitality 3/3: Health bonus ", d:DSCbaseHealthBonus+DSCbaseHealthBonus/100*50);
-		SetResultValue(DSCbaseHealthBonus+DSCbaseHealthBonus/100*50);
+		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.5) >> 16);
+		Log(s:"Vitality 3/3: Health bonus ", d:val);
+		SetResultValue(val);
 	}
 }
 script "AbsorbHealth" (int HealthAmount){
 	//HealthAmount  = killed monster default health
 	switch (DSCplayerRank) {
 		case 9:
-			GiveActorInventory(0, "DSChealthBonus400", HealthAmount*AbsorbHealthAmount/100);
+			int val = (HealthAmount*0.2) >> 16;
+			Log(s:"Absorbed health: ", d:val);
+			GiveActorInventory(0, "DSChealthBonus400", val);
 			break;
 		default:
 			terminate;
@@ -109,7 +130,7 @@ script "AbsorbHealth" (int HealthAmount){
 
 function int getRank (void){
 	//test thing
-	TotalKills = 15000;
+	//TotalKills = 15000;
 	//test thing
 
 	int TK = TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
@@ -278,7 +299,7 @@ Script "DisplayRankInfo" ENTER
 
 			SetFont("BIGFONT");
 			HudMessage(
-			s:"Rank: ", s:getRankString (0), s:"";
+			s:"", s:getRankString (0), s:"";
 			HUDMSG_PLAIN,777,CR_DARKRED,0.5,0.05,1,0);
 			SetFont("SMALLFONT");
 			HudMessage(
@@ -582,6 +603,7 @@ script "SaintHealthUp" (void){
 	SetResultValue(SaintHealthUpMultipler*SaintHealthUpBaseAmount);
 	SaintHealthUpMultipler = 0;
 }
+
 /*
 Script "ArmorBonus" (int amount, int multipler){
 	if(multipler<=0){multipler=1;}

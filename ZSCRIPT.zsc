@@ -1,5 +1,5 @@
-version "2.5"
- 
+version "3.2.4"
+
 #include "CODE/ZSCRIPT/EVENTHANDLERS/StaticShaderControl.zsc"
 #include "CODE/ZSCRIPT/EVENTHANDLERS/DSCMonsterControll.zsc"
 #include "CODE/ZSCRIPT/DSCactors.zsc"
