@@ -28,6 +28,12 @@ Ambient/StrongFire	STRONGFI
 world/StoneMove STONEMOV
 world/BigStonemov BIGSTONE
 world/BigClose BIGCLOSE
+world/IRONMOVE IRONMOVE
+world/TNSTOP TNSTOP
+
+
+world/HAPPEN1 HAPPEN1
+
 world/BigFire STRONGFI
 
 world/WaterOut WATEROUT

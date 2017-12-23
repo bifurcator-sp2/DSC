@@ -274,6 +274,7 @@ Class FireFlameSpawnerTorch : Actor
 	{
 		radius 8;
 		+NoInteraction;
+		+Nogravity;
 	}
 	Override void PostBeginPlay()
 	{
@@ -356,6 +357,7 @@ Class BigDoomTorch  : Actor
 		Radius 8;
 		Height 64;
 		Scale 0.12;
+		+Nogravity;
 		//FlareBaseClass.DrawFlare true;
 		//FlareBaseClass.FlareGraphics "HALO1";
 		//FlareBaseClass.FlareZoffset 64;

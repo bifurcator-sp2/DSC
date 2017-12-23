@@ -29,7 +29,7 @@ SCRIPT "StartControl" ENTER
 		Thing_Activate(110);
 		currentWave = 200;
 	}
-
+	GiveInventory("map07done", 1);
 	if(CheckInventory("map02done")>0){
 		Door10Locked = false;
 		Thing_Activate(107);
@@ -44,7 +44,7 @@ SCRIPT "StartControl" ENTER
 	}
 	if(CheckInventory("map05done")>0){
 		int progression = (currentWave * 100) / maxWaveCount ;
-		if(progression>150){
+		if(progression>150||CheckInventory("map06done")>0){
 			SpawnSpotFacingForced("DSCportalToMap", 200, 201);
 			SetThingSpecial(201, ACS_NamedExecute, "GotoMinistry");
 			Thing_Activate(110);
@@ -54,14 +54,14 @@ SCRIPT "StartControl" ENTER
 	}
 	ACS_NamedExecute("StartHelp", 0);
 
-	if(Atrium1Active){
+	if(CheckInventory("map02done")>0){
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888); //notag nocount
 		Thing_Activate(106);
 	}
 	//CheckInventory("map02done");
 }
 script "StartHelp" (void){
-	if(!Atrium1Active){
+	if(CheckInventory("map02done")==0){
 		Thing_Activate(101);
 	}
 }
@@ -132,7 +132,7 @@ script "GotoSalvation" (void){
 }
 script "GotoMinistry" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP06", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP06", 1, CHANGELEVEL_NOINTERMISSION);
 }
 
 

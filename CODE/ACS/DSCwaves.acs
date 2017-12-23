@@ -34,8 +34,20 @@ int SaintHealthUpBaseAmount = 10;//basic value for SaintHealthUp DSCprisonedSain
 //
 
 
+bool OverrideDeathBugFIX = false;
+script "DeathBufFIX" DEATH  {
+//this is check for death restart clear inventory bug
 
+			currentWave = 0;
+			DSCplayerRank = 0;
+			TotalKills = 0;
+			CurrentWave = 0;
+			AmmoMaxRnd = 0;
+			WeaponGotID = 0;
+			ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY);
 
+//----------------------------------------------------
+}
 
 
 
@@ -99,6 +111,7 @@ function int GetTotalMonsters(void)
 
 Script "DisplayInfo" ENTER
 {
+
 	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer")){
 		isBE = true;
 	} else { isBE = false; }
@@ -333,6 +346,16 @@ Script "RestoreMusic" (void){
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
+/////////////////////////////
+Script "GiveFirstEpisodeDoneItems" (void){
+	GiveInventory("map01done", 1);
+	GiveInventory("map02done", 1);
+	GiveInventory("map03done", 1);
+	GiveInventory("map04done", 1);
+	GiveInventory("map05done", 1);
+	GiveInventory("map06done", 1);
+}
+
 
 
 //END LIBRARY

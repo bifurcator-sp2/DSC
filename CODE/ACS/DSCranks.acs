@@ -2,10 +2,15 @@
 #define AIDhealthRecallBaseTime 60
 #define AmmoRecallBaseTime 60
 #define AbsorbHealthAmount 20
-#define ArmorBonusChance 10
+#define StrongHoldChance 10
 #define berserkBonusChance 5
 #define invisBonusChance 5
 #define invuBonusChance 5
+
+//#define StrongHoldChance 10
+//#define berserkBonusChance 5
+//#define invisBonusChance 5
+//#define invuBonusChance 5
 
 int AchiveKillInSEc1 = 0;
 int AchiveDieInSec1 = 0;
@@ -16,9 +21,9 @@ bool RankMenueOnScreen = false;
 
 //DSCplayerRank = 9;
 
-script "armorBonus" (void){
+script "strongholdBonus" (void){
 	if(DSCplayerRank>=5){
-		if(Random(1, 100)<=ArmorBonusChance){
+		if(Random(1, 100)<=StrongHoldChance){
 			GiveActorInventory(0, "DSCarmorBonus5", 1);
 			Log(s:"Stronghold: Armor Bonus 5");
 		}
@@ -411,6 +416,11 @@ SCRIPT "ResetCounters" ENTER {
 script "MonsterKilled" (void){
 	AchiveKillInSEc1++;
 	SaintHealthUpMultipler++;
+
+	ACS_NamedExecuteAlways("strongholdBonus", 0);
+	ACS_NamedExecuteAlways("berserkBONUS", 0);
+	ACS_NamedExecuteAlways("invisBONUS", 0);
+	ACS_NamedExecuteAlways("invuBONUS", 0);
 	ACS_NamedExecute("AchiveKillInSEc1Counter", 0);
 
 }

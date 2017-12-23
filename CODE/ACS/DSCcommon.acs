@@ -54,7 +54,18 @@ Polyobj_RotateLeft(pilyID, speed, angle);
 SoundSequenceOnPolyobj (pilyID, "DoorHell");
 
 }
-
+SCRIPT "RotateDoorLeftNoReturn" (int pilyID, int speed, int angle)
+{
+if(speed==0){speed=16;}
+Polyobj_RotateLeft(pilyID, speed, angle);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+}
+SCRIPT "RotateDoorRightNoReturn" (int pilyID, int speed, int angle)
+{
+if(speed==0){speed=16;}
+Polyobj_RotateRight(pilyID, speed, angle);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+}
 SCRIPT "FadeOutMusic" (void){
 	int vol = 1.0;
 	for (int counter = 0; counter < 100; counter++)

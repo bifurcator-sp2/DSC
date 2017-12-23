@@ -2072,8 +2072,13 @@ Class DSCtitle : SwitchableDecoration
 			Loop;
 	}
 }
-
+Class map01done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF; } }
 Class map02done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF; } }
 Class map03done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF;} }
 Class map04done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF; } }
 Class map05done : Inventory {  Default { Inventory.MaxAmount 0x7FFFFFFF; } }
+Class map06done : Inventory {  Default { Inventory.MaxAmount 0x7FFFFFFF; } }
+Class map07done : Inventory {  Default { Inventory.MaxAmount 0x7FFFFFFF; } }
+Class map08done : Inventory {  Default { Inventory.MaxAmount 0x7FFFFFFF; } }
+Class map09done : Inventory {  Default { Inventory.MaxAmount 0x7FFFFFFF; } }
+Class map10done : Inventory {  Default { Inventory.MaxAmount 0x7FFFFFFF; } }
