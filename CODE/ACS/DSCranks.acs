@@ -20,7 +20,15 @@ bool RankMenueOnScreen = false;
 
 
 //DSCplayerRank = 9;
+script "SerialKiller" (int amount){
+	//do something with amount of kills
+	//DSCHealthBonus
+	//DSCbasicArmorBonus
+	GiveActorInventory(0, "DSCHealthBonus", amount);
+	GiveActorInventory(0, "DSCbasicArmorBonus", amount);
 
+	Log(s:"SerialKiller: ", d:amount);
+}
 script "strongholdBonus" (void){
 	if(DSCplayerRank>=5){
 		if(Random(1, 100)<=StrongHoldChance){
@@ -29,6 +37,14 @@ script "strongholdBonus" (void){
 		}
 	}
 }
+script "strongholdHealArmorBonus" (void){
+	if(DSCplayerRank>=5){
+		GiveActorInventory(0, "DSCarmorBonus5", 1);
+		Log(s:"Stronghold: Healing gives Armor Bonus 5");
+
+	}
+}
+
 script "berserkBONUS" (void){
 	if(DSCplayerRank>=6){
 		if(Random(1, 100)<=berserkBonusChance){
@@ -215,7 +231,7 @@ function str getRankAchive (int rank){
 function str getRankAchiveInfo (int rank){
 	switch (rank) {
 		case 0:
-			return "Default Abilities.";
+			return "Default Abilities.\nSerial Killer bonus.";
 		case 1:
 			return "Player gets 15% more health.\nHealth respawns 15% faster.";
 		case 2:
@@ -225,7 +241,7 @@ function str getRankAchiveInfo (int rank){
 		case 4:
 			return "Ammo respawns 50% faster.";
 		case 5:
-			return "10% chance to get 5% armor bonus\nfor each kill.";
+			return "10% chance to get 5% armor for kill.";
 		case 6:
 			return "5% chance to get BERSERK\nfor each kill.";
 		case 7:
@@ -258,7 +274,7 @@ script "FadePlayerScreen" ENTER {
 }
 
 script "DisplayAchives" (int disp){
-	int offsetStep = 32.0;
+	int offsetStep = 35.0;
 	int offsetStart = 180.0;
 	int HeaderOffset = offsetStart;
 	int infoOffset;
@@ -468,11 +484,13 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 	//PrintBold(i:AchiveKillInSEc1);
 
 	if(AchiveDieInSec1>=20 || AchiveKillInSEc1>=20){
+
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
 		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
-		if(BE()){
+		/*if(BE()){
 			GiveActorInventory(0, "D4QuadDamage", 1);
 			GiveActorInventory(0, "d4haste", 1);
-		}
+		}*/
 		Log(s:"Real epic doomslayer tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -484,13 +502,14 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 		terminate;
 	}
 	if(AchiveDieInSec1>=15){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
 		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
-		if(Random(1, 100)<=40 && BE()){
+		/*if(Random(1, 100)<=40 && BE()){
 			GiveActorInventory(0, "D4QuadDamage", 1);
 		}
 		if(Random(1, 100)<=60 && BE()){
 			GiveActorInventory(0, "d4haste", 1);
-		}
+		}*/
 		Log(s:"Tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -502,13 +521,14 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 		terminate;
 	}
 	if(AchiveDieInSec1>=10 ){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
 		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
-		if(Random(1, 100)<=30 && BE()){
+		/*if(Random(1, 100)<=30 && BE()){
 			GiveActorInventory(0, "D4QuadDamage", 1);
 		}
 		if(Random(1, 100)<=50 && BE()){
 			GiveActorInventory(0, "d4haste", 1);
-		}
+		}*/
 		Log(s:"Yeah...Great bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -517,19 +537,21 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 		terminate;
 	}
 	if(AchiveDieInSec1>=5){
-		if(BE()){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
+		/*if(BE()){
 			GiveActorInventory(0, "d4haste", 1);
-		}
+		}*/
 	}
 
 	if(AchiveDieInSec1>3){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
 		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
-		if(Random(1, 100)<=20 && BE()){
+		/*if(Random(1, 100)<=20 && BE()){
 			GiveActorInventory(0, "D4QuadDamage", 1);
 		}
 		if(Random(1, 100)<=40 && BE()){
 			GiveActorInventory(0, "d4haste", 1);
-		}
+		}*/
 
 		Log(s:"Bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
@@ -540,13 +562,14 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 	}
 
 	if(AchiveKillInSEc1==3){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
 		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
-		if(Random(1, 100)<=15 && BE()){
+		/*if(Random(1, 100)<=15 && BE()){
 			GiveActorInventory(0, "D4QuadDamage", 1);
 		}
 		if(Random(1, 100)<=30 && BE()){
 			GiveActorInventory(0, "d4haste", 1);
-		}
+		}*/
 		Log(s:"Tripple death\n", i:AchiveKillInSEc1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
 		AchiveDieInSec1 = 0;
@@ -555,10 +578,11 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 		terminate;
 	}
 	if(AchiveKillInSEc1==2){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
 		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
-		if(Random(1, 100)<=20 && BE()){
+		/*if(Random(1, 100)<=20 && BE()){
 			GiveActorInventory(0, "d4haste", 1);
-		}
+		}*/
 
 		Log(s:"Double death\n", i:AchiveKillInSEc1, s:" kills in sec!");
 		AchiveKillInSEc1 = 0;
