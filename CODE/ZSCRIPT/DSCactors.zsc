@@ -1122,6 +1122,7 @@ Class DSCportalToMap : CustomInventory
 	Radius 32;
 	+INVENTORY.ALWAYSPICKUP;
 	Inventory.PickUpSound "misc/scullpickup";
+	Inventory.pickupmessage "Teleportation";
 	+NOGRAVITY;
 	-SOLID;
 	}

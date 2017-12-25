@@ -34,6 +34,7 @@ next = "DSCMAP01"
 InterMusic = MT
 music = "SEMETE"
 EnterPic = "ENTER01"
+ExitPic = "ENTER01"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
@@ -47,18 +48,20 @@ next = "DSCMAP01"
 music = "PLAZA"
 InterMusic = MT
 EnterPic = "ENTER01"
+ExitPic = "ENTER01"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }
 
 
-map DSCMAP04 "The Coliseum"
+map DSCMAP04 "The Colosseum"
 {
 next = "DSCMAP01"
 music = "COLISE"
 InterMusic = MT
 EnterPic = "ENTER01"
+ExitPic = "ENTER01"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
@@ -70,6 +73,7 @@ next = "DSCMAP01"
 music = "SALVAT"
 InterMusic = MT
 EnterPic = "ENTER01"
+ExitPic = "ENTER01"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE

@@ -147,7 +147,7 @@ function int getRank (void){
 	if(TK>=400)		{	return 4;	}
 	if(TK>=200)		{	return 3;	}
 	if(TK>=100)		{	return 2;	}
-	if(TK>=1)		{	return 1;	}
+	if(TK>=50)		{	return 1;	}
 	return 0;
 }
 function int getKillsToRank (int CurrentKills){
@@ -215,25 +215,25 @@ function str getRankAchive (int rank){
 function str getRankAchiveInfo (int rank){
 	switch (rank) {
 		case 0:
-			return "Default Abilities";
+			return "Default Abilities.";
 		case 1:
-			return "Player gets 15% more health\nHealth respawns 15% faster";
+			return "Player gets 15% more health.\nHealth respawns 15% faster.";
 		case 2:
-			return "Player gets 30% more health\nHealth respawns 30% faster";
+			return "Player gets 30% more health.\nHealth respawns 30% faster.";
 		case 3:
-			return "Player gets 50% more health\nHealth respawns 50% faster";
+			return "Player gets 50% more health.\nHealth respawns 50% faster.";
 		case 4:
-			return "Ammo respawns 50% faster";
+			return "Ammo respawns 50% faster.";
 		case 5:
-			return "10% chance to get 5% armor bonus\nfor each kill";
+			return "10% chance to get 5% armor bonus\nfor each kill.";
 		case 6:
-			return "5% chance to get BERSERK\nfor each kill";
+			return "5% chance to get BERSERK\nfor each kill.";
 		case 7:
-			return "5% chance to get INVISIBILITY\nfor each kill";
+			return "5% chance to get INVISIBILITY\nfor each kill.";
 		case 8:
-			return "5% chance to get INVULNERABILITY\nfor each kill";
+			return "5% chance to get INVULNERABILITY\nfor each kill.";
 		case 9:
-			return "Player absorbs 20% health\nof each killed demon";
+			return "Player absorbs 20% health\nof each killed demon.";
 	}
 	return GetActorClass(0);
 }
@@ -259,7 +259,7 @@ script "FadePlayerScreen" ENTER {
 
 script "DisplayAchives" (int disp){
 	int offsetStep = 32.0;
-	int offsetStart = 150.0;
+	int offsetStart = 180.0;
 	int HeaderOffset = offsetStart;
 	int infoOffset;
 	int start;
@@ -272,13 +272,13 @@ script "DisplayAchives" (int disp){
 				HeaderOffset = offsetStart+offsetStep*(i-1);
 			 } else {HeaderOffset = offsetStart+offsetStep*i;}
 
-			SetHudSize(640, 480, 0);
+			SetHudSize(800, 600, 0);
 			SetFont("SMALLFONT");
 			HudMessageBold(s:getRankAchive(i);
-				HUDMSG_PLAIN, i+50, CR_CREAM, 320.0, HeaderOffset, 0);
+				HUDMSG_PLAIN, i+50, CR_CREAM, 400.0, HeaderOffset, 0);
 			//SetHudSize(HudX, HudY, 0);
 			HudMessageBold(s:getRankAchiveInfo(i);
-				HUDMSG_PLAIN, i+60, CR_TAN, 320.0, HeaderOffset+15.0, 0);
+				HUDMSG_PLAIN, i+60, CR_TAN, 400.0, HeaderOffset+15.0, 0);
 			SetHudSize(0, 0, 0);
 		}
 	} else {

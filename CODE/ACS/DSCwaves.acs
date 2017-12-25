@@ -25,6 +25,8 @@ int SpawnedMonstersOnTheMap = 0;
 int DSCscreenFade = 0;//for DSCranks
 bool waitForWeaponSpawnedMassage = false;
 bool waitForScullSpawnedMassage = false;
+int KilledWaveStart = 0;
+int killedPerWave = 0;
 
 bool NOspawn = false; //dev staff
 
@@ -112,6 +114,8 @@ function int GetTotalMonsters(void)
 Script "DisplayInfo" ENTER
 {
 
+	//ACS_NamedExecute("DisplayWaveStats", 0, 5, 3100000);
+
 	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer")){
 		isBE = true;
 	} else { isBE = false; }
@@ -136,8 +140,11 @@ Script "DisplayInfo" ENTER
 
 script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 {
+
 		if( ScullTag != 888888 ){
 			WaveOnline = true;
+			KilledWaveStart = GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+
 			if(!NOspawn){//debug thing
 				Delay(35*3);
 				AmbientSound("Howling",127);
@@ -160,7 +167,10 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 			}
 			while ( GetTotalMonsters()>0){ Delay(35); }
 			AmbientSound("WAVEDONE",127);
-			PrintBold(s:"Wave ", d:CurrentWave+1,  s:" complete!");
+
+			killedPerWave = GetLevelInfo (LEVELINFO_KILLED_MONSTERS)-KilledWaveStart;
+			ACS_NamedExecute("DisplayWaveStats", 0, killedPerWave, TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS));
+			//PrintBold(s:"Wave ", d:CurrentWave+1,  s:" complete!");
 
 			CurrentWave ++;
 
@@ -188,16 +198,86 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 
 		}
 }
+script "DisplayWaveStats" (int PerWave, int Total){
+		SetHudSize(800, 600, 0);
+		SetFont("WAVeLINE");
+		HudMessageBold(s:"A";
+			HUDMSG_PLAIN|HUDMSG_LAYER_UNDERHUD, 399, CR_GOLD, 400.0, 270.0, 0);
+		SetFont("BIGFONT");
+		SetHudSize(640, 480, 0);
+		delay(1);
+		HudMessageBold(s:"Wave ", d:CurrentWave+1,  s:" complete!";
+			HUDMSG_PLAIN, 400, CR_GOLD, 320.0, 180.0, 0);
+		SetFont("SMALLFONT");
+		HudMessageBold(s:"Kills per wave: ", d:PerWave;
+			HUDMSG_PLAIN, 401, CR_GOLD, 320.0, 200.0, 0);
+		HudMessageBold(s:"Total kills: ", d:Total;
+			HUDMSG_PLAIN, 402, CR_GOLD, 320.0, 210.0, 0);
+		ACS_NamedExecuteAlways("DisplayLeftGliph", 0, PerWave);
+		ACS_NamedExecuteAlways("DisplayRightsGliph", 0, Total);
+		delay(35*7);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 399, CR_GOLD, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 400, CR_GOLD, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 401, CR_GOLD, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 402, CR_GOLD, 0.5, 0.3, 0);
 
-script "NextWaveReady" (void)
-{
+		SetHudSize(0, 0, 0);
+}
 
-	NextWaveReady = true;
+script "DisplayLeftGliph" (int num){
+	SetHudSize(800, 600, 0);
+	SetFont("BIGFONT");
+	int cat = GetCat(num);
+	int catNum = GetCatNum(num);
+	HudMessageBold(d:catNum, s:" X ", d:cat;
+	HUDMSG_PLAIN, 403, CR_RED, 150.0, 250.0, 7.0);
+
+	SetFont(GetGliph (num));
+	HudMessageBold(s:"A"; HUDMSG_PLAIN, 404, CR_RED, 150.0, 175.0, 7.0);
+	SetHudSize(0, 0, 0);
+}
+script "DisplayRightsGliph" (int num){
+	SetHudSize(800, 600, 0);
+	SetFont("BIGFONT");
+	int cat = GetCat(num);
+	int catNum = GetCatNum(num);
+	HudMessageBold(d:catNum, s:" X ", d:cat;
+	HUDMSG_PLAIN, 405, CR_RED, 800.0-150.0, 250.0, 7.0);
+
+	SetFont(GetGliph (num));
+	HudMessageBold(s:"A"; HUDMSG_PLAIN, 406, CR_RED, 800.0-150.0, 175.0, 7.0);
+	SetHudSize(0, 0, 0);
+}
+
+function str GetGliph (int num) {
+	if(num*0.0001>>16 >= 100) { return "decgl6";}
+	if(num*0.0001>>16 >= 10) { return "decgl5";}
+	if(num*0.0001>>16 >= 1) { return "decgl4";}
+	if(num*0.001>>16 >= 1) { return "decgl3";}
+	if(num*0.01>>16 >= 1) { return "decgl2";}
+	if(num*0.1>>16 >= 1) { return "decgl1";}
+	return "decgl0";
+}
+
+function int GetCat  (int num){
+	if(num*0.0001>>16 >= 100) { return 1000000;}
+	if(num*0.0001>>16 >= 10) { return 100000;}
+	if(num*0.0001>>16 >= 1) { return 10000;}
+	if(num*0.001>>16 >= 1) { return 1000;}
+	if(num*0.01>>16 >= 1) { return 100;}
+	if(num*0.1>>16 >= 1) { return 10;}
+	return 1;
+}
+
+function int GetCatNum (int num){
+	int cat = GetCat(num);
+	int CatNum = num/cat;
+	return CatNum;
+	//return ceil(num/cat)/65536;
 }
 
 
-
-
+script "NextWaveReady" (void){	NextWaveReady = true; }
 
 script "SpawnWeapon" (int WeaponTag)
 {

@@ -126,7 +126,7 @@ Script "SatartFirstWave" (void){
 		}
 		NextWaveReady = false;
 		delay(35*5);
-
+		TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 		Thing_Activate(300);
 		ChangeCamera(300, 0, 0);
 

@@ -93,10 +93,10 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			hudmessageBold(s:"To\n\"Bloodrain plaza\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 8:
-			hudmessageBold(s:"To\n\"The Coliseum\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"To\n\"The Colosseum\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 9:
-			hudmessageBold(s:"To\n\"Salvation\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"To\n\"Prison of souls\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 10:
 			hudmessageBold(s:"To\n\"Unholy Ministry\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
