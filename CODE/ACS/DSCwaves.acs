@@ -60,6 +60,10 @@ Script "GetAmmoSlot" (void)
 }
 Script "GetWeaponGotID" (void)
 {
+SetResultValue(WeaponGotID);
+}
+Script "GetWeaponGotIDforWeaponSpawner" (void)
+{
 	int WeaponID;
 	//WeaponGotID - actual weapon num
 	//1. ShotgunGot
@@ -71,7 +75,7 @@ Script "GetWeaponGotID" (void)
 	switch (WeaponGotID) {
 		case 1:
 			if(CheckInventory("ShotgunGot")>0){
-				if(Random(1, 100)<=50){WeaponID = 1;}else{WeaponID = 2;}
+				if(Random(1, 100)<=80){WeaponID = 1;}else{WeaponID = 2;}
 			} else {
 				GiveInventory("ShotgunGot", 1);
 				WeaponID = 1;
