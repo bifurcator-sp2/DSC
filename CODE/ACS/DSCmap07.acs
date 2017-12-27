@@ -1,0 +1,112 @@
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+
+bool DeadPoolHelped;
+
+
+script "StartControl" ENTER
+{
+
+	Thing_Deactivate(100);
+
+	ACS_NamedExecuteAlways("GiveFirstEpisodeDoneItems", 0);
+//TEST!
+
+//NOspawn = true;
+/*DSCplayerRank = 7;
+CurrentWave = 100;
+AmmoMaxRnd = 3;
+WeaponGotID = 5;
+*/
+
+bool inDEV = false;
+//TEST!
+	if(inDEV){
+		GiveInventory("map07done", 1);
+	}
+ACS_NamedExecuteAlways("SatartFirstWave", 0);
+
+}
+
+
+
+Script "SatartFirstWave" (void){
+
+		/*ACS_NamedExecuteAlways("Mus_M2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999, 100400);
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		ACS_NamedExecuteAlways("Mus_M2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999, 100400);
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		ACS_NamedExecuteAlways("Mus_M3", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 100300, 100400);
+		while(!NextWaveReady){
+			delay(1);
+		}
+		NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_G1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100300, 100400);
+		delay(35*20);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
+		while(!NextWaveReady){
+			delay(1);
+		}
+		NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_G2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 100300, 100400);
+		delay(35*20);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 888888, 888888);
+		while(!NextWaveReady){
+			delay(1);
+		}
+		NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_G3", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 100300, 100400);
+		delay(35*20);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
+
+		while(!NextWaveReady){
+			delay(1);
+		}
+		NextWaveReady = false;
+		delay(35*5);
+		*/
+		for(int i = 5; i > 0; i--)
+		{
+			Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
+			Delay(35);
+		}
+		GiveInventory("map07done", 1);
+		TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+		Atrium1Active = true;
+		Exit_Normal(0);
+
+}
+
+
+
+
+
+script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
+
+	if (Time==0){Time=3;}
+
+	switch (HelpID) {
+		case 1:
+			hudmessageBold(s:"Dive into the blood pool."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 2:
+			hudmessageBold(s:"Now you can play\n\"The bloody tide\"\nWithout reset of inventory."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		default:
+			PrintBold(s:"Be strong!");
+
+	}
+	Delay((Time+2)*35);
+	if(NextHelpTag>0){
+		Thing_Activate(NextHelpTag);
+	}
+}

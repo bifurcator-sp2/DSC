@@ -9,6 +9,7 @@ episode DSCMAP01 {
 
 map TITLEMAP "Unholy Ministry"
 {
+
 next = "DSCMAP01"
 music = "MAINTTL"
 FALLINGDAMAGE
@@ -17,10 +18,11 @@ MONSTERFALLINGDAMAGE
 
 map DSCMAP01 "Atrium"
 {
+LevelNum = 1
 next = "DSCMAP02"
 InterMusic = MT
 music = "ATRIUM"
-EnterPic = "ATRIUM1"
+EnterPic = "ENTER01"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
@@ -31,12 +33,13 @@ map DSCMAP02 "Cemetery of the fallen"
 next = "DSCMAP01"
 InterMusic = MT
 music = "SEMETE"
-ExitPic = "ATRIUM1"
+EnterPic = "ENTER01"
+ExitPic = "ENTER01"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }
-	
+
 
 
 map DSCMAP03 "Bloodrain plaza"
@@ -44,30 +47,33 @@ map DSCMAP03 "Bloodrain plaza"
 next = "DSCMAP01"
 music = "PLAZA"
 InterMusic = MT
-ExitPic = "ATRIUM1"
+EnterPic = "ENTER01"
+ExitPic = "ENTER01"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }
 
 
-map DSCMAP04 "The Coliseum"
+map DSCMAP04 "The Colosseum"
 {
 next = "DSCMAP01"
 music = "COLISE"
 InterMusic = MT
-ExitPic = "ATRIUM1"
+EnterPic = "ENTER01"
+ExitPic = "ENTER01"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }
 
-map DSCMAP05 "Salvation"
+map DSCMAP05 "Prison of souls"
 {
 next = "DSCMAP01"
 music = "SALVAT"
 InterMusic = MT
-ExitPic = "ATRIUM1"
+EnterPic = "ENTER01"
+ExitPic = "ENTER01"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
@@ -79,7 +85,18 @@ map DSCMAP06 "Unholy Ministry"
 next = "DSCMAP07"
 InterMusic = MT
 music = "ATRIUM"
-EnterPic = "ATRIUM1"
+EnterPic = "ENTER06"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+map DSCMAP07 "The bloody tide"
+{
+next = "DSCMAP06"
+InterMusic = MT
+music = "SEMETE"
+EnterPic = "ENTER06"
+ExitPic = "ENTER06"
 fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE

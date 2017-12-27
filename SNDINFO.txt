@@ -28,6 +28,12 @@ Ambient/StrongFire	STRONGFI
 world/StoneMove STONEMOV
 world/BigStonemov BIGSTONE
 world/BigClose BIGCLOSE
+world/IRONMOVE IRONMOVE
+world/TNSTOP TNSTOP
+
+
+world/HAPPEN1 HAPPEN1
+
 world/BigFire STRONGFI
 
 world/WaterOut WATEROUT
@@ -86,7 +92,7 @@ misc/itemspawn ITEMSPAW
 misc/scullpickup SCULLPIC
 misc/scullspawn SCLSPWN
 
-
+misc/dscranks DSCRANKS
 
 Ambient/DSCtorch DSCTRCH
 Ambient/DSCtorch2 DSCTRCH2
@@ -100,6 +106,11 @@ world/DSCCH2_2 DSCCH2_2
 
 
 world/RACHIVE RNKUP3
+
+$random WAVEDONE { world/WAVEDONE }
+world/WAVEDONE WAVEDONE
+
+
 
 
 world/DSCACHV1 DSCACHV1

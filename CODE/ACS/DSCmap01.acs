@@ -1,3 +1,7 @@
+//#include "C:\gzdoom\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
+//#include "C:\gzdoom\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+//#include "C:\gzdoom\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
@@ -15,6 +19,7 @@ SCRIPT "StartControl" ENTER
 		/*Door10Locked = false;
 		Door11Locked = false;
 		Door12Locked = false;*/
+		GiveInventory("map01done", 1);
 		GiveInventory("map02done", 1);
 		Thing_Activate(107);
 		GiveInventory("map03done", 1);
@@ -25,7 +30,7 @@ SCRIPT "StartControl" ENTER
 		Thing_Activate(110);
 		currentWave = 200;
 	}
-
+	GiveInventory("map07done", 1);
 	if(CheckInventory("map02done")>0){
 		Door10Locked = false;
 		Thing_Activate(107);
@@ -40,7 +45,7 @@ SCRIPT "StartControl" ENTER
 	}
 	if(CheckInventory("map05done")>0){
 		int progression = (currentWave * 100) / maxWaveCount ;
-		if(progression>150){
+		if(progression>150||CheckInventory("map06done")>0){
 			SpawnSpotFacingForced("DSCportalToMap", 200, 201);
 			SetThingSpecial(201, ACS_NamedExecute, "GotoMinistry");
 			Thing_Activate(110);
@@ -50,14 +55,14 @@ SCRIPT "StartControl" ENTER
 	}
 	ACS_NamedExecute("StartHelp", 0);
 
-	if(Atrium1Active){
+	if(CheckInventory("map02done")>0){
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888); //notag nocount
 		Thing_Activate(106);
 	}
 	//CheckInventory("map02done");
 }
 script "StartHelp" (void){
-	if(!Atrium1Active){
+	if(CheckInventory("map02done")==0){
 		Thing_Activate(101);
 	}
 }
@@ -89,10 +94,10 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			hudmessageBold(s:"To\n\"Bloodrain plaza\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 8:
-			hudmessageBold(s:"To\n\"The Coliseum\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"To\n\"The Colosseum\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 9:
-			hudmessageBold(s:"To\n\"Salvation\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"To\n\"Prison of souls\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 10:
 			hudmessageBold(s:"To\n\"Unholy Ministry\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
@@ -128,7 +133,7 @@ script "GotoSalvation" (void){
 }
 script "GotoMinistry" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP06", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP06", 1, CHANGELEVEL_NOINTERMISSION);
 }
 
 
