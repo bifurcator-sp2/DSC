@@ -27,13 +27,13 @@ script "SerialKiller" (int amount){
 	GiveActorInventory(0, "DSCHealthBonus", amount);
 	GiveActorInventory(0, "DSCbasicArmorBonus", amount);
 
-	Log(s:"SerialKiller: ", d:amount);
+	Log(s:"Serial Killer: ", d:amount);
 }
 script "strongholdBonus" (void){
 	if(DSCplayerRank>=5){
 		if(Random(1, 100)<=StrongHoldChance){
-			GiveActorInventory(0, "DSCarmorBonus5", 1);
-			Log(s:"Stronghold: Armor Bonus 5");
+			//GiveActorInventory(0, "DSCarmorBonus5", 1);
+			//Log(s:"Stronghold: Armor Bonus 5");
 		}
 	}
 }
@@ -72,9 +72,9 @@ script "invuBONUS" (void){
 
 script "ammoRespawnedIn" (int time){
 	if(DSCplayerRank>=4){
-		Log(s:"Gunner: ammo respawned in ", d:time);
+		Log(s:"Gunner: ammo respawned in ", d:time, s:" sec");
 	} else {
-		Log(s:"Ammo respawned in", d:AmmoRecallBaseTime);
+		Log(s:"Ammo respawned in", d:AmmoRecallBaseTime, s:" sec");
 	}
 }
 script "GetAmmoRecallTime" (void){
@@ -87,7 +87,7 @@ script "GetAmmoRecallTime" (void){
 }
 
 script "AidRespawned" (int time){
-	Log(s:"Health respawned in ", d:time);
+	Log(s:"Health respawned in ", d:time, s:" sec");
 }
 script "GetAIDhealthRecallTime" (void){
 	int val;
@@ -120,12 +120,12 @@ script "GetAIDhealthAmount" (void){
 	}
 	if(DSCplayerRank==1){
 		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.15) >> 16);
-		Log(s:"Vitality 3/1: Health bonus ", d:val);
+		Log(s:"Vitality 1/3: Health bonus ", d:val);
 		SetResultValue(val);
 	}
 	if(DSCplayerRank==2){
 		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.3) >> 16);
-		Log(s:"Vitality 3/2: Health bonus ", d:val);
+		Log(s:"Vitality 2/3: Health bonus ", d:val);
 		SetResultValue(val);
 	}
 	if(DSCplayerRank>=3){
@@ -139,7 +139,7 @@ script "AbsorbHealth" (int HealthAmount){
 	switch (DSCplayerRank) {
 		case 9:
 			int val = (HealthAmount*0.2) >> 16;
-			Log(s:"Absorbed health: ", d:val);
+			Log(s:"Reaper: absorbed ", d:val, s:" health");
 			GiveActorInventory(0, "DSChealthBonus400", val);
 			break;
 		default:

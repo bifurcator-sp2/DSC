@@ -155,8 +155,11 @@ Script "SatartFirstWave" (void){
 
 
 
-
-
+script "openDoorToYard" (void){
+	if(CheckInventory("map06done")>0){
+		ACS_NamedExecuteAlways("RotateDoorLeftNoReturn", 0, 1, 8, 64);
+	}
+}
 
 
 

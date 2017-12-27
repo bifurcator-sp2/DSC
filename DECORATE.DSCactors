@@ -3,7 +3,7 @@ actor AIDSpawnerDEC : AIDSpawner 22000 { //$Sprite AID1A0
 }
 actor WaveScullDEC : WaveScull 22001 { //$Sprite SCLSA0
 }
-actor AMMOspawnerDEC : AMMOspawner 22005 { //$Sprite AMM1A0
+actor AMMOspawnerDEC : DSCammoSpawner 22005 { //$Sprite AMM1A0
 }
 actor DSCmonsterSpawner1DEC : DSCmonsterSpawner1 22006 { //$Sprite TIE1A0
 }

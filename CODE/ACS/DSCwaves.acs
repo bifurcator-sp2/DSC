@@ -7,7 +7,7 @@ global int 4:TotalKills;
 global BOOL 5:Atrium1Active;
 global int 6:MonsterCountMethod;
 global int 7:DSCplayerRank;
-global str 8:DSCplayerAbilities;
+
 
 #define shotGunSpawnProgressInPercent 3
 #define SSGSpawnProgressInPercent 15
@@ -60,8 +60,101 @@ Script "GetAmmoSlot" (void)
 }
 Script "GetWeaponGotID" (void)
 {
-	SetResultValue(WeaponGotID);
+	int WeaponID;
+	//WeaponGotID - actual weapon num
+	//1. ShotgunGot
+	//2. ssgGot
+	//3. ChaingunGot
+	//4. RLCGot
+	//5. PlasmaGot
+	//6. BfgGot
+	switch (WeaponGotID) {
+		case 1:
+			if(CheckInventory("ShotgunGot")>0){
+				if(Random(1, 100)<=50){WeaponID = 1;}else{WeaponID = 2;}
+			} else {
+				GiveInventory("ShotgunGot", 1);
+				WeaponID = 1;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 2:
+			if(CheckInventory("ssgGot")>0){
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+			} else {
+				GiveInventory("ssgGot", 1);
+				WeaponID = WeaponGotID;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 3:
+			if(CheckInventory("ChaingunGot")>0){
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+			} else {
+				GiveInventory("ChaingunGot", 1);
+				WeaponID = WeaponGotID;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 4:
+			if(CheckInventory("RLCGot")>0){
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+			} else {
+				GiveInventory("RLCGot", 1);
+				WeaponID = WeaponGotID;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 5:
+			if(CheckInventory("PlasmaGot")>0){
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+			} else {
+				GiveInventory("PlasmaGot", 1);
+				WeaponID = WeaponGotID;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 6:
+			if(CheckInventory("BfgGot")>0){
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+			} else {
+				GiveInventory("BfgGot", 1);
+				WeaponID = WeaponGotID;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		default:
+			WeaponID = 1;
+		}
+	SetResultValue(WeaponID);
 }
+
+Script "DisplaySpawnedWeaponMessage" (int WeaponID){
+	switch (WeaponID) {
+		case 1:
+			PrintBold(s:"Shotgun spawned");
+			break;
+		case 2:
+			PrintBold(s:"SuperShotgun spawned");
+			break;
+		case 3:
+			PrintBold(s:"Chaingun spawned");
+			break;
+		case 4:
+			PrintBold(s:"RocketLauncher spawned");
+			break;
+		case 5:
+			PrintBold(s:"PlasmaRifle spawned");
+			break;
+		case 6:
+			PrintBold(s:"BFG9000 spawned");
+			break;
+		default:
+			PrintBold(s:"Something spawned");
+			break;
+	}
+}
+
 Script "GetProgress" (void)
 {
 	SetResultValue((currentWave * 100) / maxWaveCount);
@@ -294,7 +387,7 @@ script "SpawnWeapon" (int WeaponTag)
 
 		AmmoMaxRnd = 1;
 		WeaponGotID = 1;
-		PrintBold(s:"Shotgun spawned");
+		//PrintBold(s:"Shotgun spawned");
 
 		//Thing_Activate(WeaponTag);
 	}
@@ -302,7 +395,7 @@ script "SpawnWeapon" (int WeaponTag)
 	{
 
 		WeaponGotID = 2;
-		PrintBold(s:"SuperShotgun spawned");
+		//PrintBold(s:"SuperShotgun spawned");
 
 		//Thing_Activate(WeaponTag);
 	}
@@ -311,7 +404,7 @@ script "SpawnWeapon" (int WeaponTag)
 
 		WeaponGotID = 3;
 		Thing_Destroy(666667,0,0);
-		PrintBold(s:"Chaingun spawned");
+		//PrintBold(s:"Chaingun spawned");
 		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= RLSpawnProgressInPercent && WeaponGotID<4)
@@ -319,7 +412,7 @@ script "SpawnWeapon" (int WeaponTag)
 
 		WeaponGotID = 4;
 		AmmoMaxRnd = 2;
-		PrintBold(s:"RocketLauncher spawned");
+		//PrintBold(s:"RocketLauncher spawned");
 
 		//Thing_Activate(WeaponTag);
 	}
@@ -328,7 +421,7 @@ script "SpawnWeapon" (int WeaponTag)
 
 		WeaponGotID = 5;
 		AmmoMaxRnd = 3;
-		PrintBold(s:"PlasmaRifle spawned");
+		//PrintBold(s:"PlasmaRifle spawned");
 
 		//Thing_Activate(WeaponTag);
 	}
@@ -336,7 +429,7 @@ script "SpawnWeapon" (int WeaponTag)
 	{
 
 		WeaponGotID = 6;
-		PrintBold(s:"BFG9000 spawned");
+		//PrintBold(s:"BFG9000 spawned");
 		//Thing_Activate(WeaponTag);
 	}
 	if(WeaponGotID>=1){

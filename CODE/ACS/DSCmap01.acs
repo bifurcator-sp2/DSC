@@ -19,6 +19,7 @@ SCRIPT "StartControl" ENTER
 		/*Door10Locked = false;
 		Door11Locked = false;
 		Door12Locked = false;*/
+		GiveInventory("map01done", 1);
 		GiveInventory("map02done", 1);
 		Thing_Activate(107);
 		GiveInventory("map03done", 1);

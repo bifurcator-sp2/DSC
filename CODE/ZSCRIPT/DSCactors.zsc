@@ -251,7 +251,7 @@ Class GiveAMMOsparckle : Actor
 }
 
 
-Class AMMOspawner : Actor
+Class DSCammoSpawner : Actor
 {
 	int timerWaitForAgainGiveAmmo;
 	int clockForAmmo;
@@ -2092,6 +2092,15 @@ Class DSCtitle : SwitchableDecoration
 			Loop;
 	}
 }
+
+Class ShotgunGot : Inventory { Default { Inventory.MaxAmount 1; } }
+Class ssgGot : Inventory { Default { Inventory.MaxAmount 1; } }
+Class ChaingunGot : Inventory { Default { Inventory.MaxAmount 1; } }
+Class RLCGot : Inventory { Default { Inventory.MaxAmount 1; } }
+Class PlasmaGot : Inventory { Default { Inventory.MaxAmount 1; } }
+Class BfgGot : Inventory { Default { Inventory.MaxAmount 1; } }
+
+
 Class map01done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF; } }
 Class map02done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF; } }
 Class map03done : Inventory { Default { Inventory.MaxAmount 0x7FFFFFFF;} }
