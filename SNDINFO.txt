@@ -19,10 +19,91 @@ $alias WaterDrips Ambient/WTRDRP1
 $ambient 54 WaterDrips point continuous 1.0
 
 
+Ambient/Voltage	AMB10
+$alias Voltage Ambient/Voltage
+$ambient 28 Voltage point continuous 1.0
+
+Ambient/Tresk	AMB11
+$alias Tresk Ambient/Tresk
+$ambient 29 Tresk random 5.0 15.0 1.0
+
+Ambient/Mashinery	AMB12
+$alias Mashinery Ambient/Mashinery
+$ambient 30 Mashinery point continuous 1.0
+
+Ambient/Energy	AMB16
+$alias Energy Ambient/Energy
+$ambient 31 Energy point continuous 1.0
+
+Ambient/FarSomething	AMB19
+$alias FarSomething Ambient/FarSomething
+$ambient 32 FarSomething point continuous 1.0
+
+Ambient/FarMashinery	AMB20
+$alias FarMashinery Ambient/FarMashinery
+$ambient 33 FarMashinery point continuous 1.0
+
+Ambient/FarExhoust	AMB21
+$alias FarExhoust Ambient/FarExhoust
+$ambient 34 FarExhoust world continuous 1.0
+
+Ambient/PlasmaSplashes	BLACKHOL
+$alias PlasmaSplashes Ambient/PlasmaSplashes
+$ambient 35 PlasmaSplashes point continuous 1.0
+
+Ambient/COMP_1	COMP_1
+$alias COMP_1 Ambient/COMP_1
+$ambient 36 COMP_1 point continuous 1.0
+
+Ambient/COMP_2	COMP_2
+$alias COMP_2 Ambient/COMP_2
+$ambient 37 COMP_2 point continuous 1.0
+
+Ambient/COMP_3	COMP_3
+$alias COMP_3 Ambient/COMP_3
+$ambient 38 COMP_3 point continuous 1.0
+
+Ambient/COMP_4	COMP_1
+$alias COMP_4 Ambient/COMP_4
+$ambient 39 COMP_4 point continuous 1.0
+
+
+Ambient/mechPulse DRONE6
+$alias mechPulse Ambient/mechPulse
+$ambient 41 mechPulse point continuous 1.0
+
+
+Ambient/WallLightHum2	FL_HUM1
+$alias WallLightHum2 Ambient/WallLightHum2
+$ambient 43 WallLightHum2 point continuous 1.0
+$volume WallLightHum2 1.0
+
+Ambient/FLESHMOV	FLESHMOV
+$alias FleshMoving Ambient/FLESHMOV
+$ambient 53 FleshMoving point continuous 1.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 world/BFRAIN BFRAIN
 world/Thunder1 THUNDER1
 Ambient/StrongFire	STRONGFI
+
+world/LAMPHUM LAMPHUM
 
 
 world/StoneMove STONEMOV

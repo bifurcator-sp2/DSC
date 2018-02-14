@@ -94,7 +94,18 @@ map DSCMAP07 "The bloody tide"
 {
 next = "DSCMAP06"
 InterMusic = MT
-music = "SEMETE"
+music = "PLAZA"
+EnterPic = "ENTER06"
+ExitPic = "ENTER06"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+map DSCMAP08 "Hungar"
+{
+next = "DSCMAP06"
+InterMusic = MT
+music = "LAB"
 EnterPic = "ENTER06"
 ExitPic = "ENTER06"
 fogdensity = 16

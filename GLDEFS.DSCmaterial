@@ -1,0 +1,666 @@
+material sprite ANG3A0 { 
+normal norm68
+specular spec00
+specularlevel 1.0
+glossiness 5
+}
+
+material texture PENTAFAC { 
+normal norm71
+specular spec71
+metallic spec71
+specularlevel 1.0
+glossiness 5
+}
+
+
+material texture BIMBFCE2 { 
+normal norm70
+specular spec70
+specularlevel 1.0
+glossiness 5
+}
+
+
+material texture BFMBFACE { 
+normal norm69
+specular spec69
+specularlevel 1.0
+glossiness 5
+}
+
+
+material texture BGDOR1 { 
+normal norm67
+specular spec67
+specularlevel 1.0
+glossiness 5
+}
+
+material texture SCULCOL2 { 
+normal norm65
+specular spec65
+specularlevel 1.0
+glossiness 5
+}
+
+material texture SCULLCOL { 
+normal norm65
+specular spec65
+specularlevel 1.0
+glossiness 5
+}
+
+material texture VCBR { 
+normal norm64
+specular spec64
+brightmap VCBRM
+specularlevel 1.0
+glossiness 5
+}
+
+
+material texture VC2 { 
+normal norm64
+specular spec64
+specularlevel 1.0
+glossiness 5
+}
+
+
+material texture VC { 
+normal norm63
+specular spec63
+specularlevel 0.5
+glossiness 5
+}
+
+material texture BFROO { 
+normal norm62
+specular spec62
+specularlevel 1
+glossiness 5
+}
+
+
+material texture MARBMAN { 
+normal norm61
+specular spec61
+specularlevel 1
+glossiness 5
+}
+
+
+material texture ITMPLACE { 
+normal norm60
+specular spec60
+brightmap ITMPLACM
+specularlevel 0.7
+glossiness 5
+}
+
+material texture HLRT6S { 
+normal norm59
+specular spec59
+brightmap HLRT6SM
+specularlevel 0.5
+glossiness 5
+}
+
+
+material texture HLRT6 { 
+normal norm59
+specular spec59
+specularlevel 0.5
+glossiness 5
+}
+
+material texture HLPANO1 { 
+normal norm58
+specular spec58
+specularlevel 0.5
+glossiness 5
+}
+
+material texture HELLART5 { 
+normal norm57
+specular spec57
+specularlevel 0.5
+glossiness 5
+}
+material texture HELLART4 { 
+normal norm56
+specular spec56
+specularlevel 0.5
+glossiness 5
+}
+
+
+material texture HELLART3 { 
+normal norm55
+specular spec55
+specularlevel 0.5
+glossiness 5
+}
+
+
+material texture HELLART1 { 
+normal norm54
+specular spec54
+specularlevel 0.5
+glossiness 5
+}
+
+material texture MARBFL1 { 
+normal norm53
+specular spec53
+specularlevel 1.2
+glossiness 5
+}
+material texture MARBFL2 { 
+normal norm53
+specular spec53
+specularlevel 1.2
+glossiness 5
+}
+
+
+material texture metalsp { 
+normal norm52
+specular spec25
+specularlevel 0.2
+glossiness 5
+}
+
+
+material texture METALS { 
+normal norm51
+specular spec50
+specularlevel 1
+glossiness 5
+}
+
+material texture BFMETALL { 
+normal norm50
+specular spec50
+specularlevel 1
+glossiness 5
+}
+
+material texture LIONDOOR { 
+normal norm48
+specular spec48
+specularlevel 1
+glossiness 5
+}
+
+material texture BFMBCOL1 { 
+normal norm49
+specular spec49
+specularlevel 1
+glossiness 5
+}
+
+
+material texture BFMARBBL { 
+normal norm43
+specular spec43
+specularlevel 1
+glossiness 5
+}
+
+
+material texture MARS_GR2 { 
+normal norm38
+specular spec00
+specularlevel 0
+}
+
+material texture BCHSAND { 
+normal norm35
+specular spec00
+specularlevel 0
+}
+
+
+material texture SEMIGR { 
+normal norm40
+specular spec40
+specularlevel 0.5
+glossiness 5
+}
+material texture SEMIGRS2 { 
+normal norm41
+specular spec41
+specularlevel 0.5
+glossiness 5
+}
+
+material texture DARKDOOR { 
+normal norm34
+specular spec40
+specularlevel 1
+glossiness 50
+}
+
+material texture BFROO2 { 
+normal norm32
+specular spec32
+specularlevel 0.5
+glossiness 5
+}
+material texture MARBLEC1 { 
+normal norm31
+specular spec31
+specularlevel 1
+glossiness 5
+}
+
+
+material texture BFMRBFCH { 
+normal norm46
+specular spec46
+specularlevel 1
+glossiness 5
+}
+
+
+material texture BFMRBF3 { 
+normal norm47
+specular spec47
+specularlevel 1
+glossiness 5
+}
+
+
+material texture BFMRBF2 { 
+normal norm46
+specular spec46
+specularlevel 1
+glossiness 5
+}
+
+material texture MARBLEC2 { 
+normal norm31
+specular spec31
+specularlevel 1
+glossiness 5
+}
+
+material texture BFMRBLBO { 
+normal norm45
+specular spec45
+specularlevel 1
+glossiness 5
+}
+material texture MRBLBO { 
+normal norm45
+specular spec45
+brightmap MRBLBOSB
+specularlevel 1
+glossiness 5
+}
+
+material texture MARBLMN3 { 
+normal norm44
+specular spec44
+specularlevel 1
+glossiness 5
+}
+material texture MARBLMN { 
+normal norm44
+specular spec44
+specularlevel 1
+glossiness 5
+}
+
+
+material texture BFMRBW5 { 
+normal norm30
+specular spec30
+specularlevel 1
+glossiness 5
+}
+
+
+material texture MRBW6 { 
+normal norm28
+specular spec28
+specularlevel 1
+brightmap MRBW6BM
+glossiness 5
+}
+material texture MRBW5 { 
+normal norm28
+specular spec28
+specularlevel 1
+brightmap MRBW4SM
+glossiness 5
+}
+
+material texture BFMRBW4 { 
+normal norm28
+specular spec28
+specularlevel 1
+glossiness 5
+}
+
+material texture BFMRBW3 { 
+normal norm28
+specular spec28
+specularlevel 1
+glossiness 5
+}
+
+
+material texture BFMRBW2 { 
+normal norm42
+specular spec42
+specularlevel 1
+glossiness 5
+}
+
+material texture BFMRBW1 { 
+normal norm28
+specular spec28
+specularlevel 1
+glossiness 5
+}
+
+material texture BASEMRB1 { 
+normal norm27
+specular spec27
+specularlevel 1
+glossiness 5
+}
+
+material texture BIFMARB2 { 
+normal norm27
+specular spec27
+specularlevel 1
+glossiness 5
+}
+
+material texture BASEMRBR { 
+normal norm27
+specular spec27
+specularlevel 1
+glossiness 5
+}
+
+
+
+
+
+
+material texture ddoor2 { 
+normal norm26
+specular spec00
+brightmap ddoor1m
+specularlevel 1
+}
+
+material texture ddoor1 { 
+normal norm26
+specular spec00
+brightmap ddoor1m
+specularlevel 1
+}
+
+material texture tecwd { 
+normal norm25
+specular spec25
+specularlevel 1
+}
+
+material texture teccol2 { 
+normal norm24
+specular spec24
+specularlevel 1
+}
+material texture teccol2_ { 
+normal norm24
+specular spec24
+brightmap teccol2m
+specularlevel 1
+}
+
+
+material texture panel2 { 
+normal norm23
+specular spec23
+specularlevel 1
+}
+
+material texture panel2_ { 
+normal norm23
+specular spec23
+brightmap panel2_m
+specularlevel 1
+}
+material texture panel2u { 
+normal norm23
+specular spec23
+brightmap panel2um
+specularlevel 1
+}
+
+material texture DSCFLSH  { 
+normal norm13
+specular spec13
+specularlevel 2
+glossiness 30
+}
+
+material texture panel1  { 
+normal norm9
+specular spec00
+specularlevel 1
+}
+
+
+material texture tekgrn2  { 
+normal norm11
+specular spec11
+specularlevel 0.7
+glossiness 5
+}
+
+material texture tekgrn2l  { 
+normal norm10
+specular spec11
+specularlevel 0.7
+glossiness 5
+}
+
+material texture tekgrn4  { 
+normal norm12
+specular spec12
+glossiness 5
+specularlevel 0.7
+}
+
+material texture dsccn1  { 
+normal norm14
+specular spec00
+specularlevel 0
+}
+
+
+material texture supp2 { 
+normal norm15
+specular spec15
+specularlevel 1
+}
+
+material texture supp3_l { 
+normal norm16
+specular supp4
+brightmap supp3lm
+specularlevel 1
+}
+
+material texture supp4 { 
+normal norm16
+specular supp4
+specularlevel 1
+}
+
+
+material texture bswal1 { 
+normal norm19
+specular spec19
+brightmap bswal1m
+glossiness 5
+specularlevel 1
+}
+
+material texture bswal1n { 
+normal norm19
+specular spec19
+glossiness 5
+specularlevel 1
+}
+
+material texture bswal3 { 
+normal norm20
+specular spec20
+brightmap bswal1m
+glossiness 5
+specularlevel 1
+}
+
+material texture supp1 { 
+normal norm22
+specular spec21
+specularlevel 1
+}
+
+material texture supp1l { 
+normal norm22
+specular spec21
+brightmap supp1lm
+specularlevel 1
+}
+
+
+material texture dscfl4  { 
+normal norm3 
+specular spec3
+metallic metall3
+ao oc3
+glossiness 1
+specularlevel 2
+}
+
+material texture dscfl1  { 
+normal norm8 
+specular spec8
+/*metallic spec8*/
+specularlevel 0.7
+glossiness 0.5
+}
+
+
+material texture plate1  { 
+normal norm18 
+specular spec18
+glossiness 1
+specularlevel 1
+}
+
+
+
+material texture teccol1  { 
+normal norm17 
+specular spec17
+glossiness 1
+specularlevel 0.7
+}
+
+material texture dscfl2  { 
+normal norm8 
+specular spec8
+/*metallic spec8*/
+glossiness 1
+specularlevel 1
+}
+
+material texture dscfld  { 
+normal norm00 
+specular spec00
+/*metallic spec4*/
+ao oc4
+glossiness 1
+specularlevel 1
+}
+
+material texture dscfls  { 
+normal norm00 
+specular spec00
+ao oc4
+glossiness 3
+specularlevel 1
+}
+
+
+material texture DOUNPUL  { 
+normal norm37 
+specular spec00
+specularlevel 0
+}
+
+
+material texture DOUNPUL2  { 
+normal norm5 
+specular spec5
+specularlevel 0
+}
+
+
+material texture dscfl3  { 
+normal norm1 
+specular spec1
+metallic spec1
+glossiness 3
+specularlevel 2
+}
+
+
+material texture BFROCK2  { 
+normal norm2 
+specular spec2
+glossiness 1
+specularlevel 1
+/*[metallic <IMAGE>] 
+[roughness <IMAGE>] 
+[ao <IMAGE>] 
+[brightmap <IMAGE>]
+ 
+ [specularlevel <NUMBER>] 
+ [iwad] 
+ [thiswad]
+ [disablefullbright]*/
+}
+
+
+material texture BFROCK2B  { 
+normal norm2 
+specular spec2
+glossiness 1
+specularlevel 1
+}
+material texture BFROCK3  { 
+normal norm36 
+specular spec2
+glossiness 1
+specularlevel 1
+}
+
+/*
+material texture DSCBLD  { 
+normal norm7 
+specular spec00
+glossiness 1
+specularlevel 1
+}*/

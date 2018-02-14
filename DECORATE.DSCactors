@@ -47,9 +47,23 @@ actor DSCwindowGlowDEC : DSCwindowGlow 22037 { //$Sprite LTSRA1
 actor DSCskySmokeSpawnerDEC : DSCskySmokeSpawner 22038 { //
 		//Scale 1.0
 }
-actor DSCtitleDEC : DSCtitle 22039 { ////$Sprite DSCTA0
+actor DSCtitleDEC : DSCtitle 22039 { //$Sprite DSCTA0
 		//Scale 0.3
 }
 actor DSCportalToMapDEC : DSCportalToMap 22040 { ////$Sprite FRS1A0
 		//Scale 5.0
+}
+
+
+actor DSCwindowGlowWhiteDEC : DSCwindowGlowWhite 22041 { //$Sprite LTSUA4
+		//Scale 0.5
+}
+actor DSCceilLightRayDEC : DSCceilLightRay 22042 { //$Sprite LTS2A0
+		Scale 0.5
+}
+actor DSCceilLightGlowDEC : DSCceilLightGlow 22043 { //$Sprite LTS3A0
+		//Scale 0.5
+}
+actor DSClavaSparkGenDEC : DSClavaSparkGen 22044 { 
+		
 }

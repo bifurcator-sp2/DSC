@@ -73,7 +73,7 @@ Script "SatartFirstWave" (void){
 		}
 		NextWaveReady = false;
 		delay(35*5);
-		*/
+
 		for(int i = 5; i > 0; i--)
 		{
 			Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
@@ -83,7 +83,7 @@ Script "SatartFirstWave" (void){
 		TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 		Atrium1Active = true;
 		Exit_Normal(0);
-
+		*/
 }
 
 
@@ -109,4 +109,27 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 	if(NextHelpTag>0){
 		Thing_Activate(NextHelpTag);
 	}
+}
+
+
+script "waterLower1"(void){
+	ceiling_lowerbyvalue(3, 4, 256);
+	//world/WaterOut
+	PlaySound(0, "world/WaterOut", CHAN_BODY, 1.0, true, ATTN_NONE);
+	delay(35*16);
+	StopSound(0, CHAN_BODY);
+}
+script "waterLower2"(void){
+	ceiling_lowerbyvalue(3, 4, 630);
+	//world/WaterOut
+	PlaySound(0, "world/WaterOut", CHAN_BODY, 1.0, true, ATTN_NONE);
+	delay(35*16);
+	StopSound(0, CHAN_BODY);
+}
+script "waterLower3"(void){
+	ceiling_lowerbyvalue(3, 4, 92);
+	//world/WaterOut
+	PlaySound(0, "world/WaterOut", CHAN_BODY, 1.0, true, ATTN_NONE);
+	delay(35*16);
+	StopSound(0, CHAN_BODY);
 }

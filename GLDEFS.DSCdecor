@@ -1,8 +1,4 @@
-PointLight AIDlight
-{
-	color 0.5 0.0 0.0
-    size 64
-}
+
 Object AIDSpawnerDEC
 {
 //FRAME AID1 { light AIDlight }

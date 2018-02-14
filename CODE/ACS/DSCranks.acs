@@ -74,7 +74,7 @@ script "ammoRespawnedIn" (int time){
 	if(DSCplayerRank>=4){
 		Log(s:"Gunner: ammo respawned in ", d:time, s:" sec");
 	} else {
-		Log(s:"Ammo respawned in", d:AmmoRecallBaseTime, s:" sec");
+		Log(s:"Ammo respawned in ", d:AmmoRecallBaseTime, s:" sec");
 	}
 }
 script "GetAmmoRecallTime" (void){

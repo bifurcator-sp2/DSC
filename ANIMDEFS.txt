@@ -1,5 +1,5 @@
 WARP texture FLESH 0.1 allowdecals
-WARP texture DSCFLSH 0.1 allowdecals
+/*WARP texture DSCFLSH 0.1 allowdecals*/
 
 
 WARP texture DSS2A0 2.0

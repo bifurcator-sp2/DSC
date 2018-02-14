@@ -240,3 +240,64 @@ brightmap texture ITMPLACE
 {
    map ITMPLACM
 }
+brightmap texture TPLATE
+{
+   map TPLATEM
+}
+brightmap texture BSWAL1
+{
+   map BSWAL1M
+}
+brightmap texture BSWAL2
+{
+   map BSWAL1M
+}
+brightmap texture BSWAL3
+{
+   map BSWAL1M
+}
+brightmap texture TECCOL2
+{
+   map TECCOL2M
+}
+brightmap texture PANEL2_
+{
+   map PANEL2_M
+}
+brightmap texture CLT0
+{
+   map CLT0M
+}
+brightmap texture CLT1
+{
+   map CLT1M
+}
+
+brightmap texture ddoor1
+{
+   map ddoor1M
+}
+brightmap texture ddoor2
+{
+   map ddoor1M
+}
+
+brightmap texture SUPP1L
+{
+   map SUPP1LM
+}
+brightmap texture SUPP3_L
+{
+   map SUPP3LM
+}
+
+brightmap texture TEKGRN2L
+{
+   map tkgrn2lm
+}
+
+brightmap texture PANEL2U
+{
+   map PANEL2UM
+}
+

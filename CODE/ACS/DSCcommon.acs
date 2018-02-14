@@ -66,6 +66,39 @@ if(speed==0){speed=16;}
 Polyobj_RotateRight(pilyID, speed, angle);
 SoundSequenceOnPolyobj (pilyID, "DoorHell");
 }
+
+
+SCRIPT "DSCplatformLowerWaitRaize" (int tag, int height, int wait){
+
+	if(!wait){wait=3;}
+	Line_SetBlocking (tag, BLOCKF_CREATURES, 0);
+	Ceiling_LowerByValue(tag, 16, height);
+	Floor_LowerByValue(tag, 16, height);
+	delay(height/16*35/5);
+	Line_SetBlocking (tag, 0, BLOCKF_CREATURES);
+	delay(35*wait);
+	Ceiling_RaiseByValue(tag, 16, height);
+	Floor_RaiseByValue(tag, 16, height);
+	delay(35*wait+height/16);
+
+	delay(35);
+
+}
+
+SCRIPT "DSCfloatRock" (int tag, int height, int speed){
+
+	if(!speed){speed=16;}
+	Ceiling_LowerByValue(tag, speed, height);
+	Floor_LowerByValue(tag, speed, height);
+	delay(height/speed*35/4);
+	delay(15);
+	Ceiling_RaiseByValue(tag, speed, height);
+	Floor_RaiseByValue(tag, speed, height);
+	delay(height/speed*35/4);
+	delay(35);
+	ACS_NamedExecuteAlways("DSCfloatRock", 0, tag, height, speed);
+}
+
 SCRIPT "FadeOutMusic" (void){
 	int vol = 1.0;
 	for (int counter = 0; counter < 100; counter++)
@@ -100,6 +133,19 @@ SCRIPT "Halos" ENTER
 	ACS_NamedExecuteAlways("SetBigFireHalo",0, 777);
 
 }
+
+SCRIPT "SpawnTeleport" (int selfTid, int targetTid){
+	SpawnSpotFacingForced ("DSCportalToMap", selfTid, selfTid*targetTid*10);
+	SetThingSpecial(selfTid*targetTid*10, ACS_NamedExecuteAlways, "ActivateTeleport", selfTid, targetTid);
+}
+SCRIPT "ActivateTeleport" (int selfTid, int targetTid){
+	printBold(s:"asdasd");
+	Teleport (targetTid, 0, false);
+	SpawnSpotFacingForced ("DSCportalToMap", selfTid, selfTid*targetTid*10);
+	SetThingSpecial(selfTid*targetTid*10, ACS_NamedExecuteAlways, "ActivateTeleport", selfTid, targetTid);
+}
+
+
 
 script "SetHalo" (int tid){
 	if(CheckSight (0, tid, "") ){

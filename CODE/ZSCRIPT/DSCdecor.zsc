@@ -936,3 +936,122 @@ Class DSCwindowGlow : Actor
 		Loop;
 	}
 }
+Class DSCwindowGlowWhite : Actor
+{
+	Default
+	{
+		+NOINTERACTION;
+		+FORCEYBILLBOARD
+		Renderstyle "Add";
+	}
+	States
+	{
+		Spawn:
+		 LTSU A 1;
+		Loop;
+	}
+}
+Class DSCceilLightRay : Actor
+{
+	Default
+	{
+		+NOINTERACTION;
+		+FORCEYBILLBOARD
+		+SPAWNCEILING
+		Renderstyle "Add";
+	}
+	States
+	{
+		Spawn:
+		 LTS2 A 1 A_PlaySound("world/LAMPHUM", 7, 1.0, true);
+		Loop;
+	}
+}
+Class DSCceilLightGlow : Actor
+{
+	Default
+	{
+		+NOINTERACTION;
+		+FORCEYBILLBOARD
+		+SPAWNCEILING
+		Renderstyle "Add";
+		Scale 0.5;
+	}
+	States
+	{
+		Spawn:
+		 LTS3 A 1;
+		Loop;
+	}
+}
+Class DSClavaSpark : Actor
+{
+	Default
+	{
+	Alpha 1.0;
+	Scale 0.15;
+	RenderStyle "Add";
+	+NoInteraction;
+	+FORCEXYBILLBOARD;
+
+	}
+	States
+	{
+		Spawn:
+			TNT1 A 1 A_Jump(256, "S1", "S2", "S3", "S4");
+			Loop;
+		S1:
+			FRS1 A 1;
+			GOTO Halt;
+		S2:
+			FRS2 A 1;
+			GOTO Halt;
+		S3:
+			FRS3 A 1;
+			GOTO Halt;
+		S4:
+			FRS4 A 1;
+			GOTO Halt;
+		Halt:
+			"####" "A" 1 BRIGHT
+			{
+				A_FadeOut(0.003);
+			}
+			LOOP;
+		Death:
+			TNT1 A 1;
+			stop;
+	}
+}
+Class DSClavaSparkGen : Actor
+{
+	float Radius;
+	float Height;
+	float MinSpeed;
+	float Speed;
+	Default
+	{
+		+NOINTERACTION;
+		+LOOKALLAROUND;
+		+AMBUSH;
+		+QUICKTORETALIATE;	
+	}
+	Override void PostBeginPlay()
+	{
+		Radius = 256;
+		Height = 64;
+		MinSpeed = 0.1;
+		Speed = 0.5;
+	}	
+	States
+		{
+			Spawn:
+				TNT1 A 1 A_LookEx(LOF_NOSOUNDCHECK);
+			See:
+				TNT1 A 1  A_JumpIfCloser(2048, "Spark", false);
+				Goto Spawn;
+			Spark:
+				TNT1 A 1 A_SpawnItemEx("DSClavaSpark", fRandom(-Radius, Radius), fRandom(-Radius, Radius), fRandom(0, Height), fRandom(-Speed, Speed), fRandom(-Speed, Speed), fRandom(MinSpeed, Speed*3), 0, SXF_NOCHECKPOSITION, 0, 0);
+				Goto Spawn;
+		}	
+}
