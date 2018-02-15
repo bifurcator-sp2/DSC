@@ -525,12 +525,14 @@ Script "RestoreMusic" (void){
 }
 /////////////////////////////
 Script "GiveFirstEpisodeDoneItems" (void){
-	GiveInventory("map01done", 1);
-	GiveInventory("map02done", 1);
-	GiveInventory("map03done", 1);
-	GiveInventory("map04done", 1);
-	GiveInventory("map05done", 1);
-	GiveInventory("map06done", 1);
+	if(CheckInventory("map06done")==0){
+		GiveInventory("map01done", 1);
+		GiveInventory("map02done", 1);
+		GiveInventory("map03done", 1);
+		GiveInventory("map04done", 1);
+		GiveInventory("map05done", 1);
+		GiveInventory("map06done", 1);
+	}
 }
 
 

@@ -10,7 +10,7 @@ script "StartControl" ENTER
 
 	Thing_Deactivate(100);
 
-	ACS_NamedExecuteAlways("GiveFirstEpisodeDoneItems", 0);
+
 //TEST!
 
 //NOspawn = true;
@@ -25,7 +25,7 @@ bool inDEV = false;
 	if(inDEV){
 		GiveInventory("map07done", 1);
 	}
-ACS_NamedExecuteAlways("SatartFirstWave", 0);
+	ACS_NamedExecuteAlways("SatartFirstWave", 0);
 
 }
 
@@ -83,7 +83,7 @@ Script "SatartFirstWave" (void){
 		TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 		Atrium1Active = true;
 		Exit_Normal(0);
-		*/
+*/
 }
 
 

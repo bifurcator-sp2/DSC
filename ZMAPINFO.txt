@@ -4,8 +4,12 @@ GameInfo
 }
 
 episode DSCMAP01 {
-	name = "DoomSlayer Chronicles"
+	name = "DoomSlayer Chronicles Episode 1"
 }
+episode DSCMAP06 {
+	name = "DoomSlayer Chronicles Episode 2"
+}
+
 
 map TITLEMAP "Unholy Ministry"
 {
