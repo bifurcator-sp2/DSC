@@ -958,6 +958,7 @@ Class DSCceilLightRay : Actor
 		+NOINTERACTION;
 		+FORCEYBILLBOARD
 		+SPAWNCEILING
+		Height 0;
 		Renderstyle "Add";
 	}
 	States
