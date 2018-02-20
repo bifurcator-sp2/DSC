@@ -223,9 +223,20 @@ eyebound/pain2 EYEPAIN2
 
 eyebound/active BLDRN1
 
+$random AirCanPickup { player/AirCanPickup1 player/AirCanPickup2 player/AirCanPickup3 }
 
+player/AirCanPickup1 AIRCAN1
+player/AirCanPickup2 AIRCAN2
+player/AirCanPickup3 AIRCAN3
 
+player/Rebreather PLAYBRE
+player/Maskoff MASKOFF
 
+world/AirFlow AIRFLOW
+world/AirIntake AIRIN
+
+world/cp_deny cp_deny
+world/cp_ok cp_ok
 
 
 

@@ -64,6 +64,41 @@ actor DSCceilLightRayDEC : DSCceilLightRay 22042 { //$Sprite LTS2A0
 actor DSCceilLightGlowDEC : DSCceilLightGlow 22043 { //$Sprite LTS3A0
 		//Scale 0.5
 }
-actor DSClavaSparkGenDEC : DSClavaSparkGen 22044 { 
-		
+actor DSClavaSparkGenDEC : DSClavaSparkGen 22044 { 	
+}
+
+actor DSCAirlockDecompressionDEC : DSCAirlockDecompression 22048 { 	
+}
+
+actor DSCairlockControllerDEC : DSCairlockController 22049 { 	
+}
+
+
+Actor Oxygen: Inventory
+{
+	Inventory.MaxAmount 4200
+}
+const int AddOxygenInSec = 30;
+
+actor OxygenCanister : CustomInventory 22045
+{
+//	+ALWAYSPICKUP
+//	+AUTOACTIVATE
+	+NOGRAVITY
+	inventory.pickupmessage "Picked up an oxygen canister."
+	Inventory.PickupSound "AirCanPickup"
+	states {
+	Spawn:
+		OXCN A 8 BRIGHT
+		OXCN B 8
+		loop
+	Pickup:
+		TNT1 A 0 A_JumpIf(CountInv("Oxygen") >= 4200, "FailPickup")
+		TNT1 A 1 A_GiveInventory("Oxygen",35*AddOxygenInSec)
+		TNT1 A 0 ACS_NamedExecute("DisplayOxygenInSec", 0)
+		stop
+	FailPickup:
+		TNT1 A 1 ACS_NamedExecute("DisplayOxygenInSec", 0)
+		Fail
+	}
 }

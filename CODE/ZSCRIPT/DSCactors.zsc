@@ -1,3 +1,60 @@
+class ActivateDeactivate play
+{
+	static void ActivateByTid(actor caller, int tid)
+	{
+		ThinkerIterator thingFinder = ThinkerIterator.Create("Actor");
+		Actor mo;
+		while (mo = Actor(thingFinder.Next()))
+		{
+			if (mo is "PlayerPawn") continue;
+			if (mo.TID == tid)
+			{
+				ActivateActor(caller,mo);
+				break;
+			}
+		}
+	}
+
+	static void DeactivateByTid(actor caller, int tid)
+	{
+		ThinkerIterator thingFinder = ThinkerIterator.Create("Actor");
+		Actor mo;
+		while (mo = Actor(thingFinder.Next()))
+		{
+			
+			if (mo is "PlayerPawn")  continue;
+			
+			if (mo.TID == tid)
+			{
+				
+				DeactivateActor(caller,mo);
+				break;
+			}
+		}
+	}
+
+	static void ActivateActor(actor caller, actor thing)
+	{
+		if(thing.activationtype & THINGSPEC_Activate)
+		{
+			thing.activationtype &= ~THINGSPEC_Activate; // Clear flag
+			if (thing.activationtype & THINGSPEC_Switch) // Set other flag if switching
+				thing.activationtype |= THINGSPEC_Deactivate;
+		}
+		thing.Activate(caller);
+	}
+	
+	static void DeactivateActor(actor caller, actor thing)
+	{
+		if(thing.activationtype & THINGSPEC_Deactivate)
+		{
+			thing.activationtype &= ~THINGSPEC_Deactivate; // Clear flag
+			if (thing.activationtype & THINGSPEC_Switch) // Set other flag if switching
+				thing.activationtype |= THINGSPEC_Activate;
+		}
+		thing.Deactivate(caller);		
+	}
+}
 
 
 Class AIDI : Actor
@@ -2092,6 +2149,168 @@ Class DSCtitle : SwitchableDecoration
 			Loop;
 	}
 }
+
+
+Class DSCairlockController : Actor
+{
+/*
+args[0] - inTid tid of gate to station
+args[1] - outTid tid of gate to vacuum
+*/
+	int w;
+	int h;
+	int Count;
+	int i;
+	bool StartBurst;
+	
+	Override void PostBeginPlay()
+	{
+		Count = 35*5;
+		w = args[2]?args[2]:32;
+		h = args[3]?args[3]:128;
+		i = 0;
+		StartBurst = false;
+		Super.PostBeginPlay();
+	}	
+
+	Override void Tick()
+	{
+		if(StartBurst){
+			if(i<Count){
+				for(int s = 0; s<5; s++){
+					A_SpawnItemEx( "DSCairParticle", random(-w, w), random(-h, h), random(-16,16), 0, 0, random(-5,-10),0, SXF_NOCHECKPOSITION, 0, 0);
+				}
+				i++;
+			} else {
+				i = 0;
+				StartBurst = false;
+				SetStateLabel("Inactive");
+			}
+		}
+		Super.Tick();
+	}
+	
+	Default
+	{
+		+NOINTERACTION;
+		+NOGRAVITY;
+		+FORCEYBILLBOARD;
+	}
+	States
+	{
+		Spawn:
+			TNT1 A 1 NODELAY 
+				{ 
+				a_fadeTo(1.0, 1.0);
+				CallACS("Thing_DeActivate", args[1], 0, 0);
+				//ActivateDeactivate.DeactivateByTid(self, args[1]);
+				}
+			Goto Inactive;
+		Lock:
+			TNT1 A 1 { 
+				StartBurst = true; 
+				a_fadeTo(0.0, 1.0);
+				A_PlaySound("world/AirIntake", CHAN_BODY, 1.0, 0, ATTN_NORM);
+				}
+			Goto Inactive;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+	}
+
+}
+
+
+Class DSCAirlockDecompression : SwitchableDecoration
+{
+	//args[0] - number of ticks to flow
+	int Count;
+	int i;
+	bool StartBurst;
+	Default
+	{
+		+NOINTERACTION;
+		+NOGRAVITY;
+		+FORCEYBILLBOARD;
+		Scale 0.3;
+	}
+	Override void PostBeginPlay()
+	{
+		Count = args[0]?args[0]:35*2;
+		i = 0;
+		StartBurst = false;
+		Super.PostBeginPlay();
+	}	
+	
+	Override void Tick()
+	{
+		if(StartBurst){
+			if(i<Count){
+				A_SpawnItemEx( "DSCairParticle", random(-8,8), random(-96,96), random(-32,32), random(8,10), 0, 0,0, SXF_NOCHECKPOSITION, 0, 0);
+				i++;
+			} else {
+				i = 0;
+				StartBurst = false;
+				SetStateLabel("Inactive");
+			}
+		}
+		Super.Tick();
+	}	
+	States
+	{
+		Spawn:
+			TNT1 A 1;
+			Goto Inactive;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+		Active:
+			TNT1 A 1 A_JumpIf(CallACS("AirlockControlOutflow", tid, 0, 0), "Flow");
+			Loop;
+		Flow:
+			TNT1 A 1 { 
+			/*
+world/AirFlow AIRFLOW
+world/AirIntake AIRIN			
+			*/
+				StartBurst = true; 
+				A_PlaySound("world/AirFlow", CHAN_BODY, 1.0, 0, ATTN_NORM);
+			}
+			Goto Inactive;
+	}
+}
+
+
+Class DSCairParticle : Actor
+{
+	int Rotation;
+	
+	Default
+	{
+		+NOINTERACTION;
+		+NOGRAVITY;
+		+FORCEXYBILLBOARD;
+		+ROLLSPRITE;
+		Renderstyle "Translucent";
+		Alpha 0.3;
+		Scale 1.0;
+	}
+	Override void PostBeginPlay(){ if(random(0, 1)){ Rotation = 10;	} else {Rotation = -10;} Super.PostBeginPlay();}
+
+	States
+	{
+		Spawn:
+			AIR0 A 1 
+			{
+				A_SetRoll(roll+Rotation,SPF_INTERPOLATE);
+				A_fadeOut(0.02);
+			}
+			Loop;
+	}
+}
+
+
+
 
 Class ShotgunGot : Inventory { Default { Inventory.MaxAmount 1; } }
 Class ssgGot : Inventory { Default { Inventory.MaxAmount 1; } }

@@ -5,5 +5,64 @@ WARP texture FLESH 0.1 allowdecals
 WARP texture DSS2A0 2.0
 WARP texture SPTBA0 2.0
 
+Texture ZWT1_0
+	PIC ZWT1_0 tics 5
+	PIC ZWT1_1 tics 5
+	PIC ZWT1_2 tics 5
+	PIC ZWT1_3 tics 5
+	PIC ZWT1_4 tics 5
+	PIC ZWT1_3 tics 5
+	PIC ZWT1_2 tics 5
+	PIC ZWT1_1 tics 5
+
+
+/*
+SWITCH swt1_1
+ON 
+	PIC ZWT1_0 tics 5
+	PIC ZWT1_1 tics 5
+	PIC ZWT1_2 tics 5
+	PIC ZWT1_3 tics 5
+	PIC ZWT1_4 tics 5
+	PIC ZWT1_3 tics 5
+	PIC ZWT1_2 tics 5
+	PIC ZWT1_1 tics 5
+	PIC ZWT1_0 tics 5
+	PIC ZWT1_1 tics 5
+	PIC ZWT1_2 tics 5
+	PIC ZWT1_3 tics 5
+	PIC ZWT1_4 tics 5
+	PIC ZWT1_3 tics 5
+	PIC ZWT1_2 tics 5
+	PIC ZWT1_1 tics 5
+	PIC ZWT1_0 tics 5
+	
+	
+OFF 
+	PIC swt1_1 tics 70	
+ */
+/*
+    SWITCH <name>:
+
+    Starts a new switch definition. A switch has 2 commands:
+
+        ON
+
+        Defines the animation that is played when the switch is activated
+
+        OFF
+
+        Defines the animation that is played when the switch resets
+
+    Inside each of these definitions the following commands can be used:
+
+        SOUND <soundname>
+
+        Defines the sound that is played when the switch is pressed/reset. As usual, this uses a logical sound name from SNDINFO and not the name of the sound lump.
+
+        PIC <name> tics <duration> | rand <min max>
+
+        Defines one animation frame for the current sequence. The syntax is the same as in the TEXTURE/FLAT animations, except that the texture must always be specified by name. There can be multiple PIC definitions in each sequence for the switch.
+*/
 
 

@@ -1,4 +1,85 @@
+bool PlayerInVaquum = false;
+bool PlayerInAirlock = true;
 
+function bool DoorClosed(int Tid){
+	if(GetSectorCeilingZ(Tid, 0, 0)==GetSectorFloorZ(Tid, 0 ,0)){
+		return true;
+	}
+	return false;
+}
+
+script "AirlockControlOutflow"(int ThisTid){
+	//this called by AirlockAirflow actor to get state of his door
+	//air must not to flow if door is closed
+	if(DoorClosed(ThisTid)){
+		SetResultValue(0);
+		terminate;
+	}
+	SetResultValue(1);
+}
+script "EnterAirlock" (void){PlayerInAirlock = true;}
+script "EnterVaquum" (void){PlayerInAirlock = FALSE;}
+
+script "AirlockInnerDoor" (int thisTid, int OutTid, int ControllerTag){
+
+	if(!DoorClosed(thisTid) || !DoorClosed(OutTid) || CheckActorProperty(ControllerTag, APROP_Alpha, 0.0)  ){
+		PlaySound(0, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(35);
+		terminate;
+	}
+	PlaySound(0, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	delay(35);
+	Generic_Door(thisTid, 16, 0, 34, 0 );
+	SetLineTexture(thisTid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	SetLineTexture(OutTid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	PlayerInVaquum = 0;
+	delay(5);//wait for door start open. AirlockAirflow actor need it/
+	ACS_NamedExecute("OxygenRegen",0, 5);
+	Thing_Activate(thisTid);//activates air inflow, normal lights
+	Thing_DeActivate(OutTid);//deactivates air outflow, red lights
+	while(!DoorClosed(thisTid)){
+
+		delay(5);
+	}
+	SetLineTexture(thisTid, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineTexture(OutTid, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+}
+
+
+
+script "AirlockOuterDoor" (int thisTid, int InTid, int ControllerTag){
+	if(!DoorClosed(thisTid) || !DoorClosed(InTid) || CheckActorProperty(ControllerTag, APROP_Alpha, 0.0) ){
+		PlaySound(0, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(35);
+		terminate;
+	}
+	PlaySound(0, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	delay(35);
+	Generic_Door(thisTid, 16, 0, 34, 0 );
+	SetLineTexture(thisTid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	SetLineTexture(InTid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	delay(5);
+	ACS_NamedExecute("OxygenDrain", 0, 1);
+
+	Thing_Activate(thisTid);//air outflow and redLights
+	Thing_DeActivate(InTid);//deactivates air inflow and normal lights
+	Delay(15);
+	//PlayerInVaquum = 1;
+	while(!DoorClosed(thisTid)){
+		delay(1);
+	}
+	SetActorState(ControllerTag, "Lock");//Controller thing turn on airflow from ceiling and goes to "Lock" state
+	delay(35*5);//wait for air comes to room
+	SetActorState(ControllerTag, "Spawn");
+	Thing_Activate(InTid);//activates normal lights and air inflow
+	Thing_DeActivate(thisTid);//deactivates air outflow and red lights
+	SetLineTexture(thisTid, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineTexture(InTid, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	if(PlayerInAirlock){
+		ACS_NamedExecute("OxygenRegen",0, 5);
+	}
+	//PlayerInVaquum = 0;
+}
 
 SCRIPT "HellThunder" (void)
 {
@@ -173,8 +254,81 @@ script "DisplayActorHealth" (int tid){
 	delay(1);
 	restart;
 }
+//////////////////////////////////////////////////////////////////////////////////////////////
+// This determines how much the player has normally while on ground.
+// If your map/mod gives player more air supply, edit this constant
+// and recompile the script.
+
+#define max_oxygenInSec 60*2
+#define max_oxygen 35 * max_oxygenInSec
+#define oxy_regen 35*60
+bool MaskSoundStarted = false;
+bool maskOFF = true;
+Script "MaskControll" ENTER {
+	if(!MaskSoundStarted && PlayerInVaquum){
+		PlaySound(0, "player/Rebreather", CHAN_BODY, 1.0,  true, ATTN_NONE );
+		MaskSoundStarted = true;
+		maskOFF = false;
+	}
+	if(!PlayerInVaquum && !maskOFF){
+		PlaySound(0, "player/Maskoff", CHAN_BODY, 1.0,  false, 0 );
+		MaskSoundStarted = false;
+		maskOFF = true;
+	}
+	Delay(10);
+	Restart;
+}
+
+Script "OxygenDrain" (int DrainSpeedInSec)
+{
+	PlayerInVaquum = true;
+	ACS_NamedTerminate("OxygenRegen",0);
+	if (CheckInventory("Oxygen") > 0)
+	{
+		TakeInventory("Oxygen",DrainSpeedInSec * 35);
+		ACS_NamedExecute("DisplayOxygenInSec", 0);
+
+	}
+	else
+	{
+		Thing_Damage(0,2,MOD_WATER);
+	}
+	Delay(35);
+	Restart;
+}
+
+script "DisplayOxygenInSec" (void)
+{
+	if(CheckInventory("Oxygen")< max_oxygen){
+		PrintBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds");
+		Delay(1);
+	} else {
+		PrintBold(s:"Oxygen full");
+	}
+}
+
+script "OxygenRegen" (int RegenSpeedInSec)
+{
+	PlayerInVaquum = false;
+	ACS_NamedTerminate("OxygenDrain",0);
+	if(CheckInventory("Oxygen") >= oxy_regen)
+	{
+		Terminate;
+	}
+	else
+	{
+		GiveInventory("Oxygen",RegenSpeedInSec * 35);
+	}
+	//ACS_NamedExecute("MaskControll", 0, 0);
+	Delay(35);
+	Restart;
+}
 
 
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 
 function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOffset, int yOffset, int range, str sprite, str text, int holdTime, str colour)
@@ -231,3 +385,6 @@ function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOff
 	}
 
 }
+
+script "Thing_Activate" (int tid){ Thing_Activate(tid); }
+script "Thing_DeActivate" (int tid){ Thing_DeActivate(tid); }
