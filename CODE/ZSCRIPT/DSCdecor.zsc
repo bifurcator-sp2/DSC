@@ -1056,3 +1056,17 @@ Class DSClavaSparkGen : Actor
 				Goto Spawn;
 		}	
 }
+Class DSClavaSparkGenHorizontal : DSClavaSparkGen
+{
+	States
+		{
+			Spawn:
+				TNT1 A 1 A_LookEx(LOF_NOSOUNDCHECK);
+			See:
+				TNT1 A 1  A_JumpIfCloser(2048, "Spark", false);
+				Goto Spawn;
+			Spark:
+				TNT1 A 1 A_SpawnItemEx("DSClavaSpark", fRandom(-Radius, Radius), fRandom(-Radius, Radius), fRandom(0, Height), fRandom(MinSpeed, Speed*3), fRandom(-Speed, Speed), fRandom(-Speed, Speed), 0, SXF_NOCHECKPOSITION, 0, 0);
+				Goto Spawn;
+		}	
+}

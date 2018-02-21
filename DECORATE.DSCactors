@@ -72,6 +72,8 @@ actor DSCAirlockDecompressionDEC : DSCAirlockDecompression 22048 {
 
 actor DSCairlockControllerDEC : DSCairlockController 22049 { 	
 }
+actor DSClavaSparkGenHorizontalDEC : DSClavaSparkGenHorizontal 22050 { 	
+}
 
 
 Actor Oxygen: Inventory
