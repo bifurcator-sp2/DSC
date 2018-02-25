@@ -91,6 +91,8 @@ actor OxygenCanister : CustomInventory 22045
 	+NOGRAVITY
 	inventory.pickupmessage "Picked up an oxygen canister."
 	Inventory.PickupSound "AirCanPickup"
+	Inventory.RespawnTics 700
+	+INVENTORY.ALWAYSRESPAWN
 	states {
 	Spawn:
 		OXCN A 8 BRIGHT
