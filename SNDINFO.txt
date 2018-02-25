@@ -85,16 +85,30 @@ $ambient 53 FleshMoving point continuous 1.0
 
 
 
+world/TecHoul1 AMB11
+world/TecHoul2 AMB12
+world/TecHoul3 AMB20
+world/TecHoul4 AMB21
 
+$alias GungarHoulingAmbience1 world/TecHoul1
+$ambient 54 GungarHoulingAmbience1 random 5.0 25.0 1.0
 
+$alias GungarHoulingAmbience2 world/TecHoul2
+$ambient 55 GungarHoulingAmbience2 random 5.0 15.0 1.0
 
+$alias GungarHoulingAmbience3 world/TecHoul3
+$ambient 56 GungarHoulingAmbience3 random 5.0 15.0 1.0
 
+$alias GungarHoulingAmbience4 world/TecHoul4
+$ambient 57 GungarHoulingAmbience4 random 5.0 15.0 1.0
 
+Ambient/DSCLAVA1	DSCLAVA1
+$alias LavaMoving1 Ambient/DSCLAVA1
+$ambient 58 LavaMoving1 point continuous 1.0
 
-
-
-
-
+Ambient/DSCLAVA2	DSCLAVA2
+$alias LavaMoving2 Ambient/DSCLAVA2
+$ambient 59 LavaMoving2 point continuous 1.0
 
 
 
@@ -191,6 +205,16 @@ world/RACHIVE RNKUP3
 $random WAVEDONE { world/WAVEDONE }
 world/WAVEDONE WAVEDONE
 
+$random BADVOISE { world/badvoise1 world/badvoise2}
+world/badvoise1 UHV1
+world/badvoise2 UHV2
+
+
+$random LOOKAT { world/lookat1 world/lookat2 world/lookat3 world/lookat4}
+world/lookat1 lookat1
+world/lookat2 lookat2
+world/lookat3 lookat3
+world/lookat4 lookat4
 
 
 
@@ -237,6 +261,7 @@ world/AirIntake AIRIN
 
 world/cp_deny cp_deny
 world/cp_ok cp_ok
+world/item_off off
 
 
 

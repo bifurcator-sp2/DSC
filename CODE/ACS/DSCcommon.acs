@@ -201,6 +201,27 @@ SCRIPT "FadeInMusic" (void){
 	SetMusicVolume(1.0);
 }
 
+SCRIPT "FadeOutMusicFast" (void){
+	int vol = 1.0;
+	for (int counter = 0; counter < 100; counter++)
+	{
+		vol = vol-0.05;
+		SetMusicVolume(vol);
+		delay(1);
+	}
+	SetMusicVolume(0.0);
+}
+SCRIPT "FadeInMusicFast" (void){
+	int vol = 0.0;
+	for (int counter = 0; counter < 100; counter++)
+	{
+		vol = vol+0.05;
+		SetMusicVolume(vol);
+		delay(1);
+	}
+	SetMusicVolume(1.0);
+}
+
 SCRIPT "MuteMusic" (int ticks){
 	SetMusicVolume(0.0);
 		delay(ticks);
@@ -264,6 +285,15 @@ script "DisplayActorHealth" (int tid){
 #define oxy_regen 35*60
 bool MaskSoundStarted = false;
 bool maskOFF = true;
+
+Script "MaskRestartControll" ENTER {
+	//restarts rebreather sound for batle sounds do not stop it
+	if(MaskSoundStarted && PlayerInVaquum){
+		PlaySound(0, "player/Rebreather", CHAN_BODY, 1.0,  true, ATTN_NONE );
+	}
+	Delay(90);
+	restart;
+}
 Script "MaskControll" ENTER {
 	if(!MaskSoundStarted && PlayerInVaquum){
 		PlaySound(0, "player/Rebreather", CHAN_BODY, 1.0,  true, ATTN_NONE );

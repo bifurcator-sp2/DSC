@@ -16,7 +16,7 @@ global int 7:DSCplayerRank;
 #define PlasmaGunSpawnProgressInPercent 70
 #define BFG9000SpawnProgressInPercent 80
 
-#define maxWaveCount 40
+#define maxWaveCount 50
 bool isBE = false;
 Bool NextWaveReady = false;
 Bool WaveOnline = false;
@@ -39,7 +39,7 @@ int SaintHealthUpBaseAmount = 10;//basic value for SaintHealthUp DSCprisonedSain
 bool OverrideDeathBugFIX = false;
 script "DeathBufFIX" DEATH  {
 //this is check for death restart clear inventory bug
-
+			delay(35*2);
 			currentWave = 0;
 			DSCplayerRank = 0;
 			TotalKills = 0;
@@ -244,7 +244,8 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 
 			if(!NOspawn){//debug thing
 				Delay(35*3);
-				AmbientSound("Howling",127);
+				//AmbientSound("Howling",127);
+				PlaySound(0, "Howling", CHAN_AUTO, 1.0,  false, ATTN_NONE );
 				Delay(35*3);
 
 				for(int i = 5; i > 0; i--)
@@ -263,8 +264,8 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 				Delay(35*30);
 			}
 			while ( GetTotalMonsters()>0){ Delay(35); }
-			AmbientSound("WAVEDONE",127);
-
+			//AmbientSound("WAVEDONE",127);
+			PlaySound(0, "WAVEDONE", CHAN_AUTO, 1.0,  false, ATTN_NONE );
 			killedPerWave = GetLevelInfo (LEVELINFO_KILLED_MONSTERS)-KilledWaveStart;
 			ACS_NamedExecute("DisplayWaveStats", 0, killedPerWave, TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS));
 			//PrintBold(s:"Wave ", d:CurrentWave+1,  s:" complete!");
@@ -507,6 +508,32 @@ Script "Mus_M3" (void){
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
+Script "Mus_SM1" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("BTTLsm1", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+Script "Mus_SM2" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("BTTLsm2", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+Script "Mus_SM3" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("BTTLsm3", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+
+
 Script "Mus_TITLEMAP" (void){
 	if(!IgnoreWaveMusicChange){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);

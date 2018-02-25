@@ -74,6 +74,8 @@ actor DSCairlockControllerDEC : DSCairlockController 22049 {
 }
 actor DSClavaSparkGenHorizontalDEC : DSClavaSparkGenHorizontal 22050 { 	
 }
+actor DSCtentyacleSwitchableDEC : DSCtentyacleSwitchable 22051 { 	
+}
 
 
 Actor Oxygen: Inventory
@@ -98,7 +100,7 @@ actor OxygenCanister : CustomInventory 22045
 		TNT1 A 0 A_JumpIf(CountInv("Oxygen") >= 4200, "FailPickup")
 		TNT1 A 1 A_GiveInventory("Oxygen",35*AddOxygenInSec)
 		TNT1 A 0 ACS_NamedExecute("DisplayOxygenInSec", 0)
-		stop
+		Stop
 	FailPickup:
 		TNT1 A 1 ACS_NamedExecute("DisplayOxygenInSec", 0)
 		Fail
