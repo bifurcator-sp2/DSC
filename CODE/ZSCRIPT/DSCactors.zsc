@@ -624,6 +624,13 @@ random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
     {
 		MonstersTier2.Clear();
 		WeaponGotID = CallACS("GetWeaponGotID",0,0,0);
+		
+		if(WeaponGotID<2)
+		{
+			MonstersTier2.Push("Demon");
+			MonstersTier2.Push("DoomImp");
+			MonstersTier2.Push("ShotgunGuy");
+		}		
 		if(WeaponGotID>=2)
 		{
 			MonstersTier2.Push("Spectre");
@@ -852,7 +859,7 @@ Class WeaponMarker : CustomInventory
 
 	Override void Tick()
 	{
-		if(timer<35*30){timer++;}
+		if(timer<35*60){timer++;}
 		else { SetStateLabel("Death"); }
 		Super.Tick();
 	}
@@ -903,7 +910,7 @@ Class DSCweaponSpawner   : SwitchableDecoration
 			GOTO Inactive;
 		Inactive:
 			TNT1 A -1;
-			Stop;
+			Loop;
 		Active:
 			TNT1 A 1;
 			TNT1 A 1 a_jump(200, "Active");
@@ -2061,6 +2068,7 @@ Class DSCtentyacleBounder : Actor
 	{
 		+SOLID;
 		+SHOOTABLE;
+		+NOGRAVITY;
 		PainChance 128;
 		Height 256;
 		DeathHeight 0;
@@ -2187,6 +2195,8 @@ Class DSCtentyacleSwitchable : SwitchableDecoration
 
 	}
 }
+
+
 Class DSCskySmokeSpawner : SwitchableDecoration
 {
 	Default

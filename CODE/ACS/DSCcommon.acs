@@ -1,6 +1,19 @@
 bool PlayerInVaquum = false;
 bool PlayerInAirlock = true;
 
+
+script "LookAt" (int CameraTid, int TimeTics){
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	Thing_Activate(CameraTid);
+	ChangeCamera(CameraTid, 0, 0);
+	ACS_NamedExecuteAlways("FadeOutMusicFast", 0);
+	PlaySound (0, "LOOKAT" , 64, 1.0, false, ATTN_NONE);
+	delay(TimeTics);
+	Thing_DeActivate(CameraTid);
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+	ChangeCamera(0, 0, 0);
+	ACS_NamedExecuteAlways("FadeInMusicFast", 0);
+}
 function bool DoorClosed(int Tid){
 	if(GetSectorCeilingZ(Tid, 0, 0)==GetSectorFloorZ(Tid, 0 ,0)){
 		return true;
@@ -275,6 +288,14 @@ script "DisplayActorHealth" (int tid){
 	delay(1);
 	restart;
 }
+
+
+
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 // This determines how much the player has normally while on ground.
 // If your map/mod gives player more air supply, edit this constant

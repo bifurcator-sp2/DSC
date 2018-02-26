@@ -1070,3 +1070,48 @@ Class DSClavaSparkGenHorizontal : DSClavaSparkGen
 				Goto Spawn;
 		}	
 }
+
+Class DSCtentyacleDecor : Actor
+{
+	Default
+	{
+		+NOGRAVITY;
+		+NOINTERACTION;
+		Renderstyle "Translucent";
+		+FORCEYBILLBOARD;
+		Alpha 1.0;
+		Xscale 0.5;
+		Yscale 0.5;
+	}
+	States
+	{
+		Spawn:
+			T1NT A 0 A_Jump (256, 1, 2, 3);
+			T1NT A 1 A_Jump (256, "Live");
+			T1NT B 1 A_Jump (256, "Live");
+			T1NT C 1 A_Jump (256, "Live");
+			LOOP;
+		Live:
+			"####" "#" 1;
+			Loop;
+	}
+}
+
+Class DSCdistantRock : Actor
+{
+	Default
+	{
+		+NOGRAVITY;
+		+NOINTERACTION;
+		+WALLSPRITE;
+		Renderstyle "Translucent";
+		+FORCEYBILLBOARD;
+	}
+	States
+	{
+		Spawn:
+			ROS1 A 1;
+			LOOP;
+
+	}
+}

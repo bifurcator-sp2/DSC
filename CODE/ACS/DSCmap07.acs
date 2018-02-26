@@ -52,12 +52,19 @@ Script "SatartFirstWave" (void){
 		//wait for scull pickup
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
 		ACS_NamedExecuteAlways("Mus_M2", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100101, 100401);
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100101, 100401);
 		//wait for scull pickup
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
-		ACS_NamedExecuteAlways("cageDown", 0, 100502, 999999, 999999);
-		Delay(35*5);
+		ACS_NamedExecuteAlways("Mus_M2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100101, 100401);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("LookAt", 0, 47, 35*7);
+		ACS_NamedExecuteAlways("cageDown", 0);
+		Delay(35*10);
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 999999, 999999);
 		//wait for wave end
 		while(WaveOnline){ Delay(5);}
@@ -122,6 +129,7 @@ script "cageDown"(void){
 
 script "waterLower1"(void){
 	ceiling_lowerbyvalue(3, 4, 256);
+	floor_lowerbyvalue(19, 4, 256);
 	//world/WaterOut
 	PlaySound(0, "world/WaterOut", CHAN_BODY, 1.0, true, ATTN_NONE);
 	delay(35*16);
@@ -131,6 +139,7 @@ script "waterLower2"(void){
 	if(!water_lowered2){
 		water_lowered2 = true;
 		ceiling_lowerbyvalue(3, 4, 630);
+		floor_lowerbyvalue(19, 4, 630);
 		Floor_LowerToLowest(18, 16);
 		//world/WaterOut
 		PlaySound(0, "world/WaterOut", CHAN_BODY, 1.0, true, ATTN_NONE);
@@ -140,6 +149,7 @@ script "waterLower2"(void){
 }
 script "waterLower3"(void){
 	ceiling_lowerbyvalue(3, 4, 92);
+	floor_lowerbyvalue(19, 4, 92);
 	//world/WaterOut
 	PlaySound(0, "world/WaterOut", CHAN_BODY, 1.0, true, ATTN_NONE);
 	delay(35*16);

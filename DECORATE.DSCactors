@@ -76,6 +76,12 @@ actor DSClavaSparkGenHorizontalDEC : DSClavaSparkGenHorizontal 22050 {
 }
 actor DSCtentyacleSwitchableDEC : DSCtentyacleSwitchable 22051 { 	
 }
+actor DSCtentyacleDecorDEC : DSCtentyacleDecor 22052 { 	//$Sprite T1NTA0
+Scale 0.5
+}
+actor DSCdistantRockDEC : DSCdistantRock 22053 { 	//$Sprite ROS1A0
+//Scale 0.5
+}
 
 
 Actor Oxygen: Inventory
