@@ -1073,6 +1073,14 @@ Class DSClavaSparkGenHorizontal : DSClavaSparkGen
 
 Class DSCtentyacleDecor : Actor
 {
+	int delay;
+	float MinSpeed;
+	float MaxSpeed;
+	float speed;
+	int MinDelay;
+	int MaxDelay;
+	float MaxScale;
+	float MinScale;
 	Default
 	{
 		+NOGRAVITY;
@@ -1080,9 +1088,19 @@ Class DSCtentyacleDecor : Actor
 		Renderstyle "Translucent";
 		+FORCEYBILLBOARD;
 		Alpha 1.0;
-		Xscale 0.5;
-		Yscale 0.5;
+		//Xscale 0.5;
+		//Yscale 0.5;
 	}
+	Override void PostBeginPlay()
+	{
+		MinScale = 0.1;
+		MaxScale = 10;
+		MinDelay = 35*5;
+		MaxDelay = 35*20;
+		MinSpeed = 0.01;
+		MaxSpeed = 0.1;
+	}	
+
 	States
 	{
 		Spawn:
@@ -1092,8 +1110,39 @@ Class DSCtentyacleDecor : Actor
 			T1NT C 1 A_Jump (256, "Live");
 			LOOP;
 		Live:
-			"####" "#" 1;
-			Loop;
+			"####" "#" 1 NODELAY
+			{
+				delay = random(MinDelay, MaxDelay);
+				MaxScale = random(3, 7);
+				speed = Frandom(MinSpeed, MaxSpeed);
+			}
+			GOTO Stand;
+			//GOTO Grow;
+		Stand:
+			"####" "#" 0 { 
+				delay--;
+			}
+			"####" "#" 1 A_JumpIf(delay<=0, "SwichState");
+			Loop;	
+		SwichState:
+			"####" "#" 1 A_JumpIf(scale.Y>=MaxScale, "Shrink");
+			GOTO Grow;	
+		Grow:
+			"####" "#" 0 A_JumpIf(scale.Y>=MaxScale, "Live");
+			//"####" "#" 1 A_PrintBold( "Next revenant killed..." );
+			"####" "#" 1 {
+				scale.Y+=speed;
+				scale.X+=speed;				
+			}
+			Loop;	
+		Shrink:
+			
+			"####" "#" 0 A_JumpIf(scale.Y <= MinScale, "Live");
+			"####" "#" 1 {
+				scale.Y-=speed;
+				scale.X-=speed;				
+			}
+			Loop;			
 	}
 }
 

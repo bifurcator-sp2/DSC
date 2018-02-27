@@ -342,7 +342,7 @@ Script "OxygenDrain" (int DrainSpeedInSec)
 	}
 	else
 	{
-		Thing_Damage(0,2,MOD_WATER);
+		Thing_Damage(0,5,MOD_WATER);
 	}
 	Delay(35);
 	Restart;
