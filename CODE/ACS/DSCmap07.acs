@@ -25,11 +25,15 @@ bool inDEV = false;
 	if(inDEV){
 		GiveInventory("map07done", 1);
 	}
-	ACS_NamedExecuteAlways("SatartFirstWave", 0);
-
+	//ACS_NamedExecuteAlways("SatartFirstWave", 0);
+	delay(35*10);
+	ACS_NamedExecuteAlways("SpawnFirstScull", 0);
 }
 
-
+SCRIPT "SpawnFirstScull" (void){
+		SpawnSpotFacingForced("WaveScullDEC", 100100, 100600);
+		SetThingSpecial(100600, ACS_NamedExecute, "SatartFirstWave");
+}
 
 Script "SatartFirstWave" (void){
 

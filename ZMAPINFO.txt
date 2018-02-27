@@ -98,7 +98,7 @@ map DSCMAP07 "The bloody tide"
 {
 next = "DSCMAP06"
 InterMusic = MT
-music = "PLAZA"
+music = "TIDE"
 EnterPic = "ENTER06"
 ExitPic = "ENTER06"
 fogdensity = 16

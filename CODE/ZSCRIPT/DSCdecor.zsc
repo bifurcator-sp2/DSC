@@ -1113,7 +1113,7 @@ Class DSCtentyacleDecor : Actor
 			"####" "#" 1 NODELAY
 			{
 				delay = random(MinDelay, MaxDelay);
-				MaxScale = random(3, 7);
+				MaxScale = Frandom(1, 7);
 				speed = Frandom(MinSpeed, MaxSpeed);
 			}
 			GOTO Stand;
@@ -1125,6 +1125,7 @@ Class DSCtentyacleDecor : Actor
 			"####" "#" 1 A_JumpIf(delay<=0, "SwichState");
 			Loop;	
 		SwichState:
+			"####" "#" 1 A_Playsound("world/tentacle", CHAN_AUTO, 1.0, false, ATTN_NORM);
 			"####" "#" 1 A_JumpIf(scale.Y>=MaxScale, "Shrink");
 			GOTO Grow;	
 		Grow:
@@ -1132,7 +1133,8 @@ Class DSCtentyacleDecor : Actor
 			//"####" "#" 1 A_PrintBold( "Next revenant killed..." );
 			"####" "#" 1 {
 				scale.Y+=speed;
-				scale.X+=speed;				
+				scale.X+=speed;	
+				
 			}
 			Loop;	
 		Shrink:

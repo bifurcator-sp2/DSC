@@ -126,6 +126,8 @@ world/BigClose BIGCLOSE
 world/IRONMOVE IRONMOVE
 world/TNSTOP TNSTOP
 
+world/tentacle TENTA
+
 
 world/HAPPEN1 HAPPEN1
 
