@@ -4,8 +4,12 @@ GameInfo
 }
 
 episode DSCMAP01 {
-	name = "DoomSlayer Chronicles"
+	name = "DoomSlayer Chronicles Episode 1"
 }
+episode DSCMAP06 {
+	name = "DoomSlayer Chronicles Episode 2"
+}
+
 
 map TITLEMAP "Unholy Ministry"
 {
@@ -94,7 +98,18 @@ map DSCMAP07 "The bloody tide"
 {
 next = "DSCMAP06"
 InterMusic = MT
-music = "SEMETE"
+music = "TIDE"
+EnterPic = "ENTER06"
+ExitPic = "ENTER06"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+map DSCMAP08 "Hungar"
+{
+next = "DSCMAP06"
+InterMusic = MT
+music = "LAB"
 EnterPic = "ENTER06"
 ExitPic = "ENTER06"
 fogdensity = 16

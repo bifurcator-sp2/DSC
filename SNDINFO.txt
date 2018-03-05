@@ -19,10 +19,105 @@ $alias WaterDrips Ambient/WTRDRP1
 $ambient 54 WaterDrips point continuous 1.0
 
 
+Ambient/Voltage	AMB10
+$alias Voltage Ambient/Voltage
+$ambient 28 Voltage point continuous 1.0
+
+Ambient/Tresk	AMB11
+$alias Tresk Ambient/Tresk
+$ambient 29 Tresk random 5.0 15.0 1.0
+
+Ambient/Mashinery	AMB12
+$alias Mashinery Ambient/Mashinery
+$ambient 30 Mashinery point continuous 1.0
+
+Ambient/Energy	AMB16
+$alias Energy Ambient/Energy
+$ambient 31 Energy point continuous 1.0
+
+Ambient/FarSomething	AMB19
+$alias FarSomething Ambient/FarSomething
+$ambient 32 FarSomething point continuous 1.0
+
+Ambient/FarMashinery	AMB20
+$alias FarMashinery Ambient/FarMashinery
+$ambient 33 FarMashinery point continuous 1.0
+
+Ambient/FarExhoust	AMB21
+$alias FarExhoust Ambient/FarExhoust
+$ambient 34 FarExhoust world continuous 1.0
+
+Ambient/PlasmaSplashes	BLACKHOL
+$alias PlasmaSplashes Ambient/PlasmaSplashes
+$ambient 35 PlasmaSplashes point continuous 1.0
+
+Ambient/COMP_1	COMP_1
+$alias COMP_1 Ambient/COMP_1
+$ambient 36 COMP_1 point continuous 1.0
+
+Ambient/COMP_2	COMP_2
+$alias COMP_2 Ambient/COMP_2
+$ambient 37 COMP_2 point continuous 1.0
+
+Ambient/COMP_3	COMP_3
+$alias COMP_3 Ambient/COMP_3
+$ambient 38 COMP_3 point continuous 1.0
+
+Ambient/COMP_4	COMP_1
+$alias COMP_4 Ambient/COMP_4
+$ambient 39 COMP_4 point continuous 1.0
+
+
+Ambient/mechPulse DRONE6
+$alias mechPulse Ambient/mechPulse
+$ambient 41 mechPulse point continuous 1.0
+
+
+Ambient/WallLightHum2	FL_HUM1
+$alias WallLightHum2 Ambient/WallLightHum2
+$ambient 43 WallLightHum2 point continuous 1.0
+$volume WallLightHum2 1.0
+
+Ambient/FLESHMOV	FLESHMOV
+$alias FleshMoving Ambient/FLESHMOV
+$ambient 53 FleshMoving point continuous 1.0
+
+
+
+
+world/TecHoul1 AMB11
+world/TecHoul2 AMB12
+world/TecHoul3 AMB20
+world/TecHoul4 AMB21
+
+$alias GungarHoulingAmbience1 world/TecHoul1
+$ambient 54 GungarHoulingAmbience1 random 5.0 25.0 1.0
+
+$alias GungarHoulingAmbience2 world/TecHoul2
+$ambient 55 GungarHoulingAmbience2 random 5.0 15.0 1.0
+
+$alias GungarHoulingAmbience3 world/TecHoul3
+$ambient 56 GungarHoulingAmbience3 random 5.0 15.0 1.0
+
+$alias GungarHoulingAmbience4 world/TecHoul4
+$ambient 57 GungarHoulingAmbience4 random 5.0 15.0 1.0
+
+Ambient/DSCLAVA1	DSCLAVA1
+$alias LavaMoving1 Ambient/DSCLAVA1
+$ambient 58 LavaMoving1 point continuous 1.0
+
+Ambient/DSCLAVA2	DSCLAVA2
+$alias LavaMoving2 Ambient/DSCLAVA2
+$ambient 59 LavaMoving2 point continuous 1.0
+
+
+
 
 world/BFRAIN BFRAIN
 world/Thunder1 THUNDER1
 Ambient/StrongFire	STRONGFI
+
+world/LAMPHUM LAMPHUM
 
 
 world/StoneMove STONEMOV
@@ -30,6 +125,8 @@ world/BigStonemov BIGSTONE
 world/BigClose BIGCLOSE
 world/IRONMOVE IRONMOVE
 world/TNSTOP TNSTOP
+
+world/tentacle TENTA
 
 
 world/HAPPEN1 HAPPEN1
@@ -110,6 +207,16 @@ world/RACHIVE RNKUP3
 $random WAVEDONE { world/WAVEDONE }
 world/WAVEDONE WAVEDONE
 
+$random BADVOISE { world/badvoise1 world/badvoise2}
+world/badvoise1 UHV1
+world/badvoise2 UHV2
+
+
+$random LOOKAT { world/lookat1 world/lookat2 world/lookat3 world/lookat4}
+world/lookat1 lookat1
+world/lookat2 lookat2
+world/lookat3 lookat3
+world/lookat4 lookat4
 
 
 
@@ -142,9 +249,21 @@ eyebound/pain2 EYEPAIN2
 
 eyebound/active BLDRN1
 
+$random AirCanPickup { player/AirCanPickup1 player/AirCanPickup2 player/AirCanPickup3 }
 
+player/AirCanPickup1 AIRCAN1
+player/AirCanPickup2 AIRCAN2
+player/AirCanPickup3 AIRCAN3
 
+player/Rebreather PLAYBRE
+player/Maskoff MASKOFF
 
+world/AirFlow AIRFLOW
+world/AirIntake AIRIN
+
+world/cp_deny cp_deny
+world/cp_ok cp_ok
+world/item_off off
 
 
 

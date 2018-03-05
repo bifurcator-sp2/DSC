@@ -74,7 +74,7 @@ script "ammoRespawnedIn" (int time){
 	if(DSCplayerRank>=4){
 		Log(s:"Gunner: ammo respawned in ", d:time, s:" sec");
 	} else {
-		Log(s:"Ammo respawned in", d:AmmoRecallBaseTime, s:" sec");
+		Log(s:"Ammo respawned in ", d:AmmoRecallBaseTime, s:" sec");
 	}
 }
 script "GetAmmoRecallTime" (void){
@@ -452,20 +452,29 @@ SCRIPT "AchiveKillInSEc10Counter" (void)
 {
 	delay(35*10);
 	if(AchiveKillInSEc10>=20){
-
-		PrintBold(s:"You are real DOOM SLAYER!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
+		HudMessageBold(s:"You are real DOOM SLAYER!";
+				HUDMSG_PLAIN, 8010, CR_ORANGE, 0.5, 0.15, 5.0);
+		HudMessageBold(i:AchiveKillInSEc10, s:" kills in 10 sec!";
+				HUDMSG_PLAIN, 8011, CR_ORANGE, 0.5, 0.17, 5.0);
+		//PrintBold(s:"You are real DOOM SLAYER!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
 		AchiveKillInSEc10 = 0;
 		terminate;
 	}
 	if(AchiveKillInSEc10>=10){
-
-		PrintBold(s:"You are GREAT!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
+		HudMessageBold(s:"You are GREAT!";
+				HUDMSG_PLAIN, 8010, CR_ORANGE, 0.5, 0.15, 5.0);
+		HudMessageBold(i:AchiveKillInSEc10, s:" kills in 10 sec!";
+				HUDMSG_PLAIN, 8011, CR_ORANGE, 0.5, 0.17, 5.0);
+		//PrintBold(s:"You are GREAT!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
 		AchiveKillInSEc10 = 0;
 		terminate;
 	}
 	if(AchiveKillInSEc10>=5){
-
-		PrintBold(s:"Good work!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
+		HudMessageBold(s:"Good work!";
+				HUDMSG_PLAIN, 8010, CR_ORANGE, 0.5, 0.15, 5.0);
+		HudMessageBold(i:AchiveKillInSEc10, s:" kills in 10 sec!";
+				HUDMSG_PLAIN, 8011, CR_ORANGE, 0.5, 0.17, 5.0);
+		//PrintBold(s:"Good work!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
 		AchiveKillInSEc10 = 0;
 		terminate;
 	}

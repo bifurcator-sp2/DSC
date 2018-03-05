@@ -3,7 +3,7 @@
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
 
 bool DeadPoolHelped;
-
+bool FirstWaveDone = false;
 
 script "StartControl" ENTER
 {
@@ -17,6 +17,11 @@ CurrentWave = 100;
 AmmoMaxRnd = 3;
 WeaponGotID = 5;
 */
+
+SpawnSpotFacingForced("DSCportalToMap", 206, 207);
+SetThingSpecial(207, ACS_NamedExecute, "GotoHungar");
+
+
 
 bool inDEV = false;
 //TEST!
@@ -61,6 +66,10 @@ bool inDEV = false;
 	//CheckInventory("map02done");
 
 }
+
+
+
+
 
 script "ActivadeDeadPoolHelper"(void){
 	if(CheckInventory("map07done")==0){
@@ -140,6 +149,7 @@ Script "SatartFirstWave" (void){
 		for(i = 0; i<=9; i++){	SoundVolume (0, i, 1.0); }
 
 		GiveInventory("map06done", 1);
+		FirstWaveDone = true;
 		/*ACS_NamedExecuteAlways("Mus_TITLEMAP", 0);
 		Thing_Activate(200);
 		ChangeCamera(200, 0, 0);
@@ -153,14 +163,19 @@ Script "SatartFirstWave" (void){
 	//
 }
 
+script "YardDoorOpen" (void){
+	if(CheckInventory("map06done")>0 && FirstWaveDone!=true){
+		ACS_NamedExecuteAlways("RotateDoorLeftNoReturn", 0, 1, 8, 64);
+	}
+}
 
-
+/*
 script "openDoorToYard" (void){
 	if(CheckInventory("map06done")>0){
 		ACS_NamedExecuteAlways("RotateDoorLeftNoReturn", 0, 1, 8, 64);
 	}
 }
-
+*/
 
 
 script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
@@ -201,10 +216,12 @@ script "GotoDeadPool" (void){
 	delay(15);
 	ChangeLevel ("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION);
 }
-script "GotoPlaza" (void){
+
+script "GotoHungar" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP03", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP08", 0, CHANGELEVEL_NOINTERMISSION);
 }
+/*
 script "GotoArena" (void){
 	delay(15);
 	ChangeLevel ("DSCMAP04", 0, CHANGELEVEL_NOINTERMISSION);
@@ -217,7 +234,7 @@ script "GotoMinistry" (void){
 	delay(15);
 	ChangeLevel ("DSCMAP06", 0, CHANGELEVEL_NOINTERMISSION);
 }
-
+*/
 /*
 SCRIPT "Door10" (void){
 	if(!Door10Locked){
