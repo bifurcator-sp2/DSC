@@ -46,7 +46,7 @@ script "DeathBufFIX" DEATH  {
 			CurrentWave = 0;
 			AmmoMaxRnd = 0;
 			WeaponGotID = 0;
-			ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY);
+			ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
 
 //----------------------------------------------------
 }
