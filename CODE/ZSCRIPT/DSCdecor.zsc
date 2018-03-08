@@ -1110,7 +1110,7 @@ Class DSCtentyacleDecor : Actor
 			T1NT C 1 A_Jump (256, "Live");
 			LOOP;
 		Live:
-			"####" "#" 1 NODELAY
+			"####" "#" 1
 			{
 				delay = random(MinDelay, MaxDelay);
 				MaxScale = Frandom(1, 7);

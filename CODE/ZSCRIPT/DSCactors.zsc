@@ -2168,14 +2168,14 @@ Class DSCtentyacleSwitchable : SwitchableDecoration
 					scale.X-=0.001;
 				}
 				if(scale.Y<0.0){
-					A_ChangeFlag("SOLID", FALSE);
+					bSolid = False;
 				}
 			}
 			Loop;
 		Active:
 			"####" "#" 1
 			{
-				A_ChangeFlag("SOLID", TRUE);
+				bSolid = True;
 				if(scale.Y<MaxScale){
 					scale.Y+=0.01;
 					A_SpawnItemEx("DSCbloodTrail", random(-8, 8), random(-8, 8), random(0, 32), random(-5, 5), random(-5, 5), random(1, 8),0,SXF_NOCHECKPOSITION, 200);

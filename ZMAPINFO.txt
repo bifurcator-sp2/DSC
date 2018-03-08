@@ -3,6 +3,8 @@ GameInfo
 	AddEventHandlers = "SDPWHScreenEffects", "DSCMonstersEvent"
 }
 
+clearepisodes
+
 episode DSCMAP01 {
 	name = "DoomSlayer Chronicles Episode 1"
 }

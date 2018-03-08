@@ -1,6 +1,12 @@
-AddOptionMenu "OpenGLOptions"
+AddOptionMenu "OptionsMenu"
 {
-	StaticText " "
+	Submenu "DSC Options", "DSCMenu"
+}
+
+OptionMenu "DSCMenu"
+{
+	Title "DSC options"
+	StaticText ""
 	Option "Filmic Tonemap", dpwh_filmictonemap, "OnOff"
 	Option "Film Grain",dpwh_filmgrain, "OnOff"
 	Option "Cubic Chromatic Aberration", dpwh_chromaticAberration, "OnOff"
