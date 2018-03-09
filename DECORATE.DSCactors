@@ -82,6 +82,20 @@ Scale 0.5
 actor DSCdistantRockDEC : DSCdistantRock 22053 { 	//$Sprite ROS1A0
 //Scale 0.5
 }
+//22054
+
+actor DSCbloodRainDEC : DSCbloodRain 22055 { 	//$Sprite RNMRA0
+//Scale 0.5
+}
+
+actor DSCunderBloodGENDEC : DSCunderBloodGEN 22056 { 	
+//Scale 0.5
+}
+actor DSCvororosl1DEC : DSCvororosl1 22057 { 	//$Sprite VDR1A0 
+Scale 0.5
+}
+
+
 
 
 Actor Oxygen: Inventory

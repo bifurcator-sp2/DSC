@@ -13,7 +13,7 @@ script "StartControl" ENTER
 
 //TEST!
 
-//NOspawn = true;
+NOspawn = true;
 /*DSCplayerRank = 7;
 CurrentWave = 100;
 AmmoMaxRnd = 3;

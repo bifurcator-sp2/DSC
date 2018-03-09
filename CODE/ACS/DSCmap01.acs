@@ -34,7 +34,7 @@ SCRIPT "StartControl" ENTER
 		Thing_Activate(110);
 		currentWave = 200;
 	}
-	GiveInventory("map07done", 1);
+	//GiveInventory("map07done", 1);
 	if(CheckInventory("map02done")>0){
 		Door10Locked = false;
 		Thing_Activate(107);

@@ -611,7 +611,21 @@ Actor DSCbanner2 22027
 			STOP
 	}
 }
-
+Actor DSCbanner3 22054
+{	
+	+FORCEYBILLBOARD
+	+WALLSPRITE
+	+NOINTERACTION
+	//+SPAWNCEILING
+	
+	Scale 1.0
+	States
+	{
+		Spawn:
+			DSB3 A -1
+			STOP
+	}
+}
 
 
 

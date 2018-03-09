@@ -1166,3 +1166,189 @@ Class DSCdistantRock : Actor
 
 	}
 }
+
+
+
+Class  DSCbloodRain: SwitchableDecoration
+	{
+	Default
+	{
+		radius 64;
+		+NoInteraction;
+		+NoGravity;
+		+NoInteraction;
+		Alpha 0.0;
+		
+	}
+	States
+		{
+			Spawn:
+				TNT1 A 1; 
+				GOTO Inactive;
+			Inactive:
+				TNT1 A 1; 
+				Loop;
+			
+			Active:
+				TNT1 A 1 A_SpawnItemEx("BloodRainDrop", Random(-Args[0], Args[0]), Random(-Args[0], Args[0]), -2, 0, 0, -10, 0, 0, Args[1]);
+				Loop;
+		}
+	}
+	
+Class DSCunderBloodGEN : Actor{
+	int user_radius;
+	
+	Default
+	{
+		+NoInteraction;
+		+NoGravity;
+	}
+	Override void PostBeginPlay()
+	{
+		user_radius = args[0]?args[0]:256;
+	}	
+	States
+
+	{
+	Spawn:
+		TNT1 A 1 NODELAY; 
+		Goto Generate;
+
+	Generate:
+		"####" "#" 1
+		{
+				
+				for (int i = 0; i < 6; i++){
+					A_SpawnItemEx("DSCunderbloodItem1", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
+					A_SpawnItemEx("DSCunderbloodItem2", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
+					A_SpawnItemEx("DSCunderbloodItem3", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
+					A_SpawnItemEx("DSCunderbloodItem4", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
+					A_SpawnItemEx("DSCunderbloodItem5", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
+					A_SpawnItemEx("DSCunderbloodItem6", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
+					A_SpawnItemEx("DSCunderbloodItem7", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
+					A_SpawnItemEx("DSCunderbloodItem8", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
+				}
+		}
+		"####" "#" -1;
+		Stop;
+
+	}
+}
+
+Class DSCunderbloodItem1 : DSCunderbloodItem
+{
+	States
+	{
+	Spawn:
+		UDB1 A 0;
+		Goto Super::Spawn;
+	}
+
+}
+Class DSCunderbloodItem2 : DSCunderbloodItem
+{
+	States
+	{
+	Spawn:
+		UDB2 A 0;
+		Goto Super::Spawn;
+	}
+
+}
+Class DSCunderbloodItem3 : DSCunderbloodItem
+{
+	States
+	{
+	Spawn:
+		UDB3 A 0;
+		Goto Super::Spawn;
+	}
+
+}
+	
+Class DSCunderbloodItem4 : DSCunderbloodItem
+{
+	States
+	{
+	Spawn:
+		UDB4 A 0;
+		Goto Super::Spawn;
+	}
+
+}
+Class DSCunderbloodItem5 : DSCunderbloodItem
+{
+	States
+	{
+	Spawn:
+		UDB5 A 0;
+		Goto Super::Spawn;
+	}
+
+}
+Class DSCunderbloodItem6 : DSCunderbloodItem
+{
+	States
+	{
+	Spawn:
+		UDB6 A 0;
+		Goto Super::Spawn;
+	}
+
+}
+Class DSCunderbloodItem7 : DSCunderbloodItem
+{
+	States
+	{
+	Spawn:
+		UDB7 A 0;
+		Goto Super::Spawn;
+	}
+
+}
+Class DSCunderbloodItem8 : DSCunderbloodItem
+{
+	States
+	{
+	Spawn:
+		UDB8 A 0;
+		Goto Super::Spawn;
+	}
+
+}
+Class DSCunderbloodItem : Actor {
+	Default
+	{
+		+FORCEYBILLBOARD;
+		Scale 0.5;
+	}
+	States
+	{
+		Spawn:
+		"####" "#"  1 NODELAY A_SetScale(frandom(0.15, 0.25));
+		"####" "#" -1;
+		Stop;
+	}
+}	
+
+
+
+
+class DSCvororosl1 : Actor 
+{
+	Default
+	{
+		+NOGRAVITY;
+		+WALLSPRITE;
+		Scale 0.5;
+	}
+	States
+	{
+		Spawn:
+		VDR1 A  1;
+		"####" "#" -1;
+		Stop;
+	}
+}
+
+
