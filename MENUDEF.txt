@@ -1,13 +1,8 @@
 AddOptionMenu "OptionsMenu"
 {
 	Submenu "DSC Options", "DSCMenu"
-<<<<<<< HEAD
-}
-
-=======
 
 }
->>>>>>> upstream/dev
 OptionMenu "DSCMenu"
 {
 	Title "DSC options"
