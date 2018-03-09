@@ -30,7 +30,7 @@ SCRIPT "StartControl" ENTER
 		Thing_Activate(110);
 		currentWave = 200;
 	}
-	GiveInventory("map07done", 1);
+	//GiveInventory("map07done", 1);
 	if(CheckInventory("map02done")>0){
 		Door10Locked = false;
 		Thing_Activate(107);
@@ -117,23 +117,23 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 
 script "GotoCemetery" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP02", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP02", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 script "GotoPlaza" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP03", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP03", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 script "GotoArena" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP04", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP04", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 script "GotoSalvation" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP05", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP05", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 script "GotoMinistry" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP06", 1, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP06", 1, CHANGELEVEL_NOINTERMISSION, -1);
 }
 
 

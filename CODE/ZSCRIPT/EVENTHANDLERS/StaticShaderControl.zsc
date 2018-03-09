@@ -46,7 +46,7 @@ Class SDPWHScreenEffects : StaticEventHandler
 			}
 			if((level.mapName == "DSCMAP07")){
 				DisableLUTshaders();
-				Shader.SetEnabled(players, "TonemapPlaza", true);
+				Shader.SetEnabled(players, "TonemapTide", true);
 			}
 
 		} else {DisableLUTshaders();}
@@ -92,6 +92,8 @@ Class SDPWHScreenEffects : StaticEventHandler
 		Shader.SetEnabled(players, "TonemapPlaza", false);
 		Shader.SetEnabled(players, "TonemapCemetery", false);
 		Shader.SetEnabled(players, "TonemapTitlemap", false);
+		Shader.SetEnabled(players, "TonemapTide", false);
+		
 	}
 
 

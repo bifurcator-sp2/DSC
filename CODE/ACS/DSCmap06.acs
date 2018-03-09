@@ -210,16 +210,16 @@ script "GotoDeadPool_clearinventory" (void){
 }
 script "GotoAtrium1" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 script "GotoDeadPool" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 
 script "GotoHungar" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP08", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP08", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 /*
 script "GotoArena" (void){

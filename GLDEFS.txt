@@ -125,7 +125,11 @@ HardwareShader Sprite DSB2A0
 	Shader "shaders/Flag.fp"
 	Speed 3.0
 }
-
+HardwareShader Sprite DSB3A0
+{
+	Shader "shaders/Flag.fp"
+	Speed 3.0
+}
 
 HardwareShader PostProcess scene
 {
@@ -167,6 +171,12 @@ HardwareShader PostProcess scene
 {
 	Name "TonemapTitlemap"
 	Texture ColourmapLUT "textures/lut_titlemap.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapTide"
+	Texture ColourmapLUT "textures/lut_tide.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
 HardwareShader PostProcess scene
