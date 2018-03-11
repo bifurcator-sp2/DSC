@@ -94,7 +94,12 @@ actor DSCunderBloodGENDEC : DSCunderBloodGEN 22056 {
 actor DSCvororosl1DEC : DSCvororosl1 22057 { 	//$Sprite VDR1A0 
 Scale 0.5
 }
+actor DSCcloudsGenDEC : DSCcloudsGen 22058 { 	
 
+}
+actor DDSCdestroyerDEC : DSCdestroyer 22059 { 	
+
+}
 
 
 

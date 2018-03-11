@@ -99,7 +99,8 @@ Class DSCMonstersEvent : EventHandler
 			monCount.monsterCount = 0;
 		}
 		monsterCounter = monCount.monsterCount;
-		if ( !(level.mapName == "TITLEMAP") ) players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
+		//if ( !(level.mapName == "TITLEMAP") ) players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
+		if ( !(level.mapName == "TITLEMAP") && level.mapName.Left(6) == "DSCMAP" ) players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
 	}
 
 /*	override void WorldThingRevived(WorldEvent e)

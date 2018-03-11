@@ -276,7 +276,7 @@ ACTOR BIF_Sceleton_random 15070
 	{
 		+NoClip
 		+NoGravity
-		+NoInteraction
+		//+NoInteraction
 		Renderstyle Translucent
 		DistanceCheck "user_MaxDrawDistanceHaze"
 		Alpha 0.1
@@ -331,7 +331,7 @@ Actor BloodRainDrop
   Height 2
   Radius 2
   Renderstyle Translucent
- DistanceCheck "user_MaxDrawDistanceRain"
+ //DistanceCheck "user_MaxDrawDistanceRain"
   Alpha 1.0
   Scale 0.15
   Yscale 0.25

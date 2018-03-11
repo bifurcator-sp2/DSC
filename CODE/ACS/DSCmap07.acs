@@ -4,24 +4,23 @@
 
 bool DeadPoolHelped;
 bool water_lowered2 = false;
-
+bool WayToUnderbloodUnblocked = false;
 script "StartControl" ENTER
 {
 
 	Thing_Deactivate(100);
 
+	//TEST!
 
-//TEST!
+	//NOspawn = true;
+	/*DSCplayerRank = 7;
+	CurrentWave = 100;
+	AmmoMaxRnd = 3;
+	WeaponGotID = 5;
+	*/
 
-NOspawn = true;
-/*DSCplayerRank = 7;
-CurrentWave = 100;
-AmmoMaxRnd = 3;
-WeaponGotID = 5;
-*/
-
-bool inDEV = false;
-//TEST!
+	bool inDEV = false;
+	//TEST!
 	if(inDEV){
 		GiveInventory("map07done", 1);
 	}
@@ -66,9 +65,84 @@ Script "SatartFirstWave" (void){
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100101, 100401);
 		//wait for scull pickup
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		//////////// UNDERBLOOD CHAPTER
+		delay(35*5);
+		ACS_NamedExecuteAlways("UnblockWayToOnderblood", 0);
+		ACS_NamedExecuteAlways("LookAt", 0, 38, 35*7);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+
+
+}
+
+
+Script "StartUnderbloodWave" (void){
+		SetThingSpecial(66, ACS_NamedExecute, "EyeKill");//destroy tentacle bounders on eye kill
+		if(!NOspawn){Delay(35*10);}
+		ACS_NamedExecuteAlways("Mus_M2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100511, 999999, 999999);
+		//wait for wave end
+		while(WaveOnline){ Delay(5);}
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100512, 100104, 100404);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_M3", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100513, 100104, 100404);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+
+		ACS_NamedExecuteAlways("Mus_G1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100514, 999999, 999999);
+		//wait for wave end
+		delay(5);
+		while(WaveOnline){ Delay(5);}
+		delay(35*10);
+		ACS_NamedExecuteAlways("Mus_G1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100515, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100513, 999999, 999999);
+		//wait for wave end
+		delay(5);
+		while(WaveOnline){ Delay(5);}
+		ACS_NamedExecuteAlways("showEye", 0);
+}
+
+
+Script "StartUnderbloodWave2" (void){
+		ACS_NamedExecuteAlways("Mus_M1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100516, 100105, 100405);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_G1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100516, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100518, 100105, 100405);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_G2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100517, 100105, 100405);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		SpawnSpotFacingForced("TeleportFog", 74, 0);
+		Thing_Move (0, 74, false);
+		Delay(5);
+		Thing_Activate(77);//destroy things underwater
+		Thing_DeActivate(50);//clouds and rain
+		Thing_DeActivate(51);//clouds and rain
+		Delay(35*10);
+		ACS_NamedExecuteAlways("SatartSecondWave", 0);
+}
+
+
+Script "EyeKill" (void){
+	Delay(35*5);
+	Thing_Destroy(65);
+	ACS_NamedExecuteAlways("LookAt", 0, 70, 35*7);
+}
+
+Script "SatartSecondWave" (void){
 		ACS_NamedExecuteAlways("LookAt", 0, 47, 35*7);
 		ACS_NamedExecuteAlways("cageDown", 0);
 		Delay(35*10);
+		ACS_NamedExecuteAlways("Mus_M2", 0);
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 999999, 999999);
 		//wait for wave end
 		while(WaveOnline){ Delay(5);}
@@ -80,14 +154,19 @@ Script "SatartFirstWave" (void){
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
 		ACS_NamedExecuteAlways("waterLower3", 0);
 		Delay(35*5);
+		ACS_NamedExecuteAlways("Mus_M3", 0);
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100507, 999999, 999999);
 		while(WaveOnline){ Delay(5);}
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 100103, 100403);
 		//wait for scull pickup
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_M3", 0);
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 100103, 100403);
+		//wait for scull pickup
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_M3", 0);
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 100103, 100403);
+		//wait for scull pickup
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
 		for(int i = 5; i > 0; i--)
 		{
@@ -98,11 +177,7 @@ Script "SatartFirstWave" (void){
 		TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 		Atrium1Active = true;
 		Exit_Normal(0);
-
 }
-
-
-
 
 
 script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
@@ -125,6 +200,72 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 		Thing_Activate(NextHelpTag);
 	}
 }
+
+script "UnblockWayToOnderblood"(void){
+	WayToUnderbloodUnblocked = true;
+	Ceiling_RaiseByValue(35, 16, 512);
+	floor_Raisebyvalue(35, 16, 512);
+	PlaySound(42, "world/IRONMOVE", CHAN_BODY, 1.0, true, ATTN_NORM);
+	delay(35*5);
+	StopSound(42, CHAN_BODY);
+	PlaySound(42, "world/TNSTOP", CHAN_AUTO, 1.0, false, ATTN_NORM);
+}
+
+bool cageDoorOpened = false;
+script "cage_open_door"(void){
+	if(WayToUnderbloodUnblocked){
+		Ceiling_RaiseByValue(39, 32, 128);
+		floor_Raisebyvalue(39, 32, 128);
+		PlaySound(41, "world/IRONMOVE", CHAN_AUTO, 1.0, false, ATTN_NORM);
+		delay(35);
+		cageDoorOpened = true;
+	}
+}
+
+script "cage_close_door"(void){
+	while(!cageDoorOpened){
+		delay(5);
+	}
+	Ceiling_LowerByValue(39, 64, 128);
+	floor_Lowerbyvalue(39, 64, 128);
+	delay(15);
+	PlaySound(41, "world/IRONMOVE", CHAN_AUTO, 1.0, false, ATTN_NORM);
+	delay(35*5);
+	ACS_NamedExecuteAlways("cage_move_to_underblood", 0);
+
+}
+bool teleportUnderbloodsTART = true;
+script "cage_move_to_underblood"(void){
+		Thing_Activate(50);
+		PlaySound(41, "world/IRONMOVE", CHAN_BODY, 1.0, true, ATTN_NORM);
+		ceiling_lowerbyvalue(39, 8, 1024);
+		floor_lowerbyvalue(39, 8, 1024);
+		ceiling_lowerbyvalue(43, 8, 1024);
+		floor_lowerbyvalue(43, 8, 1024);
+		delay(35*7);
+		FadeTo (0, 0, 0, 1.0, 2.0 );
+		delay(35*2);
+		Thing_Move (0, 44, true);
+		ceiling_lowerbyvalue(48, 16, 2048);
+		floor_lowerbyvalue(48, 16, 2048);
+		delay(35*5);
+		FadeTo (0, 0, 0, 0.0, 2.0);
+		delay(35*25);
+		PlaySound(41, "world/BigClose", CHAN_BODY, 1.0, false, ATTN_NORM);
+		delay(34*5);
+		Ceiling_RaiseByValue(53, 8, 128);
+		floor_Raisebyvalue(53, 8, 128);
+		PlaySound(41, "world/IRONMOVE", CHAN_AUTO, 1.0, false, ATTN_NORM);
+}
+
+
+script "showEye"(void){
+	ACS_NamedExecuteAlways("LookAt", 0, 73, 35*7);
+	ceiling_Raisebyvalue(56, 8000, 3000);
+	floor_Raisebyvalue(56, 8000, 3000);
+	floor_Raisebyvalue(55, 16, 256);
+}
+
 
 script "cageDown"(void){
 	Floor_LowerToLowest(15, 8);

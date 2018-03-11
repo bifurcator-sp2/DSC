@@ -2414,7 +2414,40 @@ Class DSCairParticle : Actor
 	}
 }
 
-
+Class DSCdestroyer : SwitchableDecoration
+{
+	double Radius;
+	Override void PostBeginPlay()
+	{
+		Radius = args[0]?args[0]:128;
+		Super.PostBeginPlay();
+	}	
+	void Demolition(){
+		BlockThingsIterator it = BlockThingsIterator.Create(self, Radius);
+		Actor mo;
+		While(it.Next()){
+			mo = it.Thing;
+			if (mo == self || mo is "PlayerPawn" || mo is "DSCdestroyer"){
+				continue;
+			} else {
+				mo.Destroy();
+			}
+		}
+	}
+	States
+	{
+		Spawn:
+			TNT1 A 1;
+			Goto Inactive;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+		Active:
+			TNT1 A 1 Demolition();
+			Goto Inactive;
+	}	
+	
+}
 
 
 Class ShotgunGot : Inventory { Default { Inventory.MaxAmount 1; } }

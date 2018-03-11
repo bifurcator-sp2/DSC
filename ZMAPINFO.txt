@@ -4,10 +4,10 @@ GameInfo
 }
 clearepisodes
 episode DSCMAP01 {
-	name = "DoomSlayer Chronicles Episode 1"
+	name = "DSC Episode 1"
 }
 episode DSCMAP06 {
-	name = "DoomSlayer Chronicles Episode 2"
+	name = "DSC Episode 2"
 }
 
 

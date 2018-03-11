@@ -1,6 +1,6 @@
 #define DSCbaseHealthBonus 15
-#define AIDhealthRecallBaseTime 60
-#define AmmoRecallBaseTime 60
+#define AIDhealthRecallBaseTime 90
+#define AmmoRecallBaseTime 90
 #define AbsorbHealthAmount 20
 #define StrongHoldChance 10
 #define berserkBonusChance 5

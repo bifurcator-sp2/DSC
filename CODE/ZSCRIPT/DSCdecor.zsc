@@ -1,6 +1,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Class Bif_Haze_Gen : Actor
+//
+Class DSCcloudsGen : SwitchableDecoration
 {
 	//Args[0] - radius
 	//Args[1] - iterationNumber
@@ -15,6 +16,117 @@ Class Bif_Haze_Gen : Actor
 		+NoGravity;
 		+NoSector;
 		+NoInteraction;
+		+NoClip;
+		-Solid;
+		+ClientSideOnly;
+
+		alpha 0.0;
+	}
+
+	Override void PostBeginPlay()
+	{
+		radius = Args[0]?Args[0]:256;
+		iterationNumber = Args[1]?Args[1]:1;
+		Super.PostBeginPlay();
+	}
+
+	void SpawnClouds()
+	{
+		for (int i = 0; i < iterationNumber; i++)
+		{
+			A_SpawnItemEx("DSCredCloud", Random(-radius, radius), Random(-radius, radius), Random(-8, Args[2]) );
+		}
+	}
+
+	States
+	{
+	Spawn:
+		TNT1 A 1;
+		GOTO Inactive;
+	Active:
+		TNT1 A 1
+		{
+			SpawnClouds();
+		}
+		Loop;
+	Inactive:
+		TNT1 A 1;
+		Loop;	
+	}
+	
+}
+
+Class DSCredCloud : Actor
+{
+	float ScaleMultiplerMin;
+	float ScaleMultiplerMax;
+	float RollSpeed;
+	float ScaleSpeed;
+	float FadeoutSpeed;
+	float MaxAlpha;
+	bool startFade;
+	Default
+	{
+		Scale 10.0;
+		+NoInteraction;
+		+Rollsprite;
+		+FORCEXYBILLBOARD;
+		-SOLID;
+		Renderstyle "Translucent";
+		alpha 0.0;
+	}	
+	Override void PostBeginPlay()
+	{
+		MaxAlpha = 0.2;
+		ScaleMultiplerMax = 0.6;
+		ScaleMultiplerMin = 1.0;
+		FadeoutSpeed = 0.002;
+		RollSpeed = 1.0;
+		A_SetScale(Frandom(scaleX*ScaleMultiplerMin, scaleX*ScaleMultiplerMax));
+		RollSpeed = FRandom(-RollSpeed, RollSpeed);
+		A_SetRoll(random(0, 360));
+		startFade = false;
+		Super.PostBeginPlay();
+	}
+	virtual void ParticleLife()
+	{
+		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
+		roll%=360;
+		if(startFade){
+			A_fadeOut(FadeoutSpeed, true);
+		} else {
+			A_fadeTo(MaxAlpha, FadeoutSpeed);
+		}
+
+		if(self.alpha>=MaxAlpha && !startFade){
+			startFade = true;
+		}		
+		//A_fadeTo(0.3, FadeoutSpeed);
+	}
+	
+	States
+	{
+	  Spawn:
+		MOR2 A 1 ParticleLife();
+		Loop;
+	 }
+}
+
+Class Bif_Haze_Gen : Actor
+{
+	//Args[0] - radius
+	//Args[1] - iterationNumber
+	//Args[2] - maxSpawnHeight
+	int radius;
+	int iterationNumber;
+
+	Default
+	{
+		radius 64;
+		+NoBlockMap;
+		+NoGravity;
+		+NoSector;
+		//+NoInteraction;
 		+NoClip;
 		-Solid;
 		+ClientSideOnly;
@@ -208,7 +320,8 @@ Class FireFlameSpawnerGREAT : Actor
 	Default
 	{
 		radius 64;
-		+NoInteraction;
+		+NoGravity;
+		//+NoInteraction;
 	}
 	Override void PostBeginPlay()
 	{
@@ -240,7 +353,8 @@ Class FireFlameSpawnerGREATgreen : Actor
 	Default
 	{
 		radius 64;
-		+NoInteraction;
+		//+NoInteraction;
+		+NoGravity;
 	}
 	Override void PostBeginPlay()
 	{
@@ -273,7 +387,7 @@ Class FireFlameSpawnerTorch : Actor
 	Default
 	{
 		radius 8;
-		+NoInteraction;
+		//+NoInteraction;
 		+Nogravity;
 	}
 	Override void PostBeginPlay()
@@ -424,7 +538,8 @@ Class DoomTorchHalo  : Actor
 	Default
 	{
 		Scale 0.35;
-		+NoInteraction;
+		//+NoInteraction;
+		+NoGravity;
 		RenderStyle "Add";
 	}
 	States
@@ -1174,7 +1289,7 @@ Class  DSCbloodRain: SwitchableDecoration
 	Default
 	{
 		radius 64;
-		+NoInteraction;
+		//+NoInteraction;
 		+NoGravity;
 		+NoInteraction;
 		Alpha 0.0;
@@ -1200,7 +1315,7 @@ Class DSCunderBloodGEN : Actor{
 	
 	Default
 	{
-		+NoInteraction;
+		//+NoInteraction;
 		+NoGravity;
 	}
 	Override void PostBeginPlay()
@@ -1318,7 +1433,7 @@ Class DSCunderbloodItem8 : DSCunderbloodItem
 }
 Class DSCunderbloodItem : Actor {
 	Default
-	{
+	{	
 		+FORCEYBILLBOARD;
 		Scale 0.5;
 	}
