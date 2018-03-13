@@ -454,7 +454,7 @@ script "SaintDead" (void){
 		Delay(35);
 	}
 	str lvlName = StrParam(n: PRINTNAME_LEVEL);
-	ChangeLevel(lvlName,0,CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel(lvlName,0,CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION, -1);
 }
 
 SCRIPT "Door1" (void){

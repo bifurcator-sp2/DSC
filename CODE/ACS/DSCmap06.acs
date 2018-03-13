@@ -205,7 +205,7 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 script "GotoDeadPool_clearinventory" (void){
 	delay(15);
 	currentWave = 0;
-	ChangeLevel ("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY);
+	ChangeLevel ("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
 	//deadpool enter script mus give to player all previous map#done items
 }
 script "GotoAtrium1" (void){

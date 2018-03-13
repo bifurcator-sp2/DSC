@@ -94,8 +94,10 @@ script "AirlockOuterDoor" (int thisTid, int InTid, int ControllerTag){
 	//PlayerInVaquum = 0;
 }
 
+bool HellThunderPaused = false;
 SCRIPT "HellThunder" (void)
 {
+	if(!HellThunderPaused){
 
 	PlaySound(1206, "world/Thunder1", CHAN_BODY, 0.7, false, ATTN_NONE);
 	Thing_Activate(100);
@@ -109,6 +111,7 @@ SCRIPT "HellThunder" (void)
 	Thing_Activate(100);
 	Delay(random(5,10));
 	Thing_Deactivate(100);
+	}
 
 }
 script "CreepySounds" (void)

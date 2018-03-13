@@ -7,6 +7,7 @@ bool water_lowered2 = false;
 bool WayToUnderbloodUnblocked = false;
 script "StartControl" ENTER
 {
+	//HellThunderPaused = true;
 
 	Thing_Deactivate(100);
 
@@ -128,6 +129,7 @@ Script "StartUnderbloodWave2" (void){
 		Thing_DeActivate(50);//clouds and rain
 		Thing_DeActivate(51);//clouds and rain
 		Delay(35*10);
+		HellThunderPaused = false;
 		ACS_NamedExecuteAlways("SatartSecondWave", 0);
 }
 
@@ -236,6 +238,7 @@ script "cage_close_door"(void){
 }
 bool teleportUnderbloodsTART = true;
 script "cage_move_to_underblood"(void){
+		HellThunderPaused = true;
 		Thing_Activate(50);
 		PlaySound(41, "world/IRONMOVE", CHAN_BODY, 1.0, true, ATTN_NORM);
 		ceiling_lowerbyvalue(39, 8, 1024);
@@ -250,7 +253,9 @@ script "cage_move_to_underblood"(void){
 		floor_lowerbyvalue(48, 16, 2048);
 		delay(35*5);
 		FadeTo (0, 0, 0, 0.0, 2.0);
-		delay(35*25);
+		delay(35*2);
+		PlaySound(0, "player/wakeupuderblood", CHAN_AUTO, 1.0, false, ATTN_NORM);
+		delay(35*23);
 		PlaySound(41, "world/BigClose", CHAN_BODY, 1.0, false, ATTN_NORM);
 		delay(34*5);
 		Ceiling_RaiseByValue(53, 8, 128);

@@ -310,6 +310,8 @@ Class GiveAMMOsparckle : Actor
 
 Class DSCammoSpawner : Actor
 {
+	DestroyIterator dIt;
+	int DestroyerDelay;
 	int timerWaitForAgainGiveAmmo;
 	int clockForAmmo;
 	string AMMOtype;
@@ -329,7 +331,12 @@ Class DSCammoSpawner : Actor
 		Renderstyle "Translucent";
 		Scale 0.25;
 	}
-
+	virtual void InitDestroyer()
+	{
+		dIt.Init(self);
+		dIt.DestroyActors("Ammo", 32);
+		A_SpawnItemEx( "ItemSpawnFog", 0, 0, 0, 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
+	}
 	Override void PostBeginPlay()
 	{
 		timerWaitForAgainGiveAmmo= 35*CallACS("GetAmmoRecallTime",0,0,0);
@@ -375,6 +382,11 @@ Class DSCammoSpawner : Actor
 					A_SpawnItemEx("GiveAMMOsparckle", random(-4, 4), random(-4, 4), random(32, 40), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION);
 				}
 			}
+			
+			if(DestroyerDelay){ //cleaning previously spawned and not picked up ammo
+				DestroyerDelay--;
+				if(!DestroyerDelay){InitDestroyer();}
+			}
 
 
 		Super.Tick();
@@ -392,6 +404,7 @@ Class DSCammoSpawner : Actor
 			A_PlaySound("misc/ammospawn2", CHAN_BODY, 1.0, 0, ATTN_NONE);
 			SpawnSparckles();
 			AMMOgived = true;
+			DestroyerDelay = 35*10;
 			SetStateLabel("Invisible");
 		}
 	}
@@ -420,8 +433,6 @@ Class DSCmonsterSpawner: SwitchableDecoration
 {
 	//args[0] - RespawnChance enforcement
 	//args[1] - Dropout strength
-	bool StartCount;
-	int counter;
 	int RandomDelay;
 	int MinDelayInSec;
 	int MaxDelayInSec;
@@ -468,35 +479,15 @@ Class DSCmonsterSpawner: SwitchableDecoration
 	{
 		A_SpawnItemEx("TeleportFog", flags: SXF_NOCHECKPOSITION);
 	}
-	Override void Tick()
-	{
-		if(StartCount)
-		{
-			counter ++;
-			if(counter == RandomDelay)
-			{
-				StartCount = false;
-				counter = 0;
-
-				SpawnMonsters();
-				Repeats --;
-				if(Repeats > 0)
-				{
-					StartCount = true;
-					RandomDelay = Random(MinDelayInSec*35, MaxDelayInSec*35);
-				}
-			}
-		}
-		Super.Tick();
-	}
 
 	Override void Activate(Actor activator)
 	{
 		FillMonsters();
 		RandomDelay = Random(MinDelayInSec*35, MaxDelayInSec*35);
 		RespawnChance = RespawnChance + CallACS("GetProgress",0,0,0)/3;
-		StartCount = true;
 		CalcRespawnRepeats();
+		let monCount = DSCMonsterPopulation.Get();
+		if(monCount) monCount.monsterCount+=Repeats;
 		Super.Activate(activator);
 	}
 
@@ -509,7 +500,18 @@ Class DSCmonsterSpawner: SwitchableDecoration
 			TNT1 A -1;
 			Stop;
 		Active:
-			TNT1 A 1;
+			TNT1 A 1 A_SetTics(RandomDelay);
+			TNT1 A 0
+			{
+				SpawnMonsters();
+				Repeats --;
+				if(Repeats > 0)
+				{
+					RandomDelay = Random(MinDelayInSec*35, MaxDelayInSec*35);
+					return ResolveState("Active");
+				}
+				return ResolveState(Null);
+			}
 			Goto Inactive;
 	}
 }
@@ -524,16 +526,19 @@ Class DSCmonsterSpawnerTribune : DSCmonsterSpawner
 
 	override void SpawnMonsters()
 	{
-		if(MonstersTier1.Size() > 0)
-		{
 			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier1[ random(0, MonstersTier1.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
+			A_SpawnItemEx(MonstersTier1[ random(0, MonstersTier1.Size() -1)], 
+			xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
+			random(5,10),flags: SXF_NOCHECKPOSITION, tid: 131313);
+	}
 
-random(5,10),flags: SXF_NOCHECKPOSITION, tid: 131313);
-    //    let monCount = DSCMonsterPopulation.Get();
-    //    if(monCount) ++monCount.monsterCount;
-
-		}
+	Override void Activate(Actor activator)
+	{
+		FillMonsters();
+		RandomDelay = Random(MinDelayInSec*35, MaxDelayInSec*35);
+		RespawnChance = RespawnChance + CallACS("GetProgress",0,0,0)/3;
+		CalcRespawnRepeats();
+		Super.Activate(activator);
 	}
 
     Override void FillMonsters()
@@ -572,15 +577,10 @@ Class DSCmonsterSpawner1 : DSCmonsterSpawner
 	Array<string> MonstersTier1;
 	override void SpawnMonsters()
 	{
-		if(MonstersTier1.Size() > 0)
-		{
-			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier1[ random(0, MonstersTier1.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
-
-random(5,10),flags: SXF_NOCHECKPOSITION, tid: 666666);
-			let monCount = DSCMonsterPopulation.Get();
-			if(monCount) ++monCount.monsterCount;
-		}
+		Super.SpawnMonsters();
+		A_SpawnItemEx(MonstersTier1[ random(0, MonstersTier1.Size() -1)], 
+		xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
+		random(5,10),flags: SXF_NOCHECKPOSITION, tid: 666666);
 	}
 
     Override void FillMonsters()
@@ -609,15 +609,10 @@ Class DSCmonsterSpawner2 : DSCmonsterSpawner
 
 	override void SpawnMonsters()
 	{
-		if(MonstersTier2.Size() > 0)
-		{
-			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier2[ random(0, MonstersTier2.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
-
-random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
-			let monCount = DSCMonsterPopulation.Get();
-			if(monCount) ++monCount.monsterCount;
-		}
+		Super.SpawnMonsters();
+		A_SpawnItemEx(MonstersTier2[ random(0, MonstersTier2.Size() -1)], 
+		xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
+		random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 	}
 
     Override void FillMonsters()
@@ -658,16 +653,12 @@ Class DSCmonsterSpawner3 : DSCmonsterSpawner
 	Array<string> MonstersTier3;
 	override void SpawnMonsters()
 	{
-		if(MonstersTier3.Size() > 0)
-		{
-			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier3[ random(0, MonstersTier3.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
-
-random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
-			let monCount = DSCMonsterPopulation.Get();
-			if(monCount) ++monCount.monsterCount;
-		}
+		Super.SpawnMonsters();
+		A_SpawnItemEx(MonstersTier3[ random(0, MonstersTier3.Size() -1)], 
+		xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
+		random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 	}
+
 
     Override void FillMonsters()
     {
@@ -703,36 +694,14 @@ Class DSCmonsterSpawner4 : DSCmonsterSpawner
 	override void CalcRespawnRepeats()
 	{
 		Repeats = 1;
-		/*
-		if ( RespawnChance > 100)
-		{
-			int RespawnChanceDubl = RespawnChance;
-
-			While(RespawnChanceDubl > 0)
-			{
-				if( random() % 100 < RespawnChanceDubl)
-				{
-					Repeats ++;
-				}
-				RespawnChanceDubl -= 100;
-			}
-		}
-		*/
 	}
-
-
 
 	override void SpawnMonsters()
 	{
-		if(MonstersTier4.Size() > 0)
-		{
-			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier4[ random(0, MonstersTier4.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
-
-random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
-			let monCount = DSCMonsterPopulation.Get();
-			if(monCount) ++monCount.monsterCount;
-		}
+		Super.SpawnMonsters();
+		A_SpawnItemEx(MonstersTier4[ random(0, MonstersTier4.Size() -1)], 
+		xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
+		random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 	}
 
     Override void FillMonsters()
@@ -753,35 +722,15 @@ Class DSCmonsterSpawner5 : DSCmonsterSpawner
 	override void CalcRespawnRepeats()
 	{
 		Repeats = 1;
-		/*
-		if ( RespawnChance > 100)
-		{
-			int RespawnChanceDubl = RespawnChance;
-
-			While(RespawnChanceDubl > 0)
-			{
-				if( random() % 100 < RespawnChanceDubl)
-				{
-					Repeats ++;
-				}
-				RespawnChanceDubl -= 100;
-			}
-		}
-		*/
 	}
 
 
 	override void SpawnMonsters()
 	{
-		if(MonstersTier5.Size() > 0)
-		{
-			Super.SpawnMonsters();
-			A_SpawnItemEx(MonstersTier5[ random(0, MonstersTier5.Size() -1)], xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
-
-random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
-			let monCount = DSCMonsterPopulation.Get();
-			if(monCount) ++monCount.monsterCount;
-		}
+		Super.SpawnMonsters();
+		A_SpawnItemEx(MonstersTier5[ random(0, MonstersTier5.Size() -1)], 
+		xvel: random(-args[1],args[1]), yvel: random(-args[1],args[1]), zvel:
+		random(5,15),flags: SXF_NOCHECKPOSITION, tid: 666666);
 	}
 
     Override void FillMonsters()
@@ -857,12 +806,12 @@ Class WeaponMarker : CustomInventory
 	}
 
 
-	Override void Tick()
+	/*Override void Tick()
 	{
 		if(timer<35*60){timer++;}
 		else { SetStateLabel("Death"); }
 		Super.Tick();
-	}
+	}*/
 
 	States
 	{
@@ -874,9 +823,9 @@ Class WeaponMarker : CustomInventory
 
 		LOOP;
 
-		Death:
+		/*Death:
 			TNT1 A 1 A_Fadeout(1.0);
-			Stop;
+			Stop;*/
 	}
 
 }
@@ -886,6 +835,7 @@ Class DSCweaponSpawner   : SwitchableDecoration
 	Array<string> Weapons;
 	int droppedWeapon;
 	Double spawnedWeaponsCount;
+	DestroyIterator dIt;
 
 
 	Override void PostBeginPlay()
@@ -897,11 +847,14 @@ Class DSCweaponSpawner   : SwitchableDecoration
 		Weapons.Push("RocketLauncher");
 		Weapons.Push("PlasmaRifle");
 		Weapons.Push("BFG9000");
-
-
+		
 		Super.PostBeginPlay();
 	}
-
+	virtual void InitDestroyer()
+	{
+		dIt.Init(self);
+		dIt.DestroyActors("Weapon", 32);
+	}
 
 	States
 	{
@@ -913,10 +866,11 @@ Class DSCweaponSpawner   : SwitchableDecoration
 			Loop;
 		Active:
 			TNT1 A 1;
-			TNT1 A 1 a_jump(200, "Active");
+			TNT1 A 1 a_jump(200, "Active");//random delay
 			TNT1 A 1
 			{
 				droppedWeapon = CallACS("GetWeaponGotIDforWeaponSpawner",0,0,0);
+				InitDestroyer();
 				A_SpawnItemEx( "WeaponMarker", 0, 0, 0, 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
 				A_SpawnItemEx( "ItemSpawnFog", 0, 0, 0, 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
 				A_SpawnItemEx( Weapons[droppedWeapon], 0, 0, 0, 0, 0, 0,0,SXF_NOCHECKPOSITION | SXF_SETMASTER, 0, 666667);
@@ -2448,6 +2402,129 @@ Class DSCdestroyer : SwitchableDecoration
 	}	
 	
 }
+
+//////////////////////////////////////////
+struct DestroyIterator play
+{
+	private Actor caller;
+
+	private void PrintErrorMessage(int message)
+	{
+		string errorMessage = "";
+		switch (message)
+		{
+			case -1:
+				errorMessage = "No Actor specified";
+			break;
+			
+			case -2:
+				errorMessage = "No caller specified";
+			break;
+			
+			Default: break;
+		}
+		Console.Printf(errorMessage);
+	}
+	
+	void Init(Actor mo)
+	{
+		if(mo) caller = mo;
+	}
+	
+	void DestroyActors(Class<Actor> actorType, double distance)
+	{
+		if(caller)
+		{
+			int result = DoDestroyActors(actorType, distance);
+			
+			if(result < 0)
+			{
+				PrintErrorMessage(result);
+				return;
+			}
+		}
+	}
+	
+	private int DoDestroyActors(Class<Actor> actorType, double distance)
+	{
+		if(!actorType) return -1;
+		if(!caller) return -2;
+		
+		ThinkerIterator it = ThinkerIterator.Create(actorType);
+		
+		Actor mo;
+		while(mo = Actor(it.Next()))
+		{
+			if (!(mo is actorType) || mo == caller || mo is "PlayerPawn") continue;
+			
+			if( mo is "Inventory")
+			{
+				let inv = Inventory(mo);
+				if(inv.Owner != Null) continue;
+			}
+			
+			if(distance <= 0.0 || caller.Distance3D(mo) <= distance)
+			{
+				mo.Destroy();
+				continue;
+			}
+		}
+		
+		return 0;
+	}
+}
+
+Class DSCcustomDestroyer : SwitchableDecoration
+{
+	DestroyIterator dIt;
+	string ActorClass;
+	
+	Default
+	{
+        +NOSECTOR
+        +NOINTERACTION
+        +THRUACTORS
+        +NOBLOCKMAP
+	}
+	Override void PostBeginPlay()
+	{
+		switch (args[1]){
+			Case 1:
+				ActorClass = "SwitchableDecoration";
+				Break;
+			Case 2:
+				ActorClass = "Ammo";
+				Break;	
+			Default:
+				ActorClass = "Actor";
+		}
+		Super.PostBeginPlay();
+	}		
+	virtual void InitDestroyer()
+	{
+		dIt.Init(self);
+		dIt.DestroyActors(ActorClass, args[0]?args[0]:128);
+	}
+	
+	
+	States
+	{
+		Spawn:
+			TNT1 A 1;
+			Goto Inactive;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+		Active:
+			TNT1 A 1 { 
+			self.InitDestroyer(); 
+			}
+			Goto Inactive;
+	}	
+	
+}
+
+
 
 
 Class ShotgunGot : Inventory { Default { Inventory.MaxAmount 1; } }

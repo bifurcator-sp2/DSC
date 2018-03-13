@@ -1,22 +1,4 @@
-Ambient/Wind1 WINDL
-$alias Wind1 Ambient/Wind1
-$ambient 50 Wind1 point continuous 1.0
 
-Ambient/Wind2 WINDM
-$alias Wind2 Ambient/Wind2
-$ambient 51 Wind2 point continuous 1.0
-
-Ambient/WISPER WISPER
-$alias WISPER Ambient/WISPER
-$ambient 52 WISPER point continuous 1.0
-
-Ambient/BLDPOOL BLDPOOL
-$alias BloodPool Ambient/BLDPOOL
-$ambient 53 BloodPool point continuous 1.0
-
-Ambient/WTRDRP1 WTRDRP1
-$alias WaterDrips Ambient/WTRDRP1
-$ambient 54 WaterDrips point continuous 1.0
 
 
 Ambient/Voltage	AMB10
@@ -78,12 +60,21 @@ $alias WallLightHum2 Ambient/WallLightHum2
 $ambient 43 WallLightHum2 point continuous 1.0
 $volume WallLightHum2 1.0
 
+Ambient/Wind1 WINDL
+$alias Wind1 Ambient/Wind1
+$ambient 50 Wind1 point continuous 1.0
+
+Ambient/Wind2 WINDM
+$alias Wind2 Ambient/Wind2
+$ambient 51 Wind2 point continuous 1.0
+
+Ambient/WISPER WISPER
+$alias WISPER Ambient/WISPER
+$ambient 52 WISPER point continuous 1.0
+
 Ambient/FLESHMOV	FLESHMOV
 $alias FleshMoving Ambient/FLESHMOV
 $ambient 53 FleshMoving point continuous 1.0
-
-
-
 
 world/TecHoul1 AMB11
 world/TecHoul2 AMB12
@@ -110,6 +101,26 @@ Ambient/DSCLAVA2	DSCLAVA2
 $alias LavaMoving2 Ambient/DSCLAVA2
 $ambient 59 LavaMoving2 point continuous 1.0
 
+
+Ambient/WTRDRP1 WTRDRP1
+$alias WaterDrips Ambient/WTRDRP1
+$ambient 60 WaterDrips point continuous 1.0
+
+Ambient/clulh1	clulh1
+$alias clulhuWhisper1 Ambient/clulh1
+$ambient 61 clulhuWhisper1 point continuous 1.0
+
+Ambient/clulh2	clulh2
+$alias clulhuWhisper2 Ambient/clulh2
+$ambient 62 clulhuWhisper2 point continuous 1.0
+
+Ambient/clulh3	clulh3
+$alias clulhuWhisper3 Ambient/clulh3
+$ambient 63 clulhuWhisper3 point continuous 1.0
+
+Ambient/BLDPOOL BLDPOOL
+$alias BloodPool Ambient/BLDPOOL
+$ambient 64 BloodPool point continuous 1.0
 
 
 
@@ -258,12 +269,21 @@ player/AirCanPickup3 AIRCAN3
 player/Rebreather PLAYBRE
 player/Maskoff MASKOFF
 
+player/wakeupuderblood wakebld
+
 world/AirFlow AIRFLOW
 world/AirIntake AIRIN
 
 world/cp_deny cp_deny
 world/cp_ok cp_ok
 world/item_off off
+
+
+$random DSCmoaner { world/moaner1 world/moaner2 world/moaner3 world/moaner4}
+world/moaner1 moaner1
+world/moaner2 moaner2
+world/moaner3 moaner3
+world/moaner4 moaner4
 
 
 
