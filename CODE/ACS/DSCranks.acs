@@ -1,4 +1,4 @@
-#define DSCbaseHealthBonus 15
+#define DSCbaseHealthBonus 20
 #define AIDhealthRecallBaseTime 90
 #define AmmoRecallBaseTime 90
 #define AbsorbHealthAmount 20
@@ -40,7 +40,7 @@ script "strongholdBonus" (void){
 script "strongholdHealArmorBonus" (void){
 	if(DSCplayerRank>=5){
 		GiveActorInventory(0, "DSCarmorBonus5", 1);
-		Log(s:"Stronghold: Healing gives Armor Bonus 5");
+		Log(s:"Stronghold: Healing heart gives Armor Bonus 5");
 
 	}
 }
@@ -72,9 +72,9 @@ script "invuBONUS" (void){
 
 script "ammoRespawnedIn" (int time){
 	if(DSCplayerRank>=4){
-		Log(s:"Gunner: ammo respawned in ", d:time, s:" sec");
+		Log(s:"Gunner: Ammo supply respawned in ", d:time, s:" sec");
 	} else {
-		Log(s:"Ammo respawned in ", d:AmmoRecallBaseTime, s:" sec");
+		Log(s:"Ammo supply respawned in ", d:AmmoRecallBaseTime, s:" sec");
 	}
 }
 script "GetAmmoRecallTime" (void){
@@ -87,7 +87,7 @@ script "GetAmmoRecallTime" (void){
 }
 
 script "AidRespawned" (int time){
-	Log(s:"Health respawned in ", d:time, s:" sec");
+	Log(s:"Healing heart respawned in ", d:time, s:" sec");
 }
 script "GetAIDhealthRecallTime" (void){
 	int val;

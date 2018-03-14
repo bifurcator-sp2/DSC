@@ -122,6 +122,10 @@ Ambient/BLDPOOL BLDPOOL
 $alias BloodPool Ambient/BLDPOOL
 $ambient 64 BloodPool point continuous 1.0
 
+Ambient/revcry2 revcry2
+$alias revcry2 Ambient/revcry2
+$ambient 65 revcry2 point continuous 1.0
+
 
 
 world/BFRAIN BFRAIN
