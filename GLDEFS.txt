@@ -41,7 +41,11 @@ HardwareShader Sprite T1NTC0
 
 
 
-
+HardwareShader Texture BF_LAVA
+{
+	Shader "Shaders/lava.fp"
+	Speed 0.03
+}
 
 HardwareShader Texture BF_WATER
 {
@@ -50,6 +54,8 @@ HardwareShader Texture BF_WATER
 }
 HardwareShader Texture DSCLWA
 {
+	//Shader "Shaders/lava.fp"
+	//Speed 0.05
 	Shader "shaders/water.fp"
 	Speed 1.0
 }
@@ -133,6 +139,15 @@ HardwareShader Sprite DSB3A0
 
 HardwareShader PostProcess scene
 {
+	Name "dscHeatHaze"
+	Texture HazeBump "textures/haze.png"
+	Shader "Shaders/PostProcessing/dscHeatHaze.fp" 330
+	Uniform float timer
+	Uniform float fHeatHazeChromaAmount
+}
+
+HardwareShader PostProcess scene
+{
 	Name "FilmicTonemap"
 	Texture ColourmapLUT "textures/lut.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
@@ -181,6 +196,14 @@ HardwareShader PostProcess scene
 }
 HardwareShader PostProcess scene
 {
+	Name "TonemapSnow"
+	Texture ColourmapLUT "textures/lut_snow.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+
+
+HardwareShader PostProcess scene
+{
 	Name "CubicCA"
 	Shader "Shaders/PostProcessing/CubicCA.fp" 330
 }
@@ -219,6 +242,10 @@ HardwareShader PostProcess scene
 
 
 
+brightmap sprite FNLMA0
+{
+   map FNLSA0
+}
 
 brightmap texture MRBW5
 {
@@ -311,3 +338,7 @@ brightmap texture PANEL2U
    map PANEL2UM
 }
 
+brightmap sprite DSCCC0
+{
+   map DSCCL0
+}

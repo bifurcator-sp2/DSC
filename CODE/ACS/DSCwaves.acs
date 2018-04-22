@@ -16,7 +16,8 @@ global int 7:DSCplayerRank;
 #define PlasmaGunSpawnProgressInPercent 70
 #define BFG9000SpawnProgressInPercent 80
 
-#define maxWaveCount 50
+//int maxWaveCount = 50; //default value. redefined at each map for episode balance
+
 bool isBE = false;
 Bool NextWaveReady = false;
 Bool WaveOnline = false;
@@ -39,7 +40,7 @@ int SaintHealthUpBaseAmount = 10;//basic value for SaintHealthUp DSCprisonedSain
 bool OverrideDeathBugFIX = false;
 script "DeathBufFIX" DEATH  {
 //this is check for death restart clear inventory bug
-			delay(35*2);
+			delay(35*10);
 			currentWave = 0;
 			DSCplayerRank = 0;
 			TotalKills = 0;

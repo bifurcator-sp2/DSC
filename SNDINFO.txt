@@ -1,6 +1,26 @@
 
 
 
+world/FastFun fastfun
+world/slideCrush sldcrsh
+world/slideResh resh_st
+world/slideReshStop resh_sp
+world/crash2 crash2
+
+
+$random LiftAmbient { LiftAmbient1 LiftAmbient2 LiftAmbient3 }
+LiftAmbient1 Lift_A1
+LiftAmbient2 Lift_A2
+LiftAmbient3 Lift_A3
+
+
+
+
+world/LiftMove Liftmove
+world/LiftStop Liftstop
+
+
+
 Ambient/Voltage	AMB10
 $alias Voltage Ambient/Voltage
 $ambient 28 Voltage point continuous 1.0
@@ -127,6 +147,25 @@ $alias revcry2 Ambient/revcry2
 $ambient 65 revcry2 point continuous 1.0
 
 
+Ambient/siren1 siren1
+$alias AlarmSiren1 Ambient/siren1
+$ambient 66 AlarmSiren1 point continuous 1.0
+
+
+Ambient/BigFan bigfan
+$alias BigFan Ambient/BigFan
+$ambient 67 BigFan point continuous 1.0
+
+
+Ambient/steam1 steam1
+$alias Steam1 Ambient/steam1
+$ambient 68 Steam1 point continuous 1.0
+
+Ambient/steam2 steam2
+$alias Steam2 Ambient/steam2
+$ambient 69 Steam2 point continuous 1.0
+
+
 
 world/BFRAIN BFRAIN
 world/Thunder1 THUNDER1
@@ -140,6 +179,7 @@ world/BigStonemov BIGSTONE
 world/BigClose BIGCLOSE
 world/IRONMOVE IRONMOVE
 world/TNSTOP TNSTOP
+
 
 world/tentacle TENTA
 

@@ -2,6 +2,46 @@ bool PlayerInVaquum = false;
 bool PlayerInAirlock = true;
 
 
+script "DeactivateBrokenLamp1"(int tid, int sectorTAG, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){
+			Thing_Activate(tid);
+			ChangeFloor(sectorTAG, "CLT1");
+		} else {
+			ChangeFloor(sectorTAG, "CLT1N");
+			Thing_DeActivate(tid);
+		}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_DeActivate(tid);
+	ChangeFloor(sectorTAG, "CLT1N");
+}
+
+
+
+script "ThingDeactivateBroken" (int tid, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){ Thing_Activate(tid);} else {Thing_DeActivate(tid);}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_DeActivate(tid);
+}
+script "ThingActivateBroken" (int tid, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){ Thing_Activate(tid);} else {Thing_DeActivate(tid);}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_Activate(tid);
+}
 script "LookAt" (int CameraTid, int TimeTics){
 	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
 	Thing_Activate(CameraTid);

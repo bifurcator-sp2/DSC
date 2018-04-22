@@ -4,6 +4,11 @@ Class SDPWHScreenEffects : StaticEventHandler
 	{
 		PlayerInfo players = players[consoleplayer];
 
+		//Shader.SetEnabled(players, "dscHeatHaze", false);
+		Shader.SetUniform1f(players, "dscHeatHaze", "timer", gametic + e.FracTic);
+		if(players.mo.FindInventory("HeatHazeTimerInv")) Shader.SetUniform1f(players, "dscHeatHaze", "timer", gametic + e.FracTic);
+		else Shader.SetEnabled(players, "dscHeatHaze", false);		
+		
 		if((level.mapName == "TITLEMAP")){
 			Shader.SetEnabled(players, "TiltShiftPass1", true);
 			Shader.SetEnabled(players, "TiltShiftPass2", true);
@@ -47,6 +52,10 @@ Class SDPWHScreenEffects : StaticEventHandler
 			if((level.mapName == "DSCMAP07")){
 				DisableLUTshaders();
 				Shader.SetEnabled(players, "TonemapTide", true);
+			}
+			if((level.mapName == "DSCMAP09")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapSnow", true);
 			}
 
 		} else {DisableLUTshaders();}
@@ -93,6 +102,8 @@ Class SDPWHScreenEffects : StaticEventHandler
 		Shader.SetEnabled(players, "TonemapCemetery", false);
 		Shader.SetEnabled(players, "TonemapTitlemap", false);
 		Shader.SetEnabled(players, "TonemapTide", false);
+		Shader.SetEnabled(players, "TonemapSnow", false);
+		
 		
 	}
 

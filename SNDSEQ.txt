@@ -13,6 +13,17 @@ end
    stopsound	world/BigClose
 end
 
+
+:DSClift
+   playrepeat	world/LiftMove
+   stopsound	world/LiftStop 
+end
+
+:Reshotka
+   play	world/slideResh
+   stopsound	world/slideReshStop
+end
+
 [DoorHell
 	0		DoorOpenHell
 	1		DoorCloseHell

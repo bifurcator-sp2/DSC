@@ -1,6 +1,7 @@
 GameInfo
 {
 	AddEventHandlers = "SDPWHScreenEffects", "DSCMonstersEvent"
+
 }
 clearepisodes
 episode DSCMAP01 {
@@ -110,6 +111,18 @@ map DSCMAP08 "Hungar"
 next = "DSCMAP06"
 InterMusic = MT
 music = "LAB"
+EnterPic = "ENTER06"
+ExitPic = "ENTER06"
+fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+
+map DSCMAP09 "Season of Winter"
+{
+next = "DSCMAP06"
+InterMusic = MT
+music = "SNOW"
 EnterPic = "ENTER06"
 ExitPic = "ENTER06"
 fogdensity = 16

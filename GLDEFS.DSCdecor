@@ -1,4 +1,20 @@
 
+Object DscinfoRay
+{
+FRAME LTS4A0 { light DscinfoRay }
+}
+flickerlight DscinfoRay
+{
+    color 0.0 0.8 0.8
+    size 64
+    secondarySize 56
+    chance 0.1
+	attenuate 1
+	offset 0  32 0
+}
+
+
+
 Object AIDSpawnerDEC
 {
 //FRAME AID1 { light AIDlight }

@@ -1,3 +1,6 @@
+//episode wave count definition
+int maxWaveCount = 50;//--------------------------
+//episode wave count definition
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
@@ -10,7 +13,7 @@ script "StartControl" ENTER
 
 	Thing_Deactivate(100);
 //TEST!
-
+CurrentWave = 40;
 //NOspawn = true;
 /*DSCplayerRank = 7;
 CurrentWave = 100;
@@ -204,7 +207,9 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 
 script "GotoDeadPool_clearinventory" (void){
 	delay(15);
-	currentWave = 0;
+			CurrentWave = 0;
+			AmmoMaxRnd = 0;
+			WeaponGotID = 0;
 	ChangeLevel ("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
 	//deadpool enter script mus give to player all previous map#done items
 }

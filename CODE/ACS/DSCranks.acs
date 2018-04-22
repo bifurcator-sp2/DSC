@@ -48,7 +48,8 @@ script "strongholdHealArmorBonus" (void){
 script "berserkBONUS" (void){
 	if(DSCplayerRank>=6){
 		if(Random(1, 100)<=berserkBonusChance){
-			GiveActorInventory(0, "Berserk", 1);
+			//GiveActorInventory(0, "Berserk", 1);
+			SpawnSpotFacingForced ("Berserk", 0, 0);
 			Log(s:"Berserker: Berserk item got");
 		}
 	}

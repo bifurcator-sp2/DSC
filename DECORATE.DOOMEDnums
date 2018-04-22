@@ -103,4 +103,64 @@ actor DDSCdestroyerDEC : DSCdestroyer 22059 {
 actor DSCmoaner1DEC : DSCmoaner1 22060 { 	
 
 }
+actor DSCwinterTreeDEC : DSCwinterTree 22061 { 	
+//$Sprite WTR0A0
+}
 
+actor DSCsnowGenDEC : DSCsnowGen 22062 { 	
+//$Sprite SNWTA0
+}
+actor DSCinfoDEC : DSCinfo 22063 { 	
+//$Sprite DSCCC0
+Scale 0.17
+}
+actor DSCflatFAN1DEC : DSCflatFAN1 22064 { 	
+//$Sprite FA1NA0
+Scale 1.0
+}
+actor DSCfanLampDEC : DSCfanLamp 22065 { 	
+//$Sprite FNLMA0
+Scale 1.0
+}
+actor DSCsteamSLOWgenDEC : DSCsteamSLOWgen 22066 { 	
+//$Sprite S1MKA0
+Scale 1.0
+}
+
+actor DSCsteamFASTgenDEC : DSCsteamFASTgen 22067 { 	
+//$Sprite S1MKA0
+Scale 1.0
+}
+
+actor DSCAngloRotatorDEC : AngloRotator 22068 { 	
+Scale 1.0
+}
+
+actor DSCuacDEC : DSCuac 22069 {
+//$Sprite UACAA0 	
+Scale 0.2
+}
+
+actor DSCwallFAN1DEC : DSCwallFAN1 22070 {
+//$Sprite FA2NA0	
+Scale 0.1
+}
+
+actor DSCwinterFloorDEC : DSCwinterFloor 22071 {
+//$Sprite WFL1A0	
+Scale 1.0
+}
+actor DSCflatFAN2DEC : DSCflatFAN2 22072 {
+//$Sprite FA2NA0	
+Scale 0.1
+}
+actor DSClavaSparkGenSVDEC : DSClavaSparkGenSV 22073 {
+
+}
+actor DSCwallFAN1shadeDEC : DSCwallFAN1shade 22074 {
+//$Sprite FA2NB0	
+Scale 0.15
+}
+
+actor HeatHazeGeneratorDEC : HeatHazeGenerator 22075 {
+}

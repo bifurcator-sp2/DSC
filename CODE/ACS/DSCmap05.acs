@@ -1,6 +1,13 @@
+//episode wave count definition
+int maxWaveCount = 40;//--------------------------
+//episode wave count definition
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+
+//episode wave count definition
+maxWaveCount = 40;//--------------------------
+//episode wave count definition
 
 bool Door1Locked = true;
 bool Door1_2Locked = false;
@@ -450,11 +457,18 @@ script "DisplaySaintHealth" (int tid){
 script "SaintDead" (void){
 	for(int i = 5; i > 0; i--)
 	{
-		PrintBold(s:"Prisoned Saint Dead!\nMap will be restarted\nin ",d:i,s:" seconds");
+		PrintBold(s:"Prisoned Saint Dead!\nGame will be restarted\nin ",d:i,s:" seconds");
 		Delay(35);
 	}
-	str lvlName = StrParam(n: PRINTNAME_LEVEL);
-	ChangeLevel(lvlName,0,CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION, -1);
+	/*str lvlName = StrParam(n: PRINTNAME_LEVEL);
+	ChangeLevel(lvlName,0,CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION, -1);*/
+			currentWave = 0;
+			DSCplayerRank = 0;
+			TotalKills = 0;
+			CurrentWave = 0;
+			AmmoMaxRnd = 0;
+			WeaponGotID = 0;
+			ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
 }
 
 SCRIPT "Door1" (void){
