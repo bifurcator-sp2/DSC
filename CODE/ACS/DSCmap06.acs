@@ -226,6 +226,10 @@ script "GotoHungar" (void){
 	delay(15);
 	ChangeLevel ("DSCMAP08", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
+script "GotoWinter" (void){
+	delay(15);
+	ChangeLevel ("DSCMAP09", 0, CHANGELEVEL_NOINTERMISSION, -1);
+}
 /*
 script "GotoArena" (void){
 	delay(15);

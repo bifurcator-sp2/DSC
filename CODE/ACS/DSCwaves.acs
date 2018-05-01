@@ -317,7 +317,7 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 				Delay(35*3);
 				ACS_NamedExecuteAlways("DisplayNextRank", 0);
 			}
-
+			Autosave();
 
 		}
 }

@@ -1,10 +1,10 @@
 //episode wave count definition
-int maxWaveCount = 50;//--------------------------
+int maxWaveCount = 75;//--------------------------
 //episode wave count definition
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
-
+//22 WAVES
 
 bool plate8online = false;
 bool FirstWaveStarted = false;
