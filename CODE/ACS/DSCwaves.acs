@@ -569,6 +569,23 @@ Script "Mus_TITLEMAP" (void){
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
+Script "Mus_COMPUTER" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("COMPUTER", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+Script "Mus_FASTBASS" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("FASTBASS", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+
 Script "RestoreMusic" (void){
 	if(!IgnoreWaveMusicChange){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);

@@ -164,3 +164,10 @@ Scale 0.15
 
 actor HeatHazeGeneratorDEC : HeatHazeGenerator 22075 {
 }
+
+actor DSCportalSparkGenDEC : DSCportalSparkGen 22076 {
+//$Sprite SRS2A0	
+}
+actor DSCbigPortalDEC : DSCbigPortal 22077 {
+//$Sprite CI1LB0	
+}

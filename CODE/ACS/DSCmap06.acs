@@ -1,5 +1,5 @@
 //episode wave count definition
-int maxWaveCount = 50;//--------------------------
+int maxWaveCount = 40;//--------------------------
 //episode wave count definition
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
@@ -7,13 +7,17 @@ int maxWaveCount = 50;//--------------------------
 
 bool DeadPoolHelped;
 bool FirstWaveDone = false;
+bool YardDoorOpen = false;
+bool Door8Locked = true;
+bool Door9Locked = true;
+bool Door10Locked = true;
 
 script "StartControl" ENTER
 {
 
-	Thing_Deactivate(100);
+Thing_Deactivate(100);
 //TEST!
-CurrentWave = 40;
+//CurrentWave = 40;
 //NOspawn = true;
 /*DSCplayerRank = 7;
 CurrentWave = 100;
@@ -26,47 +30,56 @@ SetThingSpecial(207, ACS_NamedExecute, "GotoHungar");
 
 
 
-bool inDEV = false;
+bool inDEV = true;
 //TEST!
-	if(inDEV){
+if(inDEV){
+	GiveInventory("map07done", 1);
+	GiveInventory("map08done", 1);
+	GiveInventory("map09done", 1);
+	GiveInventory("map10done", 1);
+}
 
-		//GiveInventory("map07done", 1);
-		/*
-		Thing_Activate(107);
-		GiveInventory("map03done", 1);
-		Thing_Activate(108);
-		GiveInventory("map04done", 1);
-		Thing_Activate(109);
-		GiveInventory("map05done", 1);
-		Thing_Activate(110);
-		currentWave = 200;*/
-	}
 
+	Thing_Activate(400);
 	if(CheckInventory("map07done")>0){
+		maxWaveCount = 75;
 		//activation of atrium vaves & normalize and normalize way to first map
 		//Door10Locked = false;
 		//Thing_Activate(107);
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 888888, 888888); //notag nocount
-		Thing_Activate(106);
+
 	}
 
-	/*if(CheckInventory("map09done")>0){
-		int progression = (currentWave * 100) / maxWaveCount ;
-		if(progression>150){
-			SpawnSpotFacingForced("DSCportalToMap", 200, 201);
-			SetThingSpecial(201, ACS_NamedExecute, "GotoMinistry");
-			Thing_Activate(110);
-		} else {
-			Thing_Activate(111);
+	if(CheckInventory("map08done")>0){
+		Door8Locked = false;
+		Thing_Activate(401);
+	}
+	if(CheckInventory("map09done")>0){
+		Thing_Activate(402);
+		Door9Locked = false;
+		if(CheckInventory("map10cunsceneShown")==0){
+			//cutscene here
+			GiveInventory("map10done", 1);
+			ACS_NamedExecuteAlways("LookAt", 0, 500, 35*15);
+			SpawnSpotFacingForced("DSCportalToMap", 5, 100302);
+			SetThingSpecial(100302, ACS_NamedExecute, "GotoDieHard");
+			delay(35*7);
+			ACS_NamedExecute("Door10", 0);
 		}
-	}*/
+		if(CheckInventory("map10cunsceneShown")>0){
+			ACS_NamedExecute("Door10", 0);
+		}
 
-	//ACS_NamedExecute("StartHelp", 0);
-
+	}
+	if(CheckInventory("map10done")>0){
+		Thing_Activate(403);
+		Door10Locked = false;
+	}
 	if(Atrium1Active){
 
 	}
-	//CheckInventory("map02done");
+//
+
 
 }
 
@@ -167,8 +180,11 @@ Script "SatartFirstWave" (void){
 }
 
 script "YardDoorOpen" (void){
-	if(CheckInventory("map06done")>0 && FirstWaveDone!=true){
-		ACS_NamedExecuteAlways("RotateDoorLeftNoReturn", 0, 1, 8, 64);
+	if(!YardDoorOpen){
+		YardDoorOpen = true;
+		if(CheckInventory("map06done")>0 && FirstWaveDone!=true){
+			ACS_NamedExecuteAlways("RotateDoorLeftNoReturn", 0, 1, 8, 64);
+		}
 	}
 }
 
@@ -194,6 +210,18 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			break;
 		case 3:
 			hudmessageBold(s:"Now you can travel\n\through played episodes."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 4:
+			hudmessageBold(s:"To Crimson depths"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 5:
+			hudmessageBold(s:"To Hungar"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 6:
+			hudmessageBold(s:"To Season of Winter"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 7:
+			hudmessageBold(s:"To Die Hard"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		default:
 			PrintBold(s:"Be strong!");
@@ -230,34 +258,25 @@ script "GotoWinter" (void){
 	delay(15);
 	ChangeLevel ("DSCMAP09", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
-/*
-script "GotoArena" (void){
+script "GotoDieHard" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP04", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP10", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
-script "GotoSalvation" (void){
-	delay(15);
-	ChangeLevel ("DSCMAP05", 0, CHANGELEVEL_NOINTERMISSION);
+
+SCRIPT "Door8" (void){
+	if(!Door8Locked){
+		Generic_Door(401, 16, 0, 34, 0);
+	}
 }
-script "GotoMinistry" (void){
-	delay(15);
-	ChangeLevel ("DSCMAP06", 0, CHANGELEVEL_NOINTERMISSION);
+SCRIPT "Door9" (void){
+	if(!Door9Locked){
+		Generic_Door(402, 16, 0, 34, 0);
+	}
 }
-*/
-/*
 SCRIPT "Door10" (void){
-	if(!Door10Locked){
-		Generic_Door(10, 16, 0, 34, 0);
-	}
+	Ceiling_LowerByValue(8, 16, 124);
+	floor_Lowerbyvalue(8, 16, 124);
+
 }
-SCRIPT "Door11" (void){
-	if(!Door11Locked){
-		Generic_Door(11, 16, 0, 34, 0);
-	}
-}
-SCRIPT "Door12" (void){
-	if(!Door12Locked){
-		Generic_Door(12, 16, 0, 34, 0);
-	}
-}
-*/
+
+

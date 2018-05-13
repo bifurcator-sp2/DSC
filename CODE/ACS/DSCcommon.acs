@@ -418,7 +418,14 @@ script "OxygenRegen" (int RegenSpeedInSec)
 	Restart;
 }
 
-
+script "slideTECdoor" (int po, int angle, int dist) {
+	Polyobj_Move(po, 16, angle, dist);
+	SoundSequenceOnPolyObj(po, "Reshotka");
+	delay(35*3);
+	Polyobj_Move(po, 16, angle+128, dist);
+	SoundSequenceOnPolyObj(po, "Reshotka");
+	delay(35*2);
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,3 +1,390 @@
+Class DSCportalSoul : Actor
+{
+	Default
+	{
+		Scale 0.25;
+		Alpha 0.5;
+		Renderstyle "Subtract";
+		+NOGRAVITY;
+		+FLOAT;
+		Speed 8;
+	}
+	States
+	{
+		Spawn:
+			SCL5 A 1
+			{
+				A_WANDER();
+				A_SpawnItemEx("DSCportalSoulCloud", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 64, 0 );
+
+			}
+		Loop;
+	}		
+}
+Class DSCportalSoulCloud : Actor
+{
+	float ScaleMultiplerMin;
+	float ScaleMultiplerMax;
+	float ScaleSpeed;
+	float FadeoutSpeed;
+	
+	bool startFade;
+	Default
+	{
+		+NoInteraction;
+		+FORCEXYBILLBOARD;
+		-SOLID;
+		Renderstyle "Subtract";
+		alpha 0.2;
+	}	
+	Override void PostBeginPlay()
+	{
+		ScaleMultiplerMax = 1.0;
+		ScaleMultiplerMin = 1.5;
+		ScaleSpeed = 0.010;
+		FadeoutSpeed = 0.01;
+		A_SetScale(0.2, 0.2);
+		Super.PostBeginPlay();
+	}
+	virtual void ParticleLife()
+	{
+		A_fadeOut(FadeoutSpeed, true);
+		A_SetScale(scaleX+ScaleSpeed);
+	}
+	
+	States
+	{
+	  Spawn:
+		MOR3 A 1 ParticleLife();
+		Loop;
+	 }
+}
+Class DSChellSrtike : Actor
+{
+	Default
+	{
+		Scale 0.5;
+		RenderStyle "Add";
+		+NOINTERACTION;
+	}
+	States
+	{
+		Spawn:
+			HLTR A 1
+			{
+				scale.Y+=0.05;
+				scale.X=frandom(0.1, 0.5);
+				A_fadeOut(0.03);
+			}
+		Loop;
+	}	
+}
+
+Class  DSCbigPortalGliphBig : Actor
+{
+	int Rotation;
+	Default
+	{
+		Scale 0.05;
+		+ROLLSPRITE;
+		RenderStyle "Add";
+		+NOINTERACTION;
+		+FLATSPRITE;
+	}
+	Override void PostBeginPlay()
+	{
+		if(random(0, 1)){
+			Rotation = 15;
+		} else {Rotation = -15;}
+		A_QuakeEx(8,8,0,20,0,512,"",QF_SCALEDOWN);
+	}
+	Action Void SpawnBurstSparks(int count = 10)
+	{
+		for(int i = 0; i < count; i++)
+		{
+			A_SpawnItemEx("DSCExplosionSpark", random(-8*scale.Y*10, 8*scale.Y*10), random(-8*scale.Y*10, 8*scale.Y*10), random(-8*scale.Y*10, 8*scale.Y*10), frandom(-12,12), frandom(-12,12), frandom(-12,12),0,SXF_NOCHECKPOSITION);
+		}
+	}
+	States
+	{
+		Spawn:
+			HRNG A 1
+			{
+				A_SetRoll(roll+Rotation,SPF_INTERPOLATE);
+				scale.Y+=0.04;
+				scale.X+=0.04;
+				SpawnBurstSparks(10);
+				A_fadeOut(0.03);
+			}
+		Loop;
+	}
+}
+Class DSCbigPortalLightning : Actor
+{
+	Default
+	{
+		Scale 1.0;
+		+NoInteraction;
+		-SOLID;
+		Renderstyle "Add";
+		alpha 1.0;
+	}	
+	States
+	{
+	  Spawn:
+		HLT0 A 1 {
+				A_PlaySound("world/Thunder1");
+				A_fadeOut(0.05, true);
+			}
+		Loop;
+	 }
+}
+
+
+
+Class DSCbigPortalTwist : Actor
+{
+	float ScaleMultiplerMin;
+	float ScaleMultiplerMax;
+	float RollSpeed;
+	float ScaleSpeed;
+	float FadeoutSpeed;
+	float FadeinSpeed;
+	float MaxAlpha;
+	
+	bool startFade;
+	Default
+	{
+		Scale 1.0;
+		+NoInteraction;
+		+Rollsprite;
+		+FORCEXYBILLBOARD;
+		+FLATSPRITE;
+		-SOLID;
+		Renderstyle "Translucent";
+		alpha 0.0;
+	}	
+	Override void PostBeginPlay()
+	{
+		MaxAlpha = 0.3;
+		ScaleMultiplerMax = 1.5;
+		ScaleMultiplerMin = 0.7;
+		ScaleSpeed = 0.010;
+		FadeoutSpeed = 0.002;
+		FadeinSpeed = 0.1;
+		RollSpeed = 5.0;
+		A_SetScale(0, 0);
+		RollSpeed = FRandom(1, RollSpeed);
+		A_SetRoll(random(0, 360));
+		startFade = false;
+		Super.PostBeginPlay();
+	}
+	virtual void ParticleLife()
+	{
+		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
+		roll%=360;
+		if(startFade){
+			A_fadeOut(FadeinSpeed, true);
+		} else {
+			A_fadeTo(MaxAlpha, FadeoutSpeed);
+		}
+		if(self.alpha>=MaxAlpha && !startFade){
+			startFade = true;
+		}	
+		A_SetScale(scaleX+ScaleSpeed);
+		
+		//A_fadeTo(0.3, FadeoutSpeed);
+	}
+	
+	States
+	{
+	  Spawn:
+		CI1L B 1 ParticleLife();
+		Loop;
+	 }
+}
+Class DSCbigPortalTwist2 : Actor
+{
+	float ScaleMultiplerMin;
+	float ScaleMultiplerMax;
+	float RollSpeed;
+	float ScaleSpeed;
+	float FadeoutSpeed;
+	float FadeinSpeed;
+	float MaxAlpha;
+	
+	bool startFade;
+	Default
+	{
+		Scale 0.1;
+		+NoInteraction;
+		+Rollsprite;
+		+FORCEXYBILLBOARD;
+		+FLATSPRITE;
+		-SOLID;
+		Renderstyle "Add";
+		alpha 0.0;
+	}	
+	Override void PostBeginPlay()
+	{
+		MaxAlpha = 1.0;
+		ScaleMultiplerMax = 1.0;
+		ScaleMultiplerMin = 0.7;
+		ScaleSpeed = 0.010;
+		FadeoutSpeed = 0.01;
+		FadeinSpeed = 0.2;
+		RollSpeed = 5.0;
+		A_SetScale(0, 0);
+		RollSpeed = FRandom(1, RollSpeed);
+		A_SetRoll(random(0, 360));
+		startFade = false;
+		Super.PostBeginPlay();
+	}
+	virtual void ParticleLife()
+	{
+		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
+		roll%=360;
+		if(startFade){
+			A_fadeOut(FadeinSpeed, true);
+		} else {
+			A_fadeTo(MaxAlpha, FadeoutSpeed);
+		}
+		if(self.alpha>=MaxAlpha && !startFade){
+			startFade = true;
+		}	
+		A_SetScale(scaleX+ScaleSpeed);
+		
+		//A_fadeTo(0.3, FadeoutSpeed);
+	}
+	
+	States
+	{
+	  Spawn:
+		CI1L C 1 ParticleLife();
+		Loop;
+	 }
+}
+Class DSCbigPortal : SwitchableDecoration
+{
+	int SoulsSpawned;
+	Default
+	{
+		radius 32;
+		-SOLID;	
+		+NoGravity;
+		+ClientSideOnly;
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 0;
+		GOTO Inactive;
+	Active:
+		TNT1 A 1 
+			{ 
+				
+				for(int i = 0; i < 1; i++)
+				{
+					A_SpawnItemEx("DSCbigPortalTwist", random(-128,128), random(-128,128), random(-32,32), frandom(-2,2), frandom(-2,2), frandom(-1,1),0,SXF_NOCHECKPOSITION, 240, 0 );
+					A_SpawnItemEx("DSCbigPortalTwist2", 0, 0, random(-32,1), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(0.0,0.5),0,SXF_NOCHECKPOSITION, 200, 0 );
+					A_SpawnItemEx("DSCbigPortalLightning", random(-512,512), random(-512,512), random(-256,128), 0, 0, 0, 0, SXF_NOCHECKPOSITION, 250, 0 );
+					
+					if(random(1, 100)==100){
+						A_PlaySound("BigPortalGliph", CHAN_WEAPON, 1.0, false, ATTN_NONE);
+						A_SpawnItemEx("DSCbigPortalGliphBig", 0, 0, random(-256, -128), 0, 0, 0, 0,SXF_NOCHECKPOSITION, 0, 0);
+						A_Explode(damage:random(4, 8), distance:384, flags:XF_NOTMISSILE);
+						A_Blast(strength:256, radius:128);
+						A_SpawnItemEx("DSChellSrtike", random(-16,16), random(-16,16), -270, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0 );
+						A_SpawnItemEx("DSChellSrtike", random(-16,16), random(-16,16), -270, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0 );
+						if(SoulsSpawned<10){
+							A_SpawnItemEx("DSCportalSoul", random(-16,16), random(-16,16), -384, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, tid );
+							SoulsSpawned++;
+						}
+						
+					}				
+				}
+			}
+		Loop;
+	Inactive:
+		TNT1 A 1;
+		Loop;	
+	}
+}
+
+
+
+Class DSCportalSparkGen : SwitchableDecoration
+{
+	Default
+	{
+		radius 32;
+		-SOLID;	
+		+NoGravity;
+		+ClientSideOnly;
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 0;
+		GOTO Inactive;
+	Active:
+		TNT1 A 1 
+			{ 
+				for(int i = 0; i < 5; i++)
+				{
+					A_SpawnItemEx("DSCportalSpark", random(16, 16), random(16, 16), random(16, 16), frandom(-8,8), frandom(-8,8), frandom(-2,0),0,SXF_NOCHECKPOSITION);
+					
+				}
+			}
+		Loop;
+	Inactive:
+		TNT1 A 1;
+		Loop;	
+	}
+}
+
+Class DSCportalSpark : Actor
+{
+	Default
+	{
+	Alpha 1.0;
+	Scale 0.15;
+	RenderStyle "Add";
+	BounceType "Grenade";
+	BounceCount 3;
+	Mass 9;
+	BounceFactor 0.3;
+	Gravity 1.0;
+	+FORCEXYBILLBOARD;
+
+	}
+	States
+	{
+		Spawn:
+			TNT1 A 1 A_Jump(256, "S1", "S2", "S3");
+			Loop;
+		S1:
+			SRS2 A 1;
+			GOTO Halt;
+		S2:
+			SRS3 A 1;
+			GOTO Halt;
+		S3:
+			SRS4 A 1;
+			GOTO Halt;
+		Halt:
+			"####" "A" 1 BRIGHT
+			{
+				A_FadeOut(0.03);
+			}
+			LOOP;
+		Death:
+			TNT1 A 1;
+			stop;
+	}
+}
+
+
 Class DSCwinterFloor : Actor
 {
 	double StartAlpha;
@@ -1695,7 +2082,7 @@ Class DSCwindowGlowWhite : SwitchableDecoration
 	}
 }
 
-Class DSCceilLightRay : Actor
+Class DSCceilLightRay  : SwitchableDecoration
 {
 	Default
 	{
@@ -1708,9 +2095,15 @@ Class DSCceilLightRay : Actor
 	States
 	{
 		Spawn:
-		 LTS2 A 1 A_PlaySound("world/LAMPHUM", 7, 1.0, true);
-		Loop;
-	}
+			LTS2 A 1;
+			Loop;
+		Active: 
+			LTS2 A 1 A_PlaySound("world/LAMPHUM", 7, 1.0, true);
+			Loop;
+		Inactive:
+			TNT1 A 1;
+			Loop;		
+	}	
 }
 /*
 Class DSCceilLightRay : Actor

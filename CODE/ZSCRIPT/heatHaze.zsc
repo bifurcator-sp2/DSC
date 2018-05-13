@@ -110,11 +110,11 @@ class HeatHazeGenerator: SwitchableDecoration
 	{
 		Spawn:
 			TNT1 A 1;
-			Goto Activate;
+			Goto Active;
 		Inactive:
-			TNT1 A -1;
-			Stop;
-		Activate:
+			TNT1 A 1;
+			Loop;
+		Active:
 			TNT1 A 1 HeatMeAndMyLifeWasGone();
 			Loop;
 	}

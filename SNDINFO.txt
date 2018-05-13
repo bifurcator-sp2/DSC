@@ -113,6 +113,10 @@ $ambient 56 GungarHoulingAmbience3 random 5.0 15.0 1.0
 $alias GungarHoulingAmbience4 world/TecHoul4
 $ambient 57 GungarHoulingAmbience4 random 5.0 15.0 1.0
 
+$random TecRandomAmbient { world/TecHoul1 world/TecHoul2 world/TecHoul3 world/TecHoul4 }
+
+
+
 Ambient/DSCLAVA1	DSCLAVA1
 $alias LavaMoving1 Ambient/DSCLAVA1
 $ambient 58 LavaMoving1 point continuous 1.0
@@ -165,7 +169,12 @@ Ambient/steam2 steam2
 $alias Steam2 Ambient/steam2
 $ambient 69 Steam2 point continuous 1.0
 
+Ambient/hardelec hardelec
+$alias HARD_ELECTRO Ambient/hardelec
+$ambient 69 HARD_ELECTRO point continuous 1.0
 
+
+world/HAPPEN2 HAPPEN2
 
 world/BFRAIN BFRAIN
 world/Thunder1 THUNDER1
@@ -182,7 +191,7 @@ world/TNSTOP TNSTOP
 
 
 world/tentacle TENTA
-
+world/DemonsOFF Elimi
 
 world/HAPPEN1 HAPPEN1
 
@@ -207,7 +216,7 @@ BloodSpawn2	BLDCVK2
 BloodSpawn3	BLDCVK3
 
 
-
+$random BigPortalGliph { EXPLOSM1 EXPLOSM2 EXPLOSM3 }
 $random ExploVaza { EXPLOSM1 EXPLOSM2 EXPLOSM3 }
 EXPLOSM1	EXPLOSM1
 EXPLOSM2	EXPLOSM2
@@ -226,7 +235,16 @@ TREJLER1	TREJLER1
 TREJLER2	TREJLER2
 TREJLER3	TREJLER3
 
-
+$random Creep { creep01 creep02 creep03 creep04 creep05 creep06 creep07 creep08  creep09}
+creep01 creep01
+creep02 creep02
+creep03 creep03
+creep04 creep04
+creep05 creep05
+creep06 creep06
+creep07 creep07
+creep08 creep08
+creep08 creep09
 /////terrain
 
 
@@ -330,6 +348,8 @@ world/moaner3 moaner3
 world/moaner4 moaner4
 
 
+world/HELLTP1 HELLTP1
+world/HELLTP2 HELLTP2
 
 
 

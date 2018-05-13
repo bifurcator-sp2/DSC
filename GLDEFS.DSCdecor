@@ -49,6 +49,28 @@ flickerlight VazaBreak3
 }
 
 
+pointlight DSCportalLightningLight
+{
+    color 1.0 1.0 0.0
+    size 256
+    attenuate 1
+}
+Object DSCbigPortalLightning
+{
+	FRAME HLT0 { light DSCportalLightningLight }
+}
+
+
+
+
+pointlight DSCportalSparkLight
+{
+    color 0.1 0.3 0.3
+    size 24
+    attenuate 1
+}
+
+
 
 flickerlight DSCtorchLight
 {
