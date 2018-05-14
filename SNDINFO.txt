@@ -7,6 +7,8 @@ world/slideResh resh_st
 world/slideReshStop resh_sp
 world/crash2 crash2
 
+world/hell_influence HLINFL
+
 
 $random LiftAmbient { LiftAmbient1 LiftAmbient2 LiftAmbient3 }
 LiftAmbient1 Lift_A1

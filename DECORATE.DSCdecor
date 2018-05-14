@@ -788,3 +788,23 @@ actor BloodSplashBaseSmall : BloodSplashBase3
     Stop
   }
 }
+Actor DSCciclone2 22078
+{	
+	+FORCEXYBILLBOARD
+	+NOINTERACTION
+	+FLATSPRITE
+	+ROLLSPRITE
+	Renderstyle "Subtract"
+	Scale 0.2
+	States
+	{
+		Spawn:
+			CI1L A 1 
+			{
+				A_SetRoll(roll+0.3,SPF_INTERPOLATE);
+				roll%=360;
+	
+			}
+			LOOP
+	}
+}

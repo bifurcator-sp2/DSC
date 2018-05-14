@@ -1,3 +1,93 @@
+
+Class DSChellStrikeGEN : SwitchableDecoration
+{
+	Default
+	{
+		radius 64;
+		+NoInteraction;
+		+ClientSideOnly;
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 0;
+		GOTO Inactive;
+	Active:
+		TNT1 A 1 
+			{ 
+				A_SpawnItemEx("DSChellSrtike2", random(-64,64), random(-64,64), -128, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 250, 0 );
+			}
+		Loop;
+	Inactive:
+		TNT1 A 1;
+		Loop;	
+	}
+}
+
+Class DSChellWindcloudsGen : SwitchableDecoration
+{
+	//Args[0] - radius
+	//Args[1] - iterationNumber
+	//Args[2] - maxSpawnHeight
+	//Args[3] - type of clouds
+	
+	int radius;
+	int iterationNumber;
+	Array<string> type;
+	int Front;
+	Default
+	{
+		radius 64;
+		+NoBlockMap;
+		+NoGravity;
+		+NoSector;
+		+NoInteraction;
+		+NoClip;
+		-Solid;
+		+ClientSideOnly;
+
+		alpha 0.0;
+	}
+
+	Override void PostBeginPlay()
+	{
+		Front = Args[4]?Args[4]:384;
+		type.Push("DSCredCloud");
+		type.Push("DSCwinterCloud");
+		type.Push("DSChellwindCloud");
+		radius = Args[0]?Args[0]:256;
+		iterationNumber = Args[1]?Args[1]:1;
+		Super.PostBeginPlay();
+		
+	}
+
+	void SpawnClouds()
+	{
+		for (int i = 0; i < iterationNumber; i++)
+		{
+			A_SpawnItemEx(type[Args[3]?Args[3]:0], Random(-Front, Front), Random(-radius, radius), Random(-16, Args[2]), 16, 0, 0, 0, SXF_NOCHECKPOSITION, 128, 0 );
+		}
+	}
+
+	States
+	{
+	Spawn:
+		TNT1 A 1;
+		GOTO Inactive;
+	Active:
+		TNT1 A 1
+		{
+			SpawnClouds();
+		}
+		Loop;
+	Inactive:
+		TNT1 A 1;
+		Loop;	
+	}
+	
+}
+
+
 Class DSCportalSoul : Actor
 {
 	Default
@@ -58,6 +148,28 @@ Class DSCportalSoulCloud : Actor
 		MOR3 A 1 ParticleLife();
 		Loop;
 	 }
+}
+
+Class DSChellSrtike2 : DSChellSrtike
+{
+	Default
+	{
+		YScale 0.1;
+		XScale 0.1;
+		RenderStyle "Add";
+		+NOINTERACTION;
+	}
+	States
+	{
+		Spawn:
+			HLTR A 1
+			{
+				scale.Y+=0.02;
+				scale.X=frandom(0.1, 0.2);
+				A_fadeOut(0.03);
+			}
+		Loop;
+	}
 }
 Class DSChellSrtike : Actor
 {
@@ -1042,7 +1154,40 @@ Class DSCcloudsGen : SwitchableDecoration
 	
 }
 
+Class DSChellwindCloud : DSCredCloud
+{
+	Default
+	{
+		xScale 7.0;
+		yScale 1.0;
+		-Rollsprite;
+	}
+	Override void PostBeginPlay()
+	{
+		MaxAlpha = 0.1;
+		Super.PostBeginPlay();
+		scale.X = 10.0;
+	}	
+	virtual void ParticleLife2()
+	{
+		if(startFade){
+			A_fadeOut(FadeoutSpeed, true);
+		} else {
+			A_fadeTo(MaxAlpha, FadeoutSpeed);
+		}
 
+		if(self.alpha>=MaxAlpha && !startFade){
+			startFade = true;
+		}		
+
+	}	
+	States
+	{
+	  Spawn:
+		MOR2 A 1 ParticleLife2();
+		Loop;
+	 }	
+}
 
 Class DSCwinterCloud : DSCredCloud
 {
@@ -2099,6 +2244,29 @@ Class DSCceilLightRay  : SwitchableDecoration
 			Loop;
 		Active: 
 			LTS2 A 1 A_PlaySound("world/LAMPHUM", 7, 1.0, true);
+			Loop;
+		Inactive:
+			TNT1 A 1;
+			Loop;		
+	}	
+}
+Class DSCceilFlatRay  : SwitchableDecoration
+{
+	Default
+	{
+		+NOINTERACTION;
+		+FLATSPRITE
+		Height 0;
+		Scale 0.3;
+		Renderstyle "Add";
+	}
+	States
+	{
+		Spawn:
+			LTS2 B 1;
+			Loop;
+		Active: 
+			LTS2 B 1;
 			Loop;
 		Inactive:
 			TNT1 A 1;

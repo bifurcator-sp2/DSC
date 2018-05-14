@@ -171,3 +171,16 @@ actor DSCportalSparkGenDEC : DSCportalSparkGen 22076 {
 actor DSCbigPortalDEC : DSCbigPortal 22077 {
 //$Sprite CI1LB0	
 }
+//22078
+
+actor DSChellWindcloudsGenDEC : DSChellWindcloudsGen 22079 {
+
+}
+actor DSChellStrikeGENDEC : DSChellStrikeGEN 22080 {
+
+}
+actor DSCceilFlatRayDEC : DSCceilFlatRay 22081 {
+//$Sprite LTS2B0
+scale 0.3
+}
+

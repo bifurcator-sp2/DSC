@@ -1,6 +1,29 @@
 bool PlayerInVaquum = false;
 bool PlayerInAirlock = true;
 
+script "brokenDoor" (int tag){
+	if(random(0, 4)==4){
+		Generic_Door(tag, 16, 0, 34, 0 );
+	} else {
+		Ceiling_RaiseByValue(tag, 16, random(8, 32));
+		delay(random(15, 35));
+		PrintBold(s:"Door malfunction\nTry again");
+		Ceiling_LowerToFloor(tag, 16);
+		delay(random(15, 35));
+	}
+}
+
+script "TeleportHellFluence" (int tid){
+	AmbientSound("world/hell_influence",1.0 );
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	FadeTo (0, 0, 0, 1.0, 1.0 );
+	delay(35*1);
+	Thing_Move (0, tid, true);
+	delay(35*3);
+	FadeTo (0, 0, 0, 0.0, 2.0 );
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+}
+
 
 script "DeactivateBrokenLamp1"(int tid, int sectorTAG, int tics, int interval){
 	if(!tics){ tics = 35;}
@@ -419,12 +442,13 @@ script "OxygenRegen" (int RegenSpeedInSec)
 }
 
 script "slideTECdoor" (int po, int angle, int dist) {
+
 	Polyobj_Move(po, 16, angle, dist);
 	SoundSequenceOnPolyObj(po, "Reshotka");
-	delay(35*3);
+	delay((dist/2)+35);
 	Polyobj_Move(po, 16, angle+128, dist);
 	SoundSequenceOnPolyObj(po, "Reshotka");
-	delay(35*2);
+	delay(dist/2);
 }
 
 
