@@ -184,3 +184,77 @@ actor DSCceilFlatRayDEC : DSCceilFlatRay 22081 {
 scale 0.3
 }
 
+actor DSCpriborHoloDEC : DSCpriborHolo 22082 {
+//$Sprite PRIBA0
+scale 0.5
+}
+
+actor DSCmarsDOWNDEC : DSCmarsDOWN 22083 {
+//$Sprite DWN0A0
+scale 0.2
+}
+actor DSCdarkerDEC : DSCdarker 22084 {
+//$Sprite DRK0A0
+scale 0.2
+}
+actor DSCDshineDEC : DSChine 22085 {
+//$Sprite SHNEA0
++FLATSPRITE
+scale 0.2
+}
+actor DSCsunshineDEC : DSCsunshine 22086 {
+//$Sprite SHNEB0
+scale 0.2
++FLATSPRITE
+}
+actor DSCceilFlatRay2DEC : DSCceilFlatRay2 22087 {
+//$Sprite LTS2C0
+scale 0.3
++FLATSPRITE
+}
+
+actor KeyCardIndicatorYellowDEC : KeyCardIndicatorYellow 22088 {
+//$Sprite KCRDA0
+scale 0.15
++WALLSPRITE
+}
+actor KeyCardIndicatorRedDEC : KeyCardIndicatorRed 22089 {
+//$Sprite KCRDB0
+scale 0.15
++WALLSPRITE
+}
+actor KeyCardIndicatorBlueDEC : KeyCardIndicatorBlue 22090 {
+//$Sprite KCRDC0
+scale 0.15
++WALLSPRITE
+}
+
+actor SkyViewpointDestroyerDEC : SkyViewpointDestroyer 22091 {
+
+}
+actor DSChellCloudMaskDEC : DSChellCloudMask 22092 {
+//$Sprite CI1LD0
++FLATSPRITE
+}
+
+actor DSCGREATeyeBounderDEC : DSCGREATeyeBounder 22093 {
+//$Sprite HEYEA0
+Radius 128
+scale 1.0
+}
+
+actor GellGateFireDEC : GellGateFire 22094 {
+
+}
+
+actor DSClastLightDEC : DSClastLight 22095 {
+//$Sprite LLLLA0
++WALLSPRITE
+}
+
+actor IncomeWindGenDEC : IncomeWindGen 22096 {
+}
+actor IncomeWindGenHellDEC : IncomeWindGenHell 22097 {
+}
+actor IncomeWindGenHellGroundDEC : IncomeWindGenHellGround 22098 {
+}

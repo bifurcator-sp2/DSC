@@ -1,6 +1,56 @@
 bool PlayerInVaquum = false;
 bool PlayerInAirlock = true;
 
+
+
+function int GetFn(int offset){
+	if(offset <= 2){
+		return	offset;
+	}
+	return GetFn(offset - 1) + GetFn(offset - 2);
+	//return (offset <= 2) ? offset : GetFn(offset - 1) + GetFn(offset - 2);
+}
+
+Script "SequenceSwitch" (int ControllerTag, int length, int offset){
+	//CallbackScript is numbered by ControllerTag
+	//ErrorCallbackScript is numbered by BadResultTag
+	//offset button offset
+
+	PlaySound(0, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	delay(35);
+	int curOffset = GetActorAngle(ControllerTag);
+	int value = GetActorZ(ControllerTag);//  number of curOffset
+
+	SetActorAngle(ControllerTag, GetActorAngle(ControllerTag)+1);//curOffset ++
+
+	if(curOffset==0){
+		if(offset==1){
+			SetActorPosition(ControllerTag, GetActorX(ControllerTag), GetActorY(ControllerTag), 1, 0);
+		}
+		terminate;
+	}
+
+	//PrintBold(i:curOffset, s:" ", i:offset);
+
+	if(curOffset==value){
+		if(curOffset==length-1  ){
+			ACS_Execute(ControllerTag, 0, true);//callback
+			terminate;
+		}
+		//good sequence
+
+		SetActorPosition(ControllerTag, GetActorX(ControllerTag), GetActorY(ControllerTag), offset, 0);
+	}
+
+	if(curOffset==length-1){
+		ACS_Execute(ControllerTag, 0, false);//ERROR callback
+		SetActorAngle(ControllerTag, 0);
+		delay(35);
+	}
+}
+
+
+
 script "brokenDoor" (int tag){
 	if(random(0, 4)==4){
 		Generic_Door(tag, 16, 0, 34, 0 );
@@ -17,6 +67,7 @@ script "TeleportHellFluence" (int tid){
 	AmbientSound("world/hell_influence",1.0 );
 	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
 	FadeTo (0, 0, 0, 1.0, 1.0 );
+	Radius_Quake2 (0, 6, 35*6, 0, 64, "world/pumm");
 	delay(35*1);
 	Thing_Move (0, tid, true);
 	delay(35*3);
@@ -42,8 +93,40 @@ script "DeactivateBrokenLamp1"(int tid, int sectorTAG, int tics, int interval){
 	Thing_DeActivate(tid);
 	ChangeFloor(sectorTAG, "CLT1N");
 }
-
-
+script "DeactivateBrokenLamp2"(int tid, int sectorTAG, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){
+			Thing_Activate(tid);
+			ChangeCeiling(sectorTAG, "CLT0");
+		} else {
+			ChangeCeiling(sectorTAG, "CLT0N");
+			Thing_DeActivate(tid);
+		}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_DeActivate(tid);
+	ChangeCeiling(sectorTAG, "CLT0N");
+}
+script "ActivateBrokenLamp2"(int tid, int sectorTAG, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){
+			Thing_Activate(tid);
+			ChangeCeiling(sectorTAG, "CLT0");
+		} else {
+			ChangeCeiling(sectorTAG, "CLT0N");
+			Thing_DeActivate(tid);
+		}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_Activate(tid);
+	ChangeCeiling(sectorTAG, "CLT0");
+}
 
 script "ThingDeactivateBroken" (int tid, int tics, int interval){
 	if(!tics){ tics = 35;}
@@ -244,6 +327,27 @@ SCRIPT "DSCplatformLowerWaitRaize" (int tag, int height, int wait){
 	delay(35);
 
 }
+SCRIPT "DSCplatformLowerWaitRaize2" (int tag, int height, int wait){
+	if(!wait){wait=3;}
+	SetLineTexture(tag, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	PlaySound(tag, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	Line_SetBlocking (tag, BLOCKF_CREATURES, 0);
+	delay(35);
+	Ceiling_LowerByValue(tag, 16, height);
+	Floor_LowerByValue(tag, 16, height);
+	delay(height/2);
+	Line_SetBlocking (tag, 0, BLOCKF_CREATURES);
+	delay(35*wait);
+	Line_SetBlocking (tag, BLOCKF_CREATURES, 0);
+	Ceiling_RaiseByValue(tag, 16, height);
+	Floor_RaiseByValue(tag, 16, height);
+	delay(height/2);
+	Line_SetBlocking (tag, 0, BLOCKF_CREATURES);
+	delay(35);
+	SetLineTexture(tag, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+}
+
+
 
 SCRIPT "DSCfloatRock" (int tag, int height, int speed){
 

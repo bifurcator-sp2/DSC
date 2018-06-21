@@ -47,15 +47,15 @@ SCRIPT "StartControl" ENTER
 		Thing_Activate(109);
 		Door12Locked = false;
 	}
-	if(CheckInventory("map05done")>0){
-		int progression = (currentWave * 100) / maxWaveCount ;
-		if(progression>150||CheckInventory("map06done")>0){
+	if(CheckInventory("map05done") || CheckInventory("map06done")>0){
+		//int progression = (currentWave * 100) / maxWaveCount ;
+		//if(progression>150||CheckInventory("map06done")>0){
 			SpawnSpotFacingForced("DSCportalToMap", 200, 201);
 			SetThingSpecial(201, ACS_NamedExecute, "GotoMinistry");
 			Thing_Activate(110);
-		} else {
-			Thing_Activate(111);
-		}
+		//} else {
+		//	Thing_Activate(111);
+		//}
 	}
 	ACS_NamedExecute("StartHelp", 0);
 

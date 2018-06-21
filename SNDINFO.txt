@@ -21,6 +21,7 @@ LiftAmbient3 Lift_A3
 world/LiftMove Liftmove
 world/LiftStop Liftstop
 
+world/openHell HGATE
 
 
 Ambient/Voltage	AMB10
@@ -176,6 +177,25 @@ $alias HARD_ELECTRO Ambient/hardelec
 $ambient 69 HARD_ELECTRO point continuous 1.0
 
 
+Ambient/ForceField force
+$alias ForceField Ambient/ForceField
+$ambient 70 ForceField point continuous 1.0
+
+Ambient/evilbrea evilbrea
+$alias evilbreath Ambient/evilbrea
+$ambient 71 evilbreath point continuous 1.0
+
+
+Ambient/Hellgate HGATEAM
+$alias Hellgate Ambient/Hellgate
+$ambient 72 Hellgate point continuous 1.0
+
+Ambient/WINDSNO WINDSNO
+$alias WindSnowStrong Ambient/WINDSNO
+$ambient 73 WindSnowStrong point continuous 1.0
+
+
+
 world/HAPPEN2 HAPPEN2
 
 world/BFRAIN BFRAIN
@@ -196,6 +216,7 @@ world/tentacle TENTA
 world/DemonsOFF Elimi
 
 world/HAPPEN1 HAPPEN1
+world/pumm pumm
 
 world/BigFire STRONGFI
 
@@ -224,6 +245,17 @@ EXPLOSM1	EXPLOSM1
 EXPLOSM2	EXPLOSM2
 EXPLOSM3	EXPLOSM3
 
+$random Mstress { mstress1 mstress2 mstress3 mstress4 }
+mstress1	mstress1
+mstress2	mstress2
+mstress3	mstress3
+mstress4	mstress4
+
+
+world/suspense suspense
+
+
+
 misc/VazaBreak VAZABREA
 misc/DSCexplosion DSCEXPLO
 
@@ -246,7 +278,7 @@ creep05 creep05
 creep06 creep06
 creep07 creep07
 creep08 creep08
-creep08 creep09
+creep09 creep09
 /////terrain
 
 

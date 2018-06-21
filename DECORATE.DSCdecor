@@ -253,19 +253,19 @@ ACTOR BIF_Sceleton_random 15070
 			SCL1 A -1
 			Stop
 		S2:
-			SCL2 A -1
+			SCL1 B -1
 			Stop
 		S3:
-			SCL3 A -1
+			SCL1 C -1
 			Stop
 		S4:
-			SCL4 A -1
+			SCL1 D -1
 			Stop
 		S5:
-			SCL5 A -1
+			SCL1 E -1
 			Stop
 		S6:
-			SCL6 A -1
+			SCL1 F -1
 			Stop			
 	}
 }

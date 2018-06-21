@@ -22,6 +22,7 @@ bool isBE = false;
 Bool NextWaveReady = false;
 Bool WaveOnline = false;
 Bool IgnoreWaveMusicChange = false;
+BOOL restoreMusicAfterWave = true;
 int SpawnedMonstersOnTheMap = 0;
 int DSCscreenFade = 0;//for DSCranks
 bool waitForWeaponSpawnedMassage = false;
@@ -593,9 +594,36 @@ Script "Mus_Alastor" (void){
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
+Script "Mus_DTEMPLE" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("DTEMPLE", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+
+Script "Mus_BTTL_ES" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("BTTL_ES", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+
+Script "Mus_BTTL_ORD" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("BTTL_ORD", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+
 
 Script "RestoreMusic" (void){
-	if(!IgnoreWaveMusicChange){
+	if(!IgnoreWaveMusicChange && restoreMusicAfterWave){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);
 		Delay(100);
 		SetMusic("*", 0);

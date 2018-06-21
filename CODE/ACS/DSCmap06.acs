@@ -30,7 +30,7 @@ SetThingSpecial(207, ACS_NamedExecute, "GotoHungar");
 
 
 
-bool inDEV = true;
+bool inDEV = false;
 //TEST!
 if(inDEV){
 	GiveInventory("map07done", 1);
@@ -59,7 +59,8 @@ if(inDEV){
 		Door9Locked = false;
 		if(CheckInventory("map10cunsceneShown")==0){
 			//cutscene here
-			GiveInventory("map10done", 1);
+			//GiveInventory("map10done", 1);
+			GiveInventory("map10cunsceneShown", 1);
 			ACS_NamedExecuteAlways("LookAt", 0, 500, 35*15);
 			SpawnSpotFacingForced("DSCportalToMap", 5, 100302);
 			SetThingSpecial(100302, ACS_NamedExecute, "GotoDieHard");

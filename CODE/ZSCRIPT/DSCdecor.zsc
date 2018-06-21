@@ -1,3 +1,337 @@
+Class IncomeWindGenHellGround : SwitchableDecoration
+{
+	Default
+	{
+		radius 4;
+		+NoGravity;
+	}
+
+	States
+	{
+		Spawn:
+			TNT1 A 1;
+			Goto Inactive;
+		Loop;	
+	
+		Active:
+			TNT1 A 2
+			{
+				A_SpawnItemEx("IncomeWindHellGround", Random(-256, 256), -2500, Random(0, 24), 0, Frandom(15, 30), 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+
+			}
+		LOOP;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+
+	}
+}
+Class IncomeWindGenHell : SwitchableDecoration
+{
+	Default
+	{
+		radius 4;
+		+NoGravity;
+	}
+
+	States
+	{
+		Spawn:
+			TNT1 A 1;
+			Goto Inactive;
+		Loop;	
+	
+		Active:
+			TNT1 A 1
+			{
+				for (int i = 0; i < 1; i++){
+					A_SpawnItemEx("IncomeWindHell", Random(-128, 128), -2500, Random(-256, 256), 0, Frandom(15, 30), 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+				}
+			}
+		LOOP;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+
+	}
+}
+Class IncomeWindGen : SwitchableDecoration
+{
+	Default
+	{
+		radius 4;
+		+NoGravity;
+	}
+
+	States
+	{
+		Spawn:
+			TNT1 A 1;
+			Goto Inactive;
+		Loop;	
+	
+		Active:
+			TNT1 A 1
+			{
+				for (int i = 0; i < 1; i++){
+					A_SpawnItemEx("IncomeWind", Random(-128, 128), -2500, Random(-256, 256), 0, Frandom(15, 30), 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+				}
+			}
+		LOOP;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+
+	}
+}
+
+Class IncomeWindHellGround : IncomeWindHell
+{
+	Default
+	{
+		+FLATSPRITE;
+		-WALLSPRITE;
+	}	
+}
+
+Class IncomeWindHell : IncomeWind
+{
+	States
+	{
+	  Spawn:
+		MOR5 A 1 ParticleLife();
+		Loop;
+	 }
+}
+Class IncomeWind : Actor
+{
+	float ScaleMultiplerMin;
+	float ScaleMultiplerMax;
+	float ScaleSpeed;
+	float FadeoutSpeed;
+	float FadeInSpeed;
+	float MaxAlpha;
+	bool startFade;
+	Default
+	{
+		Scale 2.0;
+		+NoInteraction;
+		+WALLSPRITE;
+		-SOLID;
+		Renderstyle "Add";
+		alpha 0.0;
+	}	
+	Override void PostBeginPlay()
+	{
+		MaxAlpha = 1.0;
+		ScaleMultiplerMax = 0.6;
+		ScaleMultiplerMin = 1.0;
+		FadeoutSpeed = 0.01;
+		FadeInSpeed = 0.002;
+		A_SetScale(Frandom(scaleX*ScaleMultiplerMin, scaleX*ScaleMultiplerMax));
+		startFade = false;
+		Super.PostBeginPlay();
+	}
+	virtual void ParticleLife()
+	{
+		if(startFade){
+			A_fadeOut(FadeoutSpeed, true);
+		} else {
+			A_fadeTo(MaxAlpha, FadeInSpeed);
+		}
+
+		if(self.alpha>=MaxAlpha && !startFade){
+			startFade = true;
+		}		
+	}
+	
+	States
+	{
+	  Spawn:
+		MOR4 A 1 ParticleLife();
+		Loop;
+	 }
+}
+
+
+Class DSClastLight : SwitchableDecoration
+{
+	Default
+	{
+		radius 16;
+		+NoInteraction;
+		+ClientSideOnly;
+		+WALLSPRITE
+		Renderstyle "Add";
+		Scale 1.0;
+		Alpha 0.0;
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 1;
+		Goto Inactive;
+	Active:
+		LLLL A 1 A_fadeTo(0.5, 0.002);
+		Loop;
+	Inactive:
+		TNT1 A 1;
+		Loop;	
+	}
+	
+
+}
+
+
+Class GellGateFire : SwitchableDecoration
+{
+	Default
+	{
+		radius 4;
+		+NoGravity;
+	}
+
+	States
+	{
+		Spawn:
+			TNT1 A 1;
+			Goto Inactive;
+		Loop;	
+	
+		Active:
+			TNT1 A 1
+			{
+				A_Playsound("world/BigFire", 1, 0.3, 1);
+				for (int i = 0; i < 10; i++){
+					A_SpawnItemEx("FireFlameGreat", 0, Random(-128, 128), Random(-384, 384), Frandom(15, 30), 0, 0, 0, SXF_NOCHECKPOSITION, 0, 0);
+				}
+			}
+		LOOP;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+
+	}
+}
+
+
+Class DSChine : SwitchableDecoration
+{
+	Default
+	{
+		radius 16;
+		+NoInteraction;
+		+ClientSideOnly;
+		+FLATSPRITE;
+		Renderstyle "Add";
+		Scale 0.2;
+		RenderRadius 500000;
+	}
+	States
+	{
+	Spawn:
+		SHNE A 1;
+		Loop;
+	Active:
+		SHNE A 1 A_fadeTo(0.6, 0.002);
+		Loop;
+	Inactive:
+		SHNE A 1 A_fadeOut(0.005, FTF_CLAMP);
+		Loop;	
+	}
+	
+
+}
+Class DSCsunshine : SwitchableDecoration
+{
+	Default
+	{
+		radius 16;
+		+NoInteraction;
+		+FLATSPRITE;
+		+ClientSideOnly;
+		Renderstyle "Add";
+		Scale 0.2;
+	}
+	States
+	{
+	Spawn:
+		SHNE B 1;
+		Loop;
+	Active:
+		SHNE B 1 A_fadeIn(0.002, FTF_CLAMP);
+		Loop;
+	Inactive:
+		SHNE B 1 A_fadeOut(0.005, FTF_CLAMP);
+		Loop;			
+	}
+}
+Class DSCdarker : Actor
+{
+	Default
+	{
+		radius 16;
+		+NoInteraction;
+		+ClientSideOnly;
+		+WALLSPRITE;
+		Renderstyle "Translucent";
+		Scale 0.2;
+	}
+	States
+	{
+	Spawn:
+		DRK0 A 1;
+		Loop;
+	}
+}
+Class DSCmarsDOWN : Actor
+{
+	Default
+	{
+		radius 16;
+		+NoInteraction;
+		+ClientSideOnly;
+		+WALLSPRITE;
+		Renderstyle "Add";
+		Scale 0.2;
+	}
+	States
+	{
+	Spawn:
+		DWN0 A 1;
+		Loop;
+	}
+}
+
+
+
+Class DSCpriborHolo : SwitchableDecoration
+{
+	Default
+	{
+		radius 16;
+		+NoInteraction;
+		+ClientSideOnly;
+		+WALLSPRITE;
+		Renderstyle "Add";
+		Scale 0.5;
+	}
+	States
+	{
+	Spawn:
+		TNT1 A 1 NODELAY A_Jump(256, Args[0]?Args[0]:1);
+		PRIB A 1  A_Jump(256, 2);
+		PRIB B 1;
+		GOTO Active;
+	Active:
+		"####" "#" 1;
+		Loop;
+	Inactive:
+		"####" "#" 1;
+		Loop;	
+	}
+}
+
 
 Class DSChellStrikeGEN : SwitchableDecoration
 {
@@ -252,7 +586,25 @@ Class DSCbigPortalLightning : Actor
 	 }
 }
 
+Class DSChellCloudMask : Actor
+{
+	Default
+	{
+		Scale 1.0;
+		+NoInteraction;
+		+FLATSPRITE;
+		Renderstyle "Translucent";
+		alpha 1.0;
+	}	
 
+	
+	States
+	{
+	  Spawn:
+		CI1L D 1;
+		Loop;
+	 }
+}
 
 Class DSCbigPortalTwist : Actor
 {
@@ -1100,6 +1452,7 @@ Class DSCcloudsGen : SwitchableDecoration
 	//Args[1] - iterationNumber
 	//Args[2] - maxSpawnHeight
 	//Args[3] - type of clouds
+	//Args[4] - failchance
 	int radius;
 	int iterationNumber;
 	Array<string> type;
@@ -1132,7 +1485,7 @@ Class DSCcloudsGen : SwitchableDecoration
 	{
 		for (int i = 0; i < iterationNumber; i++)
 		{
-			A_SpawnItemEx(type[Args[3]?Args[3]:0], Random(-radius, radius), Random(-radius, radius), Random(-8, Args[2]) );
+			A_SpawnItemEx(type[Args[3]?Args[3]:0], Random(-radius, radius), Random(-radius, radius), Random(-8, Args[2]), 0, 0, 0, 0, SXF_NOCHECKPOSITION, Args[4]?Args[4]:0, 0 );
 		}
 	}
 
@@ -2267,6 +2620,29 @@ Class DSCceilFlatRay  : SwitchableDecoration
 			Loop;
 		Active: 
 			LTS2 B 1;
+			Loop;
+		Inactive:
+			TNT1 A 1;
+			Loop;		
+	}	
+}
+Class DSCceilFlatRay2  : SwitchableDecoration
+{
+	Default
+	{
+		+NOINTERACTION;
+		+FLATSPRITE;
+		Height 0;
+		Scale 0.3;
+		Renderstyle "Add";
+	}
+	States
+	{
+		Spawn:
+			LTS2 C 1;
+			Loop;
+		Active: 
+			LTS2 C 1;
 			Loop;
 		Inactive:
 			TNT1 A 1;

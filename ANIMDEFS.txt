@@ -5,7 +5,7 @@ WARP texture FLESH 0.1 allowdecals
 
 WARP texture DSS2A0 2.0
 WARP texture SPTBA0 2.0
-
+//WARP texture MOR4A0 4.0
 Texture ZWT1_0
 	PIC ZWT1_0 tics 5
 	PIC ZWT1_1 tics 5

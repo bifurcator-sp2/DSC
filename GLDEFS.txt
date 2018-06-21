@@ -1,4 +1,9 @@
 
+HardwareShader texture forcefi
+{
+	Shader "Shaders/Frensel.fp"
+	Speed 1.0
+}
 
 HardwareShader Sprite BDG1A0
 {
@@ -198,6 +203,12 @@ HardwareShader PostProcess scene
 {
 	Name "TonemapSnow"
 	Texture ColourmapLUT "textures/lut_snow.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapBlood"
+	Texture ColourmapLUT "textures/lut_blood.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
 

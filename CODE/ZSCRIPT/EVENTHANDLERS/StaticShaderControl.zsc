@@ -57,7 +57,10 @@ Class SDPWHScreenEffects : StaticEventHandler
 				DisableLUTshaders();
 				Shader.SetEnabled(players, "TonemapSnow", true);
 			}
-
+			if((level.mapName == "DSCMAP10")){
+				//DisableLUTshaders();
+				//Shader.SetEnabled(players, "TonemapBlood", true);
+			}
 		} else {DisableLUTshaders();}
 
 
@@ -103,7 +106,7 @@ Class SDPWHScreenEffects : StaticEventHandler
 		Shader.SetEnabled(players, "TonemapTitlemap", false);
 		Shader.SetEnabled(players, "TonemapTide", false);
 		Shader.SetEnabled(players, "TonemapSnow", false);
-		
+		//Shader.SetEnabled(players, "TonemapBlood", false);
 		
 	}
 
