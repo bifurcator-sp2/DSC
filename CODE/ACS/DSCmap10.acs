@@ -1337,7 +1337,7 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			hudmessageBold(s:"Try to turn off all controll panels \nduring the battle!"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
 			break;
 		case 6:
-			hudmessageBold(s:"Destroy EYES during the buttle"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"Destroy EYES during the battle"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
 			break;
 		case 7:
 			hudmessageBold(s:"Lift unlocked"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
