@@ -28,9 +28,13 @@ script "StartControl" ENTER
 	//test thing !!!!
 
 	//ACS_NamedExecuteAlways("GotoStrafLocation2", 0, 83, 49);//test thing !!!!
-	//ACS_NamedExecuteAlways("GotoPuzzle3", 0);//test thing !!!!
+	//
 
 	//ACS_NamedExecute("GotoPuzzle2", 0);//Test thing remove
+//Delay(35*20);
+//	ACS_NamedExecuteAlways("GotoPuzzle3", 0);//test thing !!!!
+
+
 
 
 	ACS_NamedExecute("OxygenRegen",0, 5);
@@ -47,7 +51,7 @@ script "StartControl" ENTER
 	Thing_DeActivate(34);//portal red lights
 	Thing_DeActivate(36);//portal heat haze
 	Thing_DeActivate(39);//portal hard light
-
+	Thing_DeActivate(241);//portal 2 heat
 	Thing_DeActivate(73);//portal 2 red light
 	Thing_DeActivate(94);//eye die light
 	Thing_DeActivate(138);//heat haze at blue key
@@ -86,7 +90,14 @@ script "StartControl" ENTER
 	AmmoMaxRnd = 3;
 	WeaponGotID = 5;
 
-
+	//delay(35*10);
+	//Thing_Activate(240);
+	//delay(35*10);
+	//ACS_NamedExecute("SetSky", 0, 163);//test thing !!!!
+	//ACS_NamedExecute("GotoPuzzle2", 0);//Test thing remove
+	//delay(35*10);
+	//ACS_NamedExecute("SetSky", 0, 165);//test thing !!!!
+	//ACS_NamedExecute("GotoPuzzle3", 0);//Test thing remove
 }
 
 script "TotalSound" ENTER {
@@ -105,6 +116,7 @@ script "TotalSound" ENTER {
 
 script "SetSky" (int SpotTid) {
 	Thing_Activate(8000);//destroy SkyViewpoints
+	delay(1);
 	SpawnSpotFacingForced("SkyViewpoint", SpotTid, 0);
 }
 
@@ -391,7 +403,8 @@ script "GotoPuzzle2" (void){
 	ACS_NamedTerminate("TecRandomAmbient", 0);
 	Thing_DeActivate(48);//destroyer
 	for(int i=1; i<47; i++){ Thing_DeActivate(i); }//deactivates all things in first area if it not destroyed
-	ACS_NamedExecute("SetSky", 0, 163);//mars sky
+	delay(5);
+	//ACS_NamedExecute("SetSky", 0, 163);//mars sky
 	delay(35*10);
 	ACS_NamedExecute("OxygenDrain", 0, 1);
 }
@@ -463,6 +476,7 @@ function bool SpownedEnoughEYES(void){
 
 script "GotoStrafLocation2" (int tid, int returnTid){
 	//Thing_Activate(78);//straf2 ambient gens. Test thing remove
+	ACS_NamedTerminate("CreepRandomAmbient", 0);
 	Thing_DeActivate(72);//portal & clouds
 	ACS_NamedExecute("OxygenRegen",0, 5);
 	ParentSpotToReturnTID = returnTid;
@@ -534,6 +548,7 @@ Script "Straf_2_vawe" (void){
 script "ReturnToParent_2" (void){
 	//Thing_DeActivate(78);//straf2 ambient gens. Test thing remove
 	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	ACS_NamedExecute("CreepRandomAmbient", 0);
 	StrafComplete = true;
 	Straf_2_vawed = false;
 	Thing_Activate(72);
@@ -1194,8 +1209,8 @@ script "OpenGates" (void){
 
 	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100526, 999999, 999999);
-	Delay(35*10);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100527, 999999, 999999);
+	//Delay(35*10);
+	//ACS_NamedExecuteAlways("SpawnWave", 0, 100527, 999999, 999999);
 	Delay(35*10);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100528, 100100, 999999);
 	delay(35*25);
@@ -1282,12 +1297,12 @@ script "ThisIsYourChoise" (void){
 	}
 }
 script "RestartHELL" (void){
-	GiveInventory("map06done", 1);
-	GiveInventory("map07done", 1);
-	GiveInventory("map08done", 1);
-	GiveInventory("map09done", 1);
-	GiveInventory("map10done", 1);
-	ChangeLevel ("DSCMAP01", 0, 0, -1);
+	CurrentWave = 0;
+	AmmoMaxRnd = 0;
+	WeaponGotID = 0;
+	GlobalAttempt++;
+	ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
+
 }
 
 
@@ -1310,7 +1325,7 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			hudmessageBold(s:"Activate portal mashinery"; HUDMSG_PLAIN, 0, CR_WHITE, 1.5, 0.6, Time*1.1);
 			break;
 		case 2:
-			hudmessageBold(s:"Activate portal from controll room."; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"Activate portal from control room."; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
 			break;
 		case 3:
 			hudmessageBold(s:"Sequence complete!"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);

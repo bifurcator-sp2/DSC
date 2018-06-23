@@ -5,9 +5,6 @@ int maxWaveCount = 40;//--------------------------
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
 
-//episode wave count definition
-maxWaveCount = 40;//--------------------------
-//episode wave count definition
 
 bool ArenaFloorActive = true;
 bool ArenaLiftsActive = true;

@@ -258,3 +258,5 @@ actor IncomeWindGenHellDEC : IncomeWindGenHell 22097 {
 }
 actor IncomeWindGenHellGroundDEC : IncomeWindGenHellGround 22098 {
 }
+actor SkyViewpointMoverDEC : SkyViewpointMover 22099 {
+}
