@@ -134,6 +134,7 @@ Class DSCGREATeyeBounder : Actor
 		Health 2000;
 		Radius 128;
 		Height 256;
+		DeathHeight 16;
 		Mass 3000;
 		Accuracy 5;
 		PainChance 128;
