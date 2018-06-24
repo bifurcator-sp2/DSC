@@ -6,6 +6,8 @@ world/slideCrush sldcrsh
 world/slideResh resh_st
 world/slideReshStop resh_sp
 world/crash2 crash2
+world/stonebre stonebre
+
 
 world/hell_influence HLINFL
 

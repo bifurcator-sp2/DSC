@@ -422,6 +422,7 @@ script "CallCraterLift" (void){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);
 		Radius_Quake2 (72, 3, 35*3, 0, 2048, "world/pumm");
 		Delay(35*3);
+		AmbientSound("world/stonebre", 1.0);
 		Radius_Quake2 (72, 3, 35*6, 0, 2048, "world/pumm");
 		AmbientSound("world/HELLTP1", 1.0);
 		Ceiling_LowerByValue(74, 32, 1333);
@@ -433,6 +434,7 @@ script "CallCraterLift" (void){
 		delay(35*2);
 		Thing_Activate(72);//portal itself
 		Thing_Activate(73);//portal redlight
+		Thing_Activate(241);//heat
 		Radius_Quake2 (30, 6, 15*1, 0, 2048, "world/pumm");
 		delay(35*2);
 		ACS_NamedExecuteAlways("EyeHolderControl", 0);
@@ -466,10 +468,14 @@ Script "CraterWave" (void){
 function bool isWaveOnline(void){ if(WaveOnline==true){return true;} return false;}
 
 int EYEholders_spawned = 0;
-
+int EYESleft = 0;
 function bool SpownedEnoughEYES(void){
-	int maxEYEholders = CraterWave_bad_attempts +3;
-	if(EYEholders_spawned <= maxEYEholders){ return false;}
+	int maxEYEholders = CraterWave_bad_attempts +4;
+	EYESleft = maxEYEholders - EYEholders_spawned;
+	if(EYEholders_spawned < maxEYEholders){
+		ACS_NamedExecute("DrawHelp", 0, 13);
+		return false;
+	}
 	return true;
 }
 
@@ -498,6 +504,10 @@ Script "EyeHolderControl" (void){
 		SpawnSpotFacingForced("DSCeyeBounder", random(79, 81), 6666);
 		SetThingSpecial(6666, ACS_NamedExecuteAlways, "EyeHolderControl");
 
+		if(CraterWave_bad_attempts>1){
+			delay(35*5);
+			ACS_NamedExecute("DrawHelp", 0, 6);
+		}
 
 	} else {
 		if(!isWaveOnline()){
@@ -509,15 +519,42 @@ Script "EyeHolderControl" (void){
 			ACS_NamedExecuteAlways("GotoStrafLocation2", 0, 83, 49);
 		} else {
 			//all eyes killed during wave. OK
-			Thing_Activate(91);//helper 8
+			ACS_NamedExecute("DrawHelp", 0, 9);
+			Thing_Remove(6666);
+
+
+		ACS_NamedTerminate("EYEholderTeleport", 0);
+		ACS_NamedExecuteAlways("RestoreMusic", 0);
+		ACS_NamedExecute("AnimateMarsLights", 0, 75, 35*10, 0);//change from hell
+		ACS_NamedTerminate("CreepRandomAmbient", 0);
+		Thing_DeActivate(72);//portal itself
+		Thing_Remove(72);//portal & Souls
+		Thing_DeActivate(241);//heat
+		Ceiling_RaiseByValue(74, 32, 1333);
+		ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 73, 35*3);
+
+
 			Delay(5); while(WaveOnline){ Delay(5);}
-			Thing_DeActivate(91);//helper 8
+			//Thing_DeActivate(91);//helper 8
+
 			ACS_NamedExecute("CraterEventComplete", 0);
 		}
 	}
 
 }
+Script "CraterEventComplete" (void){
+		CraterEventComplete = true;
 
+		delay(35*5);
+		silence = true;
+		AmbientSound("world/DemonsOFF", 1.0);
+		delay(35*3);
+		silence = false;
+		SetLineActivation (69, SPAC_Use);//Lift button
+		SetLineTexture(69, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+		Thing_Activate(90);//helper 7
+		//PrintBold(s:"Lift unlocked");
+}
 Script "EYEholderTeleport" (void){
 	Thing_Move (6666, random(79, 81), false);
 	delay(random(35*1, 35*3));
@@ -557,33 +594,15 @@ script "ReturnToParent_2" (void){
 	ACS_NamedExecute("OxygenDrain", 0, 1);
 	SpawnSpotFacingForced("DSCeyeBounder", random(79, 81), 6666);
 	SetThingSpecial(6666, ACS_NamedExecuteAlways, "EyeHolderControl");
-	Thing_Activate(89);//helper 6
+	//Thing_Activate(89);//helper 6
+	ACS_NamedExecute("DrawHelp", 0, 6);
 	//PrintBold(s:"Destroy EYES during the buttle");
 	Delay(35*5);
 	ACS_NamedExecuteAlways("CraterWave", 0);
 }
 
 
-Script "CraterEventComplete" (void){
-		CraterEventComplete = true;
-		ACS_NamedTerminate("EYEholderTeleport", 0);
-		ACS_NamedExecuteAlways("RestoreMusic", 0);
-		ACS_NamedExecute("AnimateMarsLights", 0, 75, 35*10, 0);//change from hell
-		ACS_NamedTerminate("CreepRandomAmbient", 0);
-		Thing_DeActivate(72);//portal itself
-		Thing_Remove(72);//portal & Souls
-		Ceiling_RaiseByValue(74, 32, 1333);
-		ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 73, 35*3);
-		SetLineActivation (69, SPAC_Use);//Lift button
-		SetLineTexture(69, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
-		silence = true;
-		delay(35*5);
-		AmbientSound("world/DemonsOFF", 1.0);
-		delay(35*5);
-		silence = false;
-		Thing_Activate(90);//helper 7
-		//PrintBold(s:"Lift unlocked");
-}
+
 
 /*
 script "ReturnToParent_2" (void){
@@ -836,6 +855,7 @@ script "CentralSequence" (int linetag) {
 
 			Radius_Quake2 (158, 3, 35*3, 0, 2048, "world/pumm");
 			Delay(35*3);
+			AmbientSound("world/stonebre", 1.0);
 			Radius_Quake2 (158, 3, 35*6, 0, 2048, "world/pumm");
 			AmbientSound("world/HELLTP1", 1.0);
 			Ceiling_LowerByValue(152, 32, 704);
@@ -1357,7 +1377,9 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 		case 12:
 			hudmessageBold(s:"It's your choice!"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, 15*1.1);
 			break;
-
+		case 13:
+			hudmessageBold(i:EYESleft, s:" EYES left"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
 		default:
 			PrintBold(s:"Be strong!");
 
