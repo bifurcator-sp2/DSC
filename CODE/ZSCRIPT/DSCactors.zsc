@@ -2224,6 +2224,7 @@ Class DSCeyeBounder : Actor
 		Health 200;
 		Radius 48;
 		Height 48;
+		DeathHeight 8;
 		Mass 3000;
 		PainChance 128;
 		+NOGRAVITY
