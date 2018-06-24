@@ -186,6 +186,7 @@ SCRIPT "StartControl" ENTER
 	ArenaFloorActive = false;
 	delay(35*5);//ждем пока остановятся полы арены
 	Floor_MoveToValue(14, 16, 8);//опускаем лифты с боссами
+	LastWave = true;
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 8, 100402);//еще народу чтобы череп появился
 
 	while(!NextWaveReady){

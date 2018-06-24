@@ -72,7 +72,7 @@ script "StartControl" ENTER
 	delay(35*2);
 
 	Thing_Activate(84);//helper 1.
-
+	ACS_NamedExecute("TecRandomAmbient", 0);
 
 	/*
 	Thing_Activate(19);//Alarm light. test thing. remove it!!!

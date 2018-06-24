@@ -203,6 +203,7 @@ script "SatartLastWave" (void){
 		ACS_NamedExecuteAlways("Mus_SM1", 0);
 		//wait for scull pickup
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		LastWave = true;
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100515, 100105, 100405);
 		delay(35*5);
 		ACS_NamedExecuteAlways("Mus_SM2", 0);

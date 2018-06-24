@@ -181,9 +181,15 @@ Script "SatartFirstWave" (void){
 		//wait for scull pickup
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
 		ACS_NamedExecuteAlways("Mus_SM1", 0);
+		LastWave = true;
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100517, 100104, 100404);
 		//wait for scull pickup
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		for(int i = 5; i > 0; i--)
+		{
+			Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
+			Delay(35);
+		}
 		GiveInventory("map09done", 1);
 		TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 		Atrium1Active = true;

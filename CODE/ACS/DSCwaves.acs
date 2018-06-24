@@ -30,6 +30,7 @@ bool waitForWeaponSpawnedMassage = false;
 bool waitForScullSpawnedMassage = false;
 int KilledWaveStart = 0;
 int killedPerWave = 0;
+bool LastWave = false;//indicator for DoomSlayerGliph spawn
 
 bool NOspawn = false; //dev staff
 
@@ -316,7 +317,14 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 			}
 
 			ACS_NamedExecuteAlways("RestoreMusic", 0);
-			SpawnSpotFacingForced("WaveScullDEC", ScullTag, 100600);
+
+
+			if(!LastWave){
+				SpawnSpotFacingForced("WaveScullDEC", ScullTag, 100600);
+			} else {
+				SpawnSpotFacingForced("DoomSlayerGliph", ScullTag, 100600);
+
+			 }
 			SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
 			WaveOnline = false;
 
@@ -484,6 +492,13 @@ Script "ScullHasCome" (void){
 	}
 	delay(35*3);//to not intersect with weapon spawn message
 	PrintBold(s:"Mystic Scull has arrived.\nPick it up for continiue.");
+}
+Script "GliphHasCome" (void){
+	while(DSCscreenFade>0){
+		delay(1);
+	}
+	delay(35*3);//to not intersect with weapon spawn message
+	PrintBold(s:"Gliph has arrived.\nPick it up for finish.");
 }
 
 

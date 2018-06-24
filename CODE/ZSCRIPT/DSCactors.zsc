@@ -586,9 +586,47 @@ Class WaveScull : CustomInventory
 			SCLS ABCDEFGH 5 Light("FlickerYel64")
 			{
 
-			A_SpawnItemEx("MorFlare", random(-16, 16), random(-16, 16), random(0, 16), 0, 0, frandom(0.5,1),0,SXF_NOCHECKPOSITION, 32, 0);
+			A_SpawnItemEx("MorFlare", random(-16, 16), random(-16, 16), random(16, 24), 0, 0, frandom(0.5,1),0,SXF_NOCHECKPOSITION, 32, 0);
 			A_SpawnItemEx("GiveAMMOsparckle", random(-4, 4), random(-4, 4), random(32, 40), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION, 0, 0);
 			A_SpawnItemEx("HellRingFlare", 0, 0, random(0, 16), 0, 0, frandom(0.5,2),0,SXF_NOCHECKPOSITION, 32, 0);
+			}
+
+		LOOP;
+	}
+}
+
+Class DoomSlayerGliph : CustomInventory
+{
+	Default
+	{
+	+INVENTORY.ALWAYSPICKUP;
+	RenderStyle "Add";
+	Inventory.PickUpSound "misc/scullpickup";
+	Inventory.pickupmessage "You got a Doom Slayer Gliph";
+	Scale 0.25;
+	+NOGRAVITY;
+	+DONTSPLASH;
+	+FORCEXYBILLBOARD;
+	+NOCLIP;
+	+FLOATBOB;
+	-SOLID;
+	}
+
+	Override void PostBeginPlay()
+	{
+		CallACS("GliphHasCome",0,0,0);
+		A_PlaySound("misc/WELLDONE", CHAN_BODY, 1.0, 0, ATTN_NONE);
+
+		Super.PostBeginPlay();
+	}
+	States
+	{
+		Spawn:
+			DSGL A 1 Light("AIDlight")
+			{
+
+			A_SpawnItemEx("MorFlareShade", random(-8, 8), random(-8, 8), random(24, 32), 0, 0, frandom(0.2,0.7),0,SXF_NOCHECKPOSITION, 200, 0);
+			A_SpawnItemEx("GiveAMMOsparckle", random(-4, 4), random(-4, 4), random(32, 40), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION, 128, 0);
 			}
 
 		LOOP;
@@ -1279,6 +1317,37 @@ Class HellRingFlare : Actor
 }
 
 
+Class MorFlareShade : Actor
+{
+	int RollSpeed;
+	Default
+	{
+		Alpha 0.2;
+		Scale 0.3;
+		RenderStyle "Subtract";
+		+NoInteraction;
+		+ROLLSPRITE;
+		+FORCEXYBILLBOARD;
+	}
+	Override void PostBeginPlay()
+	{
+		RollSpeed = Random(-10, 10);
+		A_SetRoll(random(0, 360));
+		Super.PostBeginPlay();
+	}
+	void ParticleLife()
+	{
+		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
+		roll%=360;
+		A_fadeOut(0.002);
+	}
+	States
+	{
+		Spawn:
+			MOR1 A 1 ParticleLife();
+			LOOP;
+	}
+}
 Class MorFlare : Actor
 {
 	int RollSpeed;

@@ -299,7 +299,7 @@ misc/scullpickup SCULLPIC
 misc/scullspawn SCLSPWN
 
 misc/dscranks DSCRANKS
-
+misc/WELLDONE WELLDO
 Ambient/DSCtorch DSCTRCH
 Ambient/DSCtorch2 DSCTRCH2
 

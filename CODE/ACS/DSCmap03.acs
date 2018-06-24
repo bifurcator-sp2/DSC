@@ -121,7 +121,7 @@ SCRIPT "StartControl" ENTER
 	NextWaveReady = false;
 
 
-
+	LastWave = true;
 	PrintBold(s: "Go to central chamber\nand finish the challenge");
 	delay(35*5);
 	ACS_NamedExecuteAlways("Mus_G2", 0);
