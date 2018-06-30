@@ -65,6 +65,11 @@ script "StartControl" ENTER
 	Thing_DeActivate(227);//final light
 
 	SetLineActivation (31, SPAC_None);//first door
+	SetLineActivation (230, SPAC_None);//door to second floor from outside
+	SetLineActivation (231, SPAC_None);//door to second floor from outside
+
+
+
 	Thing_Activate(4);//total stem at t.chamber.
 
 	for(int i = 115; i<=129; i++){Thing_DeActivate(i);}//alarms in left coridor of second part
@@ -84,12 +89,12 @@ script "StartControl" ENTER
 
 	//TEST!
 	//NOspawn = true;
-
+/*
 	DSCplayerRank = 7;
 	CurrentWave = 50;
 	AmmoMaxRnd = 3;
 	WeaponGotID = 5;
-
+*/
 	//delay(35*10);
 	//Thing_Activate(240);
 	//delay(35*10);
@@ -183,6 +188,8 @@ script "puzzle_1" (int tid){
 			Thing_Activate(21);//Alarm light.
 			Thing_Activate(22);//Alarm light.
 			SetLineActivation (31, SPAC_Use);//first door
+			SetLineActivation (230, SPAC_Use);//door to second floor from outside
+			SetLineActivation (231, SPAC_Use);//door to second floor from outside
 			Thing_Activate(85);//helper 2.
 
 			ACS_NamedExecuteAlways("Mus_COMPUTER", 0);
@@ -1059,6 +1066,7 @@ script "GateVawe1" (void){
 	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
 	restoreMusicAfterWave = false;
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100520, 999999, 999999);
+	Thing_Remove(213);//remove eyes corpses
 	//wait for wave end
 	Delay(5);
 	while(WaveOnline){ Delay(5);}
