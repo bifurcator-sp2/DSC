@@ -1,5 +1,11 @@
+//episode wave count definition
+int maxWaveCount = 40;//--------------------------
+//episode wave count definition
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+
+
 
 INT MapWave = 0;
 BOOL DoorOut1Closed = false;
@@ -7,12 +13,11 @@ BOOL ArmorTook = false;
 BOOL SecondZoneClosed = false;
 BOOL ItemTook = false;
 
-SCRIPT "StartFirstWave" (void){
-	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 2, 100401);
+
+SCRIPT "SpawnFirstScull" (void){
+		SpawnSpotFacingForced("WaveScullDEC", 2, 100600);
+		SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
 }
-
-
 
 SCRIPT "StartControl" ENTER
 {
@@ -21,9 +26,12 @@ SCRIPT "StartControl" ENTER
 	ACS_NamedExecute("CreepySounds",0);
 
 	//
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
 
-
-
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 2, 100401);
 
 	while(!NextWaveReady){
 		delay(1);
@@ -84,7 +92,7 @@ SCRIPT "StartControl" ENTER
 
 	Delay(35);
 	ACS_NamedExecuteAlways("OpenSecondZone", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 888888, 888888); //notag
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 4, 100403); //notag
 
 	while(!NextWaveReady){
 		delay(1);
@@ -113,7 +121,7 @@ SCRIPT "StartControl" ENTER
 	NextWaveReady = false;
 
 
-
+	LastWave = true;
 	PrintBold(s: "Go to central chamber\nand finish the challenge");
 	delay(35*5);
 	ACS_NamedExecuteAlways("Mus_G2", 0);
@@ -134,7 +142,7 @@ SCRIPT "StartControl" ENTER
 		Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
 		Delay(35);
 	}
-
+	GiveInventory("map03done", 1);
 	TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 	Atrium1Active = true;
 	Exit_Normal(0);

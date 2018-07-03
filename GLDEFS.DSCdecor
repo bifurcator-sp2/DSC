@@ -1,8 +1,20 @@
-PointLight AIDlight
+
+Object DscinfoRay
 {
-	color 0.5 0.0 0.0
-    size 64
+FRAME LTS4A0 { light DscinfoRay }
 }
+flickerlight DscinfoRay
+{
+    color 0.0 0.8 0.8
+    size 64
+    secondarySize 56
+    chance 0.1
+	attenuate 1
+	offset 0  32 0
+}
+
+
+
 Object AIDSpawnerDEC
 {
 //FRAME AID1 { light AIDlight }
@@ -34,6 +46,28 @@ flickerlight VazaBreak3
     secondarySize 256
     chance 0.2
 
+}
+
+
+pointlight DSCportalLightningLight
+{
+    color 1.0 1.0 0.0
+    size 256
+    attenuate 1
+}
+Object DSCbigPortalLightning
+{
+	FRAME HLT0 { light DSCportalLightningLight }
+}
+
+
+
+
+pointlight DSCportalSparkLight
+{
+    color 0.1 0.3 0.3
+    size 24
+    attenuate 1
 }
 
 

@@ -1,3 +1,90 @@
+
+
+
+world/FastFun fastfun
+world/slideCrush sldcrsh
+world/slideResh resh_st
+world/slideReshStop resh_sp
+world/crash2 crash2
+world/stonebre stonebre
+
+
+world/hell_influence HLINFL
+
+
+$random LiftAmbient { LiftAmbient1 LiftAmbient2 LiftAmbient3 }
+LiftAmbient1 Lift_A1
+LiftAmbient2 Lift_A2
+LiftAmbient3 Lift_A3
+
+
+
+
+world/LiftMove Liftmove
+world/LiftStop Liftstop
+
+world/openHell HGATE
+
+
+Ambient/Voltage	AMB10
+$alias Voltage Ambient/Voltage
+$ambient 28 Voltage point continuous 1.0
+
+Ambient/Tresk	AMB11
+$alias Tresk Ambient/Tresk
+$ambient 29 Tresk random 5.0 15.0 1.0
+
+Ambient/Mashinery	AMB12
+$alias Mashinery Ambient/Mashinery
+$ambient 30 Mashinery point continuous 1.0
+
+Ambient/Energy	AMB16
+$alias Energy Ambient/Energy
+$ambient 31 Energy point continuous 1.0
+
+Ambient/FarSomething	AMB19
+$alias FarSomething Ambient/FarSomething
+$ambient 32 FarSomething point continuous 1.0
+
+Ambient/FarMashinery	AMB20
+$alias FarMashinery Ambient/FarMashinery
+$ambient 33 FarMashinery point continuous 1.0
+
+Ambient/FarExhoust	AMB21
+$alias FarExhoust Ambient/FarExhoust
+$ambient 34 FarExhoust world continuous 1.0
+
+Ambient/PlasmaSplashes	BLACKHOL
+$alias PlasmaSplashes Ambient/PlasmaSplashes
+$ambient 35 PlasmaSplashes point continuous 1.0
+
+Ambient/COMP_1	COMP_1
+$alias COMP_1 Ambient/COMP_1
+$ambient 36 COMP_1 point continuous 1.0
+
+Ambient/COMP_2	COMP_2
+$alias COMP_2 Ambient/COMP_2
+$ambient 37 COMP_2 point continuous 1.0
+
+Ambient/COMP_3	COMP_3
+$alias COMP_3 Ambient/COMP_3
+$ambient 38 COMP_3 point continuous 1.0
+
+Ambient/COMP_4	COMP_1
+$alias COMP_4 Ambient/COMP_4
+$ambient 39 COMP_4 point continuous 1.0
+
+
+Ambient/mechPulse DRONE6
+$alias mechPulse Ambient/mechPulse
+$ambient 41 mechPulse point continuous 1.0
+
+
+Ambient/WallLightHum2	FL_HUM1
+$alias WallLightHum2 Ambient/WallLightHum2
+$ambient 43 WallLightHum2 point continuous 1.0
+$volume WallLightHum2 1.0
+
 Ambient/Wind1 WINDL
 $alias Wind1 Ambient/Wind1
 $ambient 50 Wind1 point continuous 1.0
@@ -10,24 +97,129 @@ Ambient/WISPER WISPER
 $alias WISPER Ambient/WISPER
 $ambient 52 WISPER point continuous 1.0
 
-Ambient/BLDPOOL BLDPOOL
-$alias BloodPool Ambient/BLDPOOL
-$ambient 53 BloodPool point continuous 1.0
+Ambient/FLESHMOV	FLESHMOV
+$alias FleshMoving Ambient/FLESHMOV
+$ambient 53 FleshMoving point continuous 1.0
+
+world/TecHoul1 AMB11
+world/TecHoul2 AMB12
+world/TecHoul3 AMB20
+world/TecHoul4 AMB21
+
+$alias GungarHoulingAmbience1 world/TecHoul1
+$ambient 54 GungarHoulingAmbience1 random 5.0 25.0 1.0
+
+$alias GungarHoulingAmbience2 world/TecHoul2
+$ambient 55 GungarHoulingAmbience2 random 5.0 15.0 1.0
+
+$alias GungarHoulingAmbience3 world/TecHoul3
+$ambient 56 GungarHoulingAmbience3 random 5.0 15.0 1.0
+
+$alias GungarHoulingAmbience4 world/TecHoul4
+$ambient 57 GungarHoulingAmbience4 random 5.0 15.0 1.0
+
+$random TecRandomAmbient { world/TecHoul1 world/TecHoul2 world/TecHoul3 world/TecHoul4 }
+
+
+
+Ambient/DSCLAVA1	DSCLAVA1
+$alias LavaMoving1 Ambient/DSCLAVA1
+$ambient 58 LavaMoving1 point continuous 1.0
+
+Ambient/DSCLAVA2	DSCLAVA2
+$alias LavaMoving2 Ambient/DSCLAVA2
+$ambient 59 LavaMoving2 point continuous 1.0
+
 
 Ambient/WTRDRP1 WTRDRP1
 $alias WaterDrips Ambient/WTRDRP1
-$ambient 54 WaterDrips point continuous 1.0
+$ambient 60 WaterDrips point continuous 1.0
+
+Ambient/clulh1	clulh1
+$alias clulhuWhisper1 Ambient/clulh1
+$ambient 61 clulhuWhisper1 point continuous 1.0
+
+Ambient/clulh2	clulh2
+$alias clulhuWhisper2 Ambient/clulh2
+$ambient 62 clulhuWhisper2 point continuous 1.0
+
+Ambient/clulh3	clulh3
+$alias clulhuWhisper3 Ambient/clulh3
+$ambient 63 clulhuWhisper3 point continuous 1.0
+
+Ambient/BLDPOOL BLDPOOL
+$alias BloodPool Ambient/BLDPOOL
+$ambient 64 BloodPool point continuous 1.0
+
+Ambient/revcry2 revcry2
+$alias revcry2 Ambient/revcry2
+$ambient 65 revcry2 point continuous 1.0
 
 
+Ambient/siren1 siren1
+$alias AlarmSiren1 Ambient/siren1
+$ambient 66 AlarmSiren1 point continuous 1.0
+
+
+Ambient/BigFan bigfan
+$alias BigFan Ambient/BigFan
+$ambient 67 BigFan point continuous 1.0
+
+
+Ambient/steam1 steam1
+$alias Steam1 Ambient/steam1
+$ambient 68 Steam1 point continuous 1.0
+
+Ambient/steam2 steam2
+$alias Steam2 Ambient/steam2
+$ambient 69 Steam2 point continuous 1.0
+
+Ambient/hardelec hardelec
+$alias HARD_ELECTRO Ambient/hardelec
+$ambient 69 HARD_ELECTRO point continuous 1.0
+
+
+Ambient/ForceField force
+$alias ForceField Ambient/ForceField
+$ambient 70 ForceField point continuous 1.0
+
+Ambient/evilbrea evilbrea
+$alias evilbreath Ambient/evilbrea
+$ambient 71 evilbreath point continuous 1.0
+
+
+Ambient/Hellgate HGATEAM
+$alias Hellgate Ambient/Hellgate
+$ambient 72 Hellgate point continuous 1.0
+
+Ambient/WINDSNO WINDSNO
+$alias WindSnowStrong Ambient/WINDSNO
+$ambient 73 WindSnowStrong point continuous 1.0
+
+
+
+world/HAPPEN2 HAPPEN2
 
 world/BFRAIN BFRAIN
 world/Thunder1 THUNDER1
 Ambient/StrongFire	STRONGFI
 
+world/LAMPHUM LAMPHUM
+
 
 world/StoneMove STONEMOV
 world/BigStonemov BIGSTONE
 world/BigClose BIGCLOSE
+world/IRONMOVE IRONMOVE
+world/TNSTOP TNSTOP
+
+
+world/tentacle TENTA
+world/DemonsOFF Elimi
+
+world/HAPPEN1 HAPPEN1
+world/pumm pumm
+
 world/BigFire STRONGFI
 
 world/WaterOut WATEROUT
@@ -49,11 +241,22 @@ BloodSpawn2	BLDCVK2
 BloodSpawn3	BLDCVK3
 
 
-
+$random BigPortalGliph { EXPLOSM1 EXPLOSM2 EXPLOSM3 }
 $random ExploVaza { EXPLOSM1 EXPLOSM2 EXPLOSM3 }
 EXPLOSM1	EXPLOSM1
 EXPLOSM2	EXPLOSM2
 EXPLOSM3	EXPLOSM3
+
+$random Mstress { mstress1 mstress2 mstress3 mstress4 }
+mstress1	mstress1
+mstress2	mstress2
+mstress3	mstress3
+mstress4	mstress4
+
+
+world/suspense suspense
+
+
 
 misc/VazaBreak VAZABREA
 misc/DSCexplosion DSCEXPLO
@@ -68,7 +271,16 @@ TREJLER1	TREJLER1
 TREJLER2	TREJLER2
 TREJLER3	TREJLER3
 
-
+$random Creep { creep01 creep02 creep03 creep04 creep05 creep06 creep07 creep08  creep09}
+creep01 creep01
+creep02 creep02
+creep03 creep03
+creep04 creep04
+creep05 creep05
+creep06 creep06
+creep07 creep07
+creep08 creep08
+creep09 creep09
 /////terrain
 
 
@@ -86,14 +298,39 @@ misc/itemspawn ITEMSPAW
 misc/scullpickup SCULLPIC
 misc/scullspawn SCLSPWN
 
-
-
+misc/dscranks DSCRANKS
+misc/WELLDONE WELLDO
 Ambient/DSCtorch DSCTRCH
 Ambient/DSCtorch2 DSCTRCH2
 
 
-world/DSCACHV1 DSCACHV1
+$random DSCACHV2R { world/DSCACHV2 world/DSCCH2_1 world/DSCCH2_2 }
+
 world/DSCACHV2 DSCACHV2
+world/DSCCH2_1 DSCCH2_1
+world/DSCCH2_2 DSCCH2_2
+
+
+world/RACHIVE RNKUP3
+
+$random WAVEDONE { world/WAVEDONE }
+world/WAVEDONE WAVEDONE
+
+$random BADVOISE { world/badvoise1 world/badvoise2}
+world/badvoise1 UHV1
+world/badvoise2 UHV2
+
+
+$random LOOKAT { world/lookat1 world/lookat2 world/lookat3 world/lookat4}
+world/lookat1 lookat1
+world/lookat2 lookat2
+world/lookat3 lookat3
+world/lookat4 lookat4
+
+
+
+world/DSCACHV1 DSCACHV1
+
 world/DSCACHV3 DSCACHV3
 world/DSCACHV4 DSCACHV4
 world/DSCACHV5 DSCACHV5
@@ -121,11 +358,34 @@ eyebound/pain2 EYEPAIN2
 
 eyebound/active BLDRN1
 
+$random AirCanPickup { player/AirCanPickup1 player/AirCanPickup2 player/AirCanPickup3 }
+
+player/AirCanPickup1 AIRCAN1
+player/AirCanPickup2 AIRCAN2
+player/AirCanPickup3 AIRCAN3
+
+player/Rebreather PLAYBRE
+player/Maskoff MASKOFF
+
+player/wakeupuderblood wakebld
+
+world/AirFlow AIRFLOW
+world/AirIntake AIRIN
+
+world/cp_deny cp_deny
+world/cp_ok cp_ok
+world/item_off off
 
 
+$random DSCmoaner { world/moaner1 world/moaner2 world/moaner3 world/moaner4}
+world/moaner1 moaner1
+world/moaner2 moaner2
+world/moaner3 moaner3
+world/moaner4 moaner4
 
 
-
+world/HELLTP1 HELLTP1
+world/HELLTP2 HELLTP2
 
 
 

@@ -1,0 +1,686 @@
+#define DSCbaseHealthBonus 20
+#define AIDhealthRecallBaseTime 90
+#define AmmoRecallBaseTime 90
+#define AbsorbHealthAmount 20
+#define StrongHoldChance 10
+#define berserkBonusChance 5
+#define invisBonusChance 5
+#define invuBonusChance 5
+
+//#define StrongHoldChance 10
+//#define berserkBonusChance 5
+//#define invisBonusChance 5
+//#define invuBonusChance 5
+
+int AchiveKillInSEc1 = 0;
+int AchiveDieInSec1 = 0;
+int AchiveKillInSEc10 = 0;
+bool RankMenueOnScreen = false;
+
+
+
+//DSCplayerRank = 9;
+script "SerialKiller" (int amount){
+	//do something with amount of kills
+	//DSCHealthBonus
+	//DSCbasicArmorBonus
+	GiveActorInventory(0, "DSCHealthBonus", amount);
+	GiveActorInventory(0, "DSCbasicArmorBonus", amount);
+
+	Log(s:"Serial Killer: ", d:amount);
+}
+script "strongholdBonus" (void){
+	if(DSCplayerRank>=5){
+		if(Random(1, 100)<=StrongHoldChance){
+			//GiveActorInventory(0, "DSCarmorBonus5", 1);
+			//Log(s:"Stronghold: Armor Bonus 5");
+		}
+	}
+}
+script "strongholdHealArmorBonus" (void){
+	if(DSCplayerRank>=5){
+		GiveActorInventory(0, "DSCarmorBonus5", 1);
+		Log(s:"Stronghold: Healing heart gives Armor Bonus 5");
+
+	}
+}
+
+script "berserkBONUS" (void){
+	if(DSCplayerRank>=6){
+		if(Random(1, 100)<=berserkBonusChance){
+			//GiveActorInventory(0, "Berserk", 1);
+			SpawnSpotFacingForced ("Berserk", 0, 0);
+			Log(s:"Berserker: Berserk item got");
+		}
+	}
+}
+script "invisBONUS" (void){
+	if(DSCplayerRank>=7){
+		if(Random(1, 100)<=invisBonusChance){
+			GiveActorInventory(0, "BlurSphere", 1);
+			Log(s:"Spectre: BlurSphere item got");
+		}
+	}
+}
+script "invuBONUS" (void){
+	if(DSCplayerRank>=8){
+		if(Random(1, 100)<=invuBonusChance){
+			GiveActorInventory(0, "InvulnerabilitySphere", 1);
+			Log(s:"Blessing: InvulnerabilitySphere item got");
+		}
+	}
+}
+
+script "ammoRespawnedIn" (int time){
+	if(DSCplayerRank>=4){
+		Log(s:"Gunner: Ammo supply respawned in ", d:time, s:" sec");
+	} else {
+		Log(s:"Ammo supply respawned in ", d:AmmoRecallBaseTime, s:" sec");
+	}
+}
+script "GetAmmoRecallTime" (void){
+	if(DSCplayerRank>=4){
+		int val = AmmoRecallBaseTime - ((AmmoRecallBaseTime * 0.5) >> 16);
+		SetResultValue(val);
+	} else {
+		SetResultValue(AmmoRecallBaseTime);
+	}
+}
+
+script "AidRespawned" (int time){
+	Log(s:"Healing heart respawned in ", d:time, s:" sec");
+}
+script "GetAIDhealthRecallTime" (void){
+	int val;
+	if(DSCplayerRank==0){
+		//Log(s:"Health respawned in ", d:AIDhealthRecallBaseTime);
+		SetResultValue(AIDhealthRecallBaseTime);
+	}
+	if(DSCplayerRank==1){
+		val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.15) >> 16);
+		//Log(s:"Vitality 3/1: Health respawned in ", d:val);
+		SetResultValue(val);
+	}
+	if(DSCplayerRank==2){
+		val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.3) >> 16);
+		//Log(s:"Vitality 3/2: Health respawned in ", d:val);
+		SetResultValue(val);
+	}
+	if(DSCplayerRank>=3){
+		val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.5) >> 16);
+		//Log(s:"Vitality 3/3: Health respawned in ", d:val);
+		SetResultValue(val);
+	}
+}
+
+script "GetAIDhealthAmount" (void){
+	int val;
+	if(DSCplayerRank==0){
+		Log(s:"Health bonus ", i:DSCbaseHealthBonus);
+		SetResultValue(DSCbaseHealthBonus);
+	}
+	if(DSCplayerRank==1){
+		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.15) >> 16);
+		Log(s:"Vitality 1/3: Health bonus ", d:val);
+		SetResultValue(val);
+	}
+	if(DSCplayerRank==2){
+		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.3) >> 16);
+		Log(s:"Vitality 2/3: Health bonus ", d:val);
+		SetResultValue(val);
+	}
+	if(DSCplayerRank>=3){
+		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.5) >> 16);
+		Log(s:"Vitality 3/3: Health bonus ", d:val);
+		SetResultValue(val);
+	}
+}
+script "AbsorbHealth" (int HealthAmount){
+	//HealthAmount  = killed monster default health
+	switch (DSCplayerRank) {
+		case 9:
+			int val = (HealthAmount*0.2) >> 16;
+			Log(s:"Reaper: absorbed ", d:val, s:" health");
+			GiveActorInventory(0, "DSChealthBonus400", val);
+			break;
+		default:
+			terminate;
+	}
+	//int HealthToGive = HealthAmount*multipler/100;
+	//GiveActorInventory(0, "DSChealthBonus", HealthToGive);
+}
+
+function int getRank (void){
+	//test thing
+	//TotalKills = 15000;
+	//test thing
+
+	int TK = TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+	if(TK>=12800)	{	return 9;	}
+	if(TK>=6400)	{	return 8;	}
+	if(TK>=3200)	{	return 7;	}
+	if(TK>=1600)	{	return 6;	}
+	if(TK>=800)		{	return 5;	}
+	if(TK>=400)		{	return 4;	}
+	if(TK>=200)		{	return 3;	}
+	if(TK>=100)		{	return 2;	}
+	if(TK>=50)		{	return 1;	}
+	return 0;
+}
+function int getKillsToRank (int CurrentKills){
+	if(CurrentKills<50)		{	return 50-CurrentKills;		}
+	if(CurrentKills<100)	{	return 100-CurrentKills;	}
+	if(CurrentKills<200)	{	return 200-CurrentKills;	}
+	if(CurrentKills<400)	{	return 400-CurrentKills;	}
+	if(CurrentKills<800)	{	return 800-CurrentKills;	}
+	if(CurrentKills<1600)	{	return 1600-CurrentKills;	}
+	if(CurrentKills<3200)	{	return 3200-CurrentKills;	}
+	if(CurrentKills<6400)	{	return 6400-CurrentKills;	}
+	if(CurrentKills<12800)	{	return 12800-CurrentKills;	}
+
+	return 50;
+}
+function str getRankString (int rank){
+	IF(!rank){rank=DSCplayerRank;}
+	switch (rank) {
+		case 1:
+			return "Recruit";
+		case 2:
+			return "Guardian";
+		case 3:
+			return "Warrior";
+		case 4:
+			return "Destroyer";
+		case 5:
+			return "Blood Seeker";
+		case 6:
+			return "Demon Hunter";
+		case 7:
+			return "Hell Walker";
+		case 8:
+			return "Doom Slayer";
+		case 9:
+			return "Hell's Death";
+	}
+	return "Numb";
+}
+function str getRankAchive (int rank){
+	switch (rank) {
+		case 0:
+			return GetActorClass(0);
+		case 1:
+			return "Vitality 1/3";
+		case 2:
+			return "Vitality 2/3";
+		case 3:
+			return "Vitality 3/3";
+		case 4:
+			return "Gunner";
+		case 5:
+			return "Stronghold";
+		case 6:
+			return "Berserker";
+		case 7:
+			return "Spectre";
+		case 8:
+			return "Blessing";
+		case 9:
+			return "Reaper";
+	}
+	return GetActorClass(0);
+}
+function str getRankAchiveInfo (int rank){
+	switch (rank) {
+		case 0:
+			return "Default Abilities.\nSerial Killer bonus.";
+		case 1:
+			return "Player gets 15% more health.\nHealth respawns 15% faster.";
+		case 2:
+			return "Player gets 30% more health.\nHealth respawns 30% faster.";
+		case 3:
+			return "Player gets 50% more health.\nHealth respawns 50% faster.";
+		case 4:
+			return "Ammo respawns 50% faster.";
+		case 5:
+			return "10% chance to get 5% armor for kill.";
+		case 6:
+			return "5% chance to get BERSERK\nfor each kill.";
+		case 7:
+			return "5% chance to get INVISIBILITY\nfor each kill.";
+		case 8:
+			return "5% chance to get INVULNERABILITY\nfor each kill.";
+		case 9:
+			return "Player absorbs 20% health\nof each killed demon.";
+	}
+	return GetActorClass(0);
+}
+script "FadePlayerScreen" ENTER {
+	delay(15);
+	//ACS_NamedExecute("DisplayNextRank", 0);
+	while(1){
+		if(DSCscreenFade>0){
+			FadeTo (0, 0, 0, 0.8, 1.0);
+			SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+			//delay(DSCscreenFade);
+			//FadeTo (0, 0, 0, 0.0, 1.0);
+			//DSCscreenFade = 0;
+		}
+		if(DSCscreenFade<0){
+			FadeTo (0, 0, 0, 0.0, 1.0);
+			SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+			DSCscreenFade=0;
+		}
+		Delay(5);
+	}
+}
+
+script "DisplayAchives" (int disp){
+	int offsetStep = 35.0;
+	int offsetStart = 180.0;
+	int HeaderOffset = offsetStart;
+	int infoOffset;
+	int start;
+	if(disp){
+
+		if(getRank()){ start = 1;} else {start = 0;}
+
+		for(int i=start; i<=getRank(); i++ ){
+			if(getRank()){
+				HeaderOffset = offsetStart+offsetStep*(i-1);
+			 } else {HeaderOffset = offsetStart+offsetStep*i;}
+
+			SetHudSize(800, 600, 0);
+			SetFont("SMALLFONT");
+			HudMessageBold(s:getRankAchive(i);
+				HUDMSG_PLAIN, i+50, CR_CREAM, 400.0, HeaderOffset, 0);
+			//SetHudSize(HudX, HudY, 0);
+			HudMessageBold(s:getRankAchiveInfo(i);
+				HUDMSG_PLAIN, i+60, CR_TAN, 400.0, HeaderOffset+15.0, 0);
+			SetHudSize(0, 0, 0);
+		}
+	} else {
+		for(int n=0; n<10; n++){
+			HudMessageBold(s:"";HUDMSG_PLAIN, n+50, CR_DARKRED, 0.5, HeaderOffset, 0);
+			HudMessageBold(s:"";HUDMSG_PLAIN, n+60, CR_DARKRED, 0.5, HeaderOffset, 0);
+		}
+	}
+}
+
+Script "DisplayRankInfo" ENTER
+{
+
+	while (TRUE) {
+		int TK = TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+		int mtotal = GetTotalMonsters();
+		if(mtotal==0 && DSCscreenFade==0){
+
+			SetFont("SMALLFONT");
+			HudMessage(
+			i:TK, s:" killed demons total";
+			HUDMSG_PLAIN,776,CR_DARKRED,0.2,0.02,1,0);
+
+			SetFont("BIGFONT");
+			HudMessage(
+			s:"", s:getRankString (0), s:"";
+			HUDMSG_PLAIN,777,CR_DARKRED,0.5,0.05,1,0);
+			SetFont("SMALLFONT");
+			HudMessage(
+			s:"Next Rank: ", s:getRankString(DSCplayerRank+1), s:" (", i:getKillsToRank(TK), s:" kills)";
+			HUDMSG_PLAIN,778,CR_DARKRED,0.8,0.02,1,0);
+
+
+		} else {
+
+			HudMessage(s:"";HUDMSG_PLAIN,776,CR_DARKRED,0.2,0.02,1,0);
+			HudMessage(s:"";HUDMSG_PLAIN,777,CR_DARKRED,0.2,0.02,1,0);
+			HudMessage(s:"";HUDMSG_PLAIN,778,CR_DARKRED,0.2,0.02,1,0);
+
+		}
+
+		Delay(35);
+
+	}
+}
+script "DisplayNextRank" (void){
+	if(!RankMenueOnScreen){
+		RankMenueOnScreen = true;
+		int NewRank = getRank();
+		delay(1);
+		DSCscreenFade = 1;
+		for(int i = 0; i<=9; i++){
+			SoundVolume (0, i, 0.0);
+		}
+
+
+
+		HudMessageBold(s:""; HUDMSG_PLAIN, 800, CR_RED, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 801, CR_RED, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 802, CR_RED, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 803, CR_RED, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 810, CR_RED, 0.5, 0.3, 0);
+
+		SetHudSize(1920, 1200, 0);
+		SetFont("DSCranks");
+		HudMessage(
+			s:"A";
+			HUDMSG_PLAIN,810,CR_DARKRED, 960.0, 600.0, 1, 0);
+			SetFont("BIGFONT");
+		SetHudSize(0, 0, 0);
+
+		SetFont("BIGFONT");
+		if(DSCplayerRank !=NewRank){
+			DSCplayerRank = getRank();
+			PlaySound (0, "world/RACHIVE" , 64, 1.0, false, ATTN_NONE);
+			SetFont("SMALLFONT");
+			HudMessageBold(s:"You gained rank";
+				HUDMSG_PLAIN, 801, CR_DARKRED, 0.5, 0.22, 0);
+			SetFont("BIGFONT");
+			HudMessageBold(s:getRankString(0);
+				HUDMSG_PLAIN, 802, CR_RED, 0.5, 0.25, 0);
+		} else {
+			PlaySound (0, "world/BigClose" , 64, 1.0, false, ATTN_NONE);
+
+			SetFont("SMALLFONT");
+			HudMessageBold(s:"Current rank";
+				HUDMSG_PLAIN, 801, CR_DARKRED, 0.5, 0.22, 0);
+			SetFont("BIGFONT");
+			HudMessageBold(s:getRankString(0);
+				HUDMSG_PLAIN, 802, CR_RED, 0.5, 0.25, 0);
+		}
+
+		ACS_NamedExecute("DisplayAchives", 0, true);
+		SetFont("SMALLFONT");
+		HudMessageBold(s:"Press 'i' button to continue.";
+			HUDMSG_PLAIN, 803, CR_RED, 0.5, 0.93, 0);
+
+		for( i = 0; i<=9; i++){
+			SoundVolume (0, i, 1.0);
+		}
+	} else {
+
+
+		/*while (!(GetPlayerInput(0, INPUT_BUTTONS) & BT_USE) || (GetPlayerInput(0, INPUT_OLDBUTTONS) & BT_USE))
+		{
+		delay(1);
+		}*/
+		DSCscreenFade = -1;
+		HudMessageBold(s:""; HUDMSG_PLAIN, 800, CR_RED, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 801, CR_RED, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 802, CR_RED, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 803, CR_RED, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 810, CR_RED, 0.5, 0.3, 0);
+		ACS_NamedExecute("DisplayAchives", 0, false);
+		RankMenueOnScreen = false;
+		PlaySound (0, "world/BigClose" , 64, 1.0, false, ATTN_NONE);
+	}
+	/*
+int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+if (buttons & (BT_ATTACK)) { print(s:"You could be pressing the attack key."); }
+*/
+}
+
+
+
+SCRIPT "ResetCounters" ENTER {
+	NextWaveReady = false;
+	WaveOnline = false;
+	IgnoreWaveMusicChange = false;
+	SpawnedMonstersOnTheMap = 0;
+	AchiveKillInSEc1 = 0;
+	AchiveDieInSec1 = 0;
+
+}
+script "MonsterKilled" (void){
+	AchiveKillInSEc1++;
+	SaintHealthUpMultipler++;
+
+	ACS_NamedExecuteAlways("strongholdBonus", 0);
+	ACS_NamedExecuteAlways("berserkBONUS", 0);
+	ACS_NamedExecuteAlways("invisBONUS", 0);
+	ACS_NamedExecuteAlways("invuBONUS", 0);
+	ACS_NamedExecute("AchiveKillInSEc1Counter", 0);
+
+}
+
+script "MonsterDied" (void){
+	AchiveDieInSec1++;
+	AchiveKillInSEc10++;
+	ACS_NamedExecute("AchiveKillInSEc1Counter", 0);
+	ACS_NamedExecute("AchiveKillInSEc10Counter", 0);
+}
+
+SCRIPT "AchiveKillInSEc10Counter" (void)
+{
+	delay(35*10);
+	if(AchiveKillInSEc10>=20){
+		HudMessageBold(s:"You are real DOOM SLAYER!";
+				HUDMSG_PLAIN, 8010, CR_ORANGE, 0.5, 0.15, 5.0);
+		HudMessageBold(i:AchiveKillInSEc10, s:" kills in 10 sec!";
+				HUDMSG_PLAIN, 8011, CR_ORANGE, 0.5, 0.17, 5.0);
+		//PrintBold(s:"You are real DOOM SLAYER!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
+		AchiveKillInSEc10 = 0;
+		terminate;
+	}
+	if(AchiveKillInSEc10>=10){
+		HudMessageBold(s:"You are GREAT!";
+				HUDMSG_PLAIN, 8010, CR_ORANGE, 0.5, 0.15, 5.0);
+		HudMessageBold(i:AchiveKillInSEc10, s:" kills in 10 sec!";
+				HUDMSG_PLAIN, 8011, CR_ORANGE, 0.5, 0.17, 5.0);
+		//PrintBold(s:"You are GREAT!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
+		AchiveKillInSEc10 = 0;
+		terminate;
+	}
+	if(AchiveKillInSEc10>=5){
+		HudMessageBold(s:"Good work!";
+				HUDMSG_PLAIN, 8010, CR_ORANGE, 0.5, 0.15, 5.0);
+		HudMessageBold(i:AchiveKillInSEc10, s:" kills in 10 sec!";
+				HUDMSG_PLAIN, 8011, CR_ORANGE, 0.5, 0.17, 5.0);
+		//PrintBold(s:"Good work!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
+		AchiveKillInSEc10 = 0;
+		terminate;
+	}
+
+
+	AchiveKillInSEc10 = 0;
+
+}
+
+
+
+SCRIPT "AchiveKillInSEc1Counter" (void)
+{
+//GiveActorInventory(0, "DSCarmorBonus", 5);
+	delay(35);
+	//PrintBold(i:AchiveKillInSEc1);
+
+	if(AchiveDieInSec1>=20 || AchiveKillInSEc1>=20){
+
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
+		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		/*if(BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+			GiveActorInventory(0, "d4haste", 1);
+		}*/
+		Log(s:"Real epic doomslayer tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
+		AchiveKillInSEc1 = 0;
+		AchiveDieInSec1 = 0;
+		ACS_NamedExecute("TimeKillVoiceSec1", 0, 6);
+		SaintHealthUpMultipler+=AchiveKillInSEc1;
+		if(BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
+		terminate;
+	}
+	if(AchiveDieInSec1>=15){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
+		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		/*if(Random(1, 100)<=40 && BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+		}
+		if(Random(1, 100)<=60 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}*/
+		Log(s:"Tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
+		AchiveKillInSEc1 = 0;
+		AchiveDieInSec1 = 0;
+		ACS_NamedExecute("TimeKillVoiceSec1", 0, 5);
+		SaintHealthUpMultipler+=AchiveKillInSEc1;
+		if(BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}
+		terminate;
+	}
+	if(AchiveDieInSec1>=10 ){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
+		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		/*if(Random(1, 100)<=30 && BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+		}
+		if(Random(1, 100)<=50 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}*/
+		Log(s:"Yeah...Great bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
+		AchiveKillInSEc1 = 0;
+		AchiveDieInSec1 = 0;
+		ACS_NamedExecute("TimeKillVoiceSec1", 0, 4);
+		SaintHealthUpMultipler+=AchiveKillInSEc1;
+		terminate;
+	}
+	if(AchiveDieInSec1>=5){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
+		/*if(BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}*/
+	}
+
+	if(AchiveDieInSec1>3){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
+		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		/*if(Random(1, 100)<=20 && BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+		}
+		if(Random(1, 100)<=40 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}*/
+
+		Log(s:"Bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
+		AchiveKillInSEc1 = 0;
+		AchiveDieInSec1 = 0;
+		ACS_NamedExecute("TimeKillVoiceSec1", 0, 3);
+		SaintHealthUpMultipler+=AchiveKillInSEc1;
+		terminate;
+	}
+
+	if(AchiveKillInSEc1==3){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
+		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		/*if(Random(1, 100)<=15 && BE()){
+			GiveActorInventory(0, "D4QuadDamage", 1);
+		}
+		if(Random(1, 100)<=30 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}*/
+		Log(s:"Tripple death\n", i:AchiveKillInSEc1, s:" kills in sec!");
+		AchiveKillInSEc1 = 0;
+		AchiveDieInSec1 = 0;
+		ACS_NamedExecute("TimeKillVoiceSec1", 0, 2);
+		SaintHealthUpMultipler+=AchiveKillInSEc1;
+		terminate;
+	}
+	if(AchiveKillInSEc1==2){
+		ACS_NamedExecuteAlways("SerialKiller", 0, AchiveKillInSEc1);
+		//ACS_NamedExecuteAlways("ArmorBonus", 0, AchiveKillInSEc1, 1);
+		/*if(Random(1, 100)<=20 && BE()){
+			GiveActorInventory(0, "d4haste", 1);
+		}*/
+
+		Log(s:"Double death\n", i:AchiveKillInSEc1, s:" kills in sec!");
+		AchiveKillInSEc1 = 0;
+		AchiveDieInSec1 = 0;
+		ACS_NamedExecute("TimeKillVoiceSec1", 0, 1);
+		SaintHealthUpMultipler+=2;
+		terminate;
+	}
+	AchiveKillInSEc1 = 0;
+	AchiveDieInSec1 = 0;
+
+}
+
+
+
+
+
+
+Script "TimeKillVoiceSec1" (int soundID){
+	ACS_NamedExecuteAlways("MuteMusic", 0, 35+15);
+	delay(15);
+	for(int i = 0; i<=9; i++){
+		SoundVolume (0, i, 0.0);
+	}
+	switch (soundID) {
+		case 1:
+		PlaySound (0, "DSCACHV2R" , 64, 1.0, false, ATTN_NONE);
+		break;
+		case 2:
+		PlaySound (0, "world/DSCACHV4" , 64, 1.0, false, ATTN_NONE);
+		break;
+		case 3:
+		PlaySound (0, "world/DSCACHV5" , 64, 1.0, false, ATTN_NONE);
+		break;
+		case 4:
+		PlaySound (0, "world/DSCACHV6" , 64, 1.0, false, ATTN_NONE);
+		break;
+		case 5:
+		PlaySound (0, "world/DSCACHV7" , 64, 1.0, false, ATTN_NONE);
+		break;
+		case 6:
+		PlaySound (0, "world/DSCACHV8" , 64, 1.0, false, ATTN_NONE);
+		break;
+	}
+	delay(35);
+	for( i = 0; i<=9; i++){
+		SoundVolume (0, i, 1.0);
+	}
+}
+
+script "SaintHealthUp" (void){
+	SetResultValue(SaintHealthUpMultipler*SaintHealthUpBaseAmount);
+	SaintHealthUpMultipler = 0;
+}
+
+/*
+Script "ArmorBonus" (int amount, int multipler){
+	if(multipler<=0){multipler=1;}
+	switch (DSCplayerRank) {
+		case 1:
+			multipler = 1;
+			break;
+		case 2:
+			multipler = 2;
+			break;
+		case 3:
+			multipler = 3;
+			break;
+		case 4:
+			multipler = 4;
+			break;
+		case 5:
+			multipler = 5;
+			break;
+		case 6:
+			multipler = 6;
+			break;
+		case 7:
+			multipler = 7;
+			break;
+		case 8:
+			multipler = 8;
+			break;
+		case 9:
+			multipler = 9;
+			break;
+		default:
+			terminate;
+	}
+	GiveActorInventory(0, "DSCarmorBonus", amount*multipler);
+}*/

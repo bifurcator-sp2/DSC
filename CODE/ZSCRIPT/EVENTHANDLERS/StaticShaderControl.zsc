@@ -3,32 +3,67 @@ Class SDPWHScreenEffects : StaticEventHandler
 	override void RenderOverlay(RenderEvent e)
 	{
 		PlayerInfo players = players[consoleplayer];
-		
 
+		//Shader.SetEnabled(players, "dscHeatHaze", false);
+		Shader.SetUniform1f(players, "dscHeatHaze", "timer", gametic + e.FracTic);
+		if(players.mo.FindInventory("HeatHazeTimerInv")) Shader.SetUniform1f(players, "dscHeatHaze", "timer", gametic + e.FracTic);
+		else Shader.SetEnabled(players, "dscHeatHaze", false);		
+		
+		if((level.mapName == "TITLEMAP")){
+			Shader.SetEnabled(players, "TiltShiftPass1", true);
+			Shader.SetEnabled(players, "TiltShiftPass2", true);
+			Shader.SetEnabled(players, "TiltShiftPass3", true);
+		} else {
+			Shader.SetEnabled(players, "TiltShiftPass1", false);
+			Shader.SetEnabled(players, "TiltShiftPass2", false);
+			Shader.SetEnabled(players, "TiltShiftPass3", false);
+		}
 		if (Cvar.GetCVar("dpwh_filmictonemap", players).GetInt() > 0){
 			DisableLUTshaders();
-			Shader.SetEnabled(players, "TonemapDefault", true);		
+			Shader.SetEnabled(players, "TonemapDefault", true);
+			if((level.mapName == "TITLEMAP")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapTitlemap", true);
+			}
+			if((level.mapName == "DSCMAP01")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapCemetery", true);
+			}
 			if((level.mapName == "DSCMAP02")){
 				DisableLUTshaders();
-				Shader.SetEnabled(players, "TonemapCemetery", true);			
-			}			
+				Shader.SetEnabled(players, "TonemapCemetery", true);
+			}
 			if((level.mapName == "DSCMAP03")){
 				DisableLUTshaders();
-				Shader.SetEnabled(players, "TonemapPlaza", true);			
+				Shader.SetEnabled(players, "TonemapPlaza", true);
 			}
 			if((level.mapName == "DSCMAP04")){
 				DisableLUTshaders();
-				Shader.SetEnabled(players, "TonemapArena", true);			
+				Shader.SetEnabled(players, "TonemapArena", true);
 			}
 			if((level.mapName == "DSCMAP05")){
 				DisableLUTshaders();
-				Shader.SetEnabled(players, "TonemapSalvation", true);			
-			}			
-				
-			
+				Shader.SetEnabled(players, "TonemapSalvation", true);
+			}
+			if((level.mapName == "DSCMAP06")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapTitlemap", true);
+			}
+			if((level.mapName == "DSCMAP07")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapTide", true);
+			}
+			if((level.mapName == "DSCMAP09")){
+				DisableLUTshaders();
+				Shader.SetEnabled(players, "TonemapSnow", true);
+			}
+			if((level.mapName == "DSCMAP10")){
+				//DisableLUTshaders();
+				//Shader.SetEnabled(players, "TonemapBlood", true);
+			}
 		} else {DisableLUTshaders();}
-		
-		
+
+
 		if (Cvar.GetCVar("dpwh_chromaticAberration", players).GetInt() > 0)
 		{
 			Cvar.GetCvar("gl_lens",players).SetInt(0);
@@ -45,8 +80,8 @@ Class SDPWHScreenEffects : StaticEventHandler
 		else
 		{
 			DisableNaturalVignette();
-		}		
-		
+		}
+
 		if (Cvar.GetCVar("dpwh_filmgrain", players).GetInt() > 0)
 		{
 			EnableFilmGrain(e);
@@ -54,8 +89,8 @@ Class SDPWHScreenEffects : StaticEventHandler
 		else
 		{
 			DisableFilmGrain();
-		}		
-	}	
+		}
+	}
 
 
 
@@ -68,6 +103,11 @@ Class SDPWHScreenEffects : StaticEventHandler
 		Shader.SetEnabled(players, "TonemapSalvation", false);
 		Shader.SetEnabled(players, "TonemapPlaza", false);
 		Shader.SetEnabled(players, "TonemapCemetery", false);
+		Shader.SetEnabled(players, "TonemapTitlemap", false);
+		Shader.SetEnabled(players, "TonemapTide", false);
+		Shader.SetEnabled(players, "TonemapSnow", false);
+		//Shader.SetEnabled(players, "TonemapBlood", false);
+		
 	}
 
 
@@ -75,13 +115,13 @@ Class SDPWHScreenEffects : StaticEventHandler
 	{
 		PlayerInfo players = players[consoleplayer];
 		Shader.SetUniform1f(players, "FilmGrain", "timer", gametic + e.FracTic);
-		Shader.SetEnabled(players, "FilmGrain", true);		
+		Shader.SetEnabled(players, "FilmGrain", true);
 	}
 
 	ui void DisableFilmGrain(void)
 	{
 		PlayerInfo players = players[consoleplayer];
-		Shader.SetEnabled(players, "FilmGrain", false);		
+		Shader.SetEnabled(players, "FilmGrain", false);
 	}
 
 

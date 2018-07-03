@@ -1,15 +1,44 @@
+PointLight YellowKeyCardIndicatorlight
+{
+	offset 0 16 0
+	color 1.0 0.8 0.0
+    size 48
+	attenuate 1
+}
+Object KeyCardIndicatorYellowDEC { FRAME KCRDA0 { light YellowKeyCardIndicatorlight } }
+
+PointLight RedCardIndicatorlight
+{
+	offset 0 16 0
+	color 0.5 0.0 0.0
+    size 48
+	attenuate 1
+}
+Object KeyCardIndicatorRedDEC { FRAME KCRDB0 { light RedCardIndicatorlight } }
+
+PointLight BlueCardIndicatorlight
+{
+	offset 0 16 0
+	color 0.2 0.2 1.0
+    size 48
+	attenuate 1
+}
+Object KeyCardIndicatorBlueDEC { FRAME KCRDC0 { light BlueCardIndicatorlight } }
+
+
+
+
 PointLight AIDlight
 {
 	offset 0 32 0
 	color 0.5 0.0 0.0
     size 64
+	attenuate 1
 }
 Object AIDSpawnerDEC
 {
-//FRAME AID1 { light AIDlight }
 FRAME AID1 { light AIDlight }
-/*FRAME AID1B { light AIDlight }
-FRAME AID1C { light AIDlight }*/
+	//FRAME AID1 { light White64 }
 }
 
 PointLight HELPERlight
@@ -17,6 +46,7 @@ PointLight HELPERlight
 	offset 0 64 0
 	color 1.0 0.0 0.0
     size 64
+	attenuate 1
 }
 Object HSChelperDEC
 {
@@ -28,6 +58,7 @@ PointLight White64
 	color 1.0 1.0 1.0
     size 64
 	dontlightself 1
+	attenuate 1
 }
 
 Object AMMOspawnerDEC
@@ -49,6 +80,7 @@ PointLight Blue64
 	color 0.0 0.8 0.8
     size 64
 	dontlightself 1
+	
 }
 
 flickerlight FlickerYel64

@@ -1,43 +1,31 @@
 
-actor AIDSpawnerDEC : AIDSpawner 22000 { //$Sprite AID1A0
+Actor Oxygen: Inventory
+{
+	Inventory.MaxAmount 4200
 }
-actor WaveScullDEC : WaveScull 22001 { //$Sprite SCLSA0
-}
-actor AMMOspawnerDEC : AMMOspawner 22005 { //$Sprite AMM1A0
-}
-actor DSCmonsterSpawner1DEC : DSCmonsterSpawner1 22006 { //$Sprite TIE1A0
-}
-actor DSCmonsterSpawner2DEC : DSCmonsterSpawner2 22008 { //$Sprite TIE2A0
-}
-actor DSCmonsterSpawner3DEC : DSCmonsterSpawner3 22009 { //$Sprite TIE3A0
-}
-actor DSCmonsterSpawner4DEC : DSCmonsterSpawner4 22010 { //$Sprite TIE4A0
-}
-actor DSCmonsterSpawner5DEC : DSCmonsterSpawner5 22011 { //$Sprite TIE5A0
-}
+const int AddOxygenInSec = 30;
 
-
-
-actor DSCweaponSpawnerDEC : DSCweaponSpawner 22007 { //$Sprite WPN1A0
-}
-
-actor DSCdoomImpDEC : DSCdoomImp 22029 { //$Sprite TROOA1
-}
-actor DSCmonsterSpawnerTribuneDEC : DSCmonsterSpawnerTribune 22030 {
-}
-actor DSCportalDEC : DSCportal 22031 {
-}
-actor HSChelperDEC : HSChelper 22032 {
-}
-actor DSCprisonedSaintDEC : DSCprisonedSaint 22033 { //$Sprite MFLYA0
-		Scale 0.5
-}
-actor DSCeyeBounderDEC : DSCeyeBounder 22034 { //$Sprite HEYEA0
-		Scale 0.2
-}
-actor DSCtentyacleBounderDEC : DSCtentyacleBounder 22035 { //$Sprite T1NTA0
-		Scale 0.2
-}
-actor DSCSeraphimRaiserLightDEC : DSCSeraphimRaiserLight 22036 { //$Sprite HAL1A0
-		//Scale 1.0
+actor OxygenCanister : CustomInventory 22045
+{
+//	+ALWAYSPICKUP
+//	+AUTOACTIVATE
+	+NOGRAVITY
+	inventory.pickupmessage "Picked up an oxygen canister."
+	Inventory.PickupSound "AirCanPickup"
+	Inventory.RespawnTics 700
+	+INVENTORY.ALWAYSRESPAWN
+	states {
+	Spawn:
+		OXCN A 8 BRIGHT
+		OXCN B 8
+		loop
+	Pickup:
+		TNT1 A 0 A_JumpIf(CountInv("Oxygen") >= 4200, "FailPickup")
+		TNT1 A 1 A_GiveInventory("Oxygen",35*AddOxygenInSec)
+		TNT1 A 0 ACS_NamedExecute("DisplayOxygenInSec", 0)
+		Stop
+	FailPickup:
+		TNT1 A 1 ACS_NamedExecute("DisplayOxygenInSec", 0)
+		Fail
+	}
 }

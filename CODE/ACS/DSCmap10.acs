@@ -1,0 +1,1510 @@
+//episode wave count definition
+int maxWaveCount = 75;//--------------------------
+//episode wave count definition
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+//25WAVES
+bool silence = false;
+int Puzzle_1_bad_attempts = 0;
+bool StrafComplete = false;
+int startSwitchesON = 0;
+int puzzleSwitchesON = 0;
+int ParentSpotToReturnTID;
+script "StartControl" ENTER
+{
+	//Thing_Activate(43);//test thing. remove it!!!
+	/////////////test
+	/*
+	puzzleSwitchesON = 4;
+	startSwitchesON = 3;
+	ACS_NamedExecute("puzzle_1", 0);
+	*/
+	/////////////test
+	//Thing_Activate(59);//mars wind. test thing. remove it!!!
+	//Thing_Move (60, 59, true);//skybox MARS //test thing !!!!
+	//Thing_Move (60, 58, true);//skybox HELL
+	//ACS_NamedExecuteAlways("GotoStrafLocation", 0, 51, 52);//test thing !!!!
+	//test thing !!!!
+
+	//ACS_NamedExecuteAlways("GotoStrafLocation2", 0, 83, 49);//test thing !!!!
+	//
+
+	//ACS_NamedExecute("GotoPuzzle2", 0);//Test thing remove
+//Delay(35*20);
+//	ACS_NamedExecuteAlways("GotoPuzzle3", 0);//test thing !!!!
+
+
+
+
+	ACS_NamedExecute("OxygenRegen",0, 5);
+	//ACS_NamedExecute("SetSky", 0, 164);//hell sky IN PRODUCTION THIS VALUE!!!!
+
+	Thing_DeActivate(29);//teleport init lights
+
+	Thing_DeActivate(19);//Alarm light.
+	Thing_DeActivate(20);//Alarm light&sound.
+	Thing_DeActivate(24);//Alarm embient light&sound.
+	Thing_DeActivate(21);//Alarm light.
+	Thing_DeActivate(22);//Alarm light.
+	Thing_DeActivate(30);//Teleport sparks.
+	Thing_DeActivate(34);//portal red lights
+	Thing_DeActivate(36);//portal heat haze
+	Thing_DeActivate(39);//portal hard light
+	Thing_DeActivate(241);//portal 2 heat
+	Thing_DeActivate(73);//portal 2 red light
+	Thing_DeActivate(94);//eye die light
+	Thing_DeActivate(138);//heat haze at blue key
+	Thing_DeActivate(140);//red hell light at blue key
+	Thing_DeActivate(147);//heat haze at yellow key
+	Thing_DeActivate(148);//red light at yellow key
+	Thing_DeActivate(158);//third portal and ataff
+	Thing_DeActivate(166);//third final scene ative decor
+	Thing_DeActivate(216);//open hellgate ambient
+	Thing_DeActivate(226);//last strong wind
+	Thing_DeActivate(227);//final light
+
+	SetLineActivation (31, SPAC_None);//first door
+	SetLineActivation (230, SPAC_None);//door to second floor from outside
+	SetLineActivation (231, SPAC_None);//door to second floor from outside
+
+
+
+	Thing_Activate(4);//total stem at t.chamber.
+
+	for(int i = 115; i<=129; i++){Thing_DeActivate(i);}//alarms in left coridor of second part
+	Thing_DeActivate(131);//spark sounds in left coridor of second part
+	delay(35*2);
+
+	Thing_Activate(84);//helper 1.
+	ACS_NamedExecute("TecRandomAmbient", 0);
+
+	/*
+	Thing_Activate(19);//Alarm light. test thing. remove it!!!
+	Thing_Activate(20);//Alarm light&sound. test thing. remove it!!!
+	Thing_Activate(24);//Alarm embient light&sound. test thing. remove it!!!
+	Thing_Activate(21);//Alarm light. test thing. remove it!!!
+	Thing_Activate(22);//Alarm light. test thing. remove it!!!
+	*/
+
+	//TEST!
+	//NOspawn = true;
+/*
+	DSCplayerRank = 7;
+	CurrentWave = 50;
+	AmmoMaxRnd = 3;
+	WeaponGotID = 5;
+*/
+	//delay(35*10);
+	//Thing_Activate(240);
+	//delay(35*10);
+	//ACS_NamedExecute("SetSky", 0, 163);//test thing !!!!
+	//ACS_NamedExecute("GotoPuzzle2", 0);//Test thing remove
+	//delay(35*10);
+	//ACS_NamedExecute("SetSky", 0, 165);//test thing !!!!
+	//ACS_NamedExecute("GotoPuzzle3", 0);//Test thing remove
+}
+
+script "TotalSound" ENTER {
+
+	While(TRUE)
+	{
+		if(silence){
+			for(int i = 0; i<=9; i++){SoundVolume (0, i, 0.0);}
+		} else {
+			for(i = 0; i<=9; i++){SoundVolume (0, i, 1.0);}
+		}
+		delay(1);
+	}
+}
+
+
+script "SetSky" (int SpotTid) {
+	Thing_Activate(8000);//destroy SkyViewpoints
+	delay(1);
+	SpawnSpotFacingForced("SkyViewpoint", SpotTid, 0);
+}
+
+
+script "TecRandomAmbient" (void)
+{
+	While(TRUE)
+	{
+		AmbientSound("TecRandomAmbient", 1.0);
+		Delay(35*random(3,7));
+	}
+}
+
+script "CreepRandomAmbient" (void)
+{
+	While(TRUE)
+	{
+		AmbientSound("Creep", 1.0);
+		Delay(35*random(3,7));
+	}
+}
+
+
+
+
+script "puzzle_1" (int tid){
+	if(startSwitchesON<2){
+		SetLineTexture(tid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+		startSwitchesON++;
+		PlaySound(tid, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineActivation (tid, SPAC_None);
+		if(startSwitchesON==2){
+			SetLineTexture(25, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+			SetLineActivation (25, SPAC_None);
+			SetLineTexture(26, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+			SetLineActivation (26, SPAC_None);
+			SetLineTexture(27, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+			SetLineActivation (27, SPAC_None);
+			SetLineTexture(28, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+			SetLineActivation (28, SPAC_None);
+			silence = true;
+			ACS_NamedExecuteAlways("FadeOutMusic", 0);
+			delay(35*2);
+			Radius_Quake2 (30, 4, 35*5, 0, 2048, "world/pumm");
+			ACS_NamedExecuteAlways("ThingActivateBroken", 0, 29);
+			ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 40, 35*3);
+			ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 41, 35*3);
+			ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 44, 35*3);
+			ChangeCeiling(44, "CLT0N");
+			Thing_Activate(30);//spark embience
+			delay(35*5);
+			Thing_DeActivate(30);//spark embience
+			AmbientSound("world/HAPPEN2", 1.0);
+			Thing_Activate(39);//portal hard light
+			delay(10);
+			Thing_DeActivate(39);//portal hard light
+			delay(35*2);
+			silence = false;
+			delay(35*2);
+			//ACS_NamedExecuteAlways("FadeInMusic", 0);
+			Thing_Activate(19);//Alarm light.
+			Thing_Activate(20);//Alarm light&sound.
+			Thing_Activate(24);//Alarm embient light&sound.
+			Thing_Activate(21);//Alarm light.
+			Thing_Activate(22);//Alarm light.
+			SetLineActivation (31, SPAC_Use);//first door
+			SetLineActivation (230, SPAC_Use);//door to second floor from outside
+			SetLineActivation (231, SPAC_Use);//door to second floor from outside
+			Thing_Activate(85);//helper 2.
+
+			ACS_NamedExecuteAlways("Mus_COMPUTER", 0);
+
+		}
+		terminate;
+	}
+
+
+	SetLineTexture(tid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	puzzleSwitchesON++;
+	PlaySound(tid, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	SetLineActivation (tid, SPAC_None);
+
+	if(puzzleSwitchesON>3){
+		if(WaveOnline){//puzzele completed sequence
+		//if 4 button switched DURING battle
+		Thing_Activate(86);//helper 3.
+		//PrintBold(s:"Sequence complete!");
+		delay(5*35);
+
+		//PrintBold(s:"Clear the area");
+		Delay(5); while(WaveOnline){ Delay(5);}	//wait for end
+		delay(35*2);
+		AmbientSound("world/DemonsOFF", 1.0);
+		delay(35*3);
+
+
+		Thing_Activate(4);//turn  steams
+		Thing_DeActivate(34);//portal red lights
+		Thing_Activate(35);//passages lights
+		Thing_DeActivate(36);//portal heat haze
+		Thing_DeActivate(43);//portal itself
+		Thing_Remove(43);//portal & Souls
+		ACS_NamedTerminate("CreepRandomAmbient", 0);
+		ACS_NamedExecuteAlways("ThingActivateBroken", 0, 35, 35*3);//passage lights
+		ACS_NamedExecuteAlways("ThingActivateBroken", 0, 44, 35*3);//main ceiling lights
+		ChangeCeiling(44, "CLT0");
+
+		ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 40, 35*3);
+		ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 41, 35*3);
+		Thing_Activate(30);//spark embience
+		delay(35*5);
+		Thing_DeActivate(30);//spark embience
+		AmbientSound("world/HAPPEN2", 1.0);
+		Thing_Activate(39);//portal hard light
+		delay(10);
+		Thing_DeActivate(39);//portal hard light
+
+		delay(35*3);
+
+		//spawn teleport to next area
+		SpawnSpotFacingForced("DSCportalToMap", 46, 50);
+		SetThingSpecial(50, ACS_NamedExecute, "GotoPuzzle2");
+
+		} else {
+			//if 4 button switched after battle
+			StrafComplete = false;
+			ACS_NamedExecuteAlways("GotoStrafLocation", 0, 51, 52);//argument is straf dest tid
+			ACS_NamedTerminate("CreepRandomAmbient", 0);
+			ACS_NamedTerminate("TecRandomAmbient", 0);
+			Thing_DeActivate(43);//portal itself
+			//runs when player returns from straf location
+			while(!StrafComplete){ Delay(5);}//waits for additional location
+			ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+			ACS_NamedExecute("CreepRandomAmbient", 0);
+			Thing_Activate(43);//portal itself
+			puzzleSwitchesON=0;
+			Puzzle_1_bad_attempts++;
+			if(Puzzle_1_bad_attempts>0){
+				//PrintBold(s:"Try to turn off all controll panels \nduring the battle!");
+				delay(35*2);
+				Thing_Activate(88);//helper 5
+				delay(35*5);
+
+			}
+			ACS_NamedExecute("ActivatePortalButtons", 0);
+			ACS_NamedExecute("Puzzle_1_vawe", 0);
+		}
+	}
+
+
+}
+
+script "activatePortalButton"(void){
+	SetLineActivation (33, SPAC_Use);//portal button
+}
+script "startPortal"(void){
+	SetLineActivation (33, SPAC_None);//portal button
+	SetLineActivation (45, SPAC_None);//Controll room inner doors
+	SetLineTexture(37, SIDE_FRONT, TEXTURE_MIDDLE, "SWT1_2");
+	ACS_NamedExecuteAlways("FadeOutMusic", 0);
+	ACS_NamedTerminate("TecRandomAmbient", 0);
+
+	PlaySound(33, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	delay(35*3);
+	ACS_NamedExecuteAlways("ThingDeactivateBroken", 0, 39, 15, 2);//portal hard light
+	AmbientSound("world/HAPPEN2", 1.0);
+
+	delay(35*3);
+
+	ACS_NamedExecuteAlways("ThingDeactivateBroken", 0, 38, 35*3);//controll room lights
+
+	Thing_DeActivate(19);//Alarm light.
+	Thing_DeActivate(20);//Alarm light&sound.
+	Thing_DeActivate(24);//Alarm embient light&sound.
+	Thing_DeActivate(21);//Alarm light.
+	Thing_DeActivate(22);//Alarm light.
+
+	Thing_DeActivate(4);//turn off steams
+	Thing_DeActivate(29);//turn off portal green lights
+	Thing_Activate(34);//portal red lights
+	Thing_DeActivate(35);//passages lights
+	Thing_Activate(36);//portal heat haze
+	SetLineTexture(42, SIDE_FRONT, TEXTURE_BOTTOM, "TECCOL2N");
+	SetLineTexture(42, SIDE_FRONT, TEXTURE_TOP, "TECCOL2N");
+	SetLineTexture(42, SIDE_BACK, TEXTURE_BOTTOM, "TECCOL2N");
+	SetLineTexture(42, SIDE_BACK, TEXTURE_TOP, "TECCOL2N");
+
+	Radius_Quake2 (30, 3, 35*6, 0, 2048, "world/pumm");
+	AmbientSound("world/HELLTP1", 1.0);
+	delay((35*2)-10);
+	//activate teleport FX here
+	AmbientSound("world/HELLTP2", 1.0);
+	delay(35*2);
+	Thing_Activate(43);//portal itself
+	Radius_Quake2 (30, 6, 15*1, 0, 2048, "world/pumm");
+	delay(35*2);
+	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	ACS_NamedExecute("CreepRandomAmbient", 0);
+	delay(35*2);
+	//first vawe here
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999, 999999);
+	//wait for wave end
+	Delay(5);
+	while(WaveOnline){ Delay(5);}
+	//wait for end
+	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	PrintBold(s:"Turn off all portal devices");
+	delay(35*3);
+	ACS_NamedExecuteAlways("ThingActivateBroken", 0, 38, 35*2);
+	SetLineActivation (45, SPAC_Use);//Controll room inner doors
+	ACS_NamedExecute("ActivatePortalButtons", 0);
+	ACS_NamedExecute("Puzzle_1_vawe", 0);
+
+
+}
+
+script "Puzzle_1_vawe" (void){
+
+	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999, 999999);
+	if(Puzzle_1_bad_attempts>0){
+		delay(35*5);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 999999, 999999);
+	}
+	if(Puzzle_1_bad_attempts>1){
+		delay(35*5);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999, 999999);
+	}
+}
+
+bool straf_1_vawed = false;
+script "Straf_1_vawe" (void){
+	if(!straf_1_vawed){
+		straf_1_vawed = true;
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100551, 999999, 999999);
+		if(Puzzle_1_bad_attempts>1){
+			delay(35*10);
+			ACS_NamedExecuteAlways("SpawnWave", 0, 100552, 999999, 999999);
+		}
+		if(Puzzle_1_bad_attempts>2){
+			delay(35*20);
+			ACS_NamedExecuteAlways("SpawnWave", 0, 100553, 999999, 999999);
+		}
+		//wait for wave end
+		Delay(5); while(WaveOnline){ Delay(5);}
+		//spawn teleport to parent area
+		SpawnSpotFacingForced("DSCportalToMap", 51, 51);
+		SetThingSpecial(51, ACS_NamedExecute, "ReturnToParent_1");
+
+	}
+}
+
+script "ReturnToParent_1" (void){
+	Thing_DeActivate(47);//wind
+	StrafComplete = true;
+	straf_1_vawed = false;
+	ACS_NamedExecuteAlways("TeleportHellFluence", 0, ParentSpotToReturnTID);
+}
+
+script "ActivatePortalButtons"(void){
+	SetLineActivation (25, SPAC_Use);//puzzle_1 buttons
+	SetLineTexture(25, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineActivation (26, SPAC_Use);//puzzle_1 buttons
+	SetLineTexture(26, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineActivation (27, SPAC_Use);//puzzle_1 buttons
+	SetLineTexture(27, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineActivation (28, SPAC_Use);//puzzle_1 buttons
+	SetLineTexture(28, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+}
+
+
+script "GotoStrafLocation" (int tid, int returnTid){
+	//ACS_NamedExecute("OxygenRegen",0, 5);
+	ParentSpotToReturnTID = returnTid;
+	ACS_NamedExecuteAlways("TeleportHellFluence", 0, tid);
+	Thing_Activate(47);//wind
+	Thing_Activate(55);//skybox flashes
+	ACS_NamedExecuteAlways("Mus_Alastor", 0);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+script "GotoPuzzle2" (void){
+	ACS_NamedExecuteAlways("TeleportHellFluence", 0, 49);
+	ACS_NamedTerminate("CreepRandomAmbient", 0);
+	ACS_NamedTerminate("TecRandomAmbient", 0);
+	Thing_DeActivate(48);//destroyer
+	for(int i=1; i<47; i++){ Thing_DeActivate(i); }//deactivates all things in first area if it not destroyed
+	delay(5);
+	//ACS_NamedExecute("SetSky", 0, 163);//mars sky
+	delay(35*10);
+	ACS_NamedExecute("OxygenDrain", 0, 1);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool CraterEventComplete = false;
+script "CallCraterLift" (void){
+	if(!CraterEventComplete){
+		SetLineActivation (69, SPAC_None);//Lift button
+		SetLineTexture(69, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+		PlaySound(69, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		Delay(35*3);
+
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Radius_Quake2 (72, 3, 35*3, 0, 2048, "world/pumm");
+		Delay(35*3);
+		AmbientSound("world/stonebre", 1.0);
+		Radius_Quake2 (72, 3, 35*6, 0, 2048, "world/pumm");
+		AmbientSound("world/HELLTP1", 1.0);
+		Ceiling_LowerByValue(74, 32, 1333);
+		ACS_NamedExecute("AnimateMarsLights", 0, 75, 35*10, 1);//change to hell
+
+		delay((35*2)-10);
+		//activate teleport FX here
+		AmbientSound("world/HELLTP2", 1.0);
+		delay(35*2);
+		Thing_Activate(72);//portal itself
+		Thing_Activate(73);//portal redlight
+		Thing_Activate(241);//heat
+		Radius_Quake2 (30, 6, 15*1, 0, 2048, "world/pumm");
+		delay(35*2);
+		ACS_NamedExecuteAlways("EyeHolderControl", 0);
+		ACS_NamedExecute("CreepRandomAmbient", 0);
+		delay(35*2);
+		ACS_NamedExecuteAlways("CraterWave", 0);
+	} else {
+		ACS_NamedExecute("DSCplatformLowerWaitRaize2", 0, 69, 620);
+		Floor_RaiseByValue(71, 64, 64);
+		delay(35+620/2);
+		Floor_LowerByValue(71, 16, 64);
+	}
+
+}
+
+
+int CraterWave_bad_attempts = 0;
+Script "CraterWave" (void){
+	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 999999, 999999);
+	if(CraterWave_bad_attempts>0){
+		delay(35*10);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 999999, 999999);
+	}
+	if(CraterWave_bad_attempts>1){
+		delay(35*10);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100506, 999999, 999999);
+	}
+}
+
+function bool isWaveOnline(void){ if(WaveOnline==true){return true;} return false;}
+
+int EYEholders_spawned = 0;
+int EYESleft = 0;
+function bool SpownedEnoughEYES(void){
+	int maxEYEholders = CraterWave_bad_attempts +4;
+	EYESleft = maxEYEholders - EYEholders_spawned;
+	if(EYEholders_spawned < maxEYEholders){
+		ACS_NamedExecute("DrawHelp", 0, 13);
+		return false;
+	}
+	return true;
+}
+
+
+script "GotoStrafLocation2" (int tid, int returnTid){
+	//Thing_Activate(78);//straf2 ambient gens. Test thing remove
+	ACS_NamedTerminate("CreepRandomAmbient", 0);
+	Thing_DeActivate(72);//portal & clouds
+	ACS_NamedExecute("OxygenRegen",0, 5);
+	ParentSpotToReturnTID = returnTid;
+	ACS_NamedExecuteAlways("TeleportHellFluence", 0, tid);
+	ACS_NamedExecuteAlways("Mus_Alastor", 0);
+}
+
+Script "EyeHolderControl" (void){
+	AmbientSound("world/HAPPEN2", 1.0);
+	Thing_Activate(94);//eye die light
+	delay(35*1);
+	Thing_DeActivate(94);//eye die light
+	delay(35*5);
+	ACS_NamedExecute("EYEholderTeleport", 0);
+	if(!SpownedEnoughEYES()){
+		EYEholders_spawned++;
+		Thing_Remove(6666);
+		delay(1);
+		SpawnSpotFacingForced("DSCeyeBounder", random(79, 81), 6666);
+		SetThingSpecial(6666, ACS_NamedExecuteAlways, "EyeHolderControl");
+
+		if(CraterWave_bad_attempts>1){
+			delay(35*5);
+			ACS_NamedExecute("DrawHelp", 0, 6);
+		}
+
+	} else {
+		if(!isWaveOnline()){
+			//another try
+			CraterWave_bad_attempts++;
+			EYEholders_spawned = 0;
+
+			delay(35*5);
+			ACS_NamedExecuteAlways("GotoStrafLocation2", 0, 83, 49);
+		} else {
+			//all eyes killed during wave. OK
+			ACS_NamedExecute("DrawHelp", 0, 9);
+			Thing_Remove(6666);
+
+
+		ACS_NamedTerminate("EYEholderTeleport", 0);
+		ACS_NamedExecuteAlways("RestoreMusic", 0);
+		ACS_NamedExecute("AnimateMarsLights", 0, 75, 35*10, 0);//change from hell
+		ACS_NamedTerminate("CreepRandomAmbient", 0);
+		Thing_DeActivate(72);//portal itself
+		Thing_Remove(72);//portal & Souls
+		Thing_DeActivate(241);//heat
+		Ceiling_RaiseByValue(74, 32, 1333);
+		ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 73, 35*3);
+
+
+			Delay(5); while(WaveOnline){ Delay(5);}
+			//Thing_DeActivate(91);//helper 8
+
+			ACS_NamedExecute("CraterEventComplete", 0);
+		}
+	}
+
+}
+Script "CraterEventComplete" (void){
+		CraterEventComplete = true;
+
+		delay(35*5);
+		silence = true;
+		AmbientSound("world/DemonsOFF", 1.0);
+		delay(35*3);
+		silence = false;
+		SetLineActivation (69, SPAC_Use);//Lift button
+		SetLineTexture(69, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+		Thing_Activate(90);//helper 7
+		//PrintBold(s:"Lift unlocked");
+}
+Script "EYEholderTeleport" (void){
+	Thing_Move (6666, random(79, 81), false);
+	delay(random(35*1, 35*3));
+	restart;
+}
+bool Straf_2_vawed = false;
+Script "Straf_2_vawe" (void){
+	if(!Straf_2_vawed){
+		Straf_2_vawed = true;
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100554, 999999, 999999);
+		if(CraterWave_bad_attempts>1){
+			delay(35*10);
+			ACS_NamedExecuteAlways("SpawnWave", 0, 100555, 999999, 999999);
+		}
+		if(CraterWave_bad_attempts>2){
+			delay(35*20);
+			ACS_NamedExecuteAlways("SpawnWave", 0, 100556, 999999, 999999);
+		}
+		//wait for wave end
+		Delay(5); while(WaveOnline){ Delay(5);}
+		//spawn teleport to parent area
+		SpawnSpotFacingForced("DSCportalToMap", 82, 83);
+		SetThingSpecial(83, ACS_NamedExecute, "ReturnToParent_2");
+
+	}
+}
+
+script "ReturnToParent_2" (void){
+	//Thing_DeActivate(78);//straf2 ambient gens. Test thing remove
+	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	ACS_NamedExecute("CreepRandomAmbient", 0);
+	StrafComplete = true;
+	Straf_2_vawed = false;
+	Thing_Activate(72);
+	ACS_NamedExecuteAlways("TeleportHellFluence", 0, ParentSpotToReturnTID);
+	delay(35*5);
+	ACS_NamedExecute("OxygenDrain", 0, 1);
+	SpawnSpotFacingForced("DSCeyeBounder", random(79, 81), 6666);
+	SetThingSpecial(6666, ACS_NamedExecuteAlways, "EyeHolderControl");
+	//Thing_Activate(89);//helper 6
+	ACS_NamedExecute("DrawHelp", 0, 6);
+	//PrintBold(s:"Destroy EYES during the buttle");
+	Delay(35*5);
+	ACS_NamedExecuteAlways("CraterWave", 0);
+}
+
+
+
+
+/*
+script "ReturnToParent_2" (void){
+	Thing_DeActivate(47);//wind
+	StrafComplete = true;
+	straf_1_vawed = false;
+	ACS_NamedExecuteAlways("TeleportHellFluence", 0, ParentSpotToReturnTID);
+}
+*/
+
+
+
+bool coridorTrap1activated = false;
+script "coridorTrap1" (void){
+	if(!coridorTrap1activated){
+		coridorTrap1activated = true;
+		SetLineActivation (103, SPAC_None);
+		SetLineActivation (130, SPAC_None);
+		ACS_NamedExecuteAlways("DeactivateBrokenLamp2", 0, 114, 114, 35*3);
+		ACS_NamedExecuteAlways("ThingDeactivateBroken", 0, 132, 35*3);//sparks
+		Thing_Activate(131);//spark sounds
+		delay(35*5);
+		Thing_DeActivate(131);//spark sounds
+		SetLineTexture(103, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+		PlaySound(105, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		for(int i = 115; i<=129; i++){Thing_Activate(i);}//alarms in left coridor of second part
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100512, 888888, 999999);//hidden wave
+		ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+		delay(35*5);
+		while ( GetTotalMonsters()>0){ Delay(35); }//wait for hidden wave done
+		delay(35*5);
+		ACS_NamedExecuteAlways("Mus_COMPUTER", 0);
+		for(i = 115; i<=129; i++){Thing_DeActivate(i);}//alarms in left coridor of second part
+		ACS_NamedExecuteAlways("ActivateBrokenLamp2", 0, 114, 114, 35*3);
+		ACS_NamedExecuteAlways("ThingDeactivateBroken", 0, 132, 35*3);//sparks
+		Thing_Activate(131);//spark sounds
+		delay(35*5);
+		Thing_DeActivate(131);//spark sounds
+		SetLineActivation (103, SPAC_Use);
+		SetLineActivation (130, SPAC_Use);
+		SetLineTexture(103, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	}
+}
+
+//TurnOffForcefield at blue key
+Script "TurnOffForcefield" (int linetag){
+	Thing_DeActivate(linetag);//for sound and light
+	SetLineBlocking(linetag, OFF);
+	SetLineTexture(linetag, SIDE_FRONT, TEXTURE_MIDDLE, "-");
+	SetLineTexture(linetag, SIDE_BACk, TEXTURE_MIDDLE, "-");
+}
+
+
+//callback for yellow switch cequence
+int try142 = 0;
+Script 142 (int done){
+	delay(35*2);
+	SetLineTexture(143, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+	SetLineTexture(144, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+	SetLineTexture(145, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+	SetLineActivation (143, SPAC_None);
+	SetLineActivation (144, SPAC_None);
+	SetLineActivation (145, SPAC_None);
+
+	if(done){
+		PlaySound(143, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		PlaySound(144, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		PlaySound(145, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		ACS_NamedExecuteAlways("TurnOffForcefield", 0, 149);
+		terminate;
+	}
+	SetLineActivation (146, SPAC_None);//door
+	AmbientSound("world/hell_influence",1.0 );
+	ACS_NamedExecuteAlways("DeactivateBrokenLamp2", 0, 150, 150, 35*2);
+	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	delay(35*2);
+	Thing_Activate(147);//heat haze
+	Thing_Activate(148);//red light
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 888888, 999999);//hidden wave
+	if(try142>0){
+		delay(35*5);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 999999);//hidden wave
+	}
+	if(try142>1){
+		delay(35*5);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100511, 888888, 999999);//hidden wave
+	}
+	delay(35*5);
+	while ( GetTotalMonsters()>0){ Delay(35); }//wait for hidden wave done
+	delay(35*2);
+	ACS_NamedExecuteAlways("Mus_COMPUTER", 0);
+	Thing_DeActivate(147);//heat haze
+	Thing_DeActivate(148);//red light
+	ACS_NamedExecuteAlways("ActivateBrokenLamp2", 0, 150, 150, 35*2);
+	SetLineTexture(143, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineTexture(144, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineTexture(145, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineActivation (143, SPAC_Use);
+	SetLineActivation (144, SPAC_Use);
+	SetLineActivation (145, SPAC_Use);
+	SetLineActivation (146, SPAC_Use);//door
+	PlaySound(134, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	try142++;
+}
+
+//callback for blue switch cequence
+int try134 = 0;
+Script 134 (int done){
+	delay(35*2);
+	SetLineTexture(135, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+	SetLineTexture(136, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+	SetLineTexture(137, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+	SetLineActivation (135, SPAC_None);
+	SetLineActivation (136, SPAC_None);
+	SetLineActivation (137, SPAC_None);
+
+	if(done){
+		PlaySound(135, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		PlaySound(136, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		PlaySound(137, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		ACS_NamedExecuteAlways("TurnOffForcefield", 0, 133);
+		terminate;
+	}
+	SetLineActivation (141, SPAC_None);//door
+	AmbientSound("world/hell_influence",1.0 );
+	ACS_NamedExecuteAlways("DeactivateBrokenLamp2", 0, 139, 139, 35*2);
+	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	delay(35*2);
+	Thing_Activate(138);//heat haze
+	Thing_Activate(140);//red light
+
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100513, 888888, 999999);//hidden wave
+	delay(35*5);
+	if(try134>0){
+		delay(35*5);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100514, 888888, 999999);//hidden wave
+	}
+	if(try134>1){
+		delay(35*5);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100515, 888888, 999999);//hidden wave
+	}
+	delay(35*5);
+	while ( GetTotalMonsters()>0){ Delay(35); }//wait for hidden wave done
+
+	delay(35*2);
+	ACS_NamedExecuteAlways("Mus_COMPUTER", 0);
+	Thing_DeActivate(138);//heat haze
+	Thing_DeActivate(140);//red light
+	ACS_NamedExecuteAlways("ActivateBrokenLamp2", 0, 139, 139, 35*2);
+	SetLineTexture(135, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineTexture(136, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineTexture(137, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineActivation (135, SPAC_Use);
+	SetLineActivation (136, SPAC_Use);
+	SetLineActivation (137, SPAC_Use);
+	SetLineActivation (141, SPAC_Use);//door
+	PlaySound(134, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	try134++;
+}
+
+
+
+script "TrapWaveRedKey" (void){
+	SetLineTexture(99, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+	SetLineActivation (99, SPAC_None);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100507, 888888, 999999);//hidden wave
+	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	delay(35*5);
+	while ( GetTotalMonsters()>0){SetLineTexture(99, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0"); Delay(35); }//wait for hidden wave done
+	ACS_NamedExecuteAlways("Mus_COMPUTER", 0);
+	SetLineTexture(99, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineActivation (99, SPAC_Use);
+	PlaySound(99, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+}
+
+script "TrapWaveYellowKey_1" (void){
+	SetLineTexture(102, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+	SetLineActivation (102, SPAC_None);
+	SetLineActivation (154, SPAC_None);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 888888, 999999);//hidden wave
+	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
+	delay(35*5);
+	while ( GetTotalMonsters()>0){SetLineTexture(102, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0"); Delay(35); }//wait for hidden wave done
+	ACS_NamedExecuteAlways("Mus_COMPUTER", 0);
+	SetLineTexture(102, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineActivation (102, SPAC_Use);
+	SetLineActivation (154, SPAC_Use);
+	PlaySound(102, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+}
+
+
+int TowerContDown = 60*5;
+Script "TowerContDown" (void){
+	if(TowerContDown>0){
+		Delay(35);
+		TowerContDown = TowerContDown-1;
+		restart;
+	}
+}
+
+int CentralSequence = 0;
+script "CentralSequence" (int linetag) {
+
+
+	if(GetTotalMonsters()>0){
+		SetLineTexture(linetag, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+		PlaySound(linetag, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(35*1);
+		SetLineTexture(linetag, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+		delay(35*2);
+		ACS_NamedExecute("DrawHelp", 0, 9);
+		terminate;
+	}
+	SetLineTexture(linetag, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_2");
+	SetLineActivation (linetag, SPAC_None);
+	if(CentralSequence<3){
+		PlaySound(0, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(3);
+		ACS_NamedExecuteAlways("Mus_SM1", 0);
+
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100516, 888888, 999999);//hidden wave
+		delay(35*5);
+
+		if(CentralSequence>0){
+			ACS_NamedExecuteAlways("SpawnWave", 0, 100517, 888888, 999999);//hidden wave
+			delay(35*5);
+		}
+		if(CentralSequence>1){
+			ACS_NamedExecuteAlways("SpawnWave", 0, 100518, 888888, 999999);//hidden wave
+			delay(35*5);
+		}
+		CentralSequence++;
+
+		while ( GetTotalMonsters()>0){ Delay(35); }//wait for hidden wave done
+		PlaySound(0, "WAVEDONE", CHAN_AUTO, 1.0,  false, ATTN_NONE );
+		ACS_NamedExecuteAlways("Mus_COMPUTER", 0);
+		if(CentralSequence==3){
+			//main puzzle
+			//survive 5 min
+			SetLineTexture(159, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+			SetLineActivation (159, SPAC_None);
+			SetLineTexture(99, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+			SetLineActivation (99, SPAC_None);
+			SetLineTexture(102, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+			SetLineActivation (102, SPAC_None);
+			SetLineTexture(105, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+			SetLineActivation (105, SPAC_None);
+			SetLineActivation (160, SPAC_None);//door to lift
+
+
+			Radius_Quake2 (158, 3, 35*3, 0, 2048, "world/pumm");
+			Delay(35*3);
+			AmbientSound("world/stonebre", 1.0);
+			Radius_Quake2 (158, 3, 35*6, 0, 2048, "world/pumm");
+			AmbientSound("world/HELLTP1", 1.0);
+			Ceiling_LowerByValue(152, 32, 704);
+			ACS_NamedExecute("AnimateMarsLights", 0, 75, 35*10, 1);//change to hell
+			delay((35*2)-10);
+			//activate teleport FX here
+			AmbientSound("world/HELLTP2", 1.0);
+			delay(35*2);
+			Thing_Activate(158);//portal and staff
+			Radius_Quake2 (158, 6, 15*1, 0, 2048, "world/pumm");
+			ACS_NamedExecuteAlways("Mus_M3", 0);
+			delay(35*2);
+			ACS_NamedExecute("CreepRandomAmbient", 0);
+			delay(35*2);
+			//start infinit waves and antenn FX
+			ACS_NamedExecuteAlways("TowerContDown", 0);
+			int StartWaveCounter = 0;
+			while (TowerContDown>0){
+				hudmessageBold(s:"Survive ", i:TowerContDown, s:" seconds"; HUDMSG_PLAIN, 1313, CR_WHITE, 1.5, 0.2, 1.0);
+				Delay(35);
+				if(GetTotalMonsters()<4 && StartWaveCounter>10){
+				switch (random(1,4)) {
+					case 1:
+						ACS_NamedExecuteAlways("SpawnWave", 0, 100516, 888888, 999999);//hidden wave
+					case 2:
+						ACS_NamedExecuteAlways("SpawnWave", 0, 100517, 888888, 999999);//hidden wave
+					case 3:
+						ACS_NamedExecuteAlways("SpawnWave", 0, 100518, 888888, 999999);//hidden wave
+					case 4:
+						ACS_NamedExecuteAlways("SpawnWave", 0, 100519, 888888, 999999);//hidden wave
+				}
+
+					StartWaveCounter=0;
+				}
+				StartWaveCounter++;
+			}
+			ACS_NamedExecute("DrawHelp", 0, 10);
+			while ( GetTotalMonsters()>0){Delay(35); }//wait for hidden wave done
+
+
+			ACS_NamedExecute("AnimateMarsLights", 0, 75, 35*10, 0);//change to mars
+			Radius_Quake2 (158, 3, 35*6, 0, 2048, "world/pumm");
+			Delay(35*3);
+			Ceiling_RaiseByValue(152, 32, 704);
+			Thing_DeActivate(158);//portal and staff
+			Thing_Remove(158);//portal & Souls
+			ACS_NamedTerminate("CreepRandomAmbient", 0);
+			Delay(35*3);
+			ACS_NamedExecuteAlways("RestoreMusic", 0);
+			//TODO goto next area staff
+			ACS_NamedExecuteAlways("GotoPuzzle3", 0);
+		}
+	}
+
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+script "GotoPuzzle3" (void){
+	Thing_DeActivate(167);//hellgate main light
+	Thing_DeActivate(170);//ambient overroom
+	Thing_DeActivate(200);//spark sounds
+	ACS_NamedExecuteAlways("FadeOutMusic", 0);
+	ACS_NamedExecuteAlways("TeleportHellFluence", 0, 161);
+	ACS_NamedExecute("OxygenRegen", 0, 1);
+
+	delay(35*3);
+	SetMusic("COMPUTER", 0);
+	ACS_NamedExecuteAlways("FadeInMusic", 0);
+	ACS_NamedExecute("SetSky", 0, 165);
+	delay(35*5);
+	Thing_Activate(162);//destroyer
+	for(int i=100; i<160; i++){ Thing_DeActivate(i); }//deactivates all things in second area if it not destroyed
+	SetLineActivation (203, SPAC_Use);
+
+	//ACS_NamedExecuteAlways("FakeRoom", 0);//test thing
+	//SpawnSpotFacingForced("DSCeyeBounder", 212, 213);//test thing
+	//delay(35*5);
+	//ACS_NamedExecute("GateVawe1", 0);//test thing
+
+	//delay(35*10);
+	//ACS_NamedExecute("OpenGates", 0);//test thing
+	//ACS_NamedExecute("LastStand", 0);//test thing
+	//ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);//test thing
+}
+
+script "FakeRoom" (void){
+	AmbientSound("world/cp_deny", 1.0);
+	ACS_NamedExecuteAlways("FadeOutMusic", 0);
+	delay(35*2);
+	Radius_Quake2 (201, 2, 35*10, 0, 2048, "world/pumm");
+	Thing_Activate(200);//spark sounds
+	ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 199, 35*3);
+	AmbientSound("world/suspense", 1.0);
+	delay(35*3);
+	Thing_DeActivate(200);//spark sounds
+	Thing_Activate(201);//steam gen
+	delay(35*3);
+
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (185, random(32, 64), 5000);
+
+	Thing_Activate(170);
+	delay(35*(random(1,2)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+
+	FloorAndCeiling_RaiseByValue (186, random(32, 64), 5000);
+	delay(35*(random(1,2)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (187, random(32, 64), 5000);
+	delay(35*(random(1,2)));
+	Thing_DeActivate(175);//yellow lights
+	Thing_Activate(170);//wind
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (188, random(32, 64), 5000);
+	delay(35*(random(1,2)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (189, random(32, 64), 5000);
+	delay(35*(random(1,2)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (190, random(32, 64), 5000);
+	delay((random(15,35)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (191, random(32, 64), 5000);
+	delay((random(15,35)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (192, random(32, 64), 5000);
+	Thing_DeActivate(201);//steam gen
+	//Thing_Activate(166);//acive ambient
+	delay((random(15,35)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (193, random(32, 64), 5000);
+	delay((random(15,35)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (194, random(32, 64), 5000);
+	delay((random(15,35)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (195, random(32, 64), 5000);
+	delay((random(15,35)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (196, random(32, 64), 5000);
+	delay((random(15,35)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_RaiseByValue (197, random(32, 64), 5000);
+	delay((random(15,35)));
+	Radius_Quake2 (202, 3, 35*3, 0, 2048, "world/pumm");
+	AmbientSound("Mstress", 1.0);
+	FloorAndCeiling_LowerByValue (198, 8, 64);
+	SetMusic("DTEMPLE", 0);
+	ACS_NamedExecuteAlways("FadeInMusic", 0);
+
+	SetLineTexture(204, SIDE_FRONT, TEXTURE_MIDDLE, "HGATES");
+
+}
+//206-211 - eyes
+bool eyesSpawned = false;
+script "SpawnEyes" (void) {
+	if(!eyesSpawned){
+		eyesSpawned = true;
+		ACS_NamedExecuteAlways("Mus_BTTL_ES", 0);
+		for(int i=206; i<=211; i++){
+				SpawnSpotFacingForced("TeleportFog", i, 0);
+				SpawnSpotFacingForced("DSCGREATeyeBounder", i, 1313);
+				delay(35*random(1, 5));
+		}
+
+		while(ThingCount(T_NONE, 1313)>0){
+			delay(35);
+		}
+		ACS_NamedExecuteAlways("Mus_DTEMPLE", 0);
+		SpawnSpotFacingForced("TeleportFog", 212, 0);
+		SpawnSpotFacingForced("DSCeyeBounder", 212, 213);
+		Thing_Activate(166);//acive ambient
+		while(ThingCount(T_NONE, 213)>0){
+			delay(35);
+		}
+		ACS_NamedExecute("GateVawe1", 0);
+		Thing_DeActivate(166);//acive ambient
+	}
+}
+
+
+script "GateVawe1" (void){
+	Floor_LowerByValue(213, 8, 220);
+	Delay(220+35*3);
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+	restoreMusicAfterWave = false;
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100520, 999999, 999999);
+	Thing_Remove(213);//remove eyes corpses
+	//wait for wave end
+	Delay(5);
+	while(WaveOnline){ Delay(5);}
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100521, 999999, 999999);
+	//wait for wave end
+	Delay(5);
+	while(WaveOnline){ Delay(5);}
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100521, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100520, 999999, 999999);
+	//wait for wave end
+	Delay(5);
+	while(WaveOnline){ Delay(5);}
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100522, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100521, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100520, 100100, 999999);
+
+	Delay(5);//wait for wave end
+	while(WaveOnline){ Delay(5);}
+	SetMusic("DTEMPLE", 0);
+	Thing_Activate(166);//acive ambient
+	//wait for scull pickup
+	while(!NextWaveReady){delay(35);} NextWaveReady = false;
+	Thing_DeActivate(166);//acive ambient
+
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100523, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100522, 100100, 999999);
+
+	Delay(5);//wait for wave end
+	while(WaveOnline){ Delay(5);}
+	Thing_Activate(166);//acive ambient
+	SetMusic("DTEMPLE", 0);
+	//wait for scull pickup
+	while(!NextWaveReady){delay(35);} NextWaveReady = false;
+	Thing_DeActivate(166);//acive ambient
+
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100524, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100522, 999999, 999999);
+	Delay(5);//wait for wave end
+	while(WaveOnline){ Delay(5);}
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100520, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100521, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100522, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100524, 100100, 999999);
+
+	Delay(5);//wait for wave end
+	while(WaveOnline){ Delay(5);}
+	Thing_Activate(166);//acive ambient
+	SetMusic("DTEMPLE", 0);
+	//wait for scull pickup
+	while(!NextWaveReady){delay(35);} NextWaveReady = false;
+	Thing_DeActivate(166);//acive ambient
+
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100523, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100525, 100100, 999999);
+
+	Delay(5);//wait for wave end
+	while(WaveOnline){ Delay(5);}
+	Thing_Activate(166);//acive ambient
+	SetMusic("DTEMPLE", 0);
+	//wait for scull pickup
+	while(!NextWaveReady){delay(35);} NextWaveReady = false;
+	////////////////////////////////////////////////////////
+	//mastermind
+	Delay(35*3);
+	ACS_NamedExecute("OpenGates", 0);
+}
+
+script "OpenGates" (void){
+	Thing_DeActivate(166);//acive ambient
+	SetLineTexture(204, SIDE_FRONT, TEXTURE_MIDDLE, "HGATES");
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+	AmbientSound("world/openHell", 127);
+	delay(35);
+	Thing_Activate(214);//gate fire
+	Thing_Activate(167);//gate lights
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100526, 100100, 999999);
+	delay(35*2);
+	Floor_LowerToLowest(215, 64);
+	Thing_Activate(216);//gates ambient
+	delay(35*10);
+	Thing_DeActivate(214);//gate fire
+
+	delay(35*10);
+	polyobj_Move(10, 128, 192, 736);
+	delay(35*10);
+	polyobj_Move(10, 128, 64, 736);
+
+
+	Delay(5);//wait for wave end
+	while(WaveOnline){ Delay(5);}
+	Thing_Activate(166);//acive ambient
+	SetMusic("DTEMPLE", 0);
+	//wait for scull pickup
+	while(!NextWaveReady){delay(35);} NextWaveReady = false;
+	Thing_DeActivate(166);//acive ambient
+
+
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100527, 100100, 999999);//cyberdemon
+	delay(35*20);
+
+	polyobj_Move(10, 128, 192, 736);
+	delay(35*10);
+	polyobj_Move(10, 128, 64, 736);
+
+	while(WaveOnline){ Delay(5);}
+	Thing_Activate(166);//acive ambient
+	SetMusic("DTEMPLE", 0);
+	//wait for scull pickup
+	while(!NextWaveReady){delay(35);} NextWaveReady = false;
+	Thing_DeActivate(166);//acive ambient
+
+
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100522, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100524, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100527, 100100, 999999);//cyberdemon
+	delay(35*20);
+
+
+	polyobj_Move(10, 128, 192, 736);
+	delay(35*10);
+	polyobj_Move(10, 128, 64, 736);
+
+
+	while(WaveOnline){ Delay(5);}
+	Thing_Activate(166);//acive ambient
+	SetMusic("DTEMPLE", 0);
+	//wait for scull pickup
+	while(!NextWaveReady){delay(35);} NextWaveReady = false;
+	Thing_DeActivate(166);//acive ambient
+
+
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100521, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100525, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100528, 100100, 999999);//2 cyberdemons
+	delay(35*25);
+
+	polyobj_Move(10, 128, 192, 736);
+	delay(35*10);
+	polyobj_Move(10, 128, 64, 736);
+
+
+	while(WaveOnline){ Delay(5);}
+	Thing_Activate(166);//acive ambient
+	SetMusic("DTEMPLE", 0);
+	//wait for scull pickup
+	while(!NextWaveReady){delay(35);} NextWaveReady = false;
+	Thing_DeActivate(166);//acive ambient
+
+
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100526, 999999, 999999);
+	//Delay(35*10);
+	//ACS_NamedExecuteAlways("SpawnWave", 0, 100527, 999999, 999999);
+	Delay(35*10);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100528, 100100, 999999);
+	delay(35*25);
+
+	polyobj_Move(10, 128, 192, 736);
+	delay(35*10);
+	polyobj_Move(10, 128, 64, 736);
+
+	while(WaveOnline){ Delay(5);}
+	Thing_Activate(166);//acive ambient
+	SetMusic("DTEMPLE", 0);
+	//wait for scull pickup
+	while(!NextWaveReady){delay(35);} NextWaveReady = false;
+	Thing_DeActivate(166);//acive ambient
+
+	ACS_NamedExecute("LastStand", 0);
+}
+
+bool ChoiseStarted = false;
+int InfinitWaveStart=0;
+script "LastStand" (void){
+
+	polyobj_Move(10, 128, 64, 736);//just in case
+
+	Thing_Activate(233);//destroyer on the other side
+	ACS_NamedExecuteAlways("Mus_BTTL_ORD", 0);
+
+	Sector_SetWind (217, 512, 0, 0);
+	Sector_SetWind (220, 128, 0, 0);
+	Sector_SetWind (218, 512, 128, 0);
+	Sector_SetWind (221, 128, 128, 0);
+	Sector_SetWind (219, 512, 64, 0);
+
+	Sector_SetWind (222, 32, 64, 0);
+	Sector_SetWind (223, 64, 64, 0);
+	Sector_SetWind (224, 128, 64, 0);
+	Sector_SetWind (225, 256, 64, 0);
+
+	Thing_Activate(231);//hell inwind
+	Thing_DeActivate(170);
+	Thing_Activate(227);//final light
+	Thing_Activate(228);//last light actor
+	ACS_NamedExecute("DrawHelp", 0, 11);
+	Line_SetBlocking (229, BLOCKF_CREATURES|BLOCKF_MONSTERS|BLOCKF_FLOATERS , 0);
+	SpawnSpotFacingForced("DSCprisonedSaintBIG", 230, 0);
+
+	InfinitWaveStart = GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+	ACS_NamedExecute("InfinitWave", 0);
+
+	delay(35*15);
+
+	SetLineActivation (204, SPAC_Cross);
+	SetLineBlocking(204, BLOCK_NOTHING);
+	delay(35*17);
+	ChoiseStarted = true;
+
+}
+
+script "InfinitWave" (void){
+	//234-239
+
+		for(int i=234; i<=239; i++){
+			SpawnSpotFacingForced("TeleportFog", i, 0);
+			if(random(1,2)==1){
+				SpawnSpotFacingForced("DoomImp", i, 0);
+			} else {
+				SpawnSpotFacingForced("Demon", i, 0);
+			}
+
+			delay(random(15, 35*3));
+		}
+
+	 while(GetLevelInfo (LEVELINFO_KILLED_MONSTERS) - InfinitWaveStart < 4){
+		 delay(5);
+	 }
+	 InfinitWaveStart = GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+
+	 restart;
+
+}
+script "ThisIsYourChoise" (void){
+	if(ChoiseStarted){
+		ACS_NamedExecute("DrawHelp", 0, 12);
+	}
+}
+script "RestartHELL" (void){
+	CurrentWave = 0;
+	AmmoMaxRnd = 0;
+	WeaponGotID = 0;
+	GlobalAttempt++;
+	ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
+
+}
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
+
+	if (Time==0){Time=3;}
+
+	switch (HelpID) {
+		case 1:
+			hudmessageBold(s:"Activate portal mashinery"; HUDMSG_PLAIN, 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 2:
+			hudmessageBold(s:"Activate portal from control room."; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 3:
+			hudmessageBold(s:"Sequence complete!"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 4:
+			hudmessageBold(s:"Clear the area"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 5:
+			hudmessageBold(s:"Try to turn off all controll panels \nduring the battle!"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 6:
+			hudmessageBold(s:"Destroy EYES during the battle"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 7:
+			hudmessageBold(s:"Lift unlocked"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 8:
+			hudmessageBold(s:"Sequence complete!\nClear the area."; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 9:
+			hudmessageBold(s:"Clear the area"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 10:
+			hudmessageBold(s:"Trial Complete\nClear the area"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		case 11:
+			hudmessageBold(s:"Run to the light!"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, 15*1.1);
+			break;
+		case 12:
+			hudmessageBold(s:"It's your choice!"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, 15*1.1);
+			break;
+		case 13:
+			hudmessageBold(i:EYESleft, s:" EYES left"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
+			break;
+		default:
+			PrintBold(s:"Be strong!");
+
+	}
+	Delay((Time+2)*35);
+	if(NextHelpTag>0){
+		Thing_Activate(NextHelpTag);
+	}
+}
+
+
+
+
+
+
+int MarsLightR = 100;
+int MarsLightG = 60;
+int MarsLightB = 60;
+
+int MarsFadeR = 102;
+int MarsFadeG = 66;
+int MarsFadeB = 57;
+
+
+int HellLightR = 128;
+int HellLightG = 0;
+int HellLightB = 0;
+
+int HellFadeR = 64;
+int HellFadeG = 5;
+int HellFadeB = 5;
+
+int MarsLightRcurrent = 0;
+int MarsLightGcurrent = 0;
+int MarsLightBcurrent = 0;
+
+int MarsFadeRcurrent = 0;
+int MarsFadeGcurrent = 0;
+int MarsFadeBcurrent = 0;
+
+
+//bool MarsLightAnimateStarted = false;
+
+int MarsHellLightIteration = 1;
+
+function int AnimateINT(int from, int to, int iterationTotal, int iteration){
+	int current;
+	if(to>from){
+		current = from + (( (to - from)*65536/iterationTotal  )*iteration)/65536;
+	} else {
+		current = from - (( (from - to)*65536/iterationTotal  )*iteration)/65536;
+	}
+
+	return current;
+}
+
+script "AnimateMarsLights" (int tid, int tics, int hell){
+
+	if(hell==1){
+		Thing_Deactivate(77);//sun and glows
+		if(MarsHellLightIteration==1){
+			MarsLightRcurrent = MarsLightR;
+			MarsLightGcurrent = MarsLightG;
+			MarsLightBcurrent = MarsLightB;
+
+			MarsFadeRcurrent = MarsFadeR;
+			MarsFadeGcurrent = MarsFadeG;
+			MarsFadeBcurrent = MarsFadeB;
+		}
+		if(MarsHellLightIteration <= tics){
+			MarsLightRcurrent = AnimateINT(MarsLightR, HellLightR, tics, MarsHellLightIteration);
+			MarsLightGcurrent = AnimateINT(MarsLightG, HellLightG, tics, MarsHellLightIteration);
+			MarsLightBcurrent = AnimateINT(MarsLightB, HellLightB, tics, MarsHellLightIteration);
+
+			MarsFadeRcurrent = AnimateINT(MarsFadeR, HellFadeR, tics, MarsHellLightIteration);
+			MarsFadeGcurrent = AnimateINT(MarsFadeG, HellFadeG, tics, MarsHellLightIteration);
+			MarsFadeBcurrent = AnimateINT(MarsFadeB, HellFadeB, tics, MarsHellLightIteration);
+
+
+			Thing_SetSpecial (tid, 0, MarsLightRcurrent, MarsLightGcurrent, MarsLightBcurrent);
+			Sector_SetFade (76, MarsFadeRcurrent, MarsFadeGcurrent, MarsFadeBcurrent);
+			MarsHellLightIteration++;
+			delay(1);
+			Restart;
+		}
+
+	} else {
+		Thing_Activate(77);//sun and glows
+		if(MarsHellLightIteration==1){
+			MarsLightRcurrent = HellLightR;
+			MarsLightGcurrent = HellLightG;
+			MarsLightBcurrent = HellLightB;
+
+			MarsFadeRcurrent = HellFadeR;
+			MarsFadeGcurrent = HellFadeG;
+			MarsFadeBcurrent = HellFadeB;
+
+		}
+		if(MarsHellLightIteration <= tics){
+			MarsLightRcurrent = AnimateINT(HellLightR, MarsLightR, tics, MarsHellLightIteration);
+			MarsLightGcurrent = AnimateINT(HellLightG, MarsLightG, tics, MarsHellLightIteration);
+			MarsLightBcurrent = AnimateINT(HellLightB, MarsLightB, tics, MarsHellLightIteration);
+
+			MarsFadeRcurrent = AnimateINT(HellFadeR, MarsFadeR, tics, MarsHellLightIteration);
+			MarsFadeGcurrent = AnimateINT(HellFadeG, MarsFadeG, tics, MarsHellLightIteration);
+			MarsFadeBcurrent = AnimateINT(HellFadeB, MarsFadeB, tics, MarsHellLightIteration);
+
+			Thing_SetSpecial (tid, 0, MarsLightRcurrent, MarsLightGcurrent, MarsLightBcurrent);
+			Sector_SetFade (76, MarsFadeRcurrent, MarsFadeGcurrent, MarsFadeBcurrent);
+
+			MarsHellLightIteration++;
+			delay(1);
+			Restart;
+		}
+
+	}
+
+	MarsHellLightIteration = 1;
+	Terminate;
+}

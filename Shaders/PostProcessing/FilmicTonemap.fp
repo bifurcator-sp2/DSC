@@ -10,12 +10,12 @@ vec3 CLutFunc( vec3 colorIN) {
     vec2 CLut_pSize = vec2(1.0 / CLut_Size);
     vec4 CLut_UV;
     colorIN    = saturate(colorIN) * ( CLut_Size.y - 1.0);
-    CLut_UV.w  = floor(colorIN.z);
-    CLut_UV.xy = (colorIN.xy + 0.5) * CLut_pSize;
+    CLut_UV.w  = floor(colorIN.b);
+    CLut_UV.xy = (colorIN.rg + 0.5) * CLut_pSize;
     CLut_UV.x += CLut_UV.w * CLut_pSize.y;
     CLut_UV.z  = CLut_UV.x + CLut_pSize.y;
-    return       mix(texture(ColourmapLUT, CLut_UV.xy, 0).xyz, 
-                     texture(ColourmapLUT, CLut_UV.zy, 0).xyz, colorIN.z - CLut_UV.w);
+    return       mix(textureLod(ColourmapLUT, CLut_UV.xy,CLut_UV.z).rgb, 
+                     textureLod(ColourmapLUT, CLut_UV.zy,CLut_UV.z).rgb, colorIN.b - CLut_UV.w);
 }
 
 void main() 

@@ -1,0 +1,402 @@
+//episode wave count definition
+int maxWaveCount = 75;//--------------------------
+//episode wave count definition
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+//25WAVES
+
+bool DOOR_161on = false;
+bool DOOR_171on = false;
+bool DOOR_172on = false;
+bool AIR_DOOR_3_on = false;
+int EayesKilled = 0;
+script "StartControl" ENTER
+{
+	delay(5);
+	Thing_Activate(1);
+	Thing_DeActivate(96);//red alarm top of lift
+	Thing_DeActivate(98);//red light top of lift & siren
+	Thing_DeActivate(101);//red light top of lift 2
+	Thing_DeActivate(100);//steam in lift
+	//ACS_NamedExecuteAlways("SatartFirstWave", 0);//test thing!!! remove at end of condtruction
+	//Thing_Activate(64);//test thing!!! remove at end of condtruction
+	//Thing_Activate(167);//test thing!!!
+
+	Scroll_Ceiling (21, 4, 0, 0);
+	Scroll_Ceiling (22, 0, 4, 0);
+	//TEST!
+	//NOspawn = true;
+/*
+	DSCplayerRank = 7;
+	CurrentWave = 50;
+	AmmoMaxRnd = 3;
+	WeaponGotID = 5;
+*/
+
+	bool inDEV = false;
+	//TEST!
+	if(inDEV){
+		GiveInventory("map09done", 1);
+	}
+
+
+}
+
+
+
+Script "SatartFirstWave" (void){
+
+		ACS_NamedExecuteAlways("Mus_SM2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999, 999999);
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		ACS_NamedExecuteAlways("Mus_SM2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999, 999999);
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		ACS_NamedExecuteAlways("Mus_SM2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 100100, 100400);
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		Thing_DeActivate(157);
+		//cinematic here
+		ACS_NamedExecuteAlways("LookAt", 0, 158, 35*7);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		Thing_Activate(157);
+		ACS_NamedExecuteAlways("Mus_SM3", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100100, 100400);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_SM3", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 100100, 100400);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_SM3", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 999999, 999999);
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		ACS_NamedExecuteAlways("Mus_SM3", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100100, 100400);
+		Delay(5);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		DOOR_161on = true;
+		PlaySound(161, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineTexture(161, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+		Thing_Activate(162);
+		Thing_Activate(163);
+		Thing_Activate(167);
+		ACS_NamedExecuteAlways("Mus_SM1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100506, 100101, 100401);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_SM1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100600, 100101, 100401);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+
+		ACS_NamedExecuteAlways("Mus_SM2", 0);
+		Thing_DeActivate(162);
+		//cinematic here
+		ACS_NamedExecuteAlways("LookAt", 0, 164, 35*7);
+		delay(35*10);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100507, 100102, 100402);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_SM1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 100102, 100402);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_SM1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 999999, 999999);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 999999, 999999);
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		ACS_NamedExecuteAlways("Mus_SM1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 100103, 100403);
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		Thing_DeActivate(167);
+		//cinematic here
+		ACS_NamedExecuteAlways("LookAt", 0, 168, 35*7);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_SM1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100511, 999999, 999999);
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		DOOR_171on = true;
+		PlaySound(171, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineTexture(171, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+		Delay(35*3);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100512, 999999, 999999);
+		Thing_DeActivate(163);
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		DOOR_172on = true;
+		PlaySound(172, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineTexture(172, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+		Delay(35*3);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100513, 999999, 999999);
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		Door_Open(173, 16, 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100514, 100104, 100404);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+
+		ACS_NamedExecute("AirDoorRotateAndBreaks", 0, 2, 128 ,64);
+		delay(35*3);
+		ACS_NamedExecuteAlways("Mus_SM1", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100515, 100104, 100404);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_SM2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100516, 999999, 999999);
+		AIR_DOOR_3_on = true;
+		PlaySound(150, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineTexture(149, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+		//wait for wave end
+		Delay(5);
+		while(WaveOnline){ Delay(5);}
+		Delay(5);
+		while(EayesKilled<2){ Delay(5);}
+		SpawnSpotFacingForced("WaveScullDEC", 100104, 100600);
+		SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_SM1", 0);
+		LastWave = true;
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100517, 100104, 100404);
+		//wait for scull pickup
+		while(!NextWaveReady){delay(1);} NextWaveReady = false;
+		for(int i = 5; i > 0; i--)
+		{
+			Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
+			Delay(35);
+		}
+		GiveInventory("map09done", 1);
+		TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+		Atrium1Active = true;
+		Exit_Normal(0);
+}
+
+
+script "EyeKilled"(void){EayesKilled++;}
+
+bool cageDoorOpened = false;
+script "cage_open_door"(void){
+	if(!cageDoorOpened){
+		Ceiling_RaiseByValue(86, 16, 64);
+		floor_Raisebyvalue(86, 16, 64);
+		Ceiling_RaiseByValue(87, 16, 96);
+		floor_Raisebyvalue(87, 16, 96);
+		PlaySound(41, "world/IRONMOVE", CHAN_AUTO, 1.0, false, ATTN_NORM);
+		delay(35);
+		cageDoorOpened = true;
+	}
+}
+script "cage_close_door"(void){
+	if(cageDoorOpened){
+		Ceiling_LowerByValue(86, 32, 64);
+		floor_Lowerbyvalue(86, 32, 64);
+		Ceiling_LowerByValue(87, 32, 96);
+		floor_Lowerbyvalue(87, 32, 96);
+		SetLineTexture(89, SIDE_FRONT, TEXTURE_MIDDLE, "SWT1_2");
+		PlaySound(41, "world/IRONMOVE", CHAN_AUTO, 1.0, false, ATTN_NORM);
+		delay(35*3);
+		SetLineTexture(89, SIDE_FRONT, TEXTURE_MIDDLE, "ZWT1_0");
+		cageDoorOpened = false;
+		ACS_NamedExecute("cage_go_up", 0);
+	}
+}
+
+script "cage_go_up"(void){
+	int speed = 8;//point per 8 tics (8/35sec)
+	//8 = 35units/sec, 1 unit/tic
+	//1 = 1/tic/8
+	int h = 1248;
+	if(!cageDoorOpened){
+		SetLineActivation(93, SPAC_NONE);
+		FloorAndCeiling_RaiseByValue(90, speed, h);
+		ACS_NamedExecute("CageSounds", 0);
+		ACS_NamedExecuteAlways("raize_actor_by_ceiling", 0, 91, 92);
+		ACS_NamedExecuteAlways("raize_actor_by_ceiling", 0, 94, 92);
+		PlaySound(41, "world/IRONMOVE", CHAN_AUTO, 1.0, false, ATTN_NORM);
+		delay(h-64);
+		PlaySound(91, "world/slideCrush", CHAN_AUTO, 1.0, false, ATTN_NORM);
+		Radius_Quake2 (91, 4, 64, 0, 256, 0);
+		ACS_NamedExecuteAlways("DeactivateBrokenLamp1", 0, 91, 95, 35*1);
+		ACS_NamedExecuteAlways("ThingActivateBroken", 0, 94, 35*2);//sparks
+		Thing_Activate(100);//steam
+		delay(64+35);
+		Thing_DeActivate(100);//steam
+		ACS_NamedTerminate("CageSounds", 0);
+		SetLineTexture(89, SIDE_FRONT, TEXTURE_MIDDLE, "SWT1_0");
+		PlaySound(91, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(35);
+		Thing_Activate(96);//alarm strobe
+		Thing_Activate(98);//alarm light and siren
+		Thing_Activate(101);//alarm light 2
+		//ACS_NamedExecute("ThingDeactivateBroken", 0, 92, 35*5);
+		delay(35*5);
+		//PrintBold(s:"asdasdasd");
+		//cageDoorOpened = true;
+		ACS_NamedExecute("cage_open_door", 0);
+	}
+}
+
+script "CageSounds" (void)
+{
+	While(TRUE)
+	{
+		PlaySound(91, "LiftAmbient", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		Delay(35*random(3,7));
+	}
+}
+
+
+script "raize_actor_by_ceiling" (int tid, int sectorTAG, int offset){
+	while (TRUE){
+		//Log(f:GetSectorCeilingZ(sectorTAG, 0, 0), s:" ", f:GetActorZ(tid));
+	SetActorPosition (tid, GetActorX(tid), GetActorY(tid), GetSectorCeilingZ(sectorTAG, 0, 0)+offset, false);
+	delay(1);
+	}
+}
+script "raize_actor_by_floor" (int tid, int sectorTAG, int offset){
+	while (TRUE){
+		//Log(f:GetSectorCeilingZ(sectorTAG, 0, 0));
+	SetActorPosition (tid, GetActorX(tid), GetActorY(tid), GetSectorFloorZ(sectorTAG, 1, 1)+offset, false);
+	delay(1);
+	}
+}
+
+script "Lifsound" (void) {
+	PlaySound(91, "world/crash2", CHAN_AUTO, 1.0, false, ATTN_NONE);
+}
+
+
+
+
+SCRIPT "AirrDoorRotate" (int pilyID, int speed, int angle)
+{
+	if(speed==0){speed=16;}
+	PlaySound(0, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	SetLineTexture(117, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	delay(35);
+	Polyobj_RotateRight(pilyID, speed, angle);
+	SoundSequenceOnPolyobj (pilyID, "Reshotka");
+	delay(35);
+	SetLineTexture(117, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+}
+
+SCRIPT "AirDoorRotateAndBreaks" (int pilyID, int speed, int angle)
+{
+	if(speed==0){speed=16;}
+	PlaySound(119, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	SetLineTexture(120, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	delay(35);
+	Polyobj_RotateRight(pilyID, speed, angle);
+	SoundSequenceOnPolyobj (pilyID, "Reshotka");
+	delay(35*2);
+	PlaySound(119, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	SetLineTexture(120, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_0");
+}
+
+SCRIPT "AirrDoorRotate3" (int pilyID, int speed, int angle)
+{
+	if(!AIR_DOOR_3_on){
+
+		PlaySound(150, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	} else {
+		if(speed==0){speed=16;}
+		PlaySound(150, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineTexture(149, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+		delay(35);
+		Polyobj_RotateRight(pilyID, speed, angle);
+		SoundSequenceOnPolyobj (pilyID, "Reshotka");
+		delay(35);
+		SetLineTexture(149, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	}
+
+}
+
+
+bool tent157on = false;
+script "Tentacle_157" (void) {
+	if(!tent157on){
+		Thing_Activate(157);
+		ACS_NamedExecute("SatartFirstWave", 0);
+
+		tent157on = true;
+	}
+}
+
+
+SCRIPT "DOOR_161" (void){
+	if(!DOOR_161on){
+		PlaySound(161, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(35);
+	} else {
+		PlaySound(161, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineTexture(161, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+		delay(35);
+		Generic_Door(161, 16, 0, 35, 0);
+		delay(35*3);
+		SetLineTexture(161, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	}
+	//
+}
+SCRIPT "DOOR_171" (void){
+	if(!DOOR_171on){
+		PlaySound(171, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(35);
+	} else {
+		PlaySound(171, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineTexture(171, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+		delay(35);
+		Generic_Door(171, 16, 0, 35, 0);
+		delay(35*3);
+		SetLineTexture(171, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	}
+	//
+}
+SCRIPT "DOOR_172" (void){
+	if(!DOOR_172on){
+		PlaySound(172, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(35);
+	} else {
+		PlaySound(172, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineTexture(172, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+		delay(35);
+		Generic_Door(172, 16, 0, 35, 0);
+		delay(35*3);
+		SetLineTexture(172, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	}
+	//
+}
+
+sCRIPT "window_open" (int tag){
+		PlaySound(tag, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		SetLineTexture(tag, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+		delay(15);
+		Ceiling_RaiseByValue(tag, 8, 128);
+		floor_Raisebyvalue(tag, 8, 128);
+		delay(128+35);
+		SetLineTexture(tag, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_2");
+}

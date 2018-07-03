@@ -1,0 +1,262 @@
+
+actor AIDSpawnerDEC : AIDSpawner 22000 { //$Sprite AID1A0
+}
+actor WaveScullDEC : WaveScull 22001 { //$Sprite SCLSA0
+}
+actor AMMOspawnerDEC : DSCammoSpawner 22005 { //$Sprite AMM1A0
+}
+actor DSCmonsterSpawner1DEC : DSCmonsterSpawner1 22006 { //$Sprite TIE1A0
+}
+actor DSCmonsterSpawner2DEC : DSCmonsterSpawner2 22008 { //$Sprite TIE2A0
+}
+actor DSCmonsterSpawner3DEC : DSCmonsterSpawner3 22009 { //$Sprite TIE3A0
+}
+actor DSCmonsterSpawner4DEC : DSCmonsterSpawner4 22010 { //$Sprite TIE4A0
+}
+actor DSCmonsterSpawner5DEC : DSCmonsterSpawner5 22011 { //$Sprite TIE5A0
+}
+
+
+
+actor DSCweaponSpawnerDEC : DSCweaponSpawner 22007 { //$Sprite WPN1A0
+}
+
+actor DSCdoomImpDEC : DSCdoomImp 22029 { //$Sprite TROOA1
+}
+actor DSCmonsterSpawnerTribuneDEC : DSCmonsterSpawnerTribune 22030 {
+}
+actor DSCportalDEC : DSCportal 22031 {
+}
+actor HSChelperDEC : HSChelper 22032 {
+}
+actor DSCprisonedSaintDEC : DSCprisonedSaint 22033 { //$Sprite MFLYA0
+		Scale 0.5
+}
+actor DSCeyeBounderDEC : DSCeyeBounder 22034 { //$Sprite HEYEA0
+		Scale 0.2
+}
+actor DSCtentyacleBounderDEC : DSCtentyacleBounder 22035 { //$Sprite T1NTA0
+		Scale 0.2
+}
+actor DSCSeraphimRaiserLightDEC : DSCSeraphimRaiserLight 22036 { //$Sprite HAL1A0
+		//Scale 1.0
+}
+actor DSCwindowGlowDEC : DSCwindowGlow 22037 { //$Sprite LTSRA1
+		//Scale 1.0
+}
+actor DSCskySmokeSpawnerDEC : DSCskySmokeSpawner 22038 { //
+		//Scale 1.0
+}
+actor DSCtitleDEC : DSCtitle 22039 { //$Sprite DSCTA0
+		//Scale 0.3
+}
+actor DSCportalToMapDEC : DSCportalToMap 22040 { ////$Sprite FRS1A0
+		//Scale 5.0
+}
+
+
+actor DSCwindowGlowWhiteDEC : DSCwindowGlowWhite 22041 { //$Sprite LTSUA4
+		//Scale 0.5
+}
+actor DSCceilLightRayDEC : DSCceilLightRay 22042 { //$Sprite LTS2A0
+		Scale 0.5
+}
+actor DSCceilLightGlowDEC : DSCceilLightGlow 22043 { //$Sprite LTS3A0
+		//Scale 0.5
+}
+actor DSClavaSparkGenDEC : DSClavaSparkGen 22044 { 	
+}
+
+actor DSCAirlockDecompressionDEC : DSCAirlockDecompression 22048 { 	
+}
+
+actor DSCairlockControllerDEC : DSCairlockController 22049 { 	
+}
+actor DSClavaSparkGenHorizontalDEC : DSClavaSparkGenHorizontal 22050 { 	
+}
+actor DSCtentyacleSwitchableDEC : DSCtentyacleSwitchable 22051 { 	
+}
+actor DSCtentyacleDecorDEC : DSCtentyacleDecor 22052 { 	//$Sprite T1NTA0
+Scale 0.5
+}
+actor DSCdistantRockDEC : DSCdistantRock 22053 { 	//$Sprite ROS1A0
+//Scale 0.5
+}
+//22054
+
+actor DSCbloodRainDEC : DSCbloodRain 22055 { 	//$Sprite RNMRA0
+//Scale 0.5
+}
+
+actor DSCunderBloodGENDEC : DSCunderBloodGEN 22056 { 	
+//Scale 0.5
+}
+actor DSCvororosl1DEC : DSCvororosl1 22057 { 	//$Sprite VDR1A0 
+Scale 0.5
+}
+actor DSCcloudsGenDEC : DSCcloudsGen 22058 { 	
+
+}
+actor DDSCdestroyerDEC : DSCdestroyer 22059 { 	
+
+}
+actor DSCmoaner1DEC : DSCmoaner1 22060 { 	
+
+}
+actor DSCwinterTreeDEC : DSCwinterTree 22061 { 	
+//$Sprite WTR0A0
+}
+
+actor DSCsnowGenDEC : DSCsnowGen 22062 { 	
+//$Sprite SNWTA0
+}
+actor DSCinfoDEC : DSCinfo 22063 { 	
+//$Sprite DSCCC0
+Scale 0.17
+}
+actor DSCflatFAN1DEC : DSCflatFAN1 22064 { 	
+//$Sprite FA1NA0
+Scale 1.0
+}
+actor DSCfanLampDEC : DSCfanLamp 22065 { 	
+//$Sprite FNLMA0
+Scale 1.0
+}
+actor DSCsteamSLOWgenDEC : DSCsteamSLOWgen 22066 { 	
+//$Sprite S1MKA0
+Scale 1.0
+}
+
+actor DSCsteamFASTgenDEC : DSCsteamFASTgen 22067 { 	
+//$Sprite S1MKA0
+Scale 1.0
+}
+
+actor DSCAngloRotatorDEC : AngloRotator 22068 { 	
+Scale 1.0
+}
+
+actor DSCuacDEC : DSCuac 22069 {
+//$Sprite UACAA0 	
+Scale 0.2
+}
+
+actor DSCwallFAN1DEC : DSCwallFAN1 22070 {
+//$Sprite FA2NA0	
+Scale 0.1
+}
+
+actor DSCwinterFloorDEC : DSCwinterFloor 22071 {
+//$Sprite WFL1A0	
+Scale 1.0
+}
+actor DSCflatFAN2DEC : DSCflatFAN2 22072 {
+//$Sprite FA2NA0	
+Scale 0.1
+}
+actor DSClavaSparkGenSVDEC : DSClavaSparkGenSV 22073 {
+
+}
+actor DSCwallFAN1shadeDEC : DSCwallFAN1shade 22074 {
+//$Sprite FA2NB0	
+Scale 0.15
+}
+
+actor HeatHazeGeneratorDEC : HeatHazeGenerator 22075 {
+}
+
+actor DSCportalSparkGenDEC : DSCportalSparkGen 22076 {
+//$Sprite SRS2A0	
+}
+actor DSCbigPortalDEC : DSCbigPortal 22077 {
+//$Sprite CI1LB0	
+}
+//22078
+
+actor DSChellWindcloudsGenDEC : DSChellWindcloudsGen 22079 {
+
+}
+actor DSChellStrikeGENDEC : DSChellStrikeGEN 22080 {
+
+}
+actor DSCceilFlatRayDEC : DSCceilFlatRay 22081 {
+//$Sprite LTS2B0
+scale 0.3
+}
+
+actor DSCpriborHoloDEC : DSCpriborHolo 22082 {
+//$Sprite PRIBA0
+scale 0.5
+}
+
+actor DSCmarsDOWNDEC : DSCmarsDOWN 22083 {
+//$Sprite DWN0A0
+scale 0.2
+}
+actor DSCdarkerDEC : DSCdarker 22084 {
+//$Sprite DRK0A0
+scale 0.2
+}
+actor DSCDshineDEC : DSChine 22085 {
+//$Sprite SHNEA0
++FLATSPRITE
+scale 0.2
+}
+actor DSCsunshineDEC : DSCsunshine 22086 {
+//$Sprite SHNEB0
+scale 0.2
++FLATSPRITE
+}
+actor DSCceilFlatRay2DEC : DSCceilFlatRay2 22087 {
+//$Sprite LTS2C0
+scale 0.3
++FLATSPRITE
+}
+
+actor KeyCardIndicatorYellowDEC : KeyCardIndicatorYellow 22088 {
+//$Sprite KCRDA0
+scale 0.15
++WALLSPRITE
+}
+actor KeyCardIndicatorRedDEC : KeyCardIndicatorRed 22089 {
+//$Sprite KCRDB0
+scale 0.15
++WALLSPRITE
+}
+actor KeyCardIndicatorBlueDEC : KeyCardIndicatorBlue 22090 {
+//$Sprite KCRDC0
+scale 0.15
++WALLSPRITE
+}
+
+actor SkyViewpointDestroyerDEC : SkyViewpointDestroyer 22091 {
+
+}
+actor DSChellCloudMaskDEC : DSChellCloudMask 22092 {
+//$Sprite CI1LD0
++FLATSPRITE
+}
+
+actor DSCGREATeyeBounderDEC : DSCGREATeyeBounder 22093 {
+//$Sprite HEYEA0
+Radius 128
+scale 1.0
+}
+
+actor GellGateFireDEC : GellGateFire 22094 {
+
+}
+
+actor DSClastLightDEC : DSClastLight 22095 {
+//$Sprite LLLLA0
++WALLSPRITE
+}
+
+actor IncomeWindGenDEC : IncomeWindGen 22096 {
+}
+actor IncomeWindGenHellDEC : IncomeWindGenHell 22097 {
+}
+actor IncomeWindGenHellGroundDEC : IncomeWindGenHellGround 22098 {
+}
+actor SkyViewpointMoverDEC : SkyViewpointMover 22099 {
+}

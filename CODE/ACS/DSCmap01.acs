@@ -1,17 +1,72 @@
+
+//episode wave count definition
+int maxWaveCount = 40;//--------------------------
+//episode wave count definition
+
+
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
 
+
+
+bool Door10Locked = true;
+bool Door11Locked = true;
+bool Door12Locked = true;
+
+////// test
+bool inDEV = false;
+////// test
 SCRIPT "StartControl" ENTER
 {
+	if(inDEV){
+		/*Door10Locked = false;
+		Door11Locked = false;
+		Door12Locked = false;*/
+		GiveInventory("map01done", 1);
+		GiveInventory("map02done", 1);
+		Thing_Activate(107);
+		GiveInventory("map03done", 1);
+		Thing_Activate(108);
+		GiveInventory("map04done", 1);
+		Thing_Activate(109);
+		GiveInventory("map05done", 1);
+		Thing_Activate(110);
+		currentWave = 200;
+	}
+	//GiveInventory("map07done", 1);
+	if(CheckInventory("map02done")>0){
+		Door10Locked = false;
+		Thing_Activate(107);
+	}
+	if(CheckInventory("map03done")>0){
+		Door11Locked = false;
+		Thing_Activate(108);
+	}
+	if(CheckInventory("map04done")>0){
+		Thing_Activate(109);
+		Door12Locked = false;
+	}
+	if(CheckInventory("map05done") || CheckInventory("map06done")>0){
+		//int progression = (currentWave * 100) / maxWaveCount ;
+		//if(progression>150||CheckInventory("map06done")>0){
+			SpawnSpotFacingForced("DSCportalToMap", 200, 201);
+			SetThingSpecial(201, ACS_NamedExecute, "GotoMinistry");
+			Thing_Activate(110);
+		//} else {
+		//	Thing_Activate(111);
+		//}
+	}
+	ACS_NamedExecute("StartHelp", 0);
 
-	if(Atrium1Active){
+	if(CheckInventory("map02done")>0){
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888); //notag nocount
 		Thing_Activate(106);
 	}
-
+	//CheckInventory("map02done");
 }
 script "StartHelp" (void){
-	if(!Atrium1Active){
+	if(CheckInventory("map02done")==0){
 		Thing_Activate(101);
 	}
 }
@@ -31,7 +86,7 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			hudmessageBold(s:"There are a separate piece of hell\nbehind each of these doors."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 4:
-			hudmessageBold(s:"You can visit them\nin any order and any number of times.\nThe game will each time give you new hordes of demons\ndepending on the overall progress of the game."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"You can visit them\nany number of times.\nEach time the HELL will give you new hordes of demons\ndepending on the overall progress of the game."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 5:
 			hudmessageBold(s:"Here you are the Doom Slayer.\nAnd this is your type of eternity.\nThe battle with the forces of hell - until the end of time."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
@@ -43,10 +98,16 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			hudmessageBold(s:"To\n\"Bloodrain plaza\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 8:
-			hudmessageBold(s:"To\n\"The Coliseum\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"To\n\"The Colosseum\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 9:
-			hudmessageBold(s:"To\n\"Salvation\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"To\n\"Prison of souls\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 10:
+			hudmessageBold(s:"To\n\"Unholy Ministry\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			break;
+		case 11:
+			hudmessageBold(s:"Fight untill 150% of progression\nto pass further"; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		default:
 			PrintBold(s:"Be strong!");
@@ -60,17 +121,38 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 
 script "GotoCemetery" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP02", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP02", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 script "GotoPlaza" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP03", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP03", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 script "GotoArena" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP04", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP04", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 script "GotoSalvation" (void){
 	delay(15);
-	ChangeLevel ("DSCMAP05", 0, CHANGELEVEL_NOINTERMISSION);
+	ChangeLevel ("DSCMAP05", 0, CHANGELEVEL_NOINTERMISSION, -1);
+}
+script "GotoMinistry" (void){
+	delay(15);
+	ChangeLevel ("DSCMAP06", 1, CHANGELEVEL_NOINTERMISSION, -1);
+}
+
+
+SCRIPT "Door10" (void){
+	if(!Door10Locked){
+		Generic_Door(10, 16, 0, 34, 0);
+	}
+}
+SCRIPT "Door11" (void){
+	if(!Door11Locked){
+		Generic_Door(11, 16, 0, 34, 0);
+	}
+}
+SCRIPT "Door12" (void){
+	if(!Door12Locked){
+		Generic_Door(12, 16, 0, 34, 0);
+	}
 }

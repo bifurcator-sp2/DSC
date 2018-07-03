@@ -1,4 +1,9 @@
 
+HardwareShader texture forcefi
+{
+	Shader "Shaders/Frensel.fp"
+	Speed 1.0
+}
 
 HardwareShader Sprite BDG1A0
 {
@@ -41,7 +46,11 @@ HardwareShader Sprite T1NTC0
 
 
 
-
+HardwareShader Texture BF_LAVA
+{
+	Shader "Shaders/lava.fp"
+	Speed 0.03
+}
 
 HardwareShader Texture BF_WATER
 {
@@ -50,6 +59,8 @@ HardwareShader Texture BF_WATER
 }
 HardwareShader Texture DSCLWA
 {
+	//Shader "Shaders/lava.fp"
+	//Speed 0.05
 	Shader "shaders/water.fp"
 	Speed 1.0
 }
@@ -125,7 +136,20 @@ HardwareShader Sprite DSB2A0
 	Shader "shaders/Flag.fp"
 	Speed 3.0
 }
+HardwareShader Sprite DSB3A0
+{
+	Shader "shaders/Flag.fp"
+	Speed 3.0
+}
 
+HardwareShader PostProcess scene
+{
+	Name "dscHeatHaze"
+	Texture HazeBump "textures/haze.png"
+	Shader "Shaders/PostProcessing/dscHeatHaze.fp" 330
+	Uniform float timer
+	Uniform float fHeatHazeChromaAmount
+}
 
 HardwareShader PostProcess scene
 {
@@ -163,6 +187,31 @@ HardwareShader PostProcess scene
 	Texture ColourmapLUT "textures/lut_Cemetery.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
+HardwareShader PostProcess scene
+{
+	Name "TonemapTitlemap"
+	Texture ColourmapLUT "textures/lut_titlemap.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapTide"
+	Texture ColourmapLUT "textures/lut_tide.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapSnow"
+	Texture ColourmapLUT "textures/lut_snow.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+HardwareShader PostProcess scene
+{
+	Name "TonemapBlood"
+	Texture ColourmapLUT "textures/lut_blood.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
+
 
 HardwareShader PostProcess scene
 {
@@ -181,6 +230,32 @@ HardwareShader PostProcess scene
 	Name "FilmGrain"
 	Uniform float timer
 	Shader "Shaders/PostProcessing/FilmGrain.fp" 330
+}
+
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass1"
+	Shader "Shaders/PostProcessing/TiltShift1.fp" 330
+}
+
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass2"
+	Shader "Shaders/PostProcessing/TiltShift2.fp" 330
+}
+
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass3"
+	Shader "Shaders/PostProcessing/TiltShift3.fp" 330
+}
+
+
+
+
+brightmap sprite FNLMA0
+{
+   map FNLSA0
 }
 
 brightmap texture MRBW5
@@ -212,4 +287,69 @@ brightmap texture SPTBA0
 brightmap texture ITMPLACE
 {
    map ITMPLACM
+}
+brightmap texture TPLATE
+{
+   map TPLATEM
+}
+brightmap texture BSWAL1
+{
+   map BSWAL1M
+}
+brightmap texture BSWAL2
+{
+   map BSWAL1M
+}
+brightmap texture BSWAL3
+{
+   map BSWAL1M
+}
+brightmap texture TECCOL2
+{
+   map TECCOL2M
+}
+brightmap texture PANEL2_
+{
+   map PANEL2_M
+}
+brightmap texture CLT0
+{
+   map CLT0M
+}
+brightmap texture CLT1
+{
+   map CLT1M
+}
+
+brightmap texture ddoor1
+{
+   map ddoor1M
+}
+brightmap texture ddoor2
+{
+   map ddoor1M
+}
+
+brightmap texture SUPP1L
+{
+   map SUPP1LM
+}
+brightmap texture SUPP3_L
+{
+   map SUPP3LM
+}
+
+brightmap texture TEKGRN2L
+{
+   map tkgrn2lm
+}
+
+brightmap texture PANEL2U
+{
+   map PANEL2UM
+}
+
+brightmap sprite DSCCC0
+{
+   map DSCCL0
 }

@@ -1,5 +1,249 @@
+bool PlayerInVaquum = false;
+bool PlayerInAirlock = true;
+
+
+
+function int GetFn(int offset){
+	if(offset <= 2){
+		return	offset;
+	}
+	return GetFn(offset - 1) + GetFn(offset - 2);
+	//return (offset <= 2) ? offset : GetFn(offset - 1) + GetFn(offset - 2);
+}
+
+Script "SequenceSwitch" (int ControllerTag, int length, int offset){
+	//CallbackScript is numbered by ControllerTag
+	//ErrorCallbackScript is numbered by BadResultTag
+	//offset button offset
+
+	PlaySound(0, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	delay(35);
+	int curOffset = GetActorAngle(ControllerTag);
+	int value = GetActorZ(ControllerTag);//  number of curOffset
+
+	SetActorAngle(ControllerTag, GetActorAngle(ControllerTag)+1);//curOffset ++
+
+	if(curOffset==0){
+		if(offset==1){
+			SetActorPosition(ControllerTag, GetActorX(ControllerTag), GetActorY(ControllerTag), 1, 0);
+		}
+		terminate;
+	}
+
+	//PrintBold(i:curOffset, s:" ", i:offset);
+
+	if(curOffset==value){
+		if(curOffset==length-1  ){
+			ACS_Execute(ControllerTag, 0, true);//callback
+			terminate;
+		}
+		//good sequence
+
+		SetActorPosition(ControllerTag, GetActorX(ControllerTag), GetActorY(ControllerTag), offset, 0);
+	}
+
+	if(curOffset==length-1){
+		ACS_Execute(ControllerTag, 0, false);//ERROR callback
+		SetActorAngle(ControllerTag, 0);
+		delay(35);
+	}
+}
+
+
+
+script "brokenDoor" (int tag){
+	if(random(0, 4)==4){
+		Generic_Door(tag, 16, 0, 34, 0 );
+	} else {
+		Ceiling_RaiseByValue(tag, 16, random(8, 32));
+		delay(random(15, 35));
+		PrintBold(s:"Door malfunction\nTry again");
+		Ceiling_LowerToFloor(tag, 16);
+		delay(random(15, 35));
+	}
+}
+
+script "TeleportHellFluence" (int tid){
+	AmbientSound("world/hell_influence",1.0 );
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	FadeTo (0, 0, 0, 1.0, 1.0 );
+	Radius_Quake2 (0, 6, 35*6, 0, 64, "world/pumm");
+	delay(35*1);
+	Thing_Move (0, tid, true);
+	delay(35*3);
+	FadeTo (0, 0, 0, 0.0, 2.0 );
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+}
+
+
+script "DeactivateBrokenLamp1"(int tid, int sectorTAG, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){
+			Thing_Activate(tid);
+			ChangeFloor(sectorTAG, "CLT1");
+		} else {
+			ChangeFloor(sectorTAG, "CLT1N");
+			Thing_DeActivate(tid);
+		}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_DeActivate(tid);
+	ChangeFloor(sectorTAG, "CLT1N");
+}
+script "DeactivateBrokenLamp2"(int tid, int sectorTAG, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){
+			Thing_Activate(tid);
+			ChangeCeiling(sectorTAG, "CLT0");
+		} else {
+			ChangeCeiling(sectorTAG, "CLT0N");
+			Thing_DeActivate(tid);
+		}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_DeActivate(tid);
+	ChangeCeiling(sectorTAG, "CLT0N");
+}
+script "ActivateBrokenLamp2"(int tid, int sectorTAG, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){
+			Thing_Activate(tid);
+			ChangeCeiling(sectorTAG, "CLT0");
+		} else {
+			ChangeCeiling(sectorTAG, "CLT0N");
+			Thing_DeActivate(tid);
+		}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_Activate(tid);
+	ChangeCeiling(sectorTAG, "CLT0");
+}
+
+script "ThingDeactivateBroken" (int tid, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){ Thing_Activate(tid);} else {Thing_DeActivate(tid);}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_DeActivate(tid);
+}
+script "ThingActivateBroken" (int tid, int tics, int interval){
+	if(!tics){ tics = 35;}
+	if(!interval){ interval = 3;}
+	while (tics){
+		if(random(0,1)){ Thing_Activate(tid);} else {Thing_DeActivate(tid);}
+		delay(random(1, interval));
+		tics --;
+	}
+	Thing_Activate(tid);
+}
+script "LookAt" (int CameraTid, int TimeTics){
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	Thing_Activate(CameraTid);
+	ChangeCamera(CameraTid, 0, 0);
+	ACS_NamedExecuteAlways("FadeOutMusicFast", 0);
+	PlaySound (0, "LOOKAT" , 64, 1.0, false, ATTN_NONE);
+	delay(TimeTics);
+	Thing_DeActivate(CameraTid);
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+	ChangeCamera(0, 0, 0);
+	ACS_NamedExecuteAlways("FadeInMusicFast", 0);
+}
+function bool DoorClosed(int Tid){
+	if(GetSectorCeilingZ(Tid, 0, 0)==GetSectorFloorZ(Tid, 0 ,0)){
+		return true;
+	}
+	return false;
+}
+
+script "AirlockControlOutflow"(int ThisTid){
+	//this called by AirlockAirflow actor to get state of his door
+	//air must not to flow if door is closed
+	if(DoorClosed(ThisTid)){
+		SetResultValue(0);
+		terminate;
+	}
+	SetResultValue(1);
+}
+script "EnterAirlock" (void){PlayerInAirlock = true;}
+script "EnterVaquum" (void){PlayerInAirlock = FALSE;}
+
+script "AirlockInnerDoor" (int thisTid, int OutTid, int ControllerTag){
+
+	if(!DoorClosed(thisTid) || !DoorClosed(OutTid) || CheckActorProperty(ControllerTag, APROP_Alpha, 0.0)  ){
+		PlaySound(0, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(35);
+		terminate;
+	}
+	PlaySound(0, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	delay(35);
+	Generic_Door(thisTid, 16, 0, 34, 0 );
+	SetLineTexture(thisTid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	SetLineTexture(OutTid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	PlayerInVaquum = 0;
+	delay(5);//wait for door start open. AirlockAirflow actor need it/
+	ACS_NamedExecute("OxygenRegen",0, 5);
+	Thing_Activate(thisTid);//activates air inflow, normal lights
+	Thing_DeActivate(OutTid);//deactivates air outflow, red lights
+	while(!DoorClosed(thisTid)){
+
+		delay(5);
+	}
+	SetLineTexture(thisTid, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineTexture(OutTid, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+}
+
+
+
+script "AirlockOuterDoor" (int thisTid, int InTid, int ControllerTag){
+	if(!DoorClosed(thisTid) || !DoorClosed(InTid) || CheckActorProperty(ControllerTag, APROP_Alpha, 0.0) ){
+		PlaySound(0, "world/cp_deny", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+		delay(35);
+		terminate;
+	}
+	PlaySound(0, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	delay(35);
+	Generic_Door(thisTid, 16, 0, 34, 0 );
+	SetLineTexture(thisTid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	SetLineTexture(InTid, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	delay(5);
+	ACS_NamedExecute("OxygenDrain", 0, 1);
+
+	Thing_Activate(thisTid);//air outflow and redLights
+	Thing_DeActivate(InTid);//deactivates air inflow and normal lights
+	Delay(15);
+	//PlayerInVaquum = 1;
+	while(!DoorClosed(thisTid)){
+		delay(1);
+	}
+	SetActorState(ControllerTag, "Lock");//Controller thing turn on airflow from ceiling and goes to "Lock" state
+	delay(35*5);//wait for air comes to room
+	SetActorState(ControllerTag, "Spawn");
+	Thing_Activate(InTid);//activates normal lights and air inflow
+	Thing_DeActivate(thisTid);//deactivates air outflow and red lights
+	SetLineTexture(thisTid, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	SetLineTexture(InTid, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+	if(PlayerInAirlock){
+		ACS_NamedExecute("OxygenRegen",0, 5);
+	}
+	//PlayerInVaquum = 0;
+}
+
+bool HellThunderPaused = false;
 SCRIPT "HellThunder" (void)
 {
+	if(!HellThunderPaused){
 
 	PlaySound(1206, "world/Thunder1", CHAN_BODY, 0.7, false, ATTN_NONE);
 	Thing_Activate(100);
@@ -13,6 +257,7 @@ SCRIPT "HellThunder" (void)
 	Thing_Activate(100);
 	Delay(random(5,10));
 	Thing_Deactivate(100);
+	}
 
 }
 script "CreepySounds" (void)
@@ -52,6 +297,71 @@ Polyobj_RotateLeft(pilyID, speed, angle);
 SoundSequenceOnPolyobj (pilyID, "DoorHell");
 
 }
+SCRIPT "RotateDoorLeftNoReturn" (int pilyID, int speed, int angle)
+{
+if(speed==0){speed=16;}
+Polyobj_RotateLeft(pilyID, speed, angle);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+}
+SCRIPT "RotateDoorRightNoReturn" (int pilyID, int speed, int angle)
+{
+if(speed==0){speed=16;}
+Polyobj_RotateRight(pilyID, speed, angle);
+SoundSequenceOnPolyobj (pilyID, "DoorHell");
+}
+
+
+SCRIPT "DSCplatformLowerWaitRaize" (int tag, int height, int wait){
+
+	if(!wait){wait=3;}
+	Line_SetBlocking (tag, BLOCKF_CREATURES, 0);
+	Ceiling_LowerByValue(tag, 16, height);
+	Floor_LowerByValue(tag, 16, height);
+	delay(height/16*35/5);
+	Line_SetBlocking (tag, 0, BLOCKF_CREATURES);
+	delay(35*wait);
+	Ceiling_RaiseByValue(tag, 16, height);
+	Floor_RaiseByValue(tag, 16, height);
+	delay(35*wait+height/16);
+
+	delay(35);
+
+}
+SCRIPT "DSCplatformLowerWaitRaize2" (int tag, int height, int wait){
+	if(!wait){wait=3;}
+	SetLineTexture(tag, SIDE_FRONT, TEXTURE_BOTTOM, "ZWT1_0");
+	PlaySound(tag, "world/cp_ok", CHAN_AUTO, 1.0,  false, ATTN_NORM );
+	Line_SetBlocking (tag, BLOCKF_CREATURES, 0);
+	delay(35);
+	Ceiling_LowerByValue(tag, 16, height);
+	Floor_LowerByValue(tag, 16, height);
+	delay(height/2);
+	Line_SetBlocking (tag, 0, BLOCKF_CREATURES);
+	delay(35*wait);
+	Line_SetBlocking (tag, BLOCKF_CREATURES, 0);
+	Ceiling_RaiseByValue(tag, 16, height);
+	Floor_RaiseByValue(tag, 16, height);
+	delay(height/2);
+	Line_SetBlocking (tag, 0, BLOCKF_CREATURES);
+	delay(35);
+	SetLineTexture(tag, SIDE_FRONT, TEXTURE_BOTTOM, "SWT1_1");
+}
+
+
+
+SCRIPT "DSCfloatRock" (int tag, int height, int speed){
+
+	if(!speed){speed=16;}
+	Ceiling_LowerByValue(tag, speed, height);
+	Floor_LowerByValue(tag, speed, height);
+	delay(height/speed*35/4);
+	delay(15);
+	Ceiling_RaiseByValue(tag, speed, height);
+	Floor_RaiseByValue(tag, speed, height);
+	delay(height/speed*35/4);
+	delay(35);
+	ACS_NamedExecuteAlways("DSCfloatRock", 0, tag, height, speed);
+}
 
 SCRIPT "FadeOutMusic" (void){
 	int vol = 1.0;
@@ -74,6 +384,27 @@ SCRIPT "FadeInMusic" (void){
 	SetMusicVolume(1.0);
 }
 
+SCRIPT "FadeOutMusicFast" (void){
+	int vol = 1.0;
+	for (int counter = 0; counter < 100; counter++)
+	{
+		vol = vol-0.05;
+		SetMusicVolume(vol);
+		delay(1);
+	}
+	SetMusicVolume(0.0);
+}
+SCRIPT "FadeInMusicFast" (void){
+	int vol = 0.0;
+	for (int counter = 0; counter < 100; counter++)
+	{
+		vol = vol+0.05;
+		SetMusicVolume(vol);
+		delay(1);
+	}
+	SetMusicVolume(1.0);
+}
+
 SCRIPT "MuteMusic" (int ticks){
 	SetMusicVolume(0.0);
 		delay(ticks);
@@ -87,6 +418,19 @@ SCRIPT "Halos" ENTER
 	ACS_NamedExecuteAlways("SetBigFireHalo",0, 777);
 
 }
+
+SCRIPT "SpawnTeleport" (int selfTid, int targetTid){
+	SpawnSpotFacingForced ("DSCportalToMap", selfTid, selfTid*targetTid*10);
+	SetThingSpecial(selfTid*targetTid*10, ACS_NamedExecuteAlways, "ActivateTeleport", selfTid, targetTid);
+}
+SCRIPT "ActivateTeleport" (int selfTid, int targetTid){
+	printBold(s:"asdasd");
+	Teleport (targetTid, 0, false);
+	SpawnSpotFacingForced ("DSCportalToMap", selfTid, selfTid*targetTid*10);
+	SetThingSpecial(selfTid*targetTid*10, ACS_NamedExecuteAlways, "ActivateTeleport", selfTid, targetTid);
+}
+
+
 
 script "SetHalo" (int tid){
 	if(CheckSight (0, tid, "") ){
@@ -116,6 +460,104 @@ script "DisplayActorHealth" (int tid){
 }
 
 
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// This determines how much the player has normally while on ground.
+// If your map/mod gives player more air supply, edit this constant
+// and recompile the script.
+
+#define max_oxygenInSec 60*2
+#define max_oxygen 35 * max_oxygenInSec
+#define oxy_regen 35*60
+bool MaskSoundStarted = false;
+bool maskOFF = true;
+
+Script "MaskRestartControll" ENTER {
+	//restarts rebreather sound for batle sounds do not stop it
+	if(MaskSoundStarted && PlayerInVaquum){
+		PlaySound(0, "player/Rebreather", CHAN_BODY, 1.0,  true, ATTN_NONE );
+	}
+	Delay(90);
+	restart;
+}
+Script "MaskControll" ENTER {
+	if(!MaskSoundStarted && PlayerInVaquum){
+		PlaySound(0, "player/Rebreather", CHAN_BODY, 1.0,  true, ATTN_NONE );
+		MaskSoundStarted = true;
+		maskOFF = false;
+	}
+	if(!PlayerInVaquum && !maskOFF){
+		PlaySound(0, "player/Maskoff", CHAN_BODY, 1.0,  false, 0 );
+		MaskSoundStarted = false;
+		maskOFF = true;
+	}
+	Delay(10);
+	Restart;
+}
+
+Script "OxygenDrain" (int DrainSpeedInSec)
+{
+	PlayerInVaquum = true;
+	ACS_NamedTerminate("OxygenRegen",0);
+	if (CheckInventory("Oxygen") > 0)
+	{
+		TakeInventory("Oxygen",DrainSpeedInSec * 35);
+		ACS_NamedExecute("DisplayOxygenInSec", 0);
+
+	}
+	else
+	{
+		Thing_Damage(0,5,MOD_WATER);
+	}
+	Delay(35);
+	Restart;
+}
+
+script "DisplayOxygenInSec" (void)
+{
+	if(CheckInventory("Oxygen")< max_oxygen){
+		PrintBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds");
+		Delay(1);
+	} else {
+		PrintBold(s:"Oxygen full");
+	}
+}
+
+script "OxygenRegen" (int RegenSpeedInSec)
+{
+	PlayerInVaquum = false;
+	ACS_NamedTerminate("OxygenDrain",0);
+	if(CheckInventory("Oxygen") >= oxy_regen)
+	{
+		Terminate;
+	}
+	else
+	{
+		GiveInventory("Oxygen",RegenSpeedInSec * 35);
+	}
+	//ACS_NamedExecute("MaskControll", 0, 0);
+	Delay(35);
+	Restart;
+}
+
+script "slideTECdoor" (int po, int angle, int dist) {
+
+	Polyobj_Move(po, 16, angle, dist);
+	SoundSequenceOnPolyObj(po, "Reshotka");
+	delay((dist/2)+35);
+	Polyobj_Move(po, 16, angle+128, dist);
+	SoundSequenceOnPolyObj(po, "Reshotka");
+	delay(dist/2);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 
 function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOffset, int yOffset, int range, str sprite, str text, int holdTime, str colour)
@@ -172,3 +614,6 @@ function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOff
 	}
 
 }
+
+script "Thing_Activate" (int tid){ Thing_Activate(tid); }
+script "Thing_DeActivate" (int tid){ Thing_DeActivate(tid); }

@@ -1,5 +1,10 @@
+//episode wave count definition
+int maxWaveCount = 40;//--------------------------
+//episode wave count definition
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+
 
 bool ArenaFloorActive = true;
 bool ArenaLiftsActive = true;
@@ -10,30 +15,34 @@ SCRIPT "StartLevel" ENTER
 {
 //NOspawn = true;
 //TEST!
+
+
 /*
-
-
 CurrentWave = 35;
 AmmoMaxRnd = 3;
 WeaponGotID = 4;
-
 */
+
 //TEST!
 
 }
 
-
-
-SCRIPT "StartFirstWave" (void){
-	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 5, 100400);
-	ACS_NamedExecuteAlways("Mus_L1", 0);
-
+SCRIPT "SpawnFirstScull" (void){
+		SpawnSpotFacingForced("WaveScullDEC", 5, 100600);
+		SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
 }
+
+
 
 SCRIPT "StartControl" ENTER
 {
+	while(!NextWaveReady){
+		delay(1);
+	}
+	NextWaveReady = false;
 
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 5, 100400);
+	ACS_NamedExecuteAlways("Mus_L1", 0);
 
 	while(!NextWaveReady){
 		delay(1);
@@ -72,7 +81,7 @@ SCRIPT "StartControl" ENTER
 
 	ACS_NamedExecuteAlways("Mus_M2", 0);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 8, 100402);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
+	//ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
 
 	Delay(35*5);
 	Door_Raise(9, 8, -1);
@@ -177,6 +186,7 @@ SCRIPT "StartControl" ENTER
 	ArenaFloorActive = false;
 	delay(35*5);//ждем пока остановятся полы арены
 	Floor_MoveToValue(14, 16, 8);//опускаем лифты с боссами
+	LastWave = true;
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 8, 100402);//еще народу чтобы череп появился
 
 	while(!NextWaveReady){
@@ -189,7 +199,7 @@ SCRIPT "StartControl" ENTER
 		Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
 		Delay(35);
 	}
-
+	GiveInventory("map04done", 1);
 	TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 	Atrium1Active = true;
 	Exit_Normal(0);
@@ -205,7 +215,7 @@ script "TribuneCount" (void){
 
 script "CloseDoorToArena" (void){
 
-	ACS_NamedExecuteAlways("Mus_G1", 0);
+	ACS_NamedExecuteAlways("Mus_G3", 0);
 	delay(5);
 	IgnoreWaveMusicChange = true;
 	Ceiling_LowerByValue(10, 500, 120);

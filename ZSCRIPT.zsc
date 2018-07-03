@@ -1,7 +1,9 @@
-version "2.5"
- 
+ version "3.3"
+
 #include "CODE/ZSCRIPT/EVENTHANDLERS/StaticShaderControl.zsc"
 #include "CODE/ZSCRIPT/EVENTHANDLERS/DSCMonsterControll.zsc"
 #include "CODE/ZSCRIPT/DSCactors.zsc"
 #include "CODE/ZSCRIPT/DSCdecor.zsc"
+#include "CODE/ZSCRIPT/heatHaze.zsc"
+
 

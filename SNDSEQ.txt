@@ -13,11 +13,22 @@ end
    stopsound	world/BigClose
 end
 
+
+:DSClift
+   playrepeat	world/LiftMove
+   stopsound	world/LiftStop 
+end
+
+:Reshotka
+   play	world/slideResh
+   stopsound	world/slideReshStop
+end
+
 [DoorHell
 	0		DoorOpenHell
 	1		DoorCloseHell
 	 2		DoorOpenHell
-	 3		DoorCloseHell	
+	 3		DoorCloseHell
 ]
 
 :StoneThingMove
@@ -27,4 +38,9 @@ end
 
 :WaterMove
    playrepeat	world/WaterOut
+end
+
+:PlatformHell
+   playrepeat	world/IRONMOVE
+   stopsound	world/TNSTOP
 end

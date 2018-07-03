@@ -1,0 +1,122 @@
+
+ 
+ 
+/*class HeatHazeTimer2: EventHandler
+{
+	override void RenderOverlay(RenderEvent e)
+	{
+		PlayerInfo players = players[consoleplayer];
+		Shader.SetUniform1f(players, "dscHeatHaze", "timer", gametic + e.FracTic);
+	}
+}*/
+ 
+class HeatHazeTimerInv: Inventory
+{
+	int heatTimer;
+	double heatAmount;
+
+	property heatTimer: heatTimer;
+
+	Default
+	{
+		Inventory.InterHubAmount 0;
+		+Inventory.AUTOACTIVATE
+		HeatHazeTimerInv.heatTimer 35;
+	}
+
+	override void Tick ()
+	{
+		// Powerups cannot exist outside an inventory
+		if (Owner == NULL)
+		{
+			Destroy ();
+		}
+		if (heatTimer == 0 || (heatTimer > 0 && --heatTimer == 0))
+		{
+			Shader.SetEnabled(Owner.player, "dscHeatHaze", false);
+			Destroy ();
+		}
+	}	
+	
+	override void DoEffect ()
+	{
+		if (Owner == NULL || Owner.player == NULL)
+		{
+			return;
+		}
+
+		if (heatTimer > 0)
+		{
+			Shader.SetEnabled(Owner.player, "dscHeatHaze", true);
+			Shader.SetUniform1f(Owner.player,"dscHeatHaze","fHeatHazeChromaAmount",heatAmount);
+		}
+	}
+	
+}
+ 
+class HeatHazeGenerator: SwitchableDecoration
+{
+	Actor player;
+	uint amount;
+	uint distance;
+
+
+	override void PostBeginPlay()
+	{
+		amount = args[0] ? args[0] : 128;
+		distance = args[1] ? args[1] : 128;
+		ThinkerIterator ti = ThinkerIterator.Create("Actor");
+		Actor mo;
+		while (mo = Actor(ti.Next()))
+		{
+			if(mo is "PlayerPawn")
+			{
+				player = mo;
+				break;
+			}
+		}
+		if(!player)
+		{
+			A_Log("No Player founded!");
+			Destroy();
+		}
+		Super.PostBeginPlay();
+	}
+
+	void HeatMeAndMyLifeWasGone()
+	{
+		double heatStepAmount = GetRadiusDamage(self.player,self.amount,self.distance);
+		heatStepAmount = heatStepAmount > 1000 ? heatStepAmount / 1000 : heatStepAmount / 100;
+
+		if(heatStepAmount < 0) heatStepAmount = 0;
+		let HHTI = HeatHazeTimerInv(self.player.FindInventory("HeatHazeTimerInv"));
+		if(HHTI && heatStepAmount > 0)
+		{
+			HHTI.heatTimer = HHTI.Default.heatTimer;
+			HHTI.heatAmount = heatStepAmount;
+		}
+		if(!HHTI && heatStepAmount > 0) 
+		{
+			bool gived = self.player.GiveInventory("HeatHazeTimerInv",1);
+			if(gived)
+			{
+				HHTI = HeatHazeTimerInv(self.player.FindInventory("HeatHazeTimerInv"));
+				if(HHTI) HHTI.heatAmount = heatStepAmount;
+			}
+		}
+	}
+
+	States
+	{
+		Spawn:
+			TNT1 A 1;
+			Goto Active;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+		Active:
+			TNT1 A 1 HeatMeAndMyLifeWasGone();
+			Loop;
+	}
+
+}

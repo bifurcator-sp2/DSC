@@ -6,6 +6,9 @@ global int 3:CurrentWave;
 global int 4:TotalKills;
 global BOOL 5:Atrium1Active;
 global int 6:MonsterCountMethod;
+global int 7:DSCplayerRank;
+global int 8:GlobalAttempt;//iteration of hell
+
 
 #define shotGunSpawnProgressInPercent 3
 #define SSGSpawnProgressInPercent 15
@@ -14,189 +17,46 @@ global int 6:MonsterCountMethod;
 #define PlasmaGunSpawnProgressInPercent 70
 #define BFG9000SpawnProgressInPercent 80
 
-#define maxWaveCount 40
+//int maxWaveCount = 50; //default value. redefined at each map for episode balance
+
+bool isBE = false;
 Bool NextWaveReady = false;
 Bool WaveOnline = false;
 Bool IgnoreWaveMusicChange = false;
+BOOL restoreMusicAfterWave = true;
 int SpawnedMonstersOnTheMap = 0;
+int DSCscreenFade = 0;//for DSCranks
+bool waitForWeaponSpawnedMassage = false;
+bool waitForScullSpawnedMassage = false;
+int KilledWaveStart = 0;
+int killedPerWave = 0;
+bool LastWave = false;//indicator for DoomSlayerGliph spawn
+
 bool NOspawn = false; //dev staff
+
 
 int SaintHealthUpMultipler = 0; //current health up for Zscript for DSCprisonedSaint
 int SaintHealthUpBaseAmount = 10;//basic value for SaintHealthUp DSCprisonedSaint
 //
 
-int AchiveKillInSEc1 = 0;
-int AchiveDieInSec1 = 0;
-//int ArmorBonusToGive = 0;
 
-int AchiveKillInSEc10 = 0;
+bool OverrideDeathBugFIX = false;
+script "DeathBufFIX" DEATH  {
+//this is check for death restart clear inventory bug
+			delay(35*10);
+			currentWave = 0;
+			DSCplayerRank = 0;
+			TotalKills = 0;
+			CurrentWave = 0;
+			AmmoMaxRnd = 0;
+			WeaponGotID = 0;
+			ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
 
-SCRIPT "ResetCounters" ENTER {
-	NextWaveReady = false;
-	WaveOnline = false;
-	IgnoreWaveMusicChange = false;
-	SpawnedMonstersOnTheMap = 0;
-	AchiveKillInSEc1 = 0;
-	AchiveDieInSec1 = 0;
-
-}
-/*
-SCRIPT "GiveArmorBonus" enter {
-		if(ArmorBonusToGive>0){
-			GiveInventory("DSCarmorBonus",ArmorBonusToGive);
-			ArmorBonusToGive = 0;
-		}
-		delay(15);
-	restart;
-}*/
-SCRIPT "AchiveKillInSEc10Counter" (void)
-{
-	delay(35*10);
-	if(AchiveKillInSEc10>=20){
-
-		PrintBold(s:"You are real DOOM SLAYER!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
-		AchiveKillInSEc10 = 0;
-		terminate;
-	}
-	if(AchiveKillInSEc10>=7){
-
-		PrintBold(s:"You are GREAT!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
-		AchiveKillInSEc10 = 0;
-		terminate;
-	}
-	if(AchiveKillInSEc10>=5){
-
-		PrintBold(s:"Good work!\n", i:AchiveKillInSEc10, s:" kills in 10 sec!");
-		AchiveKillInSEc10 = 0;
-		terminate;
-	}
-
-
-	AchiveKillInSEc10 = 0;
-
+//----------------------------------------------------
 }
 
-SCRIPT "AchiveKillInSEc1Counter" (void)
-{
-//GiveActorInventory(0, "DSCarmorBonus", 5);
-	delay(35);
-	//PrintBold(i:AchiveKillInSEc1);
 
-	if(AchiveDieInSec1>=20 || AchiveKillInSEc1>=20){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
-		Log(s:"Real epic doomslayer tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
-		AchiveKillInSEc1 = 0;
-		AchiveDieInSec1 = 0;
-		ACS_NamedExecute("TimeKillVoiceSec1", 0, 6);
-		SaintHealthUpMultipler+=AchiveKillInSEc1;
-		terminate;
-	}
-	if(AchiveDieInSec1>=15){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
-		Log(s:"Tolal bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
-		AchiveKillInSEc1 = 0;
-		AchiveDieInSec1 = 0;
-		ACS_NamedExecute("TimeKillVoiceSec1", 0, 5);
-		SaintHealthUpMultipler+=AchiveKillInSEc1;
-		terminate;
-	}
-	if(AchiveDieInSec1>=10 ){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
-		Log(s:"Yeah...Great bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
-		AchiveKillInSEc1 = 0;
-		AchiveDieInSec1 = 0;
-		ACS_NamedExecute("TimeKillVoiceSec1", 0, 4);
-		SaintHealthUpMultipler+=AchiveKillInSEc1;
-		terminate;
-	}
-	if(AchiveDieInSec1>3){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
-		Log(s:"Bloody mess!\n", i:AchiveDieInSec1, s:" kills in sec!");
-		AchiveKillInSEc1 = 0;
-		AchiveDieInSec1 = 0;
-		ACS_NamedExecute("TimeKillVoiceSec1", 0, 3);
-		SaintHealthUpMultipler+=AchiveKillInSEc1;
-		terminate;
-	}
 
-	if(AchiveKillInSEc1==3){
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
-		Log(s:"Tripple death\n", i:AchiveKillInSEc1, s:" kills in sec!");
-		AchiveKillInSEc1 = 0;
-		AchiveDieInSec1 = 0;
-		ACS_NamedExecute("TimeKillVoiceSec1", 0, 2);
-		SaintHealthUpMultipler+=AchiveKillInSEc1;
-		terminate;
-	}
-	if(AchiveKillInSEc1==2){
-		//ArmorBonusToGive = AchiveKillInSEc1;
-		GiveActorInventory(0, "DSCarmorBonus", AchiveKillInSEc1);
-		Log(s:"Double death\n", i:AchiveKillInSEc1, s:" kills in sec!");
-		AchiveKillInSEc1 = 0;
-		AchiveDieInSec1 = 0;
-		ACS_NamedExecute("TimeKillVoiceSec1", 0, 1);
-		SaintHealthUpMultipler+=2;
-		terminate;
-	}
-	AchiveKillInSEc1 = 0;
-	AchiveDieInSec1 = 0;
-
-}
-
-Script "TimeKillVoiceSec1" (int soundID){
-	ACS_NamedExecuteAlways("MuteMusic", 0, 35+15);
-	delay(15);
-	for(int i = 0; i<=9; i++){
-		SoundVolume (0, i, 0.0);
-	}
-	switch (soundID) {
-		case 1:
-		PlaySound (0, "DSCACHV2R" , 64, 1.0, false, ATTN_NONE);
-		break;
-		case 2:
-		PlaySound (0, "world/DSCACHV4" , 64, 1.0, false, ATTN_NONE);
-		break;
-		case 3:
-		PlaySound (0, "world/DSCACHV5" , 64, 1.0, false, ATTN_NONE);
-		break;
-		case 4:
-		PlaySound (0, "world/DSCACHV6" , 64, 1.0, false, ATTN_NONE);
-		break;
-		case 5:
-		PlaySound (0, "world/DSCACHV7" , 64, 1.0, false, ATTN_NONE);
-		break;
-		case 6:
-		PlaySound (0, "world/DSCACHV8" , 64, 1.0, false, ATTN_NONE);
-		break;
-	}
-	delay(35);
-	for( i = 0; i<=7; i++){
-		SoundVolume (0, i, 1.0);
-	}
-}
-
-script "SaintHealthUp" (void){
-	SetResultValue(SaintHealthUpMultipler*SaintHealthUpBaseAmount);
-	SaintHealthUpMultipler = 0;
-}
-
-script "MonsterKilled" (void){
-	AchiveKillInSEc1++;
-	SaintHealthUpMultipler++;
-	ACS_NamedExecute("AchiveKillInSEc1Counter", 0);
-
-}
-
-script "MonsterDied" (void){
-	AchiveDieInSec1++;
-	AchiveKillInSEc10++;
-	ACS_NamedExecute("AchiveKillInSEc1Counter", 0);
-	ACS_NamedExecute("AchiveKillInSEc10Counter", 0);
-	//AchiveKillInSEc10++;
-	//printBold(s:"kill");
-	//ACS_NamedExecute("AchiveKillInSEc1Counter", 0);
-
-}
 
 Script "GetAmmoSlot" (void)
 {
@@ -204,8 +64,131 @@ Script "GetAmmoSlot" (void)
 }
 Script "GetWeaponGotID" (void)
 {
-	SetResultValue(WeaponGotID);
+SetResultValue(WeaponGotID);
 }
+Script "GetWeaponGotIDforWeaponSpawner" (void)
+{
+	int WeaponID;
+	//WeaponGotID - actual weapon num
+	//1. ShotgunGot
+	//2. ssgGot
+	//3. ChaingunGot
+	//4. RLCGot
+	//5. PlasmaGot
+	//6. BfgGot
+	//Log(s:"Weapon randomizator ", d:WeaponGotID);
+	switch (WeaponGotID) {
+		case 1:
+			if(CheckInventory("ShotgunGot")>0){
+				if(Random(1, 100)<=80){WeaponID = 1;}else{WeaponID = 2;}
+			} else {
+				GiveInventory("ShotgunGot", 1);
+				WeaponID = 1;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 2:
+			//Log(s:"Try SSG ");
+			if(CheckInventory("ssgGot")>0){
+				//Log(s:"It is no ssg now");
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+				Log(s:"Randomised to ", d:WeaponID);
+			} else {
+				GiveInventory("ssgGot", 1);
+				WeaponID = WeaponGotID;
+				//Log(s:"Gived SSG ", d:WeaponID);
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 3:
+			if(CheckInventory("ChaingunGot")>0){
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+			} else {
+				GiveInventory("ChaingunGot", 1);
+				WeaponID = WeaponGotID;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 4:
+			if(CheckInventory("RLCGot")>0){
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+			} else {
+				GiveInventory("RLCGot", 1);
+				WeaponID = WeaponGotID;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 5:
+			if(CheckInventory("PlasmaGot")>0){
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+			} else {
+				GiveInventory("PlasmaGot", 1);
+				WeaponID = WeaponGotID;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		case 6:
+			if(CheckInventory("BfgGot")>0){
+				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
+			} else {
+				GiveInventory("BfgGot", 1);
+				WeaponID = WeaponGotID;
+			}
+			ACS_NamedExecute("DisplaySpawnedWeaponMessage", 0, WeaponID);
+			break;
+		default:
+			WeaponID = 1;
+		}
+		//Log(s:"Rezulted to ", d:WeaponID);
+	SetResultValue(WeaponID);
+}
+
+Script "DisplaySpawnedWeaponMessage" (int WeaponID){
+	switch (WeaponID) {
+		case 1:
+			HudMessageBold(s:"Shotgun spawned";
+				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
+			//PrintBold(s:"Shotgun spawned");
+			break;
+		case 2:
+			HudMessageBold(s:"SuperShotgun spawned";
+				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
+			//PrintBold(s:"SuperShotgun spawned");
+			break;
+		case 3:
+			HudMessageBold(s:"Chaingun spawned";
+				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
+			//PrintBold(s:"Chaingun spawned");
+			break;
+		case 4:
+			HudMessageBold(s:"RocketLauncher spawned";
+				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
+			//PrintBold(s:"RocketLauncher spawned");
+			break;
+		case 5:
+			HudMessageBold(s:"PlasmaRifle spawned";
+				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
+			//PrintBold(s:"PlasmaRifle spawned");
+			break;
+		case 6:
+			HudMessageBold(s:"BFG9000 spawned";
+				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
+			//PrintBold(s:"BFG9000 spawned");
+			break;
+		default:
+			HudMessageBold(s:"Weapon spawned";
+				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
+			//PrintBold(s:"Something spawned");
+			break;
+	}
+}
+
+
+Script "GetAttempt" (void)
+{
+	SetResultValue(GlobalAttempt);
+}
+
 Script "GetProgress" (void)
 {
 	SetResultValue((currentWave * 100) / maxWaveCount);
@@ -222,10 +205,31 @@ Script "NewMonsterIsSpawned" (int monstersCount)
 	SpawnedMonstersOnTheMap = monstersCount;
 }
 
+function bool BEorvanilla (void){
+	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer") || CheckActorClass(0, "DoomPlayer")){
+		return true;
+	}
+	return false;
+}
+function bool BE (void){
+	if (isBE){
+		return true;
+	}
+	return false;
+}
+Script "BE" (void)
+{
+	if (isBE){
+		SetResultValue(true);
+		terminate;
+	}
+	SetResultValue(false);
+}
 
 function int GetTotalMonsters(void)
 {
-	if (!CheckActorClass(0, "BEDoomer") && !CheckActorClass(0, "BESemiDoomer") && !CheckActorClass(0, "DoomPlayer")){
+
+	if (!BEorvanilla()){
 		return SpawnedMonstersOnTheMap;
 	}
 	return ThingCount(T_NONE, 666666);
@@ -236,16 +240,26 @@ function int GetTotalMonsters(void)
 
 Script "DisplayInfo" ENTER
 {
-	//ACS_NamedExecute("KillAchivesStarter", 0);
+
+	//ACS_NamedExecute("DisplayWaveStats", 0, 5, 3100000);
+
+	if (CheckActorClass(0, "BEDoomer") || CheckActorClass(0, "BESemiDoomer")){
+		isBE = true;
+	} else { isBE = false; }
 
 	while (TRUE) {
 		int mtotal = GetTotalMonsters();
+		int progress = (currentWave * 100) / maxWaveCount;
+
+		SetFont("SMALLFONT");
 
 		HudMessage(
-		s:"\n", d:mtotal, s:" Monsters",
-		s:"\n", d:(currentWave * 100) / maxWaveCount,s:" %", s:" Progress",
-		s:"\n", d:TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS), s:" Kills total";
-		HUDMSG_PLAIN,20,CR_RED,1.0,0.3,1,0);
+		d:mtotal, s:" demons on map";
+		HUDMSG_PLAIN,779,CR_DARKBROWN,0.2,0.039,1,0);
+
+		HudMessage(
+		d:progress, s:"%", s:" progress";
+		HUDMSG_PLAIN,780,CR_DARKBROWN,0.8,0.039,1,0);
 		Delay(35);
 	}
 }
@@ -256,9 +270,12 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 
 		if( ScullTag != 888888 ){
 			WaveOnline = true;
+			KilledWaveStart = GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+
 			if(!NOspawn){//debug thing
 				Delay(35*3);
-				AmbientSound("Howling",127);
+				//AmbientSound("Howling",127);
+				PlaySound(0, "Howling", CHAN_AUTO, 1.0,  false, ATTN_NONE );
 				Delay(35*3);
 
 				for(int i = 5; i > 0; i--)
@@ -276,12 +293,12 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 			if(!NOspawn){ //debug thing
 				Delay(35*30);
 			}
-
 			while ( GetTotalMonsters()>0){ Delay(35); }
-
-			PrintBold(s:"Wave ", d:CurrentWave+1,  s:" complete!");
-
-			//ACS_NamedExecute("MapWaveControll", 0);
+			//AmbientSound("WAVEDONE",127);
+			PlaySound(0, "WAVEDONE", CHAN_AUTO, 1.0,  false, ATTN_NONE );
+			killedPerWave = GetLevelInfo (LEVELINFO_KILLED_MONSTERS)-KilledWaveStart;
+			ACS_NamedExecute("DisplayWaveStats", 0, killedPerWave, TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS));
+			//PrintBold(s:"Wave ", d:CurrentWave+1,  s:" complete!");
 
 			CurrentWave ++;
 
@@ -289,97 +306,199 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 				Delay(35*3);
 			}
 			Thing_Destroy(666667,0,0);//Previusly spawned vanilla weapon
-
+			if(!NOspawn){//debug thing
+				Delay(35*1);
+			}
 			ACS_NamedExecute("SpawnWeapon", 0, WeaponTag);
 
-
 			if(!NOspawn){//debug thing
-			Delay(35*3);
+
+				Delay(35*3);
 			}
+
 			ACS_NamedExecuteAlways("RestoreMusic", 0);
 
-			SpawnSpotFacingForced("WaveScullDEC", ScullTag, 100600);
 
+			if(!LastWave){
+				SpawnSpotFacingForced("WaveScullDEC", ScullTag, 100600);
+			} else {
+				SpawnSpotFacingForced("DoomSlayerGliph", ScullTag, 100600);
+
+			 }
 			SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
-
 			WaveOnline = false;
+
+
+			if(getRank()>DSCplayerRank){
+				Delay(35*3);
+				ACS_NamedExecuteAlways("DisplayNextRank", 0);
+			}
+			Autosave();
 
 		}
 }
+script "DisplayWaveStats" (int PerWave, int Total){
+		SetHudSize(800, 600, 0);
+		SetFont("WAVeLINE");
+		HudMessageBold(s:"A";
+			HUDMSG_PLAIN|HUDMSG_LAYER_UNDERHUD, 399, CR_GOLD, 400.0, 270.0, 0);
+		SetFont("BIGFONT");
+		SetHudSize(640, 480, 0);
+		delay(1);
+		HudMessageBold(s:"Wave ", d:CurrentWave+1,  s:" complete!";
+			HUDMSG_PLAIN, 400, CR_GOLD, 320.0, 180.0, 0);
+		SetFont("SMALLFONT");
+		HudMessageBold(s:"Kills per wave: ", d:PerWave;
+			HUDMSG_PLAIN, 401, CR_GOLD, 320.0, 200.0, 0);
+		HudMessageBold(s:"Total kills: ", d:Total;
+			HUDMSG_PLAIN, 402, CR_GOLD, 320.0, 210.0, 0);
+		ACS_NamedExecuteAlways("DisplayLeftGliph", 0, PerWave);
+		ACS_NamedExecuteAlways("DisplayRightsGliph", 0, Total);
+		delay(35*7);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 399, CR_GOLD, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 400, CR_GOLD, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 401, CR_GOLD, 0.5, 0.3, 0);
+		HudMessageBold(s:""; HUDMSG_PLAIN, 402, CR_GOLD, 0.5, 0.3, 0);
 
-script "NextWaveReady" (void)
-{
+		SetHudSize(0, 0, 0);
+}
 
-	NextWaveReady = true;
+script "DisplayLeftGliph" (int num){
+	SetHudSize(800, 600, 0);
+	SetFont("BIGFONT");
+	int cat = GetCat(num);
+	int catNum = GetCatNum(num);
+	HudMessageBold(d:catNum, s:" X ", d:cat;
+	HUDMSG_PLAIN, 403, CR_RED, 150.0, 250.0, 7.0);
+
+	SetFont(GetGliph (num));
+	HudMessageBold(s:"A"; HUDMSG_PLAIN, 404, CR_RED, 150.0, 175.0, 7.0);
+	SetHudSize(0, 0, 0);
+}
+script "DisplayRightsGliph" (int num){
+	SetHudSize(800, 600, 0);
+	SetFont("BIGFONT");
+	int cat = GetCat(num);
+	int catNum = GetCatNum(num);
+	HudMessageBold(d:catNum, s:" X ", d:cat;
+	HUDMSG_PLAIN, 405, CR_RED, 800.0-150.0, 250.0, 7.0);
+
+	SetFont(GetGliph (num));
+	HudMessageBold(s:"A"; HUDMSG_PLAIN, 406, CR_RED, 800.0-150.0, 175.0, 7.0);
+	SetHudSize(0, 0, 0);
+}
+
+function str GetGliph (int num) {
+	if(num*0.0001>>16 >= 100) { return "decgl6";}
+	if(num*0.0001>>16 >= 10) { return "decgl5";}
+	if(num*0.0001>>16 >= 1) { return "decgl4";}
+	if(num*0.001>>16 >= 1) { return "decgl3";}
+	if(num*0.01>>16 >= 1) { return "decgl2";}
+	if(num*0.1>>16 >= 1) { return "decgl1";}
+	return "decgl0";
+}
+
+function int GetCat  (int num){
+	if(num*0.0001>>16 >= 100) { return 1000000;}
+	if(num*0.0001>>16 >= 10) { return 100000;}
+	if(num*0.0001>>16 >= 1) { return 10000;}
+	if(num*0.001>>16 >= 1) { return 1000;}
+	if(num*0.01>>16 >= 1) { return 100;}
+	if(num*0.1>>16 >= 1) { return 10;}
+	return 1;
+}
+
+function int GetCatNum (int num){
+	int cat = GetCat(num);
+	int CatNum = num/cat;
+	return CatNum;
+	//return ceil(num/cat)/65536;
 }
 
 
-
-
-
+script "NextWaveReady" (void){	NextWaveReady = true; }
+function bool GetDSCscreenFade(void){ if(DSCscreenFade>0){ return true; } return false; }
 script "SpawnWeapon" (int WeaponTag)
 {
+
+	//PrintBold(s:"Your progress ", d:progression, s:"%");
+	delay(35*2);
+	while(GetDSCscreenFade()){
+		delay(5);
+	}
 	if(!WeaponTag){WeaponTag = 100400; }
 	int progression = (currentWave * 100) / maxWaveCount ;
-	//PrintBold(s:"Your progress ", d:progression, s:"%");
-	Thing_Remove(666667);
+	//Thing_Remove(666667);
 	if(progression >= shotGunSpawnProgressInPercent && WeaponGotID<1)
 	{
 
-		PrintBold(s:"Shotgun spawned");
 		AmmoMaxRnd = 1;
 		WeaponGotID = 1;
+		//PrintBold(s:"Shotgun spawned");
 
-		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("Shotgun",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= SSGSpawnProgressInPercent && WeaponGotID<2)
 	{
-		PrintBold(s:"SuperShotgun spawned");
-		WeaponGotID = 2;
 
-		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("SuperShotgun",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
+		WeaponGotID = 2;
+		//PrintBold(s:"SuperShotgun spawned");
+
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= ChaingunSpawnProgressInPercent && WeaponGotID<3)
 	{
-		PrintBold(s:"Chaingun spawned");
+
 		WeaponGotID = 3;
-		Thing_Destroy(666667,0,0);
-		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("Chaingun",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
+		//Thing_Destroy(666667,0,0);
+		//PrintBold(s:"Chaingun spawned");
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= RLSpawnProgressInPercent && WeaponGotID<4)
 	{
-		PrintBold(s:"RocketLauncher spawned");
+
 		WeaponGotID = 4;
 		AmmoMaxRnd = 2;
+		//PrintBold(s:"RocketLauncher spawned");
 
-		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("RocketLauncher",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= PlasmaGunSpawnProgressInPercent && WeaponGotID<5)
 	{
-		PrintBold(s:"PlasmaRifle spawned");
+
 		WeaponGotID = 5;
 		AmmoMaxRnd = 3;
+		//PrintBold(s:"PlasmaRifle spawned");
 
-		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("PlasmaRifle",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
+		//Thing_Activate(WeaponTag);
 	}
 	else if (progression >= BFG9000SpawnProgressInPercent && WeaponGotID<6)
 	{
-		PrintBold(s:"BFG9000 spawned");
-		WeaponGotID = 6;
 
+		WeaponGotID = 6;
+		//PrintBold(s:"BFG9000 spawned");
+		//Thing_Activate(WeaponTag);
+	}
+	//PrintBold(d:WeaponGotID);
+	if(WeaponGotID>=1){
 		Thing_Activate(WeaponTag);
-		//SpawnSpotFacingForced("BFG9000",weaponSpawnersTid[Random(0,weaponSpawnersCount-1)],0);
 	}
 }
 
 
 Script "ScullHasCome" (void){
-	PrintBold(s:"Mistic Scull has arrived.\nPick it up for continiue.");
+	while(DSCscreenFade>0){
+		delay(1);
+	}
+	delay(35*3);//to not intersect with weapon spawn message
+	PrintBold(s:"Mystic Scull has arrived.\nPick it up for continiue.");
+}
+Script "GliphHasCome" (void){
+	while(DSCscreenFade>0){
+		delay(1);
+	}
+	delay(35*3);//to not intersect with weapon spawn message
+	PrintBold(s:"Gliph has arrived.\nPick it up for finish.");
 }
 
 
@@ -396,6 +515,14 @@ Script "Mus_G2" (void){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);
 		Delay(100);
 		SetMusic("BTTL_G2", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+Script "Mus_G3" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("BTTL_G3", 0);
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
@@ -431,51 +558,112 @@ Script "Mus_M3" (void){
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
-
-
-
-
-Script "SetBattleMusic1" (void){
+Script "Mus_SM1" (void){
 	if(!IgnoreWaveMusicChange){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);
 		Delay(100);
-		SetMusic("FIGHT_SM", 0);
+		SetMusic("BTTLsm1", 0);
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
-Script "SetBattleMusic2" (void){
+Script "Mus_SM2" (void){
 	if(!IgnoreWaveMusicChange){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);
 		Delay(100);
-		SetMusic("FIGHT_MD", 0);
+		SetMusic("BTTLsm2", 0);
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
-Script "SetBattleMusic3" (void){
+Script "Mus_SM3" (void){
 	if(!IgnoreWaveMusicChange){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);
 		Delay(100);
-		SetMusic("FIGHT_HD", 0);
+		SetMusic("BTTLsm3", 0);
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
-Script "SetBattleMusicDS" (void){
+
+
+Script "Mus_TITLEMAP" (void){
 	if(!IgnoreWaveMusicChange){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);
 		Delay(100);
-		SetMusic("FIGHT_DS", 0);
+		SetMusic("MAINTTL", 0);
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
-		Delay(100);
-		SetMusicVolume(2.0);
 	}
 }
+Script "Mus_COMPUTER" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("COMPUTER", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+Script "Mus_FASTBASS" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("FASTBASS", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+Script "Mus_Alastor" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("Alastor", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+Script "Mus_DTEMPLE" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("DTEMPLE", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+
+Script "Mus_BTTL_ES" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("BTTL_ES", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+
+Script "Mus_BTTL_ORD" (void){
+	if(!IgnoreWaveMusicChange){
+		ACS_NamedExecuteAlways("FadeOutMusic", 0);
+		Delay(100);
+		SetMusic("BTTL_ORD", 0);
+		ACS_NamedExecuteAlways("FadeInMusic", 0);
+	}
+}
+
+
 Script "RestoreMusic" (void){
-	if(!IgnoreWaveMusicChange){
+	if(!IgnoreWaveMusicChange && restoreMusicAfterWave){
 		ACS_NamedExecuteAlways("FadeOutMusic", 0);
 		Delay(100);
 		SetMusic("*", 0);
 		ACS_NamedExecuteAlways("FadeInMusic", 0);
 	}
 }
+/////////////////////////////
+Script "GiveFirstEpisodeDoneItems" (void){
+	if(CheckInventory("map06done")==0){
+		GiveInventory("map01done", 1);
+		GiveInventory("map02done", 1);
+		GiveInventory("map03done", 1);
+		GiveInventory("map04done", 1);
+		GiveInventory("map05done", 1);
+		GiveInventory("map06done", 1);
+	}
+}
+
+
 
 //END LIBRARY

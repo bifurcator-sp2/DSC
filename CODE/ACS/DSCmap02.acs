@@ -1,14 +1,16 @@
+//episode wave count definition
+int maxWaveCount = 40;//--------------------------
+//episode wave count definition
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+
+
 
 INT MapWave = 0;
 BOOL ArmorTook = false;
 
-SCRIPT "StartFirstWave" (void){
-	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
-	ACS_NamedExecuteAlways("Mus_L1", 0);
-}
+
 SCRIPT "ArmorWave" (void){
 	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
 	if(!ArmorTook ){
@@ -25,7 +27,10 @@ SCRIPT "IamReady" (void){
 	NextWaveReady = true;
 }
 
-
+SCRIPT "SpawnFirstScull" (void){
+		SpawnSpotFacingForced("WaveScullDEC", 12, 100600);
+		SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
+}
 SCRIPT "StartControl" ENTER
 {
 	//test!!!!!!!!!!
@@ -35,14 +40,20 @@ SCRIPT "StartControl" ENTER
 	//test!!!!!!
 
 	//SetThingSpecial(100700, ACS_NamedExecute, "ArmorWave");
+	//SetThingSpecial(100800, ACS_NamedExecute, "IamReady");
+
+	SpawnSpotFacingForced("DoomSlayerGliph", 100800, 100600);// test thing
 
 
-	SetThingSpecial(100800, ACS_NamedExecute, "IamReady");
 	while(!NextWaveReady){
 		delay(1);
 	}
 	NextWaveReady = false;
-	ACS_NamedExecuteAlways("StartFirstWave", 0);
+
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
+	ACS_NamedExecuteAlways("Mus_L1", 0);
+
+
 
 	while(!NextWaveReady){
 		delay(1);
@@ -59,7 +70,7 @@ SCRIPT "StartControl" ENTER
 	}
 	NextWaveReady = false;
 
-
+	LastWave = true;
 	Door_Close(13, 64);
 	Door_Open(14, 16);
 	ACS_NamedExecuteAlways("Mus_L1", 0);
@@ -77,7 +88,7 @@ SCRIPT "StartControl" ENTER
 		Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
 		Delay(35);
 	}
-
+	GiveInventory("map02done", 1);
 	TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 	Atrium1Active = true;
 	Exit_Normal(0);
