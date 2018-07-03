@@ -2431,6 +2431,8 @@ Class DSCtentyacleBounder : Actor
 	{
 		+SOLID;
 		+SHOOTABLE;
+		-PUSHABLE;
+		+DONTTHRUST;		
 		+NOGRAVITY;
 		PainChance 128;
 		Height 256;
@@ -2486,8 +2488,9 @@ Class DSCtentyacleSwitchable : SwitchableDecoration
 	float MaxScale;
 	Default
 	{
-
 		+SHOOTABLE;
+		-PUSHABLE;
+		+DONTTHRUST;		
 		PainChance 128;
 		Height 256;
 		DeathHeight 1;

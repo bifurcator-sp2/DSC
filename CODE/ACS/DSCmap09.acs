@@ -21,7 +21,7 @@ script "StartControl" ENTER
 	Thing_DeActivate(100);//steam in lift
 	//ACS_NamedExecuteAlways("SatartFirstWave", 0);//test thing!!! remove at end of condtruction
 	//Thing_Activate(64);//test thing!!! remove at end of condtruction
-
+	//Thing_Activate(167);//test thing!!!
 
 	Scroll_Ceiling (21, 4, 0, 0);
 	Scroll_Ceiling (22, 0, 4, 0);
