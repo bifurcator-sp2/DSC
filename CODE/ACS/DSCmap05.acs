@@ -32,6 +32,9 @@ Thing_SetGoal(60, 0, 0, 1);
 SetMusicVolume(0);
 Thing_Deactivate(59);
 
+
+
+
 //TEST!
 
 //NOspawn = true;
@@ -56,6 +59,17 @@ ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 	}
 	GiveInventory("map05done", 1);
 
+}
+bool DeathFade;
+script "saintNames" enter {
+	//34 45 60
+	if(!DeathFade){
+		HudMessageOnActor(34, 77, 640, 480, 10, -80, 512, -1, "Prisoned Saint\nEscort to the\nCentral hall!", 0, CR_GREEN);
+		HudMessageOnActor(45, 77, 640, 480, 10, -80, 512, -1, "Prisoned Saint\nEscort to the\nCentral hall!", 0, CR_GREEN);
+		HudMessageOnActor(60, 77, 640, 480, 10, -80, 512, -1, "Prisoned Saint\nEscort to the\nCentral hall!", 0, CR_GREEN);
+		delay(1);
+		restart;
+	}
 }
 
 
@@ -100,6 +114,8 @@ SCRIPT "StartControl" ENTER
 	Thing_Activate(29);
 	Thing_Activate(30);
 	Thing_Activate(31);
+
+
 }
 
 script "spawnSequence2firstScull"(void){
@@ -452,21 +468,28 @@ script "DisplaySaintHealth" (int tid){
 
 }
 
+script "SaintDeadFade" enter{ if(DeathFade){FadeTo (0, 0, 0, 1.0, 5.0 );terminate;} delay(5);restart;}
 script "SaintDead" (void){
-	for(int i = 5; i > 0; i--)
+	DeathFade = 1;
+	SetPlayerProperty(TRUE, ON, PROP_TOTALLYFROZEN);
+	while(true){
+		PrintBold(s:"Prisoned Saint Dead!\nTry Again!");
+		Delay(35);
+	}
+	/*for(int i = 5; i > 0; i--)
 	{
 		PrintBold(s:"Prisoned Saint Dead!\nGame will be restarted\nin ",d:i,s:" seconds");
 		Delay(35);
-	}
+	}*/
 	/*str lvlName = StrParam(n: PRINTNAME_LEVEL);
 	ChangeLevel(lvlName,0,CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION, -1);*/
-			currentWave = 0;
+			/*currentWave = 0;
 			DSCplayerRank = 0;
 			TotalKills = 0;
 			CurrentWave = 0;
 			AmmoMaxRnd = 0;
 			WeaponGotID = 0;
-			ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
+			ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);*/
 }
 
 SCRIPT "Door1" (void){

@@ -2090,6 +2090,8 @@ Class DSCrandomGrass : Actor //22015
 	{
 		+FORCEXYBILLBOARD;
 		//+NOINTERACTION;
+		+NOBLOCKMAP;
+		+GHOST;
 		Radius 16;
 		Scale 0.2;
 	}

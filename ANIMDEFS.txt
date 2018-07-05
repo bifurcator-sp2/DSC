@@ -2,9 +2,9 @@ WARP texture FLESH 0.1 allowdecals
 /*WARP texture DSCFLSH 0.1 allowdecals*/
 
 
-
 WARP texture DSS2A0 2.0
 WARP texture SPTBA0 2.0
+
 //WARP texture MOR4A0 4.0
 Texture ZWT1_0
 	PIC ZWT1_0 tics 5
@@ -19,7 +19,7 @@ Texture ZWT1_0
 
 /*
 SWITCH swt1_1
-ON 
+ON
 	PIC ZWT1_0 tics 5
 	PIC ZWT1_1 tics 5
 	PIC ZWT1_2 tics 5
@@ -37,10 +37,10 @@ ON
 	PIC ZWT1_2 tics 5
 	PIC ZWT1_1 tics 5
 	PIC ZWT1_0 tics 5
-	
-	
-OFF 
-	PIC swt1_1 tics 70	
+
+
+OFF
+	PIC swt1_1 tics 70
  */
 /*
     SWITCH <name>:
