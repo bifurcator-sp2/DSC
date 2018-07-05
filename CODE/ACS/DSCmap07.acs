@@ -219,7 +219,7 @@ script "UnblockWayToOnderblood"(void){
 
 bool cageDoorOpened = false;
 script "cage_open_door"(void){
-	if(WayToUnderbloodUnblocked){
+	if(WayToUnderbloodUnblocked && !cageDoorOpened){
 		Ceiling_RaiseByValue(39, 32, 128);
 		floor_Raisebyvalue(39, 32, 128);
 		PlaySound(41, "world/IRONMOVE", CHAN_AUTO, 1.0, false, ATTN_NORM);

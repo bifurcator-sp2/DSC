@@ -61,6 +61,7 @@ ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 
 }
 bool DeathFade;
+/*
 script "saintNames" enter {
 	//34 45 60
 	if(!DeathFade){
@@ -71,7 +72,7 @@ script "saintNames" enter {
 		restart;
 	}
 }
-
+*/
 
 
 SCRIPT "SpawnFirstScull" (void){

@@ -1867,6 +1867,7 @@ Class DSCprisonedSaint : Actor
 	int NopainSpeed;
 	bool scullSpawned;
 	int RaiseDebugDelay;
+	vector3 SaintPos;
 
 	Default
 	{
@@ -1882,7 +1883,7 @@ Class DSCprisonedSaint : Actor
 		-IsMonster;
 		+FLOAT
 		+NOGRAVITY
-		//+DONTTHRUST;
+		+DONTTHRUST;
 		Scale 0.5;
 		RenderStyle "Add";
 		+ROLLSPRITE;
@@ -1945,6 +1946,9 @@ Class DSCprisonedSaint : Actor
 		}
 	}
 	void SaintRaise(){
+	//256 -96
+		SaintPos.x = 256;
+		SaintPos.y = -96;
 		PainChance = 0;
 		Mass = 999999999;
 		SaintHealing();
@@ -1952,7 +1956,9 @@ Class DSCprisonedSaint : Actor
 		RaiseDebugDelay--;
 
 		if(pos.z - floorz < RaiseMahHeigth && RaiseDebugDelay>0) {
-			SetZ(pos.z+0.2);
+			//SetZ(pos.z+0.2);
+			SaintPos.z = pos.z+0.2;
+			SetOrigin(SaintPos, true);
 			if(random(1, 70)==70){
 				A_PlaySound("puresoul/attack", CHAN_WEAPON, 1.0, false, ATTN_NONE);
 				A_SpawnItemEx("DSCcombatSeraphimGliphBig", 0, 0, 0, 0, 0, 0, 0,SXF_NOCHECKPOSITION, 0, 0);
