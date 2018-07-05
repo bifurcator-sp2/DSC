@@ -50,6 +50,9 @@ SCRIPT "StartControl" ENTER
 	if(CheckInventory("map05done") || CheckInventory("map06done")>0){
 		//int progression = (currentWave * 100) / maxWaveCount ;
 		//if(progression>150||CheckInventory("map06done")>0){
+			FloorAndCeiling_RaiseByValue(16, 8, 384);
+			TagWait (16);
+			Delay(35);
 			SpawnSpotFacingForced("DSCportalToMap", 200, 201);
 			SetThingSpecial(201, ACS_NamedExecute, "GotoMinistry");
 			Thing_Activate(110);

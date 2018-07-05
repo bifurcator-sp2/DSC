@@ -7,7 +7,7 @@ Class SkyViewpointMover : SwitchableDecoration
 	}
 	virtual void InitMover()
 	{
-		
+
 		//Mover.DestroyActors("SkyViewpoint", 128);
 		//Mover.DoMoveActors("SkyViewpoint", double distance)
 		Mover.MoveActors("SkyViewpoint", "MapSpot", args[0], 256);
@@ -31,7 +31,7 @@ struct MoveIterator play
 {
     private Actor caller;
     private Actor mover;
- 
+
     private void PrintErrorMessage(int message)
     {
         string errorMessage = "";
@@ -40,11 +40,11 @@ struct MoveIterator play
             case -1:
                 errorMessage = "No Actor specified";
             break;
- 
+
             case -2:
                 errorMessage = "No caller specified";
             break;
- 
+
             case 3:
                 errorMessage = "No actor founded";
             break;
@@ -52,12 +52,12 @@ struct MoveIterator play
         }
         Console.Printf(errorMessage);
     }
- 
+
     void Init(Actor mo)
     {
         if(mo) caller = mo;
     }
- 
+
     void MoveActors(Class<Actor> actorType, Class<Actor> moverType, int tid, double distance)
     {
         if(caller)
@@ -66,10 +66,10 @@ struct MoveIterator play
             if( semiResult <= 0)
             {
                 PrintErrorMessage(semiResult);
-                return;              
+                return;
             }
             int result = DoMoveActors(actorType, distance);
- 
+
             if(result < 0)
             {
                 PrintErrorMessage(result);
@@ -77,7 +77,7 @@ struct MoveIterator play
             }
         }
     }
-   
+
    private int FindMoverActor(Class<Actor> actorType, int tid)
    {
         if(!actorType) return -1;
@@ -93,32 +93,32 @@ struct MoveIterator play
         }
         return -3;
    }
- 
+
     private int DoMoveActors(Class<Actor> actorType, double distance)
     {
         if(!actorType) return -1;
         if(!caller) return -2;
- 
+
         ThinkerIterator it = ThinkerIterator.Create(actorType);
- 
+
         Actor mo;
         while(mo = Actor(it.Next()))
         {
             /*if (!(mo is actorType) || mo == caller || mo is "PlayerPawn") continue;
- 
+
             if( mo is "Inventory")
             {
                 let inv = Inventory(mo);
                 if(inv.Owner != Null) continue;
             }*/
- 
+
             if(distance <= 0.0 || caller.Distance3D(mo) <= distance)
             {
                 mo.SetOrigin(mover.pos,true);
                 continue;
             }
         }
- 
+
         return 0;
     }
 }
@@ -1035,6 +1035,9 @@ Class DSCmonsterSpawner3 : DSCmonsterSpawner
 			MonstersTier3.Push("Archvile");
 			MonstersTier3.Push("PainElemental");
 		} else {
+			if(WeaponGotID<2){
+				MonstersTier3.Push("Cacodemon");
+			}
 			if(WeaponGotID>=2)
 			{
 				MonstersTier3.Push("Spectre");
@@ -2432,7 +2435,7 @@ Class DSCtentyacleBounder : Actor
 		+SOLID;
 		+SHOOTABLE;
 		-PUSHABLE;
-		+DONTTHRUST;		
+		+DONTTHRUST;
 		+NOGRAVITY;
 		PainChance 128;
 		Height 256;
@@ -2490,7 +2493,7 @@ Class DSCtentyacleSwitchable : SwitchableDecoration
 	{
 		+SHOOTABLE;
 		-PUSHABLE;
-		+DONTTHRUST;		
+		+DONTTHRUST;
 		PainChance 128;
 		Height 256;
 		DeathHeight 1;

@@ -276,6 +276,8 @@ ACTOR BIF_Sceleton_random 15070
 	{
 		+NoClip
 		+NoGravity
+		+NOBLOCKMAP
+		Radius 64
 		//+NoInteraction
 		Renderstyle Translucent
 		DistanceCheck "user_MaxDrawDistanceHaze"

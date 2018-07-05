@@ -521,7 +521,8 @@ Script "OxygenDrain" (int DrainSpeedInSec)
 script "DisplayOxygenInSec" (void)
 {
 	if(CheckInventory("Oxygen")< max_oxygen){
-		PrintBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds");
+		//PrintBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds");
+		hudmessageBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds"; HUDMSG_PLAIN , 0, CR_WHITE, 1.95, 0.8, 1.0);
 		Delay(1);
 	} else {
 		PrintBold(s:"Oxygen full");
@@ -560,6 +561,7 @@ script "slideTECdoor" (int po, int angle, int dist) {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
+//Original code by Isle
 function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOffset, int yOffset, int range, str sprite, str text, int holdTime, str colour)
 {
 
@@ -572,8 +574,8 @@ function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOff
 	if(sprite != -1)
 	{
 
-		SetFont(sprite);
-		text = "A";
+		//SetFont(sprite);
+		//text = "A";
 
 	}
 
@@ -605,7 +607,7 @@ function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOff
 				x+=xOffset;
 				y+=yOffset;
 
-				HudMessage(s:text; HUDMSG_PLAIN | HUDMSG_ADDBLEND | HUDMSG_LAYER_UNDERHUD, msgID, colour, (x << 16), (y << 16), holdTime);
+				HudMessage(s:text; HUDMSG_PLAIN, msgID, colour, (x << 16), (y << 16), holdTime);
 
 			}
 
