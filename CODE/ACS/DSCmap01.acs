@@ -19,6 +19,7 @@ bool inDEV = false;
 ////// test
 SCRIPT "StartControl" ENTER
 {
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
 	if(inDEV){
 		/*Door10Locked = false;
 		Door11Locked = false;

@@ -260,3 +260,9 @@ actor IncomeWindGenHellGroundDEC : IncomeWindGenHellGround 22098 {
 }
 actor SkyViewpointMoverDEC : SkyViewpointMover 22099 {
 }
+
+actor DSCintroDEC : DSCintro 22100 {
+//$Sprite INTRA0
++WALLSPRITE
+scale 0.25
+}

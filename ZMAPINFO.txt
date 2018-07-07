@@ -4,7 +4,7 @@ GameInfo
 
 }
 clearepisodes
-episode DSCMAP01 {
+episode DSCINTRO {
 	name = "DSC Episode 1"
 }
 episode DSCMAP06 {
@@ -20,6 +20,12 @@ music = "MAINTTL"
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }
+map DSCINTRO "Intro"
+{
+next = "DSCMAP01"
+
+}
+
 
 map DSCMAP01 "Atrium"
 {

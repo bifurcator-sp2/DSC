@@ -1,3 +1,124 @@
+Class DoomSlayerGliphIntro : Actor
+{
+	Default
+	{
+	RenderStyle "Add";
+	Scale 0.1;
+	alpha 0.0;
+	+NOGRAVITY;
+	+DONTSPLASH;
+	+FORCEXYBILLBOARD;
+	+NOCLIP;
+	-SOLID;
+	}
+
+	States
+	{
+		Spawn:
+			DSGL B 1 Light("AIDlight")
+			{
+			a_fadein(0.002, FTF_CLAMP);
+			A_SpawnItemEx("MorFlareShade", random(-8, 8), random(-8, 8), random(24, 32), 0, 0, frandom(0.2,0.7),0,SXF_NOCHECKPOSITION, 240, 0);
+			}
+
+		LOOP;
+	}
+}
+
+
+class DSCintro : Actor
+{
+	int timer;
+	int delay;
+
+
+	Override void Tick()
+	{
+		timer++;
+		if(timer==1){A_PlaySound ("LOWPUM", 1, 1.0, false, ATTN_NONE);}
+		if(timer<35*5){
+			a_fadein(0.01, FTF_CLAMP);
+		}
+
+		if(timer>35*10 && timer<35*13){
+			A_FadeOut(0.01, false);
+		}
+		if(timer==35*13){
+			SetStateLabel("Label1");
+			A_PlaySound ("LOWPUM", 1, 1.0, false, ATTN_NONE);
+		}
+		if(timer>35*13 && timer<35*20){
+			a_fadein(0.01, FTF_CLAMP);
+		}
+		if(timer>35*20 && timer<35*23){
+			A_FadeOut(0.01, false);
+		}
+		if(timer==35*23){
+			SetStateLabel("Label2");
+			A_PlaySound ("LOWPUM", 1, 1.0, false, ATTN_NONE);
+			ACS_NamedExecute("activate",0,5,0);
+			ACS_NamedExecute("MusicOn",0,0,0);
+
+		}
+		if(timer>35*23 && timer<35*33){
+			a_fadein(0.01, FTF_CLAMP);
+		}
+		if(timer>35*33 && timer<35*38){
+			A_FadeOut(0.01, false);
+		}
+		if(timer>35*38 && timer<(35*38)+(35*38)){
+			a_fadein(0.01, FTF_CLAMP);
+		}
+		if(timer==35*38){
+			SetStateLabel("Label3");
+			A_PlaySound ("INTRO", 1, 1.0, false, ATTN_NONE);
+		}
+		if(timer>(35*38)+(35*38)){
+			A_FadeOut(0.01, false);
+		}
+		if(timer==(35*38)+(35*38)){
+			A_PlaySound ("world/suspense", 1, 1.0, false, ATTN_NONE);
+			ACS_NamedExecute("MusicOff",0,0,0);
+
+		}
+		if(timer==(35*38)+(35*38)+(35*3)){
+			ACS_NamedExecute("sign",0,0,0);
+		}
+		if(timer==(35*38)+(35*38)+(35*20)){
+			ACS_NamedExecute("map01",0,0,0);
+		}
+
+
+		Super.Tick();
+	}
+
+	Default
+	{
+		+NOINTERACTION;
+		+NOGRAVITY;
+		Alpha 0.0;
+		Scale 0.25;
+		Renderstyle "Translucent";
+	}
+	States
+	{
+		Spawn:
+			INTR A 1;
+			Loop;
+		Label1:
+			INTR B 1;
+			Loop;
+		Label2:
+			INTR C 1;
+			Loop;
+		Label3:
+			INTR D 1;
+			Loop;
+	}
+
+}
+
+
 Class SkyViewpointMover : SwitchableDecoration
 {
 	MoveIterator Mover;

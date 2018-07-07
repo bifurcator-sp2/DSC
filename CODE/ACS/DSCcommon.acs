@@ -1,7 +1,35 @@
 bool PlayerInVaquum = false;
 bool PlayerInAirlock = true;
 
+script "enterfade" enter
+{
+	Autosave();
+	Delay(1);
+	SetMusicVolume(0.0);
+	FadeTo (0, 0, 0, 1.0, 0.0 );
+	for(int i = 0; i<=9; i++){SoundVolume (0, i, 0.0);}
+}
+int totalsound=0;
+script "enterSOUNDin" enter
+{
+	delay(15);
+	while(totalsound<100){
+		for(int i = 0; i<=128; i++){
+			SoundVolume (0, i, FixedDiv(totalsound, 100));
+		}
+		SetMusicVolume(FixedDiv(totalsound, 100));
+		totalsound++;
+		delay(2);
+	}
+	for(i = 0; i<=128; i++){SoundVolume (0, i, 1.0);}
+	SetMusicVolume(1.0);
+}
 
+script "enterfadein" enter
+{
+	delay(15);
+	FadeTo (0, 0, 0, 0.0, 5.0 );
+}
 
 function int GetFn(int offset){
 	if(offset <= 2){
