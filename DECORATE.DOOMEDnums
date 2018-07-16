@@ -266,3 +266,10 @@ actor DSCintroDEC : DSCintro 22100 {
 +WALLSPRITE
 scale 0.25
 }
+
+actor DSCtitle2DEC : DSCtitle2 22101 {
+//$Sprite DSCTA0
++WALLSPRITE
+scale 0.02
+}
+ 

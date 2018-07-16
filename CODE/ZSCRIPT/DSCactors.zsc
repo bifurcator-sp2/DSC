@@ -1,3 +1,33 @@
+Class DSCtitle2 : SwitchableDecoration
+{
+	Default
+	{
+		+NOINTERACTION;
+		+NOGRAVITY;
+		+FORCEYBILLBOARD;
+		Scale 0.1;
+		alpha 0.0;
+	}
+	States
+	{
+		Spawn:
+			TNT1 A 1;
+		Goto Halt;
+		Inactive:
+			TNT1 A 1;
+			Loop;
+		Active:
+			DSCT A 1 {
+					a_fadein(0.005, FTF_CLAMP);
+				}
+			Loop;
+		Halt:
+			TNT1 A 1;
+			Loop;
+	}
+}
+
+
 Class DoomSlayerGliphIntro : Actor
 {
 	Default
@@ -84,6 +114,7 @@ class DSCintro : Actor
 		if(timer==(35*38)+(35*38)+(35*3)){
 			ACS_NamedExecute("sign",0,0,0);
 		}
+
 		if(timer==(35*38)+(35*38)+(35*20)){
 			ACS_NamedExecute("map01",0,0,0);
 		}
@@ -113,6 +144,9 @@ class DSCintro : Actor
 			Loop;
 		Label3:
 			INTR D 1;
+			Loop;
+		Label4:
+			INTR E 1;
 			Loop;
 	}
 
