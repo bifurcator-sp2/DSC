@@ -716,7 +716,7 @@ Class WaveScull : CustomInventory
 {
 	Default
 	{
-	+INVENTORY.ALWAYSPICKUP;
+	//+INVENTORY.ALWAYSPICKUP;
 	Inventory.PickUpSound "misc/scullpickup";
 	Inventory.pickupmessage "You got a mystic scull";
 	Scale 0.1;
@@ -745,8 +745,29 @@ Class WaveScull : CustomInventory
 			A_SpawnItemEx("GiveAMMOsparckle", random(-4, 4), random(-4, 4), random(32, 40), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION, 0, 0);
 			A_SpawnItemEx("HellRingFlare", 0, 0, random(0, 16), 0, 0, frandom(0.5,2),0,SXF_NOCHECKPOSITION, 32, 0);
 			}
+		Loop;
+		Pickup:
+			TNT1 A 1 {
 
-		LOOP;
+				CallACS("strongholdScullArmorBonus",0,0,0);
+				if(CallACS("BoneCollector",0,0,0)){
+
+					ThinkerIterator it = ThinkerIterator.Create("AIDSpawner");
+					AIDSpawner aid;
+					while(aid = AIDSpawner(it.Next())){
+						aid.timerCount = aid.timerWaitForAgainHealingInSec;
+					}
+
+					ThinkerIterator it2 = ThinkerIterator.Create("DSCammoSpawner");
+					DSCammoSpawner am;
+					while(am = DSCammoSpawner(it2.Next())){
+						am.clockForAmmo = am.timerWaitForAgainGiveAmmo;
+					}
+
+				}
+			}
+			Stop;
+
 	}
 }
 

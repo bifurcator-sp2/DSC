@@ -1,11 +1,11 @@
-#define DSCbaseHealthBonus 20
+#define DSCbaseHealthBonus 15
 #define AIDhealthRecallBaseTime 90
-#define AmmoRecallBaseTime 90
-#define AbsorbHealthAmount 20
+#define AmmoRecallBaseTime 120
+#define AbsorbHealthAmount 5
 #define StrongHoldChance 10
-#define berserkBonusChance 5
-#define invisBonusChance 5
-#define invuBonusChance 5
+#define berserkBonusChance 3
+#define invisBonusChance 3
+#define invuBonusChance 3
 
 //#define StrongHoldChance 10
 //#define berserkBonusChance 5
@@ -16,18 +16,19 @@ int AchiveKillInSEc1 = 0;
 int AchiveDieInSec1 = 0;
 int AchiveKillInSEc10 = 0;
 bool RankMenueOnScreen = false;
-
+int OldPlayerHealth;
 
 
 //DSCplayerRank = 9;
 script "SerialKiller" (int amount){
+	int RealAmount = random(amount, amount*3);
 	//do something with amount of kills
 	//DSCHealthBonus
 	//DSCbasicArmorBonus
-	GiveActorInventory(0, "DSCHealthBonus", amount);
-	GiveActorInventory(0, "DSCbasicArmorBonus", amount);
+	GiveActorInventory(0, "DSCHealthBonus", RealAmount);
+	GiveActorInventory(0, "DSCbasicArmorBonus", RealAmount);
 
-	Log(s:"Serial Killer: ", d:amount);
+	Log(s:"Serial Killer: ", d:RealAmount);
 }
 script "strongholdBonus" (void){
 	if(DSCplayerRank>=5){
@@ -44,6 +45,13 @@ script "strongholdHealArmorBonus" (void){
 
 	}
 }
+script "strongholdScullArmorBonus" (void){
+	if(DSCplayerRank>=5){
+		GiveActorInventory(0, "DSCarmorBonus5", 1);
+		Log(s:"Stronghold: Mystic Skull gives Armor Bonus 5");
+
+	}
+}
 
 script "berserkBONUS" (void){
 	if(DSCplayerRank>=6){
@@ -54,6 +62,29 @@ script "berserkBONUS" (void){
 		}
 	}
 }
+
+script "MasterofSurvival" enter{
+	if(GetActorProperty (0, APROP_HEALTH)<OldPlayerHealth && GetActorProperty (0, APROP_HEALTH)<25){
+		if(random(0, 1)==0){
+			GiveActorInventory(0, "DSCHealthBonus", 5);
+			Log(s:"Recruit: Health bonus 5");
+		}
+	}
+	OldPlayerHealth = GetActorProperty (0, APROP_HEALTH);
+	delay(5);
+}
+
+script "BoneCollector" (void){
+	if(DSCplayerRank>=3){
+		if(random(0, 4)==0){
+			Log(s:"Bone Collector: Health and Ammo respawned.");
+			SetResultValue(1);
+		}
+	} else {
+		SetResultValue(0);
+	}
+}
+
 script "invisBONUS" (void){
 	if(DSCplayerRank>=7){
 		if(Random(1, 100)<=invisBonusChance){
@@ -97,14 +128,16 @@ script "GetAIDhealthRecallTime" (void){
 		SetResultValue(AIDhealthRecallBaseTime);
 	}
 	if(DSCplayerRank==1){
-		val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.15) >> 16);
+		//val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.15) >> 16);
 		//Log(s:"Vitality 3/1: Health respawned in ", d:val);
-		SetResultValue(val);
+		//SetResultValue(val);
+		SetResultValue(AIDhealthRecallBaseTime);
 	}
 	if(DSCplayerRank==2){
-		val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.3) >> 16);
+		//val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.3) >> 16);
 		//Log(s:"Vitality 3/2: Health respawned in ", d:val);
-		SetResultValue(val);
+		//SetResultValue(val);
+		SetResultValue(AIDhealthRecallBaseTime);
 	}
 	if(DSCplayerRank>=3){
 		val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.5) >> 16);
@@ -115,7 +148,7 @@ script "GetAIDhealthRecallTime" (void){
 
 script "GetAIDhealthAmount" (void){
 	int val;
-	if(DSCplayerRank==0){
+	/*if(DSCplayerRank==0){
 		Log(s:"Health bonus ", i:DSCbaseHealthBonus);
 		SetResultValue(DSCbaseHealthBonus);
 	}
@@ -128,11 +161,14 @@ script "GetAIDhealthAmount" (void){
 		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.3) >> 16);
 		Log(s:"Vitality 2/3: Health bonus ", d:val);
 		SetResultValue(val);
-	}
+	}*/
 	if(DSCplayerRank>=3){
 		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.5) >> 16);
-		Log(s:"Vitality 3/3: Health bonus ", d:val);
+		Log(s:"Vitality: Health bonus ", d:val);
 		SetResultValue(val);
+	} else {
+		Log(s:"Health bonus ", i:DSCbaseHealthBonus);
+		SetResultValue(DSCbaseHealthBonus);
 	}
 }
 script "AbsorbHealth" (int HealthAmount){
@@ -148,6 +184,41 @@ script "AbsorbHealth" (int HealthAmount){
 	}
 	//int HealthToGive = HealthAmount*multipler/100;
 	//GiveActorInventory(0, "DSChealthBonus", HealthToGive);
+}
+
+script "SetConsoleRank" enter {
+
+	if(GetCVar("dsc_player_rank")>=0){
+		DSCplayerRank = GetCVar("dsc_player_rank");
+
+		switch (DSCplayerRank) {
+			case 0:
+				TotalKills = 0; break;
+			case 1:
+				TotalKills = 50; break;
+			case 2:
+				TotalKills = 100; break;
+			case 3:
+				TotalKills = 200; break;
+			case 4:
+				TotalKills = 400; break;
+			case 5:
+				TotalKills = 800; break;
+			case 6:
+				TotalKills = 1600; break;
+			case 7:
+				TotalKills = 3200; break;
+			case 8:
+				TotalKills = 6400; break;
+			case 9:
+				TotalKills = 12800; break;
+
+		}
+
+		SetCVar("dsc_player_rank", -1);
+	}
+	delay(1);
+	restart;
 }
 
 function int getRank (void){
@@ -183,6 +254,8 @@ function int getKillsToRank (int CurrentKills){
 function str getRankString (int rank){
 	IF(!rank){rank=DSCplayerRank;}
 	switch (rank) {
+		case 0:
+			return "Numb";
 		case 1:
 			return "Recruit";
 		case 2:
@@ -192,7 +265,7 @@ function str getRankString (int rank){
 		case 4:
 			return "Destroyer";
 		case 5:
-			return "Blood Seeker";
+			return "Tyrant";
 		case 6:
 			return "Demon Hunter";
 		case 7:
@@ -200,20 +273,21 @@ function str getRankString (int rank){
 		case 8:
 			return "Doom Slayer";
 		case 9:
-			return "Hell's Death";
+			return "Hell's End";
+
 	}
 	return "Numb";
 }
 function str getRankAchive (int rank){
 	switch (rank) {
 		case 0:
-			return GetActorClass(0);
+			return "Killing Machine";
 		case 1:
-			return "Vitality 1/3";
+			return "Master of Survival";
 		case 2:
-			return "Vitality 2/3";
+			return "Vitality";
 		case 3:
-			return "Vitality 3/3";
+			return "Bone Collector";
 		case 4:
 			return "Gunner";
 		case 5:
@@ -223,7 +297,7 @@ function str getRankAchive (int rank){
 		case 7:
 			return "Spectre";
 		case 8:
-			return "Blessing";
+			return "Iron Will";
 		case 9:
 			return "Reaper";
 	}
@@ -232,25 +306,25 @@ function str getRankAchive (int rank){
 function str getRankAchiveInfo (int rank){
 	switch (rank) {
 		case 0:
-			return "Default Abilities.\nSerial Killer bonus.";
+			return "Mass murders restores some health and armor.";
 		case 1:
-			return "Player gets 15% more health.\nHealth respawns 15% faster.";
+			return "50% chance to restore 5% health\nif health falls lower than 25%";
 		case 2:
-			return "Player gets 30% more health.\nHealth respawns 30% faster.";
-		case 3:
 			return "Player gets 50% more health.\nHealth respawns 50% faster.";
+		case 3:
+			return "20% chance to immediately recall\nall Health and Ammo spawners.";
 		case 4:
 			return "Ammo respawns 50% faster.";
 		case 5:
-			return "10% chance to get 5% armor for kill.";
+			return "10% chance to get 10% armor for kill.\nHealing Heart and Mystic Skull gives 5% armor";
 		case 6:
-			return "5% chance to get BERSERK\nfor each kill.";
+			return "3% chance to get BERSERK\nfor each kill.";
 		case 7:
-			return "5% chance to get INVISIBILITY\nfor each kill.";
+			return "3% chance to get INVISIBILITY\nfor each kill.";
 		case 8:
-			return "5% chance to get INVULNERABILITY\nfor each kill.";
+			return "3% chance to get INVULNERABILITY\nfor each kill.";
 		case 9:
-			return "Player absorbs 20% health\nof each killed demon.";
+			return "Player absorbs 5% health\nof each killed demon.";
 	}
 	return GetActorClass(0);
 }
@@ -419,6 +493,13 @@ if (buttons & (BT_ATTACK)) { print(s:"You could be pressing the attack key."); }
 */
 }
 
+SCRIPT "DSCrankShotdown" ENTER{
+	if(RankMenueOnScreen && GetPlayerInput(-1, INPUT_BUTTONS)){
+		ACS_NamedExecuteAlways("DisplayNextRank", 0);
+	}
+	delay(1);
+	restart;
+}
 
 
 SCRIPT "ResetCounters" ENTER {

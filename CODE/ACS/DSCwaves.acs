@@ -345,7 +345,7 @@ script "DisplayWaveStats" (int PerWave, int Total){
 		SetFont("BIGFONT");
 		SetHudSize(640, 480, 0);
 		delay(1);
-		HudMessageBold(s:"Wave ", d:CurrentWave+1,  s:" complete!";
+		HudMessageBold(s:"Wave ", d:CurrentWave,  s:" complete!";
 			HUDMSG_PLAIN, 400, CR_GOLD, 320.0, 180.0, 0);
 		SetFont("SMALLFONT");
 		HudMessageBold(s:"Kills per wave: ", d:PerWave;
