@@ -34,6 +34,8 @@ script "StartControl" ENTER
 //Delay(35*20);
 //	ACS_NamedExecuteAlways("GotoPuzzle3", 0);//test thing !!!!
 
+//ACS_NamedExecuteAlways("LastStand", 0);//test thing !!!!
+
 
 
 
