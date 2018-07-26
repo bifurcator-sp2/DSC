@@ -21,7 +21,7 @@ global int 8:GlobalAttempt;//iteration of hell
 
 bool isBE = false;
 Bool NextWaveReady = false;
-Bool WaveOnline = false;
+
 Bool IgnoreWaveMusicChange = false;
 BOOL restoreMusicAfterWave = true;
 int SpawnedMonstersOnTheMap = 0;

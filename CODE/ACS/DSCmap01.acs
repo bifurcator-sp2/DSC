@@ -167,38 +167,7 @@ SCRIPT "Door12" (void){
 
 
 
-bool demogliphStarted;
-script "DemogliphStarted" (void) {
-	if(demogliphStarted){ SetResultValue(1);} else {SetResultValue(0);}
-}
-SCRIPT "DemoGliph" (void){
 
-	delay(2);
-	Thing_Activate(2200);
-	SetPlayerProperty(1, 1, PROP_TOTALLYFROZEN);
-	AmbientSound("world/lookat3", 1.0);
-	FadeTo (0, 0, 0, 1.0, 3.0 );
-	ACS_NamedExecuteAlways("Mus_DTEMPLE", 0);
-	delay(35*3);
-	demogliphStarted = true;
-	ChangeCamera(2200, 0 , 0);
-	FadeTo (0, 0, 0, 0.0, 3.0 );
-	delay(35*3);
-	ACS_NamedExecute("formatCovenant", 0, 0, 0, 0);
-	while (TRUE) {
-		delay(1);
-		ACS_NamedExecuteAlways("Covenant", 0, 0, 0, 0);
-		if(GetPlayerInput(-1, INPUT_BUTTONS)){ break;}
-	}
-	ACS_NamedExecuteAlways("RestoreMusic", 0);
-	demogliphStarted = false;
-	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
-	ChangeCamera(0, 0 , 0);
-	hudmessageBold(s:" "; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.95, 1.0);
-	delay(15);
-
-
-}
 
 str CovenantTitle = "Atrium";
 str CovenantText = "Their citadels have long been destroyed, their temples corrupted and serving us,\ntheir leaders and warriors killed and turned into eternal service, their Kingdom\nconsumed by Hell and belongs to us only.\n\nThe ruins of this vile civilization, which should not be named are the proof of\nour undeniable power. No one can resist the hellish legions. But there are still\nplaces where their deterrent runes are still strong and do not allow our hordes\nto get there.\n\nBut sooner or later, our priests will get to these runes and finally destroy them,\nand then our order reign in this dead world.";
@@ -207,7 +176,7 @@ str CovenantText = "Their citadels have long been destroyed, their temples corru
 str finalText = "";
 int MsgID = 13131313;
 int ttlID = 13131314;
-//int skipTID = 13131315;
+
 
 script "Covenant" (void) {
 	SetHudSize(800, 600, 0);

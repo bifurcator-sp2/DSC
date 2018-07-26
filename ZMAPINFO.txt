@@ -91,7 +91,7 @@ MONSTERFALLINGDAMAGE
 }
 
 
-map DSCMAP06 "Unholy Ministry"
+map DSCMAP06 "Unholy Cathedral"
 {
 next = "DSCMAP07"
 InterMusic = MT
@@ -112,7 +112,7 @@ fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }
-map DSCMAP08 "Hungar"
+map DSCMAP08 "Hangar"
 {
 next = "DSCMAP06"
 InterMusic = MT

@@ -281,3 +281,23 @@ SCRIPT "Door10" (void){
 }
 
 
+
+
+str CovenantTitle = "Unholy Cathedral";
+str CovenantText = "Great Cathedral of Dark Lords was raised during the First Age of Ascension when the Undrax\nlake burst it’s banks and the first Titan awoke from his slumber. From those depths of \nunrecorded times our shrine aspires on the top of the Moul’Chris mountai glorifying names\nfrom the list of those who was chosen by our Great Master. Every gifted demon must pass his\nlong time service to the Cathedral if he is destined to become priest, prophet, preacher, \nspirit leader or a battle caster in our dark warrior host.\n\nMost mortals who went to pilgrimage through the Hell on their own and yet were not slayed by\ndemons have to climb the top of the mountain and kneel before the gates of Great Cathedral. \nAfterwards high priest will open the gates to meet those most fortitudinous from the miserables.\nBlessing them and giving them the brand of the turned. Neophyte flock spreads among their personal\nalcoves and joins to the canticle accompanying demons with the reading names of Dark Lords in right\norder to empower them.\n\nSome mortals are dying after the reading of first two commandments of the Darkness when Titan’s\nwhispering fills their mind and their flesh begin to burn. But most of those fortitudinous and\nfanatical, full of faith, who read every commandment and still being alive, may stay serving the\nCathedral as acolyte assisting to demon-priests and overseeing the flock. All others not worthy\nwill serve in rituals and sacrifices as well as food for praying demons.\n\nUnder the Cathedral there is a vasty ancient library that continues into the depths of the mountain.\nThis sacred place is guarded by the most fanatical of our priests who oversees every scroll on the\nshelves. Being unable to grasp it’s greatness lesser demons will burn their eyes of and cut both of\ntheir hands rather than approach this place.\n\nThe mightiest demon leaders only can get here and gaze into this abyss of the ages.\nHere in countless tomes, runes and oldest manuscripts was imprinted the whole our existance in the\nshadow of our Immortal Masters.";
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+	SetHudSize(800, 600, 0);
+	SetFont ("BIGFONT");
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 320.0, 0.1);
+
+}

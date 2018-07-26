@@ -576,3 +576,24 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 		Thing_Activate(NextHelpTag);
 	}
 }
+
+
+
+str CovenantTitle = "Prison of souls";
+str CovenantText = "Souls - all that is left of the last three leaders\nof the civilization Prementor, the world of which\nwe devoured with such difficulty. \n\nWhen the outcome of the great war was already close,\nthe last survivors led by their three leaders\nretreated to their sacred temple, where they took \nthe last battle. \n\nHere, for their ancestors, the last three warriors\nfought with the inevitable darkness. Thousands of \ndemons fell from their hands, burned in fire of \ntheir fury. \n\nAt the hour of despair our best sorcerers came and\nrealized that it was impossible to overcome them in\nthe usual way. \n\nAnd then the ancient rite \"Curse of Flesh\" was \nperformed – the souls of these inflexible were \nseparated from the bodies and captured. \nSoon began the long process of desecration of the\ntemple and his territories. The souls of the three\nchiefs saw their shrines and heart of civilization\nbeing absorbing by the forces of hell, but could not\ndo anything already. \n\nTheir anger was terrible, their fury incinerates \ndemons and was barely restrained by our powerful \nspells. Souls were hidden in the depths of unholy temple.\n\nUntil our priests find a way to curb their anger and \nenslave or kill everyone.";
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+	SetHudSize(800, 600, 0);
+	SetFont ("BIGFONT");
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 350.0, 0.1);
+
+}

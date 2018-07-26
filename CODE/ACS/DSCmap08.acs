@@ -229,3 +229,25 @@ script "GungarHouling" ENTER
 	delay(35*random(3, 10));
 	restart;
 }
+
+
+
+str CovenantTitle = "Hangar";
+str CovenantText = "UAC hangar was one of the first facilities built on Mars.\nAt that time it was named as “UAC Mars Center” but \nnicknamed “Mars City” by personnel. During the dawn of \nMartian colony almost all scientific researches were \ncarried out here. Here are also were located labs, \nwarehouse, communication center, security barracks\n and living spaces as well as HQ.\n\nAfter complex “Alpha” and “Delta” were ready all activity\nwas moved to modern and more secure facilities. \nThe obsolete complex was turned into hangar that serves \nas hub between other locations of UAC base.\n\nIn despite of its’ age this complex remains to be very \nimportant to UAC. Useful resources, special equipment \nand transport are still located here. As well as \ndiscovered artifacts and latest research results that \nwere catalogized and stored for later transfer to the Earth.";
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+	SetHudSize(800, 600, 0);
+	SetFont ("BIGFONT");
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 280.0, 0.1);
+
+}
+

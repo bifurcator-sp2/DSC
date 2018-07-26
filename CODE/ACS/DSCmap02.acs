@@ -102,3 +102,30 @@ SCRIPT "StartControl" ENTER
 Script "MapWaveControll" (void){
 	MapWave++;
 }
+
+
+
+
+
+
+
+
+str CovenantTitle = "Cemetery of the Fallen";
+str CovenantText = "This place was sacred to the civilization that caused us so much troubles.\n\nHere rested greatest of their leaders and the most revered soldiers.\n\nThey came here to pay homage and to be inspired before the battles.\n\nThe battle for this place was especially bloody and long - their warriors fought with\nunprecedented fury to the last for their ancient ancestors.\n\nBut there is no power that can resist us.\n\nWhen finally the last warrior fell, our glorious commander Brullious Beag ordered \nthe priests to desecrate their sacred burial.\n\nThe place of glory became the place of shame.\n\nTheir great leaders were raised from their graves and turned into our lower servants,\ntheir statues and pictures were disfigured, and all writing destroyed.\n\nEverything was perverted in our image and no one will remember this place.";
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+	SetHudSize(800, 600, 0);
+	SetFont ("BIGFONT");
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 280.0, 0.1);
+
+}
+
