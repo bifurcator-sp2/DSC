@@ -1,5 +1,5 @@
 #define DSCbaseHealthBonus 15
-#define AIDhealthRecallBaseTime 90
+#define AIDhealthRecallBaseTime 100
 #define AmmoRecallBaseTime 120
 #define AbsorbHealthAmount 5
 #define StrongHoldChance 10
@@ -33,8 +33,8 @@ script "SerialKiller" (int amount){
 script "strongholdBonus" (void){
 	if(DSCplayerRank>=5){
 		if(Random(1, 100)<=StrongHoldChance){
-			//GiveActorInventory(0, "DSCarmorBonus5", 1);
-			//Log(s:"Stronghold: Armor Bonus 5");
+			GiveActorInventory(0, "DSCarmorBonus10", 1);
+			Log(s:"Stronghold: Armor Bonus 5");
 		}
 	}
 }
@@ -64,14 +64,18 @@ script "berserkBONUS" (void){
 }
 
 script "MasterofSurvival" enter{
-	if(GetActorProperty (0, APROP_HEALTH)<OldPlayerHealth && GetActorProperty (0, APROP_HEALTH)<25){
-		if(random(0, 1)==0){
-			GiveActorInventory(0, "DSCHealthBonus", 5);
-			Log(s:"Recruit: Health bonus 5");
+	if(DSCplayerRank>=1){
+		if(GetActorProperty (0, APROP_HEALTH)<OldPlayerHealth && GetActorProperty (0, APROP_HEALTH)<25){
+			if(random(0, 100)<60){
+				GiveActorInventory(0, "DSCHealthBonus", 5);
+				Log(s:"Master of Survival: Health bonus 5");
+			}
 		}
 	}
 	OldPlayerHealth = GetActorProperty (0, APROP_HEALTH);
+
 	delay(5);
+	restart;
 }
 
 script "BoneCollector" (void){
@@ -88,7 +92,8 @@ script "BoneCollector" (void){
 script "invisBONUS" (void){
 	if(DSCplayerRank>=7){
 		if(Random(1, 100)<=invisBonusChance){
-			GiveActorInventory(0, "BlurSphere", 1);
+			SpawnSpotFacingForced ("BlurSphere", 0, 0);
+			//GiveActorInventory(0, "BlurSphere", 1);
 			Log(s:"Spectre: BlurSphere item got");
 		}
 	}
@@ -96,7 +101,8 @@ script "invisBONUS" (void){
 script "invuBONUS" (void){
 	if(DSCplayerRank>=8){
 		if(Random(1, 100)<=invuBonusChance){
-			GiveActorInventory(0, "InvulnerabilitySphere", 1);
+			//GiveActorInventory(0, "InvulnerabilitySphere", 1);
+			SpawnSpotFacingForced ("InvulnerabilitySphere", 0, 0);
 			Log(s:"Blessing: InvulnerabilitySphere item got");
 		}
 	}
@@ -175,7 +181,7 @@ script "AbsorbHealth" (int HealthAmount){
 	//HealthAmount  = killed monster default health
 	switch (DSCplayerRank) {
 		case 9:
-			int val = (HealthAmount*0.2) >> 16;
+			int val = FixedMul(HealthAmount, 0.05);
 			Log(s:"Reaper: absorbed ", d:val, s:" health");
 			GiveActorInventory(0, "DSChealthBonus400", val);
 			break;
@@ -218,6 +224,7 @@ script "SetConsoleRank" enter {
 		SetCVar("dsc_player_rank", -1);
 	}
 	delay(1);
+	//DSCplayerRank = 9;
 	restart;
 }
 
@@ -283,7 +290,7 @@ function str getRankAchive (int rank){
 		case 0:
 			return "Killing Machine";
 		case 1:
-			return "Master of Survival";
+			return "Last Breath";
 		case 2:
 			return "Vitality";
 		case 3:
@@ -308,7 +315,7 @@ function str getRankAchiveInfo (int rank){
 		case 0:
 			return "Mass murders restores some health and armor.";
 		case 1:
-			return "50% chance to restore 5% health\nif health falls lower than 25%";
+			return "40% chance to restore 5% health\nwhen player is in critical state.";
 		case 2:
 			return "Player gets 50% more health.\nHealth respawns 50% faster.";
 		case 3:

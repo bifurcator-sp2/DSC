@@ -602,7 +602,14 @@ Class DSCarmorBonus5 : ArmorBonus
 	Armor.SaveAmount 5;
 	}
 }
-
+Class DSCarmorBonus10 : ArmorBonus
+{
+	Default
+	{
+	-INVENTORY.ALWAYSPICKUP;
+	Armor.SaveAmount 10;
+	}
+}
 
 Class DSChealthBonus400 : Health
 {
@@ -755,13 +762,18 @@ Class WaveScull : CustomInventory
 					ThinkerIterator it = ThinkerIterator.Create("AIDSpawner");
 					AIDSpawner aid;
 					while(aid = AIDSpawner(it.Next())){
-						aid.timerCount = aid.timerWaitForAgainHealingInSec;
+						aid.alreadyHealed = false;
+						aid.giveHealthCount = 1;
+						aid.SetStateLabel("Spawn");
+						aid.timerCount = 0;
 					}
 
 					ThinkerIterator it2 = ThinkerIterator.Create("DSCammoSpawner");
 					DSCammoSpawner am;
 					while(am = DSCammoSpawner(it2.Next())){
-						am.clockForAmmo = am.timerWaitForAgainGiveAmmo;
+						am.SetStateLabel("Spawn");
+						am.AMMOgived = false;
+						am.clockForAmmo = 0;
 					}
 
 				}

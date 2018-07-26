@@ -87,7 +87,7 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			hudmessageBold(s:"Welcome to Doom Slayer Chronicles!"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 2:
-			hudmessageBold(s:"It is an endless HELL\nwith infinit increasing difficulty."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"It is an endless HELL\nwith infinitely increasing difficulty."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 3:
 			hudmessageBold(s:"There are a separate piece of hell\nbehind each of these doors."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
@@ -163,3 +163,61 @@ SCRIPT "Door12" (void){
 		Generic_Door(12, 16, 0, 34, 0);
 	}
 }
+
+
+
+
+bool demogliphStarted;
+script "DemogliphStarted" (void) {
+	if(demogliphStarted){ SetResultValue(1);} else {SetResultValue(0);}
+}
+SCRIPT "DemoGliph" (void){
+
+	delay(2);
+	Thing_Activate(2200);
+	SetPlayerProperty(1, 1, PROP_TOTALLYFROZEN);
+	FadeTo (0, 0, 0, 1.0, 3.0 );
+	ACS_NamedExecuteAlways("Mus_DTEMPLE", 0);
+	delay(35*3);
+	demogliphStarted = true;
+	ChangeCamera(2200, 0 , 0);
+	FadeTo (0, 0, 0, 0.0, 3.0 );
+	delay(35*3);
+	ACS_NamedExecute("formatCovenant", 0, 0, 0, 0);
+	while (TRUE) {
+		delay(1);
+		ACS_NamedExecuteAlways("Covenant", 0, 0, 0, 0);
+		if(GetPlayerInput(-1, INPUT_BUTTONS)){ break;}
+	}
+	ACS_NamedExecuteAlways("RestoreMusic", 0);
+	demogliphStarted = false;
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+	ChangeCamera(0, 0 , 0);
+	hudmessageBold(s:" "; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.95, 1.0);
+	delay(15);
+
+
+}
+
+str CovenantTitle = "Atrium";
+str CovenantText = "Their citadels have long been destroyed, their temples corrupted and serving us, their leaders and warriors killed and turned into eternal service, their Kingdom consumed by Hell and belongs to us only.\n\nThe ruins of this vile civilization, which should not be named are the proof of our undeniable power. No one can resist the hellish legions. But there are still places where their deterrent runes are still strong and do not allow our hordes to get there.\n\nBut sooner or later, our priests will get to these runes and finally destroy them, and then our order reign in this dead world.";
+
+//str CovenantText = "Great Cathedral of Dark Lords was raised during the First Age of Ascension when the Undrax lake burst it’s banks and the first Titan awoke from his slumber. From those depths of unrecorded times our shrine aspires on the top of the Moul’Chris mountain glorifying names from the list of those who was chosen by our Great Master. Every gifted demon must pass his long time service to the Cathedral if he is destined to become priest, prophet, preacher, spirit leader or a battle caster in our dark warrior host.\n\nMost mortals who went to pilgrimage through the Hell on their own and yet were not slayed by demons have to climb the top of the mountain and kneel before the gates of Great Cathedral. Afterwards high priest will open the gates to meet those most fortitudinous from the miserables. Blessing them and giving them the brand of the turned. Neophyte flock spreads among their personal alcoves and joins to the canticle accompanying demons with the reading names of Dark Lords in right order to empower them.\n\nSome mortals are dying after the reading of first two commandments of the Darkness when Titan’s whispering fills their mind and their flesh begin to burn. But most of those fortitudinous and fanatical, full of faith, who read every commandment and still being alive, may stay serving the Cathedral as acolyte assisting to demon-priests and overseeing the flock. All others not worthy will serve in rituals and sacrifices as well as food for praying demons.\n\nUnder the Cathedral there is a vasty ancient library that continues into the depths of the mountain. This sacred place is guarded by the most fanatical of our priests who oversees every scroll on the shelves. Being unable to grasp it’s greatness lesser demons will burn their eyes of and cut both of their hands rather than approach this place.\n\nThe mightiest demon leaders only can get here and gaze into this abyss of the ages. Here in countless tomes, runes and oldest manuscripts was imprinted the whole our existance in the shadow of our Immortal Masters.";
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+//int skipTID = 13131315;
+
+script "Covenant" (void) {
+	SetFont ("BIGFONT");
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.95, 0.1);
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 0.5, 0.15, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:finalText;HUDMSG_PLAIN,MsgID,CR_GRAY, 0.5, 0.3, 0.1);
+
+}
+
+#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\FormatText.acs"
+

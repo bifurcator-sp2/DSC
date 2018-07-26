@@ -211,7 +211,12 @@ HardwareShader PostProcess scene
 	Texture ColourmapLUT "textures/lut_blood.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
-
+HardwareShader PostProcess scene
+{
+	Name "TonemapDamned"
+	Texture ColourmapLUT "textures/lut_damned.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
 
 HardwareShader PostProcess scene
 {

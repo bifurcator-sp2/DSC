@@ -92,7 +92,7 @@ Script "GetWeaponGotIDforWeaponSpawner" (void)
 			if(CheckInventory("ssgGot")>0){
 				//Log(s:"It is no ssg now");
 				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
-				Log(s:"Randomised to ", d:WeaponID);
+				//Log(s:"Randomised to ", d:WeaponID);
 			} else {
 				GiveInventory("ssgGot", 1);
 				WeaponID = WeaponGotID;

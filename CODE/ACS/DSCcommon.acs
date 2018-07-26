@@ -647,3 +647,110 @@ function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOff
 
 script "Thing_Activate" (int tid){ Thing_Activate(tid); }
 script "Thing_DeActivate" (int tid){ Thing_DeActivate(tid); }
+
+
+//#define MaxWords 5
+#define startPosY 0.6
+#define endPosY 0.2
+#define scrollSpeed 0.001
+bool stopScrollText = false;
+//str finalText = "";
+
+
+
+
+/*
+script "PrintText" ENTER
+{
+    str testText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec diam malesuada, pharetra velit a, commodo dui. Etiam lorem urna, posuere et ante eget, interdum dictum enim. Aliquam aliquam nec turpis vel commodo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam erat volutpat. Morbi luctus est orci, sed facilisis metus pretium sed. Mauris auctor vel ipsum sed auctor. In vel enim nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean ullamcorper dignissim tortor, at accumsan mi pulvinar sit amet.
+
+Aliquam posuere volutpat massa at gravida. Sed tempor a nibh non malesuada. Maecenas aliquet, nunc a suscipit accumsan, quam nulla pharetra sapien, vitae ultricies sapien felis eget enim. Donec feugiat venenatis fermentum. Nunc eleifend nibh quis iaculis iaculis. Nulla nulla arcu, luctus et nisl quis, suscipit tincidunt lacus. Suspendisse commodo venenatis fermentum.
+
+Cras faucibus sodales cursus. Proin imperdiet est sit amet lorem mattis, non pretium lectus semper. Donec iaculis vehicula tempus. Etiam bibendum tristique laoreet. Donec hendrerit ex eu sapien blandit bibendum. Donec quis luctus nisl. Mauris tristique quam quis velit sodales euismod. Sed laoreet id magna et scelerisque. In vel purus ac turpis consectetur pretium vitae sed enim. Pellentesque porttitor quam eu elit volutpat, eu porttitor quam consequat. Sed nec justo vitae neque congue fringilla. Nam mollis imperdiet magna at rutrum. Nam quis nunc in tortor efficitur dictum quis ac lacus. Aenean orci ligula, congue a iaculis vitae, porta et purus. In non vehicula nisl, a fringilla ligula.
+
+Nunc vitae mauris congue, scelerisque massa in, feugiat ex. Vivamus vitae ornare ante, vitae condimentum quam. Quisque hendrerit purus odio, eget gravida est efficitur a. Nunc ac sagittis eros. Donec pharetra eros pharetra, suscipit leo vitae, rhoncus lorem. Curabitur pharetra lacinia metus. Cras non scelerisque felis. Mauris vitae quam vitae massa volutpat consectetur sit amet quis odio. Donec eget augue maximus, gravida sem in, pulvinar justo. Suspendisse in congue leo. Cras non dui in libero auctor placerat a non tellus. Donec eu efficitur magna. Cras dolor dolor, sodales non nulla at, suscipit placerat sapien.
+
+Mauris nec turpis in neque scelerisque euismod. Proin eu magna nisl. Nullam ac erat iaculis, cursus lectus at, egestas ex. Sed finibus nunc id nunc tincidunt volutpat. Ut eleifend pharetra velit, ac sodales massa hendrerit vitae. Nulla massa turpis, molestie et enim eleifend, ultricies posuere lacus. Pellentesque fringilla mi quis sapien suscipit volutpat. Nunc ornare odio eu nunc tristique tristique. Nulla tincidunt, odio quis bibendum finibus, diam turpis interdum dui, eu vestibulum purus sem sit amet arcu. Phasellus et elit ut augue euismod rutrum.";
+
+    //str testText = "A B";
+    int wordCount = 0;
+    int i = 0;
+    while (i < StrLen(testText))
+    {
+        if (GetChar(testText,i) == ' ')
+        {
+            int tmpI = i;
+            while (GetChar(testText,tmpI) == ' ')
+            {
+                ++tmpI;
+            }
+            i = tmpI - 1;
+            ++wordCount;
+        }
+        else if (GetChar(testText,i) == "\n")
+        {
+            finalText = StrParam(s:finalText, s:"");
+        }
+        if(wordCount >= MaxWords)
+        {
+            str tempStr = StrParam(s:finalText, c:GetChar(testText,i));
+            finalText = StrParam(s:tempStr, c:'\n');
+            wordCount = 0;
+        }
+        else
+        {
+            finalText = StrParam(s:finalText, c:GetChar(testText,i));
+        }
+        ++i;
+        //Print(c:GetChar(testText,i));
+    }
+    i = 0;
+    wordCount = 0;
+    ACS_NamedExecute("ScrollText",0);
+
+}
+
+script "ScrollText" (void)
+{
+    bool backward = false;
+    int MsgID = 1;
+    int minPosY;
+    int maxPosX;
+    if(endPosY > startPosY)
+    {
+        minPosY = endPosY;
+        maxPosX = startPosY;
+        backward = !backward;
+    }
+    else
+    {
+        minPosY = startPosY;
+        maxPosX = endPosY;
+    }
+    SetFont ("BIGFONT");
+    int pos;
+
+    while (!stopScrollText)
+    {
+        if(backward)
+        {
+            for (pos = maxPosX;pos <= minPosY;pos += scrollSpeed)
+            {
+                HudMessage(s:finalText;HUDMSG_PLAIN,MsgID,CR_RED, 0.75, pos, 0.0);
+                Delay(1);
+            }
+            backward = !backward;
+        }
+        else
+        {
+            for (pos = minPosY;pos >= maxPosX;pos -= scrollSpeed)
+            {
+                HudMessage(s:finalText;HUDMSG_PLAIN,MsgID,CR_RED, 0.75, pos, 0.0);
+                Delay(1);
+            }
+            backward = !backward;
+        }
+        Delay(1);
+    }
+}
+*/
