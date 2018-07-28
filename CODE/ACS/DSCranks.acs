@@ -65,10 +65,10 @@ script "berserkBONUS" (void){
 
 script "MasterofSurvival" enter{
 	if(DSCplayerRank>=1){
-		if(GetActorProperty (0, APROP_HEALTH)<OldPlayerHealth && GetActorProperty (0, APROP_HEALTH)<25){
-			if(random(0, 100)<60){
+		if(GetActorProperty (0, APROP_HEALTH)<OldPlayerHealth && GetActorProperty (0, APROP_HEALTH)<20){
+			if(random(0, 100)<40){
 				GiveActorInventory(0, "DSCHealthBonus", 5);
-				Log(s:"Master of Survival: Health bonus 5");
+				Log(s:"Last Breath: Health bonus 5");
 			}
 		}
 	}
