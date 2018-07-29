@@ -1,3 +1,85 @@
+Class DSCcast1: DSCcast
+{
+	States
+	{
+		Spawn:
+			CST1 A 1 NODELAY a_fadeOut(1.0, false);
+		Goto Halt;
+	}
+}
+Class DSCcast2: DSCcast
+{
+	States
+	{
+		Spawn:
+			CST2 A 1 NODELAY a_fadeOut(1.0, false);
+		Goto Halt;
+	}
+}
+Class DSCcast3: DSCcast
+{
+	States
+	{
+		Spawn:
+			CST3 A 1 NODELAY a_fadeOut(1.0, false);
+		Goto Halt;
+	}
+}
+Class DSCcast4: DSCcast
+{
+	States
+	{
+		Spawn:
+			CST4 A 1 NODELAY a_fadeOut(1.0, false);
+		Goto Halt;
+	}
+}
+Class DSCcast5: DSCcast
+{
+	States
+	{
+		Spawn:
+			CST5 A 1 NODELAY a_fadeOut(1.0, false);
+		Goto Halt;
+	}
+}
+Class DSCcast : SwitchableDecoration
+{
+	bool startfade;
+	int Counter;
+	Default
+	{
+		+NOINTERACTION;
+		+NOGRAVITY;
+		+WALLSPRITE;
+		Scale 0.1;
+		alpha 0.0;
+	}
+	States
+	{
+
+		Inactive:
+			"####" "#" 1;
+			Loop;
+		Active:
+			"####" "#" 1 {
+
+					if(alpha<1.0 && !startfade){
+						a_fadein(0.005, FTF_CLAMP);
+					}
+					if(alpha>=1.0 && !startfade){
+						Counter++;
+						if(Counter>=35*10){ startfade = true;}
+					}
+					if(startfade){ a_fadeOut(0.005);}
+				}
+			Loop;
+		Halt:
+			"####" "#" 1;
+			Loop;
+	}
+}
+
 Class DSCtitle2 : SwitchableDecoration
 {
 	Default

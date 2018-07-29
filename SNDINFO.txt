@@ -2,6 +2,8 @@ INTRO INTRO
 LOWPUM LOWPUM
 world/silence sil
 
+CREDITS CREDITS
+
 
 world/FastFun fastfun
 world/slideCrush sldcrsh
