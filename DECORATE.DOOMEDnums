@@ -299,3 +299,9 @@ actor DSCcast5DEC : DSCcast5 22106 {
 +WALLSPRITE
 scale 0.1
 }
+
+actor DSCcast6DEC : DSCcast6 22107 {
+//$Sprite CST6A0
++WALLSPRITE
+scale 0.1
+}

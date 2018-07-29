@@ -43,6 +43,15 @@ Class DSCcast5: DSCcast
 		Goto Halt;
 	}
 }
+Class DSCcast6: DSCcast
+{
+	States
+	{
+		Spawn:
+			CST6 A 1 NODELAY a_fadeOut(1.0, false);
+		Goto Halt;
+	}
+}
 Class DSCcast : SwitchableDecoration
 {
 	bool startfade;
