@@ -5,7 +5,7 @@
 #define StrongHoldChance 10
 #define berserkBonusChance 3
 #define invisBonusChance 3
-#define PowerTimeFreezerChance 3
+#define PowerTimeFreezerChance 2
 #define invuBonusChance 3
 
 //#define StrongHoldChance 10
@@ -285,7 +285,7 @@ function str getRankString (int rank){
 		case 5:
 			return "Tyrant";
 		case 6:
-			return "Demon Hunter";
+			return "Timelord";
 		case 7:
 			return "Hell Walker";
 		case 8:
@@ -336,7 +336,7 @@ function str getRankAchiveInfo (int rank){
 		case 5:
 			return "10% chance to get 10% armor for kill.\nHealing Heart and Mystic Skull gives 5% armor";
 		case 6:
-			return "3% chance to get PowerTimeFreezer\nfor each kill.";
+			return "2% chance to stop time\nfor 12 seconds for each kill.";
 		case 7:
 			return "3% chance to get INVISIBILITY\nfor each kill.";
 		case 8:
