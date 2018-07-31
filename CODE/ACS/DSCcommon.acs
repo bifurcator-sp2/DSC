@@ -717,7 +717,23 @@ SCRIPT "DemoGliph" (int CamTID, int CovenID){
 
 
 
+function void Pause (void)
+{
+If(GameType() == 0)
+{
+GiveInventory("TotalTimeFreezer",1);
+SetPlayerProperty(1,1,PROP_TOTALLYFROZEN);
+}
+}
 
+function void UnPause (void)
+{
+If(GameType() == 0)
+{
+TakeInventory("TotalTimeFreezer",1);
+SetPlayerProperty(1,0,PROP_TOTALLYFROZEN);
+}
+}
 
 
 

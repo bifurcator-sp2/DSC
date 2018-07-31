@@ -14,7 +14,8 @@ world/stonebre stonebre
 
 
 world/hell_influence HLINFL
-
+world/GliphLoop GlphLoop
+world/GliphPickup GlphPick
 
 $random LiftAmbient { LiftAmbient1 LiftAmbient2 LiftAmbient3 }
 LiftAmbient1 Lift_A1

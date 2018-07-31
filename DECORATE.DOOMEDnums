@@ -305,3 +305,7 @@ actor DSCcast6DEC : DSCcast6 22107 {
 +WALLSPRITE
 scale 0.1
 }
+
+actor DoomSlayerGliphDEC : DoomSlayerGliph 22108 {
+
+}

@@ -36,13 +36,15 @@ if(inDEV){
 	GiveInventory("map07done", 1);
 	GiveInventory("map08done", 1);
 	GiveInventory("map09done", 1);
-	GiveInventory("map10done", 1);
+	//GiveInventory("map10done", 1);
 }
 
 
 	Thing_Activate(400);
 	if(CheckInventory("map07done")>0){
 		maxWaveCount = 75;
+		Thing_Activate(402);
+		Door9Locked = false;
 		//activation of atrium vaves & normalize and normalize way to first map
 		//Door10Locked = false;
 		//Thing_Activate(107);
@@ -55,8 +57,7 @@ if(inDEV){
 		Thing_Activate(401);
 	}
 	if(CheckInventory("map09done")>0){
-		Thing_Activate(402);
-		Door9Locked = false;
+
 		if(CheckInventory("map10cunsceneShown")==0){
 			//cutscene here
 			//GiveInventory("map10done", 1);

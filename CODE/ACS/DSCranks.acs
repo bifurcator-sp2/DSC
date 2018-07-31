@@ -5,6 +5,7 @@
 #define StrongHoldChance 10
 #define berserkBonusChance 3
 #define invisBonusChance 3
+#define PowerTimeFreezerChance 3
 #define invuBonusChance 3
 
 //#define StrongHoldChance 10
@@ -98,12 +99,22 @@ script "invisBONUS" (void){
 		}
 	}
 }
+script "timeFreezeBONUS" (void){
+	if(DSCplayerRank>=6){
+		if(Random(1, 100)<=PowerTimeFreezerChance){
+			GiveInventory("PowerTimeFreezer",1);
+			Log(s:"Spectre: PowerTimeFreezer item got");
+		}
+	}
+}
+
+
 script "invuBONUS" (void){
 	if(DSCplayerRank>=8){
 		if(Random(1, 100)<=invuBonusChance){
 			//GiveActorInventory(0, "InvulnerabilitySphere", 1);
 			SpawnSpotFacingForced ("InvulnerabilitySphere", 0, 0);
-			Log(s:"Blessing: InvulnerabilitySphere item got");
+			Log(s:"Blessing: Invulnerability Sphere item got");
 		}
 	}
 }
@@ -300,7 +311,7 @@ function str getRankAchive (int rank){
 		case 5:
 			return "Stronghold";
 		case 6:
-			return "Berserker";
+			return "TimeFreezer";
 		case 7:
 			return "Spectre";
 		case 8:
@@ -325,7 +336,7 @@ function str getRankAchiveInfo (int rank){
 		case 5:
 			return "10% chance to get 10% armor for kill.\nHealing Heart and Mystic Skull gives 5% armor";
 		case 6:
-			return "3% chance to get BERSERK\nfor each kill.";
+			return "3% chance to get PowerTimeFreezer\nfor each kill.";
 		case 7:
 			return "3% chance to get INVISIBILITY\nfor each kill.";
 		case 8:
@@ -424,6 +435,7 @@ Script "DisplayRankInfo" ENTER
 }
 script "DisplayNextRank" (void){
 	if(!RankMenueOnScreen){
+		Pause();
 		RankMenueOnScreen = true;
 		int NewRank = getRank();
 		delay(1);
@@ -471,12 +483,17 @@ script "DisplayNextRank" (void){
 
 		ACS_NamedExecute("DisplayAchives", 0, true);
 		SetFont("SMALLFONT");
-		HudMessageBold(s:"Press 'i' button to continue.";
+		HudMessageBold(s:"Press any key to continue.";
 			HUDMSG_PLAIN, 803, CR_RED, 0.5, 0.93, 0);
 
 		for( i = 0; i<=9; i++){
 			SoundVolume (0, i, 1.0);
 		}
+		while (true){
+			delay(1);
+			if(GetPlayerInput(-1, INPUT_BUTTONS)){ break;}
+		}
+		ACS_NamedExecuteAlways("DisplayNextRank", 0);
 	} else {
 
 
@@ -484,6 +501,7 @@ script "DisplayNextRank" (void){
 		{
 		delay(1);
 		}*/
+		UnPause();
 		DSCscreenFade = -1;
 		HudMessageBold(s:""; HUDMSG_PLAIN, 800, CR_RED, 0.5, 0.3, 0);
 		HudMessageBold(s:""; HUDMSG_PLAIN, 801, CR_RED, 0.5, 0.3, 0);
@@ -499,7 +517,7 @@ int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
 if (buttons & (BT_ATTACK)) { print(s:"You could be pressing the attack key."); }
 */
 }
-
+/*
 SCRIPT "DSCrankShotdown" ENTER{
 	if(RankMenueOnScreen && GetPlayerInput(-1, INPUT_BUTTONS)){
 		ACS_NamedExecuteAlways("DisplayNextRank", 0);
@@ -507,7 +525,7 @@ SCRIPT "DSCrankShotdown" ENTER{
 	delay(1);
 	restart;
 }
-
+*/
 
 SCRIPT "ResetCounters" ENTER {
 	NextWaveReady = false;
@@ -523,8 +541,10 @@ script "MonsterKilled" (void){
 	SaintHealthUpMultipler++;
 
 	ACS_NamedExecuteAlways("strongholdBonus", 0);
-	ACS_NamedExecuteAlways("berserkBONUS", 0);
+	//ACS_NamedExecuteAlways("berserkBONUS", 0);
 	ACS_NamedExecuteAlways("invisBONUS", 0);
+	ACS_NamedExecuteAlways("timeFreezeBONUS", 0);
+
 	ACS_NamedExecuteAlways("invuBONUS", 0);
 	ACS_NamedExecute("AchiveKillInSEc1Counter", 0);
 

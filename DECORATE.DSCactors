@@ -29,3 +29,8 @@ actor OxygenCanister : CustomInventory 22045
 		Fail
 	}
 }
+
+ACTOR TotalTimeFreezer : PowerTimeFreezer
+{
+  Powerup.Duration -3600
+}
