@@ -22,7 +22,8 @@ LiftAmbient1 Lift_A1
 LiftAmbient2 Lift_A2
 LiftAmbient3 Lift_A3
 
-
+misc/TimestopStart stopstrt
+misc/TimestopLoop stoploop
 
 
 world/LiftMove Liftmove

@@ -249,17 +249,36 @@ Script "DisplayInfo" ENTER
 
 	while (TRUE) {
 		int mtotal = GetTotalMonsters();
-		int progress = (currentWave * 100) / maxWaveCount;
+		if(!WaveOnline && DSCscreenFade==0){
+			int progress = (currentWave * 100) / maxWaveCount;
+			SetHudSize(640, 480, 0);
+			SetFont("SMALLFONT");
 
-		SetFont("SMALLFONT");
+			HudMessage(
+			d:mtotal, s:" demons on map";
+			HUDMSG_PLAIN,779,CR_DARKBROWN, 200.0, 10.0, 1, 0);
 
-		HudMessage(
-		d:mtotal, s:" demons on map";
-		HUDMSG_PLAIN,779,CR_DARKBROWN,0.2,0.039,1,0);
+			HudMessage(
+			d:progress, s:"%", s:" progress";
+			HUDMSG_PLAIN,780,CR_DARKBROWN, 430.0, 10.0, 1, 0);
+		} else {
+			SetFont("BIGFONT");
+			if(mtotal>1){
+				HudMessage(
+				d:mtotal, s:" demons on map";
+				HUDMSG_PLAIN,779,CR_RED, 320.0, 20.0, 1, 0);
+			} else {
+				if(mtotal==1){
+					HudMessage(
+					d:mtotal, s:" demon on map";
+					HUDMSG_PLAIN,779,CR_RED, 320.0, 20.0, 1, 0);
+				}
+				if(mtotal==0){HudMessage(s:"";HUDMSG_PLAIN,779,CR_DARKBROWN, 200.0, 10.0, 1, 0);}
+			}
 
-		HudMessage(
-		d:progress, s:"%", s:" progress";
-		HUDMSG_PLAIN,780,CR_DARKBROWN,0.8,0.039,1,0);
+			HudMessage(s:"";HUDMSG_PLAIN,780,CR_DARKBROWN, 200.0, 10.0, 1, 0);
+
+		}
 		Delay(35);
 	}
 }

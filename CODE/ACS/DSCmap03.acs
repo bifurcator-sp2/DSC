@@ -211,9 +211,6 @@ Script "MapWaveControll" (void){
 }
 
 
-str CovenantTitle = "Blood Rain Plaza";
-str CovenantText = "Temple of Blood Harvest was built in the first age of Ascension, for the glory of great\n foremother Xal’Atho, living at the bottom of a bloody lake Angrax.\n\nIn the sacred bloody halls herald Groun'Laj reads prayers, and his servants prepare\n\a lavish offerings in front of every her return.\n\nOn a huge area near a lake our priests perform carnage of sinners among the Columns\nof Blood, and then arranges a nice mass sacrifices.\n\nBlood rain from the black skies after the show - a generous blessing to all of us and a sign\nof her coming soon.\n\nDevourer of the youngs, Mother of a thousand stillborn wakes up and goes to the shore,\nand beginning to feast before us.\n\nShe shows us her wisdom, shares her knowledge and gives our leaders guidance in the\nfuture achievements.";
-
 
 str finalText = "";
 int MsgID = 13131313;
@@ -221,6 +218,9 @@ int ttlID = 13131314;
 
 
 script "Covenant" (void) {
+
+str CovenantTitle = StrParam(l:"TABLET_PLAZA_TITLE");
+str CovenantText = StrParam(l:"TABLET_PLAZA");
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);

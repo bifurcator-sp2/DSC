@@ -6,6 +6,7 @@ bool PlayerInAirlock = true;
 script "enterfade" enter
 {
 	Autosave();
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
 	Delay(1);
 	SetMusicVolume(0.0);
 	FadeTo (0, 0, 0, 1.0, 0.0 );
@@ -15,6 +16,8 @@ int totalsound=0;
 script "enterSOUNDin" enter
 {
 	delay(15);
+	Floor_LowerToLowest(171717, 1024);
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
 	while(totalsound<100){
 		for(int i = 0; i<=128; i++){
 			SoundVolume (0, i, FixedDiv(totalsound, 100));

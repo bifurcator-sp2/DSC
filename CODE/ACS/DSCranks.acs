@@ -35,21 +35,21 @@ script "strongholdBonus" (void){
 	if(DSCplayerRank>=5){
 		if(Random(1, 100)<=StrongHoldChance){
 			GiveActorInventory(0, "DSCarmorBonus10", 1);
-			Log(s:"Stronghold: Armor Bonus 5");
+			Log(s:"Stronghold: Armor Bonus 10%");
 		}
 	}
 }
 script "strongholdHealArmorBonus" (void){
 	if(DSCplayerRank>=5){
 		GiveActorInventory(0, "DSCarmorBonus5", 1);
-		Log(s:"Stronghold: Healing heart gives Armor Bonus 5");
+		Log(s:"Stronghold: Healing heart gives Armor Bonus 5%");
 
 	}
 }
 script "strongholdScullArmorBonus" (void){
 	if(DSCplayerRank>=5){
 		GiveActorInventory(0, "DSCarmorBonus5", 1);
-		Log(s:"Stronghold: Mystic Skull gives Armor Bonus 5");
+		Log(s:"Stronghold: Mystic Skull gives Armor Bonus 5%");
 
 	}
 }
@@ -69,7 +69,7 @@ script "MasterofSurvival" enter{
 		if(GetActorProperty (0, APROP_HEALTH)<OldPlayerHealth && GetActorProperty (0, APROP_HEALTH)<20){
 			if(random(0, 100)<40){
 				GiveActorInventory(0, "DSCHealthBonus", 5);
-				Log(s:"Last Breath: Health bonus 5");
+				Log(s:"Last Breath: Health bonus 5%");
 			}
 		}
 	}
@@ -91,7 +91,7 @@ script "BoneCollector" (void){
 }
 
 script "invisBONUS" (void){
-	if(DSCplayerRank>=7){
+	if(DSCplayerRank>=6){
 		if(Random(1, 100)<=invisBonusChance){
 			SpawnSpotFacingForced ("BlurSphere", 0, 0);
 			//GiveActorInventory(0, "BlurSphere", 1);
@@ -99,11 +99,29 @@ script "invisBONUS" (void){
 		}
 	}
 }
+
+bool TimeFreezed = 0;
+script "TimeStopAmbience" enter {
+	if(TimeFreezed){
+		PlaySound(0, "misc/TimestopLoop", CHAN_ITEM, 1.0, true, ATTN_NONE);
+		while(TimeFreezed){
+			delay(5);
+		}
+		StopSound(0, CHAN_ITEM);
+	}
+	delay(5);
+	restart;
+}
+
 script "timeFreezeBONUS" (void){
-	if(DSCplayerRank>=6){
+	if(DSCplayerRank>=7){
 		if(Random(1, 100)<=PowerTimeFreezerChance){
 			GiveInventory("PowerTimeFreezer",1);
+			AmbientSound("misc/TimestopStart", 1.0);
+			TimeFreezed = true;
 			Log(s:"Spectre: PowerTimeFreezer item got");
+			delay(35*12);
+			TimeFreezed = false;
 		}
 	}
 }
@@ -181,10 +199,10 @@ script "GetAIDhealthAmount" (void){
 	}*/
 	if(DSCplayerRank>=3){
 		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.5) >> 16);
-		Log(s:"Vitality: Health bonus ", d:val);
+		Log(s:"Vitality: Health bonus ", d:val, s:"%");
 		SetResultValue(val);
 	} else {
-		Log(s:"Health bonus ", i:DSCbaseHealthBonus);
+		Log(s:"Health bonus ", i:DSCbaseHealthBonus, s:"%");
 		SetResultValue(DSCbaseHealthBonus);
 	}
 }
@@ -193,7 +211,7 @@ script "AbsorbHealth" (int HealthAmount){
 	switch (DSCplayerRank) {
 		case 9:
 			int val = FixedMul(HealthAmount, 0.05);
-			Log(s:"Reaper: absorbed ", d:val, s:" health");
+			Log(s:"Reaper: absorbed ", d:val, s:"% health");
 			GiveActorInventory(0, "DSChealthBonus400", val);
 			break;
 		default:
@@ -285,9 +303,9 @@ function str getRankString (int rank){
 		case 5:
 			return "Tyrant";
 		case 6:
-			return "Timelord";
-		case 7:
 			return "Hell Walker";
+		case 7:
+			return "Timelord";
 		case 8:
 			return "Doom Slayer";
 		case 9:
@@ -311,9 +329,9 @@ function str getRankAchive (int rank){
 		case 5:
 			return "Stronghold";
 		case 6:
-			return "TimeFreezer";
-		case 7:
 			return "Spectre";
+		case 7:
+			return "TimeFreezer";
 		case 8:
 			return "Iron Will";
 		case 9:
@@ -336,9 +354,9 @@ function str getRankAchiveInfo (int rank){
 		case 5:
 			return "10% chance to get 10% armor for kill.\nHealing Heart and Mystic Skull gives 5% armor";
 		case 6:
-			return "2% chance to stop time\nfor 12 seconds for each kill.";
-		case 7:
 			return "3% chance to get INVISIBILITY\nfor each kill.";
+		case 7:
+			return "2% chance to stop time\nfor 12 seconds for each kill.";
 		case 8:
 			return "3% chance to get INVULNERABILITY\nfor each kill.";
 		case 9:
@@ -404,21 +422,21 @@ Script "DisplayRankInfo" ENTER
 	while (TRUE) {
 		int TK = TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 		int mtotal = GetTotalMonsters();
-		if(mtotal==0 && DSCscreenFade==0){
-
+		if(!WaveOnline && DSCscreenFade==0){
+			SetHudSize(640, 480, 0);
 			SetFont("SMALLFONT");
 			HudMessage(
 			i:TK, s:" killed demons total";
-			HUDMSG_PLAIN,776,CR_DARKRED,0.2,0.02,1,0);
+			HUDMSG_PLAIN,776,CR_DARKRED, 200.0, 20.0, 1,0);
 
 			SetFont("BIGFONT");
 			HudMessage(
 			s:"", s:getRankString (0), s:"";
-			HUDMSG_PLAIN,777,CR_DARKRED,0.5,0.05,1,0);
+			HUDMSG_PLAIN,777,CR_DARKRED,320.0, 35.0, 1,0);
 			SetFont("SMALLFONT");
 			HudMessage(
 			s:"Next Rank: ", s:getRankString(DSCplayerRank+1), s:" (", i:getKillsToRank(TK), s:" kills)";
-			HUDMSG_PLAIN,778,CR_DARKRED,0.8,0.02,1,0);
+			HUDMSG_PLAIN,778,CR_DARKRED, 420.0, 20.0, 1,0);
 
 
 		} else {

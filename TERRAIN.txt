@@ -35,6 +35,7 @@ floor POOL3D Water
 floor DSCLWA Lava
 floor BF_LAVA Lava
 floor DSCBLD Blood
+floor BLOOD3D Blood
 
 endif
 

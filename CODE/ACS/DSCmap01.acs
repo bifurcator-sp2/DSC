@@ -1,8 +1,6 @@
-
 //episode wave count definition
 int maxWaveCount = 40;//--------------------------
 //episode wave count definition
-
 
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
@@ -171,8 +169,6 @@ SCRIPT "Door12" (void){
 
 
 
-str CovenantTitle = "Atrium";
-str CovenantText = "Their citadels have long been destroyed, their temples corrupted and serving us,\ntheir leaders and warriors killed and turned into eternal service, their Kingdom\nconsumed by Hell and belongs to us only.\n\nThe ruins of this vile civilization, which should not be named are the proof of\nour undeniable power. No one can resist the hellish legions. But there are still\nplaces where their deterrent runes are still strong and do not allow our hordes\nto get there.\n\nBut sooner or later, our priests will get to these runes and finally destroy them,\nand then our order reign in this dead world.";
 
 
 str finalText = "";
@@ -181,6 +177,8 @@ int ttlID = 13131314;
 
 
 script "Covenant" (void) {
+str CovenantTitle = StrParam(l:"TABLET_ATRIUM_TITLE");
+str CovenantText = StrParam(l:"TABLET_ATRIUM");
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);

@@ -1520,10 +1520,13 @@ str finalText = "";
 int MsgID = 13131313;
 int ttlID = 13131314;
 
-str CovenantTitle1 = "Teleportation chamber";
-str CovenantText1 = "Main 3rd generation teleportation chamber is hidden\nin the secret sector of UAC research lab. \nAll information about portal's operating principals\nand teleportation research locations are strictly\nclassified. \n\nCentral Panel access and teleportation chamber \nactivation is allowed to Head Quarter personnel only.";
+
+
+
 
 script "Covenant" (void) {
+str CovenantTitle1 = StrParam(l:"TABLET_DIE_TITLE");
+str CovenantText1 = StrParam(l:"TABLET_DIE_0");
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
@@ -1532,10 +1535,11 @@ script "Covenant" (void) {
 	HudMessage(s:CovenantText1;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 320.0, 0.1);
 }
 
-str CovenantTitle2 = "Exultation of demons";
-str CovenantText2 = "Miserable, foolish mortals! \nThey found us on their own! \nWith a help of their machines \nthey doomed themselves to death! \n\nTempt them was so easy! \nOur plan succeeded!";
+
 
 script "Covenant2" (void) {
+str CovenantTitle2 = StrParam(l:"TABLET_DIE_TITLE2");
+str CovenantText2 = StrParam(l:"TABLET_DIE_2");
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
@@ -1545,10 +1549,11 @@ script "Covenant2" (void) {
 
 }
 
-str CovenantTitle3 = "Demon anxiety";
-str CovenantText3 = "Ritual is nearly finished!\nWe must hurry! Our enemy is near!\nHe is coming!\nWhy he is fighting for humans?! \nWhy they mean something for him?!";
+
 
 script "Covenant3" (void) {
+str CovenantTitle3 = StrParam(l:"TABLET_DIE_TITLE3");
+str CovenantText3 = StrParam(l:"TABLET_DIE_3");
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
@@ -1559,10 +1564,11 @@ script "Covenant3" (void) {
 }
 
 
-str CovenantTitle4 = "The end of Way";
-str CovenantText4 = "Our time has come!\n\nSoon the mankind will be doomed for eternal sufferings prophecy told!\n\nWe will devour their souls! ";
+
 
 script "Covenant4" (void) {
+str CovenantTitle4 = StrParam(l:"TABLET_DIE_TITLE4");
+str CovenantText4 = StrParam(l:"TABLET_DIE_4");
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);

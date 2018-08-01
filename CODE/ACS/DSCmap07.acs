@@ -316,10 +316,12 @@ str finalText = "";
 int MsgID = 13131313;
 int ttlID = 13131314;
 
-str CovenantTitle1 = "Crimson Depths.\nPart 1.";
-str CovenantText1 = "We found this dead empty world long ago during the age of expansions.\nIt is unknown who populated it here before but life did existed. \nAnd then we discovered Ancient God who devoured this world. \nOur forces found it’s presence on the shores of Great Bloody Sea. \n\nWithout hesitation Csha’tel the commander of Hell Legion ordered to \ndestroy or capture this being. This led to war that last through many \ncenturies. Enormous tentacles of this monster raised from the bottom \nof the sea and erupted from the underground crushing everyone on their\nway. It was casting terrifying spells on our forces and draining vital\npowers from the fallen bodies. It was taking control over the mind of \nour commanders and summoning fearsome legions of it’s servants from the\ndepths of the ground. \n\nIt was consuming our rage and hate but breathing out fear and despair. \nOne by one our armies had fall before it being unable to deliver any \ndamage.";
+
+
 
 script "Covenant" (void) {
+	str CovenantTitle1 = StrParam(l:"TABLET_TIDE_TITLE1");
+str CovenantText1 = StrParam(l:"TABLET_TIDE1");
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
@@ -328,10 +330,12 @@ script "Covenant" (void) {
 	HudMessage(s:CovenantText1;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 320.0, 0.1);
 }
 
-str CovenantTitle2 = "Crimson Depths.\nPart 2.";
-str CovenantText2 = "Soon after our Master found out about that.\nIn his rage he awaken the sleeping Titan granting him with\npower of thousands fallen demons and sending him at the head\nof the Burning Legion to slay this being and conquer this\nworld once and for all. But even our most powerful and skillful\nwarriors couldn’t stand against this monster. One by one,\nhundreds and thousands of them were falling by the infinite \npowers of Ancient God who’s might couldn’t not be matched. \nHowever awoken Titan did not interfere while standing and waiting,\nconsuming every fallen demon’s soul and growing his own power.\n\nAnd then time we all were waiting has come. Titan burning with \nanger had finally confront this dark creature and the epic \nbattle began. They fought for several days and because of their \nbattle this world was about to fall apart but at this very moment\nTitan began to collapse. The monster was draining Titan’s powers \ncrushing him with it’s tentacles leaving him no chance to win.\n\nAnd then it happened what became a legend and has been a disgrace\nin our history. Monster creature arose from the depths of the sea\nand appeared with it’s true, terrifying form. It opened it’s \nall-consuming maw and devoured the fallen Titan. When it all ended\nevery demon’s mind was filled with a whispering of the Ancient God.\nThe name was – Shub-Niggurath. Afterwards it disappeared into the\nbloody sea. That day we knew we are not almighty and we faced forces\nmore ancient and more powerful than could be imagined.\n\nSearching for the answers about the nature of this creature our\nclerics found some information from the ancient manuscripts \ndiscovered in the underground of this world. It appeared that this\ncreature is not the only one on it’s kind.";
+
 
 script "Covenant2" (void) {
+str CovenantTitle2 = StrParam(l:"TABLET_TIDE_TITLE2");
+str CovenantText2 = StrParam(l:"TABLET_TIDE2");
+
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
@@ -341,10 +345,11 @@ script "Covenant2" (void) {
 
 }
 
-str CovenantTitle3 = "Crimson Depths.\nPart 3.";
-str CovenantText3 = "From the Codex of “Twilight Times”:\n\n“Ancient Gods – are incredibly evil and mighty beings that came\nfrom distant black stars that lies in the very heart of otherworldly\ndarkness. Their tasks – are oblivion, spreading the chaos and insanity,\ndestroying any life form, devouring every world. It is impossible to\nkill them because they are not alive. They are standing beyond the \neternal cycle.” From that day our priests, our acolytes and demons are\nvisiting this dead world to serve Ancient God. They are making \nsacrifices, chanting the praises of it and making rituals to moderate\nit’s anger. \n\nAll to convince Him to be our ally but not to destroy us all.";
 
 script "Covenant3" (void) {
+
+str CovenantTitle3 = StrParam(l:"TABLET_TIDE_TITLE3");
+str CovenantText3 = StrParam(l:"TABLET_TIDE3");
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);

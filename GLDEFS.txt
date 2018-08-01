@@ -115,7 +115,7 @@ HardwareShader Sprite TDE2A0
 	Shader "shaders/fire.fp"
 	Speed 0.2
 }
-HardwareShader Texture DSCBLD
+HardwareShader Texture BLOOD3D
 {
 	Shader "shaders/water.fp"
 	Speed 1.0

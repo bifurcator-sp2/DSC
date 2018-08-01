@@ -142,12 +142,12 @@ script "Sequence3" (void){
 		delay(1);
 	}
 	ACS_NamedExecute("LowerRoundFloor", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 131313, 131313);//С‡РµСЂРµРїР° РЅРµ Р±СѓРґРµС‚, РЅРѕ РІРѕР»РЅР° СѓС‡С‚РµС‚СЃСЏ
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 131313, 131313);//черепа не будет, но волна учтется
 	Delay(35*5);
 	ACS_NamedExecuteAlways("Mus_M3", 0);
-	while(WaveOnline){ Delay(5);}//Р¶РґРµРј РїРѕРєР° РІСЃРµ СЃРґРѕС…РЅСѓС‚
+	while(WaveOnline){ Delay(5);}//ждем пока все сдохнут
 	ACS_NamedExecuteAlways("RestoreMusic", 0);
-	//С‚СѓС‚ РЅР°РґРѕ СЃРїР°РІРЅРёС‚СЊ РіР»Р°Р·
+	//тут надо спавнить глаз
 	SpawnSpotFacingForced("TeleportFog", 67, 0);
 	delay(5);
 	SpawnSpotFacingForced("DSCeyeBounder", 67, 69);
@@ -156,7 +156,7 @@ script "Sequence3" (void){
 	Thing_Activate(68);//helper
 	NextWaveReady = false;
 	//Scull will spawned by killing of eye
-	//РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ СЃРІСЏС‚РѕРіРѕ РґРµР»Р°РµС‚ NextWaveReady
+	//освобождение святого делает NextWaveReady
 	while(!NextWaveReady){
 		delay(1);
 	}
@@ -170,7 +170,7 @@ script "Sequence3" (void){
 	NextWaveReady = false;
 	Door_Open(77, 16);
 	Door4Locked = FALSE;
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//РІРѕР»РЅР° Р±СѓРґРµС‚ СѓС‡С‚РµРЅР°, РЅРѕ С‡РµСЂРµРї РЅРµ РїРѕСЏРІРёС‚СЃСЏ
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//волна будет учтена, но череп не появится
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);
 	Delay(35*5);
@@ -235,7 +235,7 @@ script "Sequence2" (void){
 	NextWaveReady = false;
 	Door3Locked = FALSE;
 
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//РІРѕР»РЅР° Р±СѓРґРµС‚ СѓС‡С‚РµРЅР°, РЅРѕ С‡РµСЂРµРї РЅРµ РїРѕСЏРІРёС‚СЃСЏ
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//волна будет учтена, но череп не появится
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);
 	Delay(35*5);
@@ -297,7 +297,7 @@ script "Sequence1" (void){
 	while(!NextWaveReady){ delay(1); } NextWaveReady = false;
 	Door5Locked = false;
 	Door1Locked = false;
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 131313, 100400);//С‡РµСЂРµРї РЅРµ РїРѕСЏРІРёС‚СЃСЏ РЅРѕ РІРѕР»РЅР° СѓС‡С‚РµС‚СЃСЏ
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 131313, 100400);//череп не появится но волна учтется
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);
@@ -414,7 +414,7 @@ script "saintStartRaise" (int tid){
 	if(tid==45){saint45raiseStarted=true;}
 	if(tid==60){saint60raiseStarted=true;}
 	SetActorState (tid, "Raise");
-	Thing_Move (tid, 58, true);//СЃС‚Р°РІРёРј РµРіРѕ С‚РѕС‡РЅРѕ РІ С†РµРЅС‚СЂ
+	Thing_Move (tid, 58, true);//ставим его точно в центр
 }
 
 function bool TestStartRaise (int tid){
@@ -579,8 +579,7 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 
 
 
-str CovenantTitle = "Prison of souls";
-str CovenantText = "Souls - all that is left of the last three leaders\nof the civilization Prementor, the world of which\nwe devoured with such difficulty. \n\nWhen the outcome of the great war was already close,\nthe last survivors led by their three leaders\nretreated to their sacred temple, where they took \nthe last battle. \n\nHere, for their ancestors, the last three warriors\nfought with the inevitable darkness. Thousands of \ndemons fell from their hands, burned in fire of \ntheir fury. \n\nAt the hour of despair our best sorcerers came and\nrealized that it was impossible to overcome them in\nthe usual way. \n\nAnd then the ancient rite \"Curse of Flesh\" was \nperformed – the souls of these inflexible were \nseparated from the bodies and captured. \nSoon began the long process of desecration of the\ntemple and his territories. The souls of the three\nchiefs saw their shrines and heart of civilization\nbeing absorbing by the forces of hell, but could not\ndo anything already. \n\nTheir anger was terrible, their fury incinerates \ndemons and was barely restrained by our powerful \nspells. Souls were hidden in the depths of unholy temple.\n\nUntil our priests find a way to curb their anger and \nenslave or kill everyone.";
+
 
 
 str finalText = "";
@@ -589,11 +588,15 @@ int ttlID = 13131314;
 
 
 script "Covenant" (void) {
+	str CovenantTitle = StrParam(l:"TABLET_PRISON_TITLE");
+	str CovenantText = StrParam(l:"TABLET_PRISON");
+
+
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
 	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
 	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 350.0, 0.1);
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 260.0, 0.1);
 
 }

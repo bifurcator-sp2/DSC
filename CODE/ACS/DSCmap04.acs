@@ -283,8 +283,6 @@ script "TribuneTeleport"(int tid){
 //200-217
 
 
-str CovenantTitle = "The Colosseum";
-str CovenantText = "In the middle of great wasteland Umbrall stands the\namphitheater of suffering - Malekhis. Created by the\nascended demiurge Khorg in the Twilight Times, this\nArena of Hell has become a receptacle for thousands\nof doomed souls, but also for disgraced, unworthy of\nour brothers who dared to anger the Dark Lords. \n\nHere's a great Governor Azgalor organizes colossal \nslaughter of gladiators to the delight of the audience,\nhoping to draw the eye to the amusement of our invisible\nMaster. \n\nBecause of the unstable power flows in this region, \nthe usual demons can not get here themselves. Therefore,\nthey are called by the Higher Summoner to fill all \ntribunes of the amphitheatre. When the winner is not \nrecognize, often the demons rush from the stands to the\narena, tearing it to pieces, and then arrange a glorious\nfinal massacre each other. \n\nAll the blood of the martyrs and demons left in the arena\nis then absorbed by the Soulflayer Spire, and the \nresulting energy of the blood is distributed to stabilize\nthe summoning portals on the outskirts of the wasteland.";
 
 
 str finalText = "";
@@ -293,6 +291,8 @@ int ttlID = 13131314;
 
 
 script "Covenant" (void) {
+str CovenantTitle = StrParam(l:"TABLET_COLOSSEUM_TITLE");
+str CovenantText = StrParam(l:"TABLET_COLOSSEUM");
 	SetHudSize(800, 600, 0);
 	SetFont ("BIGFONT");
 	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
