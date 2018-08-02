@@ -255,23 +255,24 @@ Script "DisplayInfo" ENTER
 			SetFont("SMALLFONT");
 
 			HudMessage(
-			d:mtotal, s:" demons on map";
+			d:mtotal, s:" demons left";
 			HUDMSG_PLAIN,779,CR_DARKBROWN, 200.0, 10.0, 1, 0);
 
 			HudMessage(
 			d:progress, s:"%", s:" progress";
 			HUDMSG_PLAIN,780,CR_DARKBROWN, 430.0, 10.0, 1, 0);
 		} else {
+			SetHudSize(800, 600, 0);
 			SetFont("BIGFONT");
 			if(mtotal>1){
 				HudMessage(
-				d:mtotal, s:" demons on map";
-				HUDMSG_PLAIN,779,CR_RED, 320.0, 20.0, 1, 0);
+				d:mtotal, s:" demons left";
+				HUDMSG_PLAIN,779,CR_RED, 400.0, 30.0, 1, 0);
 			} else {
 				if(mtotal==1){
 					HudMessage(
-					d:mtotal, s:" demon on map";
-					HUDMSG_PLAIN,779,CR_RED, 320.0, 20.0, 1, 0);
+					d:mtotal, s:" demon left";
+					HUDMSG_PLAIN,779,CR_RED, 400.0, 30.0, 1, 0);
 				}
 				if(mtotal==0){HudMessage(s:"";HUDMSG_PLAIN,779,CR_DARKBROWN, 200.0, 10.0, 1, 0);}
 			}

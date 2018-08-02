@@ -237,6 +237,14 @@ HardwareShader PostProcess scene
 	Shader "Shaders/PostProcessing/FilmGrain.fp" 330
 }
 
+
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass1v"
+	Shader "Shaders/PostProcessing/TiltShift1v.fp" 330
+	Uniform float Angle
+}
+
 HardwareShader PostProcess scene
 {
 	Name "TiltShiftPass1"
@@ -248,13 +256,22 @@ HardwareShader PostProcess scene
 	Name "TiltShiftPass2"
 	Shader "Shaders/PostProcessing/TiltShift2.fp" 330
 }
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass2v"
+	Shader "Shaders/PostProcessing/TiltShift2v.fp" 330
+}
 
 HardwareShader PostProcess scene
 {
 	Name "TiltShiftPass3"
 	Shader "Shaders/PostProcessing/TiltShift3.fp" 330
 }
-
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass3v"
+	Shader "Shaders/PostProcessing/TiltShift3v.fp" 330
+}
 
 
 

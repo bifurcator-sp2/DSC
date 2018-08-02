@@ -653,9 +653,18 @@ function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOff
 script "Thing_Activate" (int tid){ Thing_Activate(tid); }
 script "Thing_DeActivate" (int tid){ Thing_DeActivate(tid); }
 
-
-
 bool demogliphStarted;
+
+script "PressUse" (void){
+	if(!demogliphStarted){
+		SetHudSize(640, 480, 0);
+		SetActivator (0);
+		HudMessageBold(	s:"Press USE";	HUDMSG_PLAIN, 13131317, CR_RED, 320.0, 200.0, 0.1);
+	}
+}
+
+
+
 script "DemogliphStarted" (void) {
 	if(demogliphStarted){ SetResultValue(1);} else {SetResultValue(0);}
 }
@@ -708,9 +717,12 @@ SCRIPT "DemoGliph" (int CamTID, int CovenID){
 		if(GetPlayerInput(-1, INPUT_BUTTONS)){ break;}
 	}
 	ACS_NamedExecuteAlways("RestoreMusic", 0);
+	FadeTo (0, 0, 0, 1.0, 3.0 );
+	delay(35*3);
 	demogliphStarted = false;
 	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
 	ChangeCamera(0, 0 , 0);
+	FadeTo (0, 0, 0, 0.0, 3.0 );
 	hudmessageBold(s:" "; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.95, 1.0);
 	delay(35);
 

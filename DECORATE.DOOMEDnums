@@ -309,3 +309,6 @@ scale 0.1
 actor DoomSlayerGliphDEC : DoomSlayerGliph 22108 {
 
 }
+actor TabletDecorDEC : TabletDecor 22109 {
+
+}
