@@ -462,11 +462,11 @@ Class DSCGREATeyeBounder : Actor
 			GOTO Halt;
 		Missle:
 			HEYE DDDE 25 A_FaceTarget(0, 0, 0, 0, FAF_BOTTOM);
-			HEYE E 25 A_CustomMissile("GeatBounderSpawnBall", 128, 0, frandom(-0.5, 0.5));
+			HEYE E 25 A_SpawnProjectile("GeatBounderSpawnBall", 128, 0, frandom(-0.5, 0.5));
 			HEYE E 25 A_jump(256, 1, 2);
-			HEYE E 25 A_CustomMissile("GeatBounderSpawnBall", 128, 0, frandom(-0.5, 0.5));
+			HEYE E 25 A_SpawnProjectile("GeatBounderSpawnBall", 128, 0, frandom(-0.5, 0.5));
 			HEYE E 25 A_jump(256, 1, 2);
-			HEYE E 25 A_CustomMissile("GeatBounderSpawnBall", 128, 0, frandom(-0.5, 0.5));
+			HEYE E 25 A_SpawnProjectile("GeatBounderSpawnBall", 128, 0, frandom(-0.5, 0.5));
 			GOTO Spawn;
 		Halt:
 			HEYE AAABCB 10;

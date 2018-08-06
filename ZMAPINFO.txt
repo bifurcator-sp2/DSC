@@ -5,10 +5,10 @@ GameInfo
 }
 clearepisodes
 episode DSCINTRO {
-	name = "DSC Episode 1"
+	name = "Crusade in Dark Realm"
 }
 episode DSCMAP06 {
-	name = "DSC Episode 2"
+	name = "Your own way to die in hell"
 }
 
 
@@ -152,7 +152,7 @@ map DSCOUTRO "Credits"
 {
 next = "DSCMAP01"
 InterMusic = MT
-music = "CREDITS"
+music = "NOMUSIC"
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }

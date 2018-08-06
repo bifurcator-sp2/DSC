@@ -155,7 +155,7 @@ Class IncomeWind : Actor
 		ScaleMultiplerMin = 1.0;
 		FadeoutSpeed = 0.01;
 		FadeInSpeed = 0.002;
-		A_SetScale(Frandom(scaleX*ScaleMultiplerMin, scaleX*ScaleMultiplerMax));
+		A_SetScale(Frandom(scale.X*ScaleMultiplerMin, scale.X*ScaleMultiplerMax));
 		startFade = false;
 		Super.PostBeginPlay();
 	}
@@ -500,7 +500,7 @@ Class DSCportalSoulCloud : Actor
 	virtual void ParticleLife()
 	{
 		A_fadeOut(FadeoutSpeed, true);
-		A_SetScale(scaleX+ScaleSpeed);
+		A_SetScale(scale.X+ScaleSpeed);
 	}
 
 	States
@@ -682,7 +682,7 @@ Class DSCbigPortalTwist : Actor
 		if(self.alpha>=MaxAlpha && !startFade){
 			startFade = true;
 		}
-		A_SetScale(scaleX+ScaleSpeed);
+		A_SetScale(scale.X+ScaleSpeed);
 
 		//A_fadeTo(0.3, FadeoutSpeed);
 	}
@@ -743,7 +743,7 @@ Class DSCbigPortalTwist2 : Actor
 		if(self.alpha>=MaxAlpha && !startFade){
 			startFade = true;
 		}
-		A_SetScale(scaleX+ScaleSpeed);
+		A_SetScale(scale.X+ScaleSpeed);
 
 		//A_fadeTo(0.3, FadeoutSpeed);
 	}
@@ -1025,7 +1025,7 @@ Class DSCfastSteamCloud : Actor
 		if(self.alpha>=MaxAlpha && !startFade){
 			startFade = true;
 		}
-		A_SetScale(scaleX+ScaleSpeed);
+		A_SetScale(scale.X+ScaleSpeed);
 
 		//A_fadeTo(0.3, FadeoutSpeed);
 	}
@@ -1616,7 +1616,7 @@ Class DSCredCloud : Actor
 		ScaleMultiplerMin = 1.0;
 		FadeoutSpeed = 0.002;
 		RollSpeed = 1.0;
-		A_SetScale(Frandom(scaleX*ScaleMultiplerMin, scaleX*ScaleMultiplerMax));
+		A_SetScale(Frandom(scale.X*ScaleMultiplerMin, scale.X*ScaleMultiplerMax));
 		RollSpeed = FRandom(-RollSpeed, RollSpeed);
 		A_SetRoll(random(0, 360));
 		startFade = false;
