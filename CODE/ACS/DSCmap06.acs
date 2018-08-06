@@ -294,15 +294,15 @@ int ttlID = 13131314;
 
 
 script "Covenant" (void) {
-str CovenantTitle = StrParam(l:"TABLET_CATHEDRAL_TITLE");
-str CovenantText = StrParam(l:"TABLET_CATHEDRAL");
+	str CovenantTitle = StrParam(l:"TABLET_CATHEDRAL_TITLE");
+	str CovenantText = StrParam(l:"TABLET_CATHEDRAL");
 
 
-	SetHudSize(800, 600, 0);
+	SetHudSize(550, 380, 0);
 	SetFont ("BIGFONT");
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
-	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 275.0, 40.0, 0.1);
 	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 320.0, 0.1);
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 275.0, 210.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 275.0, 370.0, 0.1);
 
 }

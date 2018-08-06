@@ -321,40 +321,42 @@ int ttlID = 13131314;
 
 script "Covenant" (void) {
 	str CovenantTitle1 = StrParam(l:"TABLET_TIDE_TITLE1");
-str CovenantText1 = StrParam(l:"TABLET_TIDE1");
-	SetHudSize(800, 600, 0);
+	str CovenantText1 = StrParam(l:"TABLET_TIDE1");
+
+	SetHudSize(550, 380, 0);
 	SetFont ("BIGFONT");
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
-	HudMessage(s:CovenantTitle1;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	HudMessage(s:CovenantTitle1;HUDMSG_PLAIN,ttlID,CR_YELLOW, 275.0, 70.0, 0.1);
 	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText1;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 320.0, 0.1);
+	HudMessage(s:CovenantText1;HUDMSG_PLAIN,MsgID,CR_GRAY, 275.0, 210.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 275.0, 360.0, 0.1);
 }
 
 
 
 script "Covenant2" (void) {
-str CovenantTitle2 = StrParam(l:"TABLET_TIDE_TITLE2");
-str CovenantText2 = StrParam(l:"TABLET_TIDE2");
+	str CovenantTitle2 = StrParam(l:"TABLET_TIDE_TITLE2");
+	str CovenantText2 = StrParam(l:"TABLET_TIDE2");
 
-	SetHudSize(800, 600, 0);
+	SetHudSize(600, 400, 0);
 	SetFont ("BIGFONT");
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
-	HudMessage(s:CovenantTitle2;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	HudMessage(s:CovenantTitle2;HUDMSG_PLAIN,ttlID,CR_YELLOW, 300.0, 100.0, 0.1);
 	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText2;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 320.0, 0.1);
+	HudMessage(s:CovenantText2;HUDMSG_PLAIN,MsgID,CR_GRAY, 300.0, 200.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 300.0, 380.0, 0.1);
 
 }
 
 
 script "Covenant3" (void) {
 
-str CovenantTitle3 = StrParam(l:"TABLET_TIDE_TITLE3");
-str CovenantText3 = StrParam(l:"TABLET_TIDE3");
-	SetHudSize(800, 600, 0);
+	str CovenantTitle3 = StrParam(l:"TABLET_TIDE_TITLE3");
+	str CovenantText3 = StrParam(l:"TABLET_TIDE3");
+
+	SetHudSize(550, 380, 0);
 	SetFont ("BIGFONT");
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
-	HudMessage(s:CovenantTitle3;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	HudMessage(s:CovenantTitle3;HUDMSG_PLAIN,ttlID,CR_YELLOW, 275.0, 120.0, 0.1);
 	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText3;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 320.0, 0.1);
+	HudMessage(s:CovenantText3;HUDMSG_PLAIN,MsgID,CR_GRAY, 275.0, 210.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 275.0, 360.0, 0.1);
 
 }

@@ -1526,41 +1526,44 @@ int ttlID = 13131314;
 
 
 script "Covenant" (void) {
-str CovenantTitle1 = StrParam(l:"TABLET_DIE_TITLE");
-str CovenantText1 = StrParam(l:"TABLET_DIE_0");
-	SetHudSize(800, 600, 0);
+	str CovenantTitle1 = StrParam(l:"TABLET_DIE_TITLE");
+	str CovenantText1 = StrParam(l:"TABLET_DIE_0");
+
+	SetHudSize(400, 300, 0);
 	SetFont ("BIGFONT");
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
-	HudMessage(s:CovenantTitle1;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	HudMessage(s:CovenantTitle1;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 90.0, 0.1);
 	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText1;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 320.0, 0.1);
+	HudMessage(s:CovenantText1;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
 }
 
 
 
 script "Covenant2" (void) {
-str CovenantTitle2 = StrParam(l:"TABLET_DIE_TITLE2");
-str CovenantText2 = StrParam(l:"TABLET_DIE_2");
-	SetHudSize(800, 600, 0);
+	str CovenantTitle2 = StrParam(l:"TABLET_DIE_TITLE2");
+	str CovenantText2 = StrParam(l:"TABLET_DIE_2");
+
+	SetHudSize(400, 300, 0);
 	SetFont ("BIGFONT");
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
-	HudMessage(s:CovenantTitle2;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 200.0, 0.1);
+	HudMessage(s:CovenantTitle2;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 90.0, 0.1);
 	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText2;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 250.0, 0.1);
+	HudMessage(s:CovenantText2;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
 
 }
 
 
 
 script "Covenant3" (void) {
-str CovenantTitle3 = StrParam(l:"TABLET_DIE_TITLE3");
-str CovenantText3 = StrParam(l:"TABLET_DIE_3");
-	SetHudSize(800, 600, 0);
+	str CovenantTitle3 = StrParam(l:"TABLET_DIE_TITLE3");
+	str CovenantText3 = StrParam(l:"TABLET_DIE_3");
+
+	SetHudSize(400, 300, 0);
 	SetFont ("BIGFONT");
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
-	HudMessage(s:CovenantTitle3;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 250.0, 0.1);
+	HudMessage(s:CovenantTitle3;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 90.0, 0.1);
 	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText3;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 320.0, 0.1);
+	HudMessage(s:CovenantText3;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
 
 }
 
@@ -1570,11 +1573,12 @@ str CovenantText3 = StrParam(l:"TABLET_DIE_3");
 script "Covenant4" (void) {
 str CovenantTitle4 = StrParam(l:"TABLET_DIE_TITLE4");
 str CovenantText4 = StrParam(l:"TABLET_DIE_4");
-	SetHudSize(800, 600, 0);
+
+	SetHudSize(400, 300, 0);
 	SetFont ("BIGFONT");
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 400.0, 550.0, 0.1);
-	HudMessage(s:CovenantTitle4;HUDMSG_PLAIN,ttlID,CR_YELLOW, 400.0, 150.0, 0.1);
+	HudMessage(s:CovenantTitle4;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 90.0, 0.1);
 	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText4;HUDMSG_PLAIN,MsgID,CR_GRAY, 400.0, 220.0, 0.1);
+	HudMessage(s:CovenantText4;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
 
 }

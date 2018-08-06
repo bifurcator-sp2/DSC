@@ -389,15 +389,18 @@ script "DisplayAchives" (int disp){
 	int offsetStart = 180.0+35.0;
 	int HeaderOffset = offsetStart;
 	int infoOffset;
-	int start;
+	int start = 0;
 	if(disp){
 
 		//if(getRank()){ start = 1;} else {start = 0;}
 
 		for(int i=start; i<=getRank(); i++ ){
-			/*if(getRank()){
+			if(getRank()){
 				HeaderOffset = offsetStart+offsetStep*(i-1);
-			 } else {HeaderOffset = offsetStart+offsetStep*i;}*/
+			 } else {
+				 HeaderOffset = offsetStart-offsetStep;
+			 //HeaderOffset = offsetStart+offsetStep*i;
+			 }
 
 			SetHudSize(800, 600, 0);
 			SetFont("SMALLFONT");
