@@ -14,7 +14,7 @@ Class TabletDecor : Actor
 				ThinkerIterator it = ThinkerIterator.Create("PlayerPawn");
 				PlayerPawn this;
 				while(this = PlayerPawn(it.Next())){
-					if(self.Distance2D(this)<48){
+					if(self.Distance3D(this)<48){
 						CallACS("PressUse",0,0,0);
 					}
 				}
@@ -2006,6 +2006,7 @@ Class BigDoomTorch  : Actor
 		Height 64;
 		Scale 0.12;
 		+Nogravity;
+		+FORCEYBILLBOARD;
 		//FlareBaseClass.DrawFlare true;
 		//FlareBaseClass.FlareGraphics "HALO1";
 		//FlareBaseClass.FlareZoffset 64;

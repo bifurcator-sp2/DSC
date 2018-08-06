@@ -215,9 +215,7 @@ script "puzzle_1" (int tid){
 
 		//PrintBold(s:"Clear the area");
 		Delay(5); while(WaveOnline){ Delay(5);}	//wait for end
-		delay(35*2);
-		AmbientSound("world/DemonsOFF", 1.0);
-		delay(35*3);
+
 
 
 		Thing_Activate(4);//turn  steams
@@ -241,6 +239,9 @@ script "puzzle_1" (int tid){
 		delay(10);
 		Thing_DeActivate(39);//portal hard light
 
+		delay(35*3);
+		delay(35*2);
+		AmbientSound("world/DemonsOFF", 1.0);
 		delay(35*3);
 
 		//spawn teleport to next area
@@ -554,7 +555,7 @@ Script "EyeHolderControl" (void){
 Script "CraterEventComplete" (void){
 		CraterEventComplete = true;
 
-		delay(35*5);
+		delay(35*15);
 		silence = true;
 		AmbientSound("world/DemonsOFF", 1.0);
 		delay(35*3);

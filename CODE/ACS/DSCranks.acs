@@ -386,18 +386,18 @@ script "FadePlayerScreen" ENTER {
 
 script "DisplayAchives" (int disp){
 	int offsetStep = 35.0;
-	int offsetStart = 180.0;
+	int offsetStart = 180.0+35.0;
 	int HeaderOffset = offsetStart;
 	int infoOffset;
 	int start;
 	if(disp){
 
-		if(getRank()){ start = 1;} else {start = 0;}
+		//if(getRank()){ start = 1;} else {start = 0;}
 
 		for(int i=start; i<=getRank(); i++ ){
-			if(getRank()){
+			/*if(getRank()){
 				HeaderOffset = offsetStart+offsetStep*(i-1);
-			 } else {HeaderOffset = offsetStart+offsetStep*i;}
+			 } else {HeaderOffset = offsetStart+offsetStep*i;}*/
 
 			SetHudSize(800, 600, 0);
 			SetFont("SMALLFONT");

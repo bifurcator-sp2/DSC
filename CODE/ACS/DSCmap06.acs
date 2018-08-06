@@ -203,21 +203,23 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 
 	if (Time==0){Time=3;}
 
+
 	switch (HelpID) {
 		case 1:
+
 			hudmessageBold(s:"Dive into the blood pool."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 2:
 			hudmessageBold(s:"Now you can play\n\"The bloody tide\"\nWithout reset of inventory."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 3:
-			hudmessageBold(s:"Now you can travel\n\through played episodes."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"Now you can travel\n\across played episodes."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 4:
 			hudmessageBold(s:"To Crimson depths"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 5:
-			hudmessageBold(s:"To Hungar"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"To Hangar"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 6:
 			hudmessageBold(s:"To Season of Winter"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);

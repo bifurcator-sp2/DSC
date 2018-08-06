@@ -16,7 +16,9 @@ int totalsound=0;
 script "enterSOUNDin" enter
 {
 	delay(15);
-	Floor_LowerToLowest(171717, 1024);
+
+	Floor_LowerToLowest(171717, 10000);
+	SoundSequenceOnSector(171717, "___", 0);
 	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
 	while(totalsound<100){
 		for(int i = 0; i<=128; i++){
@@ -555,7 +557,8 @@ script "DisplayOxygenInSec" (void)
 {
 	if(CheckInventory("Oxygen")< max_oxygen){
 		//PrintBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds");
-		hudmessageBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds"; HUDMSG_PLAIN , 0, CR_WHITE, 1.95, 0.8, 1.0);
+		SetHudSize(400, 300, 0);
+		hudmessageBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds"; HUDMSG_PLAIN , 0, CR_WHITE, 350.0, 250.0, 1.0);
 		Delay(1);
 	} else {
 		PrintBold(s:"Oxygen full");
