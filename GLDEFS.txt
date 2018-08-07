@@ -1,3 +1,8 @@
+/*HardwareShader texture WATERUV
+{
+	Shader "Shaders/WaterShader.fp"
+	Speed 1.0
+}*/
 
 HardwareShader texture forcefi
 {

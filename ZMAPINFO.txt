@@ -5,10 +5,10 @@ GameInfo
 }
 clearepisodes
 episode DSCINTRO {
-	name = "Crusade in Dark Realm"
+	name = "E1. Crusade in Dark Realm"
 }
 episode DSCMAP06 {
-	name = "Your own way to die in hell"
+	name = "E2. Your own way to die in hell"
 }
 
 
