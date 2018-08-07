@@ -1,7 +1,6 @@
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 
 
-
 script "StartControl" ENTER
 {
 	//Thing_Activate(1);
@@ -11,4 +10,3 @@ script "StartControl" ENTER
 	ChangeCamera(200, 0, 0);
 	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
 }
-

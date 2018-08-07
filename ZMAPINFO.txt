@@ -4,11 +4,11 @@ GameInfo
 
 }
 clearepisodes
-episode DSCMAP01 {
-	name = "DSC Episode 1"
+episode DSCINTRO {
+	name = "E1. Crusade in Dark Realm"
 }
 episode DSCMAP06 {
-	name = "DSC Episode 2"
+	name = "E2. Your own way to die in hell"
 }
 
 
@@ -20,6 +20,12 @@ music = "MAINTTL"
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }
+map DSCINTRO "Intro"
+{
+next = "DSCMAP01"
+
+}
+
 
 map DSCMAP01 "Atrium"
 {
@@ -85,7 +91,7 @@ MONSTERFALLINGDAMAGE
 }
 
 
-map DSCMAP06 "Unholy Ministry"
+map DSCMAP06 "Unholy Cathedral"
 {
 next = "DSCMAP07"
 InterMusic = MT
@@ -106,7 +112,7 @@ fogdensity = 16
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }
-map DSCMAP08 "Hungar"
+map DSCMAP08 "Hangar"
 {
 next = "DSCMAP06"
 InterMusic = MT
@@ -132,12 +138,21 @@ MONSTERFALLINGDAMAGE
 
 map DSCMAP10 "Die Hard"
 {
-next = "DSCMAP06"
+next = "DSCMAP01"
 InterMusic = MT
 music = "DIEHARD"
 EnterPic = "ENTER06"
 ExitPic = "ENTER06"
 fogdensity = 16
+FALLINGDAMAGE
+MONSTERFALLINGDAMAGE
+}
+
+map DSCOUTRO "Credits"
+{
+next = "DSCMAP01"
+InterMusic = MT
+music = "NOMUSIC"
 FALLINGDAMAGE
 MONSTERFALLINGDAMAGE
 }

@@ -1,3 +1,8 @@
+/*HardwareShader texture WATERUV
+{
+	Shader "Shaders/WaterShader.fp"
+	Speed 1.0
+}*/
 
 HardwareShader texture forcefi
 {
@@ -115,7 +120,7 @@ HardwareShader Sprite TDE2A0
 	Shader "shaders/fire.fp"
 	Speed 0.2
 }
-HardwareShader Texture DSCBLD
+HardwareShader Texture BLOOD3D
 {
 	Shader "shaders/water.fp"
 	Speed 1.0
@@ -211,7 +216,12 @@ HardwareShader PostProcess scene
 	Texture ColourmapLUT "textures/lut_blood.png"
 	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
 }
-
+HardwareShader PostProcess scene
+{
+	Name "TonemapDamned"
+	Texture ColourmapLUT "textures/lut_damned.png"
+	Shader "Shaders/PostProcessing/FilmicTonemap.fp" 330
+}
 
 HardwareShader PostProcess scene
 {
@@ -232,6 +242,14 @@ HardwareShader PostProcess scene
 	Shader "Shaders/PostProcessing/FilmGrain.fp" 330
 }
 
+
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass1v"
+	Shader "Shaders/PostProcessing/TiltShift1v.fp" 330
+	Uniform float Angle
+}
+
 HardwareShader PostProcess scene
 {
 	Name "TiltShiftPass1"
@@ -243,13 +261,22 @@ HardwareShader PostProcess scene
 	Name "TiltShiftPass2"
 	Shader "Shaders/PostProcessing/TiltShift2.fp" 330
 }
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass2v"
+	Shader "Shaders/PostProcessing/TiltShift2v.fp" 330
+}
 
 HardwareShader PostProcess scene
 {
 	Name "TiltShiftPass3"
 	Shader "Shaders/PostProcessing/TiltShift3.fp" 330
 }
-
+HardwareShader PostProcess scene
+{
+	Name "TiltShiftPass3v"
+	Shader "Shaders/PostProcessing/TiltShift3v.fp" 330
+}
 
 
 

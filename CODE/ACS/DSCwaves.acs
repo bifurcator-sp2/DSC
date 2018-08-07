@@ -21,7 +21,7 @@ global int 8:GlobalAttempt;//iteration of hell
 
 bool isBE = false;
 Bool NextWaveReady = false;
-Bool WaveOnline = false;
+
 Bool IgnoreWaveMusicChange = false;
 BOOL restoreMusicAfterWave = true;
 int SpawnedMonstersOnTheMap = 0;
@@ -92,7 +92,7 @@ Script "GetWeaponGotIDforWeaponSpawner" (void)
 			if(CheckInventory("ssgGot")>0){
 				//Log(s:"It is no ssg now");
 				if(Random(1, 100)<=50){WeaponID = Random(1, WeaponGotID);}else{WeaponID = WeaponGotID;}
-				Log(s:"Randomised to ", d:WeaponID);
+				//Log(s:"Randomised to ", d:WeaponID);
 			} else {
 				GiveInventory("ssgGot", 1);
 				WeaponID = WeaponGotID;
@@ -249,17 +249,37 @@ Script "DisplayInfo" ENTER
 
 	while (TRUE) {
 		int mtotal = GetTotalMonsters();
-		int progress = (currentWave * 100) / maxWaveCount;
+		if(!WaveOnline && DSCscreenFade==0){
+			int progress = (currentWave * 100) / maxWaveCount;
+			SetHudSize(640, 480, 0);
+			SetFont("SMALLFONT");
 
-		SetFont("SMALLFONT");
+			HudMessage(
+			d:mtotal, s:" demons left";
+			HUDMSG_PLAIN,779,CR_DARKBROWN, 200.0, 10.0, 1, 0);
 
-		HudMessage(
-		d:mtotal, s:" demons on map";
-		HUDMSG_PLAIN,779,CR_DARKBROWN,0.2,0.039,1,0);
+			HudMessage(
+			d:progress, s:"%", s:" progress";
+			HUDMSG_PLAIN,780,CR_DARKBROWN, 430.0, 10.0, 1, 0);
+		} else {
+			SetHudSize(800, 600, 0);
+			SetFont("BIGFONT");
+			if(mtotal>1){
+				HudMessage(
+				d:mtotal, s:" demons left";
+				HUDMSG_PLAIN,779,CR_RED, 400.0, 30.0, 1, 0);
+			} else {
+				if(mtotal==1){
+					HudMessage(
+					d:mtotal, s:" demon left";
+					HUDMSG_PLAIN,779,CR_RED, 400.0, 30.0, 1, 0);
+				}
+				if(mtotal==0){HudMessage(s:"";HUDMSG_PLAIN,779,CR_DARKBROWN, 200.0, 10.0, 1, 0);}
+			}
 
-		HudMessage(
-		d:progress, s:"%", s:" progress";
-		HUDMSG_PLAIN,780,CR_DARKBROWN,0.8,0.039,1,0);
+			HudMessage(s:"";HUDMSG_PLAIN,780,CR_DARKBROWN, 200.0, 10.0, 1, 0);
+
+		}
 		Delay(35);
 	}
 }
@@ -345,7 +365,7 @@ script "DisplayWaveStats" (int PerWave, int Total){
 		SetFont("BIGFONT");
 		SetHudSize(640, 480, 0);
 		delay(1);
-		HudMessageBold(s:"Wave ", d:CurrentWave+1,  s:" complete!";
+		HudMessageBold(s:"Wave ", d:CurrentWave,  s:" complete!";
 			HUDMSG_PLAIN, 400, CR_GOLD, 320.0, 180.0, 0);
 		SetFont("SMALLFONT");
 		HudMessageBold(s:"Kills per wave: ", d:PerWave;

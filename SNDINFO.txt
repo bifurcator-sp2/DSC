@@ -1,4 +1,8 @@
+INTRO INTRO
+LOWPUM LOWPUM
+world/silence sil
 
+CREDITS CREDITS
 
 
 world/FastFun fastfun
@@ -10,14 +14,16 @@ world/stonebre stonebre
 
 
 world/hell_influence HLINFL
-
+world/GliphLoop GlphLoop
+world/GliphPickup GlphPick
 
 $random LiftAmbient { LiftAmbient1 LiftAmbient2 LiftAmbient3 }
 LiftAmbient1 Lift_A1
 LiftAmbient2 Lift_A2
 LiftAmbient3 Lift_A3
 
-
+misc/TimestopStart stopstrt
+misc/TimestopLoop stoploop
 
 
 world/LiftMove Liftmove

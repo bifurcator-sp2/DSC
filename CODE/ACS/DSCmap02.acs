@@ -102,3 +102,30 @@ SCRIPT "StartControl" ENTER
 Script "MapWaveControll" (void){
 	MapWave++;
 }
+
+
+
+
+
+
+
+
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+	str CovenantTitle = StrParam(l:"TABLET_CEMETERY_TITLE");
+	str CovenantText = StrParam(l:"TABLET_CEMETERY");
+	SetHudSize(400, 300, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 50.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
+
+}
+

@@ -1,8 +1,6 @@
-
 //episode wave count definition
 int maxWaveCount = 40;//--------------------------
 //episode wave count definition
-
 
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
 #include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
@@ -19,6 +17,12 @@ bool inDEV = false;
 ////// test
 SCRIPT "StartControl" ENTER
 {
+	//GiveInventory("PowerTimeFreezer",1);
+
+	SetPlayerProperty(1, 1, PROP_TOTALLYFROZEN);
+	DELAY(5);
+	Thing_Move(0, 6, 1);
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
 	if(inDEV){
 		/*Door10Locked = false;
 		Door11Locked = false;
@@ -83,7 +87,7 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			hudmessageBold(s:"Welcome to Doom Slayer Chronicles!"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 2:
-			hudmessageBold(s:"It is an endless HELL\nwith infinit increasing difficulty."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"It is an endless HELL\nwith infinitely increasing difficulty."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 3:
 			hudmessageBold(s:"There are a separate piece of hell\nbehind each of these doors."; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
@@ -159,3 +163,30 @@ SCRIPT "Door12" (void){
 		Generic_Door(12, 16, 0, 34, 0);
 	}
 }
+
+
+
+
+
+
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+str CovenantTitle = StrParam(l:"TABLET_ATRIUM_TITLE");
+str CovenantText = StrParam(l:"TABLET_ATRIUM");
+	SetHudSize(400, 300, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 70.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
+
+}
+
+
+

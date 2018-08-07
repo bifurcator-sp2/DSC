@@ -1,7 +1,42 @@
+Bool WaveOnline = false;
+
 bool PlayerInVaquum = false;
 bool PlayerInAirlock = true;
 
+script "enterfade" enter
+{
+	Autosave();
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	Delay(1);
+	SetMusicVolume(0.0);
+	FadeTo (0, 0, 0, 1.0, 0.0 );
+	for(int i = 0; i<=9; i++){SoundVolume (0, i, 0.0);}
+}
+int totalsound=0;
+script "enterSOUNDin" enter
+{
+	delay(15);
 
+	Floor_LowerToLowest(171717, 10000);
+	SoundSequenceOnSector(171717, "___", 0);
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+	while(totalsound<100){
+		for(int i = 0; i<=128; i++){
+			SoundVolume (0, i, FixedDiv(totalsound, 100));
+		}
+		SetMusicVolume(FixedDiv(totalsound, 100));
+		totalsound++;
+		delay(2);
+	}
+	for(i = 0; i<=128; i++){SoundVolume (0, i, 1.0);}
+	SetMusicVolume(1.0);
+}
+
+script "enterfadein" enter
+{
+	delay(15);
+	FadeTo (0, 0, 0, 0.0, 5.0 );
+}
 
 function int GetFn(int offset){
 	if(offset <= 2){
@@ -522,7 +557,8 @@ script "DisplayOxygenInSec" (void)
 {
 	if(CheckInventory("Oxygen")< max_oxygen){
 		//PrintBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds");
-		hudmessageBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds"; HUDMSG_PLAIN , 0, CR_WHITE, 1.95, 0.8, 1.0);
+		SetHudSize(400, 300, 0);
+		hudmessageBold(s:"Oxygen ", d:CheckInventory("Oxygen") / 35, s:" Seconds"; HUDMSG_PLAIN , 0, CR_WHITE, 350.0, 250.0, 1.0);
 		Delay(1);
 	} else {
 		PrintBold(s:"Oxygen full");
@@ -619,3 +655,105 @@ function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOff
 
 script "Thing_Activate" (int tid){ Thing_Activate(tid); }
 script "Thing_DeActivate" (int tid){ Thing_DeActivate(tid); }
+
+bool demogliphStarted;
+
+script "PressUse" (void){
+	if(!demogliphStarted){
+		SetHudSize(640, 480, 0);
+		SetActivator (0);
+		HudMessageBold(	s:"Press USE";	HUDMSG_PLAIN, 13131317, CR_RED, 320.0, 200.0, 0.1);
+	}
+}
+
+
+
+script "DemogliphStarted" (void) {
+	if(demogliphStarted){ SetResultValue(1);} else {SetResultValue(0);}
+}
+
+SCRIPT "DemoGliph" (int CamTID, int CovenID){
+	if(WaveOnline){ Terminate;}
+	if(!CamTID){CamTID=2200;}
+	if(!CovenID){CovenID=0;}
+	delay(2);
+	Thing_Activate(CamTID);
+	SetPlayerProperty(1, 1, PROP_TOTALLYFROZEN);
+	AmbientSound("world/lookat3", 1.0);
+	FadeTo (0, 0, 0, 1.0, 3.0 );
+	ACS_NamedExecuteAlways("Mus_DTEMPLE", 0);
+	delay(35*3);
+	demogliphStarted = true;
+
+		SetHudSize(320, 240, 0);
+		SetFont("DSCscrsh");
+		HudMessage(	s:"A";	HUDMSG_PLAIN, 13131315, CR_DARKRED, 160.0, 120.0, 3.0);
+
+	ChangeCamera(CamTID, 0 , 0);
+	FadeTo (0, 0, 0, 0.0, 3.0 );
+	delay(35*3);
+
+	while (TRUE) {
+		delay(1);
+
+		SetHudSize(320, 240, 0);
+		SetFont("DSCscrsh");
+		HudMessage(	s:"A";	HUDMSG_PLAIN, 13131315, CR_DARKRED, 160.0, 120.0, 0.1);
+
+		switch (CovenID) {
+			case 1:
+				ACS_NamedExecuteAlways("Covenant1", 0, 0, 0, 0); break;
+			case 2:
+				ACS_NamedExecuteAlways("Covenant2", 0, 0, 0, 0); break;
+			case 3:
+				ACS_NamedExecuteAlways("Covenant3", 0, 0, 0, 0); break;
+			case 4:
+				ACS_NamedExecuteAlways("Covenant4", 0, 0, 0, 0); break;
+			case 5:
+				ACS_NamedExecuteAlways("Covenant5", 0, 0, 0, 0); break;
+			default:
+				ACS_NamedExecuteAlways("Covenant", 0, 0, 0, 0);
+
+		}
+
+
+		if(GetPlayerInput(-1, INPUT_BUTTONS)){ break;}
+	}
+	ACS_NamedExecuteAlways("RestoreMusic", 0);
+	FadeTo (0, 0, 0, 1.0, 3.0 );
+	delay(35*3);
+	demogliphStarted = false;
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+	ChangeCamera(0, 0 , 0);
+	FadeTo (0, 0, 0, 0.0, 3.0 );
+	hudmessageBold(s:" "; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.95, 1.0);
+	delay(35);
+
+
+}
+
+
+
+
+function void Pause (void)
+{
+If(GameType() == 0)
+{
+GiveInventory("TotalTimeFreezer",1);
+SetPlayerProperty(1,1,PROP_TOTALLYFROZEN);
+}
+}
+
+function void UnPause (void)
+{
+If(GameType() == 0)
+{
+TakeInventory("TotalTimeFreezer",1);
+SetPlayerProperty(1,0,PROP_TOTALLYFROZEN);
+}
+}
+
+
+
+
+

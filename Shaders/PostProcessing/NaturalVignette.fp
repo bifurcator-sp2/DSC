@@ -5,8 +5,8 @@
 void main()
 {
     vec4 color = texture(InputTexture, TexCoord);
-    ivec2 screenSize = textureSize(InputTexture, 0);
-    vec4 vignetteColor = vec4(0.0,0.0,0.0,1.0);
+    vec2 screenSize = textureSize(InputTexture, 0);
+    vec3 vignetteColor = vec3(0.0,0.0,0.0);
     vec2 vignetteCenter = vec2(0.5,0.5);
     float vignetteRoundness = 1.0;
     float roundness = (1.0 - 1.0) * 6.0 + 1.0;
@@ -16,7 +16,7 @@ void main()
     d.x *= mix(1.0, screenSize.x / screenSize.y, vignetteSettings.w);
     d = pow(d, vec2(vignetteSettings.z)); // Roundness
     float vfactor = pow(saturate(1.0 - dot(d, d)), vignetteSettings.y);
-    color *= mix(vignetteColor, vec4(1.0), vfactor);
-
+    color.rgb = mix(vignetteColor, vec3(1.0), vfactor);
+	color.a = mix(1.0, color.a, vfactor);
 	FragColor = color;
 }

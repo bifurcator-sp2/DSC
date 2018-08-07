@@ -7,9 +7,22 @@ Class SDPWHScreenEffects : StaticEventHandler
 		//Shader.SetEnabled(players, "dscHeatHaze", false);
 		Shader.SetUniform1f(players, "dscHeatHaze", "timer", gametic + e.FracTic);
 		if(players.mo.FindInventory("HeatHazeTimerInv")) Shader.SetUniform1f(players, "dscHeatHaze", "timer", gametic + e.FracTic);
-		else Shader.SetEnabled(players, "dscHeatHaze", false);		
-		
-		if((level.mapName == "TITLEMAP")){
+		else Shader.SetEnabled(players, "dscHeatHaze", false);
+/*
+
+		if((level.mapName == "DSCOUTRO")){
+			Shader.SetUniform1f(players, "TiltShiftPass1v", "Angle", 90.0);
+			Shader.SetEnabled(players, "TiltShiftPass1v", true);
+			Shader.SetEnabled(players, "TiltShiftPass2v", true);
+			Shader.SetEnabled(players, "TiltShiftPass3v", true);
+		} else {
+			Shader.SetEnabled(players, "TiltShiftPass1v", false);
+			Shader.SetEnabled(players, "TiltShiftPass2v", false);
+			Shader.SetEnabled(players, "TiltShiftPass3v", false);
+		}
+*/
+
+		if((level.mapName == "TITLEMAP") || (CALLacs("DemogliphStarted", 0, 0, 0) > 0)){
 			Shader.SetEnabled(players, "TiltShiftPass1", true);
 			Shader.SetEnabled(players, "TiltShiftPass2", true);
 			Shader.SetEnabled(players, "TiltShiftPass3", true);
@@ -18,6 +31,14 @@ Class SDPWHScreenEffects : StaticEventHandler
 			Shader.SetEnabled(players, "TiltShiftPass2", false);
 			Shader.SetEnabled(players, "TiltShiftPass3", false);
 		}
+
+		if((level.mapName != "TITLEMAP")){
+			if((CALLacs("DemogliphStarted", 0, 0, 0) > 0)){
+				Shader.SetEnabled(players, "TonemapDamned", true);
+			} else {Shader.SetEnabled(players, "TonemapDamned", false);}
+		}
+
+
 		if (Cvar.GetCVar("dpwh_filmictonemap", players).GetInt() > 0){
 			DisableLUTshaders();
 			Shader.SetEnabled(players, "TonemapDefault", true);
@@ -107,7 +128,7 @@ Class SDPWHScreenEffects : StaticEventHandler
 		Shader.SetEnabled(players, "TonemapTide", false);
 		Shader.SetEnabled(players, "TonemapSnow", false);
 		//Shader.SetEnabled(players, "TonemapBlood", false);
-		
+
 	}
 
 

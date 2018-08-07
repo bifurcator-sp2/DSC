@@ -24,7 +24,7 @@ SCRIPT "StartControl" ENTER
 	Thing_Deactivate(100);
 	PlaySound(1, "world/BFRAIN", CHAN_BODY, 1.0, TRUE, ATTN_NONE);
 	ACS_NamedExecute("CreepySounds",0);
-
+	//ACS_NamedExecute("OpenSecondZone",0);// test
 	//
 	while(!NextWaveReady){
 		delay(1);
@@ -180,6 +180,7 @@ Script "OpenSecondZone" (void){
 }
 Script "CloseSecondZone" (void){
 	if(!SecondZoneClosed){
+		TagWait(23);
 		SecondZoneClosed = true;
 		Door_Close(28, 16);
 		Door_Close(22, 16);
@@ -208,4 +209,24 @@ Script "ItemWave" (void){
 
 Script "MapWaveControll" (void){
 	MapWave++;
+}
+
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+
+	str CovenantTitle = StrParam(l:"TABLET_PLAZA_TITLE");
+	str CovenantText = StrParam(l:"TABLET_PLAZA");
+	SetHudSize(500, 350, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 250.0, 100.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 250.0, 200.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 250.0, 330.0, 0.1);
+
 }

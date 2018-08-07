@@ -3,6 +3,11 @@ user bool dpwh_chromaticAberration = true;
 user bool dpwh_naturalVignette = false;
 user string dsc_scene_lut = "TonemapDefault";
 user bool dpwh_filmgrain = true;
+user bool dsc_screen_blur = false;
+
+user int dsc_player_rank = -1;
+
+
 
 server int user_MaxDrawDistanceAMMOsparks = 1024;
 server int user_MaxDrawDistanceHaze = 4096;

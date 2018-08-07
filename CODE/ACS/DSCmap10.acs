@@ -34,6 +34,8 @@ script "StartControl" ENTER
 //Delay(35*20);
 //	ACS_NamedExecuteAlways("GotoPuzzle3", 0);//test thing !!!!
 
+//ACS_NamedExecuteAlways("LastStand", 0);//test thing !!!!
+
 
 
 
@@ -213,9 +215,7 @@ script "puzzle_1" (int tid){
 
 		//PrintBold(s:"Clear the area");
 		Delay(5); while(WaveOnline){ Delay(5);}	//wait for end
-		delay(35*2);
-		AmbientSound("world/DemonsOFF", 1.0);
-		delay(35*3);
+
 
 
 		Thing_Activate(4);//turn  steams
@@ -239,6 +239,9 @@ script "puzzle_1" (int tid){
 		delay(10);
 		Thing_DeActivate(39);//portal hard light
 
+		delay(35*3);
+		delay(35*2);
+		AmbientSound("world/DemonsOFF", 1.0);
 		delay(35*3);
 
 		//spawn teleport to next area
@@ -552,7 +555,7 @@ Script "EyeHolderControl" (void){
 Script "CraterEventComplete" (void){
 		CraterEventComplete = true;
 
-		delay(35*5);
+		delay(35*15);
 		silence = true;
 		AmbientSound("world/DemonsOFF", 1.0);
 		delay(35*3);
@@ -1329,7 +1332,7 @@ script "RestartHELL" (void){
 	AmmoMaxRnd = 0;
 	WeaponGotID = 0;
 	GlobalAttempt++;
-	ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
+	ChangeLevel ("DSCOUTRO", 0, CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION, -1);
 
 }
 
@@ -1507,4 +1510,75 @@ script "AnimateMarsLights" (int tid, int tics, int hell){
 
 	MarsHellLightIteration = 1;
 	Terminate;
+}
+
+
+
+
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+
+
+
+script "Covenant" (void) {
+	str CovenantTitle1 = StrParam(l:"TABLET_DIE_TITLE");
+	str CovenantText1 = StrParam(l:"TABLET_DIE_0");
+
+	SetHudSize(400, 300, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle1;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 90.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText1;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
+}
+
+
+
+script "Covenant2" (void) {
+	str CovenantTitle2 = StrParam(l:"TABLET_DIE_TITLE2");
+	str CovenantText2 = StrParam(l:"TABLET_DIE_2");
+
+	SetHudSize(400, 300, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle2;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 90.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText2;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
+
+}
+
+
+
+script "Covenant3" (void) {
+	str CovenantTitle3 = StrParam(l:"TABLET_DIE_TITLE3");
+	str CovenantText3 = StrParam(l:"TABLET_DIE_3");
+
+	SetHudSize(400, 300, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle3;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 90.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText3;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
+
+}
+
+
+
+
+script "Covenant4" (void) {
+str CovenantTitle4 = StrParam(l:"TABLET_DIE_TITLE4");
+str CovenantText4 = StrParam(l:"TABLET_DIE_4");
+
+	SetHudSize(400, 300, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle4;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 90.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText4;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
+
 }

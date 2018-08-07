@@ -61,6 +61,7 @@ ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 
 }
 bool DeathFade;
+/*
 script "saintNames" enter {
 	//34 45 60
 	if(!DeathFade){
@@ -71,7 +72,7 @@ script "saintNames" enter {
 		restart;
 	}
 }
-
+*/
 
 
 SCRIPT "SpawnFirstScull" (void){
@@ -141,12 +142,12 @@ script "Sequence3" (void){
 		delay(1);
 	}
 	ACS_NamedExecute("LowerRoundFloor", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 131313, 131313);//С‡РµСЂРµРїР° РЅРµ Р±СѓРґРµС‚, РЅРѕ РІРѕР»РЅР° СѓС‡С‚РµС‚СЃСЏ
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 131313, 131313);//черепа не будет, но волна учтется
 	Delay(35*5);
 	ACS_NamedExecuteAlways("Mus_M3", 0);
-	while(WaveOnline){ Delay(5);}//Р¶РґРµРј РїРѕРєР° РІСЃРµ СЃРґРѕС…РЅСѓС‚
+	while(WaveOnline){ Delay(5);}//ждем пока все сдохнут
 	ACS_NamedExecuteAlways("RestoreMusic", 0);
-	//С‚СѓС‚ РЅР°РґРѕ СЃРїР°РІРЅРёС‚СЊ РіР»Р°Р·
+	//тут надо спавнить глаз
 	SpawnSpotFacingForced("TeleportFog", 67, 0);
 	delay(5);
 	SpawnSpotFacingForced("DSCeyeBounder", 67, 69);
@@ -155,7 +156,7 @@ script "Sequence3" (void){
 	Thing_Activate(68);//helper
 	NextWaveReady = false;
 	//Scull will spawned by killing of eye
-	//РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ СЃРІСЏС‚РѕРіРѕ РґРµР»Р°РµС‚ NextWaveReady
+	//освобождение святого делает NextWaveReady
 	while(!NextWaveReady){
 		delay(1);
 	}
@@ -169,7 +170,7 @@ script "Sequence3" (void){
 	NextWaveReady = false;
 	Door_Open(77, 16);
 	Door4Locked = FALSE;
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//РІРѕР»РЅР° Р±СѓРґРµС‚ СѓС‡С‚РµРЅР°, РЅРѕ С‡РµСЂРµРї РЅРµ РїРѕСЏРІРёС‚СЃСЏ
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//волна будет учтена, но череп не появится
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);
 	Delay(35*5);
@@ -234,7 +235,7 @@ script "Sequence2" (void){
 	NextWaveReady = false;
 	Door3Locked = FALSE;
 
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//РІРѕР»РЅР° Р±СѓРґРµС‚ СѓС‡С‚РµРЅР°, РЅРѕ С‡РµСЂРµРї РЅРµ РїРѕСЏРІРёС‚СЃСЏ
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 131313, 100400);//волна будет учтена, но череп не появится
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);
 	Delay(35*5);
@@ -296,7 +297,7 @@ script "Sequence1" (void){
 	while(!NextWaveReady){ delay(1); } NextWaveReady = false;
 	Door5Locked = false;
 	Door1Locked = false;
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 131313, 100400);//С‡РµСЂРµРї РЅРµ РїРѕСЏРІРёС‚СЃСЏ РЅРѕ РІРѕР»РЅР° СѓС‡С‚РµС‚СЃСЏ
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 131313, 100400);//череп не появится но волна учтется
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100510, 888888, 888888);
@@ -413,7 +414,7 @@ script "saintStartRaise" (int tid){
 	if(tid==45){saint45raiseStarted=true;}
 	if(tid==60){saint60raiseStarted=true;}
 	SetActorState (tid, "Raise");
-	Thing_Move (tid, 58, true);//СЃС‚Р°РІРёРј РµРіРѕ С‚РѕС‡РЅРѕ РІ С†РµРЅС‚СЂ
+	Thing_Move (tid, 58, true);//ставим его точно в центр
 }
 
 function bool TestStartRaise (int tid){
@@ -574,4 +575,28 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 	if(NextHelpTag>0){
 		Thing_Activate(NextHelpTag);
 	}
+}
+
+
+
+
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+	str CovenantTitle = StrParam(l:"TABLET_PRISON_TITLE");
+	str CovenantText = StrParam(l:"TABLET_PRISON");
+
+
+	SetHudSize(500, 350, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 250.0, 70.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 250.0, 180.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 250.0, 320.0, 0.1);
+
 }

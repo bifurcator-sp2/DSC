@@ -1,3 +1,30 @@
+Class TabletDecor : Actor
+{
+	Default
+	{
+		+NoInteraction;
+	}
+	States
+	{
+		Spawn:
+			TNT1 A 1 {
+					A_SpawnItemEx("MorFlareRed", random(-16, 16), random(-16, 16), random(0, 40), 0, 0, frandom(1, 2),0,SXF_NOCHECKPOSITION, 128, 0);
+					A_SpawnItemEx("GiveAMMOsparckle", random(-16, 16), random(-16, 16), random(0, 40), frandom(-1,1), frandom(-1,1), frandom(2,4),0,SXF_NOCHECKPOSITION, 128, 0);
+
+				ThinkerIterator it = ThinkerIterator.Create("PlayerPawn");
+				PlayerPawn this;
+				while(this = PlayerPawn(it.Next())){
+					if(self.Distance3D(this)<48){
+						CallACS("PressUse",0,0,0);
+					}
+				}
+			}
+			Loop;
+	}
+
+}
+
+
 Class IncomeWindGenHellGround : SwitchableDecoration
 {
 	Default
@@ -11,8 +38,8 @@ Class IncomeWindGenHellGround : SwitchableDecoration
 		Spawn:
 			TNT1 A 1;
 			Goto Inactive;
-		Loop;	
-	
+		Loop;
+
 		Active:
 			TNT1 A 2
 			{
@@ -39,8 +66,8 @@ Class IncomeWindGenHell : SwitchableDecoration
 		Spawn:
 			TNT1 A 1;
 			Goto Inactive;
-		Loop;	
-	
+		Loop;
+
 		Active:
 			TNT1 A 1
 			{
@@ -68,8 +95,8 @@ Class IncomeWindGen : SwitchableDecoration
 		Spawn:
 			TNT1 A 1;
 			Goto Inactive;
-		Loop;	
-	
+		Loop;
+
 		Active:
 			TNT1 A 1
 			{
@@ -91,7 +118,7 @@ Class IncomeWindHellGround : IncomeWindHell
 	{
 		+FLATSPRITE;
 		-WALLSPRITE;
-	}	
+	}
 }
 
 Class IncomeWindHell : IncomeWind
@@ -120,7 +147,7 @@ Class IncomeWind : Actor
 		-SOLID;
 		Renderstyle "Add";
 		alpha 0.0;
-	}	
+	}
 	Override void PostBeginPlay()
 	{
 		MaxAlpha = 1.0;
@@ -128,7 +155,7 @@ Class IncomeWind : Actor
 		ScaleMultiplerMin = 1.0;
 		FadeoutSpeed = 0.01;
 		FadeInSpeed = 0.002;
-		A_SetScale(Frandom(scaleX*ScaleMultiplerMin, scaleX*ScaleMultiplerMax));
+		A_SetScale(Frandom(scale.X*ScaleMultiplerMin, scale.X*ScaleMultiplerMax));
 		startFade = false;
 		Super.PostBeginPlay();
 	}
@@ -142,9 +169,9 @@ Class IncomeWind : Actor
 
 		if(self.alpha>=MaxAlpha && !startFade){
 			startFade = true;
-		}		
+		}
 	}
-	
+
 	States
 	{
 	  Spawn:
@@ -176,9 +203,9 @@ Class DSClastLight : SwitchableDecoration
 		Loop;
 	Inactive:
 		TNT1 A 1;
-		Loop;	
+		Loop;
 	}
-	
+
 
 }
 
@@ -196,8 +223,8 @@ Class GellGateFire : SwitchableDecoration
 		Spawn:
 			TNT1 A 1;
 			Goto Inactive;
-		Loop;	
-	
+		Loop;
+
 		Active:
 			TNT1 A 1
 			{
@@ -237,9 +264,9 @@ Class DSChine : SwitchableDecoration
 		Loop;
 	Inactive:
 		SHNE A 1 A_fadeOut(0.005, FTF_CLAMP);
-		Loop;	
+		Loop;
 	}
-	
+
 
 }
 Class DSCsunshine : SwitchableDecoration
@@ -263,7 +290,7 @@ Class DSCsunshine : SwitchableDecoration
 		Loop;
 	Inactive:
 		SHNE B 1 A_fadeOut(0.005, FTF_CLAMP);
-		Loop;			
+		Loop;
 	}
 }
 Class DSCdarker : Actor
@@ -328,7 +355,7 @@ Class DSCpriborHolo : SwitchableDecoration
 		Loop;
 	Inactive:
 		"####" "#" 1;
-		Loop;	
+		Loop;
 	}
 }
 
@@ -347,14 +374,14 @@ Class DSChellStrikeGEN : SwitchableDecoration
 		TNT1 A 0;
 		GOTO Inactive;
 	Active:
-		TNT1 A 1 
-			{ 
+		TNT1 A 1
+			{
 				A_SpawnItemEx("DSChellSrtike2", random(-64,64), random(-64,64), -128, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 250, 0 );
 			}
 		Loop;
 	Inactive:
 		TNT1 A 1;
-		Loop;	
+		Loop;
 	}
 }
 
@@ -364,7 +391,7 @@ Class DSChellWindcloudsGen : SwitchableDecoration
 	//Args[1] - iterationNumber
 	//Args[2] - maxSpawnHeight
 	//Args[3] - type of clouds
-	
+
 	int radius;
 	int iterationNumber;
 	Array<string> type;
@@ -392,7 +419,7 @@ Class DSChellWindcloudsGen : SwitchableDecoration
 		radius = Args[0]?Args[0]:256;
 		iterationNumber = Args[1]?Args[1]:1;
 		Super.PostBeginPlay();
-		
+
 	}
 
 	void SpawnClouds()
@@ -416,9 +443,9 @@ Class DSChellWindcloudsGen : SwitchableDecoration
 		Loop;
 	Inactive:
 		TNT1 A 1;
-		Loop;	
+		Loop;
 	}
-	
+
 }
 
 
@@ -443,7 +470,7 @@ Class DSCportalSoul : Actor
 
 			}
 		Loop;
-	}		
+	}
 }
 Class DSCportalSoulCloud : Actor
 {
@@ -451,7 +478,7 @@ Class DSCportalSoulCloud : Actor
 	float ScaleMultiplerMax;
 	float ScaleSpeed;
 	float FadeoutSpeed;
-	
+
 	bool startFade;
 	Default
 	{
@@ -460,7 +487,7 @@ Class DSCportalSoulCloud : Actor
 		-SOLID;
 		Renderstyle "Subtract";
 		alpha 0.2;
-	}	
+	}
 	Override void PostBeginPlay()
 	{
 		ScaleMultiplerMax = 1.0;
@@ -473,9 +500,9 @@ Class DSCportalSoulCloud : Actor
 	virtual void ParticleLife()
 	{
 		A_fadeOut(FadeoutSpeed, true);
-		A_SetScale(scaleX+ScaleSpeed);
+		A_SetScale(scale.X+ScaleSpeed);
 	}
-	
+
 	States
 	{
 	  Spawn:
@@ -523,7 +550,7 @@ Class DSChellSrtike : Actor
 				A_fadeOut(0.03);
 			}
 		Loop;
-	}	
+	}
 }
 
 Class  DSCbigPortalGliphBig : Actor
@@ -574,7 +601,7 @@ Class DSCbigPortalLightning : Actor
 		-SOLID;
 		Renderstyle "Add";
 		alpha 1.0;
-	}	
+	}
 	States
 	{
 	  Spawn:
@@ -595,9 +622,9 @@ Class DSChellCloudMask : Actor
 		+FLATSPRITE;
 		Renderstyle "Translucent";
 		alpha 1.0;
-	}	
+	}
 
-	
+
 	States
 	{
 	  Spawn:
@@ -615,7 +642,7 @@ Class DSCbigPortalTwist : Actor
 	float FadeoutSpeed;
 	float FadeinSpeed;
 	float MaxAlpha;
-	
+
 	bool startFade;
 	Default
 	{
@@ -627,7 +654,7 @@ Class DSCbigPortalTwist : Actor
 		-SOLID;
 		Renderstyle "Translucent";
 		alpha 0.0;
-	}	
+	}
 	Override void PostBeginPlay()
 	{
 		MaxAlpha = 0.3;
@@ -654,12 +681,12 @@ Class DSCbigPortalTwist : Actor
 		}
 		if(self.alpha>=MaxAlpha && !startFade){
 			startFade = true;
-		}	
-		A_SetScale(scaleX+ScaleSpeed);
-		
+		}
+		A_SetScale(scale.X+ScaleSpeed);
+
 		//A_fadeTo(0.3, FadeoutSpeed);
 	}
-	
+
 	States
 	{
 	  Spawn:
@@ -676,7 +703,7 @@ Class DSCbigPortalTwist2 : Actor
 	float FadeoutSpeed;
 	float FadeinSpeed;
 	float MaxAlpha;
-	
+
 	bool startFade;
 	Default
 	{
@@ -688,7 +715,7 @@ Class DSCbigPortalTwist2 : Actor
 		-SOLID;
 		Renderstyle "Add";
 		alpha 0.0;
-	}	
+	}
 	Override void PostBeginPlay()
 	{
 		MaxAlpha = 1.0;
@@ -715,12 +742,12 @@ Class DSCbigPortalTwist2 : Actor
 		}
 		if(self.alpha>=MaxAlpha && !startFade){
 			startFade = true;
-		}	
-		A_SetScale(scaleX+ScaleSpeed);
-		
+		}
+		A_SetScale(scale.X+ScaleSpeed);
+
 		//A_fadeTo(0.3, FadeoutSpeed);
 	}
-	
+
 	States
 	{
 	  Spawn:
@@ -734,7 +761,7 @@ Class DSCbigPortal : SwitchableDecoration
 	Default
 	{
 		radius 32;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		+ClientSideOnly;
 	}
@@ -744,15 +771,15 @@ Class DSCbigPortal : SwitchableDecoration
 		TNT1 A 0;
 		GOTO Inactive;
 	Active:
-		TNT1 A 1 
-			{ 
-				
+		TNT1 A 1
+			{
+
 				for(int i = 0; i < 1; i++)
 				{
 					A_SpawnItemEx("DSCbigPortalTwist", random(-128,128), random(-128,128), random(-32,32), frandom(-2,2), frandom(-2,2), frandom(-1,1),0,SXF_NOCHECKPOSITION, 240, 0 );
 					A_SpawnItemEx("DSCbigPortalTwist2", 0, 0, random(-32,1), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(0.0,0.5),0,SXF_NOCHECKPOSITION, 200, 0 );
 					A_SpawnItemEx("DSCbigPortalLightning", random(-512,512), random(-512,512), random(-256,128), 0, 0, 0, 0, SXF_NOCHECKPOSITION, 250, 0 );
-					
+
 					if(random(1, 100)==100){
 						A_PlaySound("BigPortalGliph", CHAN_WEAPON, 1.0, false, ATTN_NONE);
 						A_SpawnItemEx("DSCbigPortalGliphBig", 0, 0, random(-256, -128), 0, 0, 0, 0,SXF_NOCHECKPOSITION, 0, 0);
@@ -764,14 +791,14 @@ Class DSCbigPortal : SwitchableDecoration
 							A_SpawnItemEx("DSCportalSoul", random(-16,16), random(-16,16), -384, 0, 0, 0, 0, SXF_NOCHECKPOSITION, 0, tid );
 							SoulsSpawned++;
 						}
-						
-					}				
+
+					}
 				}
 			}
 		Loop;
 	Inactive:
 		TNT1 A 1;
-		Loop;	
+		Loop;
 	}
 }
 
@@ -782,7 +809,7 @@ Class DSCportalSparkGen : SwitchableDecoration
 	Default
 	{
 		radius 32;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		+ClientSideOnly;
 	}
@@ -792,18 +819,18 @@ Class DSCportalSparkGen : SwitchableDecoration
 		TNT1 A 0;
 		GOTO Inactive;
 	Active:
-		TNT1 A 1 
-			{ 
+		TNT1 A 1
+			{
 				for(int i = 0; i < 5; i++)
 				{
 					A_SpawnItemEx("DSCportalSpark", random(16, 16), random(16, 16), random(16, 16), frandom(-8,8), frandom(-8,8), frandom(-2,0),0,SXF_NOCHECKPOSITION);
-					
+
 				}
 			}
 		Loop;
 	Inactive:
 		TNT1 A 1;
-		Loop;	
+		Loop;
 	}
 }
 
@@ -853,10 +880,10 @@ Class DSCwinterFloor : Actor
 {
 	double StartAlpha;
 	double Delta;
-	
+
 	Default{
 		+WALLSPRITE;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		RenderStyle "Add";
 		Scale 1.0;
@@ -866,29 +893,29 @@ Class DSCwinterFloor : Actor
 		StartAlpha = self.alpha;
 		Delta = self.alpha/100*(Args[0]?Args[0]:70);
 		Super.PostBeginPlay();
-	}	
+	}
 	void blinker()
 	{
 		if(random(0, 10)>=5){
-			
+
 			A_fadeTo(StartAlpha + frandom(-Delta, Delta), 0.02);
 		}
-	}	
+	}
 	States
 	{
 		Spawn:
 			WFL1 A 1 blinker();
-			Loop; 	
-	}	
+			Loop;
+	}
 }
 Class DSCuac : Actor
 {
 	double StartAlpha;
 	double Delta;
-	
+
 	Default{
 		+WALLSPRITE;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		RenderStyle "Add";
 		Scale 0.2;
@@ -898,20 +925,20 @@ Class DSCuac : Actor
 		StartAlpha = self.alpha;
 		Delta = self.alpha/100*(Args[0]?Args[0]:50);
 		Super.PostBeginPlay();
-	}	
+	}
 	void blinker()
 	{
 		if(random(0, 10)>=5){
-			
+
 			A_fadeTo(StartAlpha + frandom(-Delta, Delta), 0.01);
 		}
-	}	
+	}
 	States
 	{
 		Spawn:
 			UACA A 1 blinker();
-			Loop; 	
-	}	
+			Loop;
+	}
 }
 
 Class DSCsteamFASTgen : DSCsnowGen
@@ -946,7 +973,7 @@ Class DSCsteamFASTgen : DSCsnowGen
 				SpawnSteam();
 			}
 			Loop;
-	}	
+	}
 }
 
 
@@ -959,7 +986,7 @@ Class DSCfastSteamCloud : Actor
 	float FadeoutSpeed;
 	float FadeinSpeed;
 	float MaxAlpha;
-	
+
 	bool startFade;
 	Default
 	{
@@ -970,7 +997,7 @@ Class DSCfastSteamCloud : Actor
 		-SOLID;
 		Renderstyle "Translucent";
 		alpha 0.0;
-	}	
+	}
 	Override void PostBeginPlay()
 	{
 		MaxAlpha = 0.3;
@@ -997,12 +1024,12 @@ Class DSCfastSteamCloud : Actor
 		}
 		if(self.alpha>=MaxAlpha && !startFade){
 			startFade = true;
-		}	
-		A_SetScale(scaleX+ScaleSpeed);
-		
+		}
+		A_SetScale(scale.X+ScaleSpeed);
+
 		//A_fadeTo(0.3, FadeoutSpeed);
 	}
-	
+
 	States
 	{
 	  Spawn:
@@ -1044,7 +1071,7 @@ Class DSCsteamSLOWgen : DSCsnowGen
 			}
 			Loop;
 
-	}	
+	}
 
 }
 Class DSCslowSteamCloud : DSCredCloud
@@ -1057,14 +1084,14 @@ Class DSCslowSteamCloud : DSCredCloud
 	{
 		MaxAlpha = 0.15;
 		Super.PostBeginPlay();
-	}	
-	
+	}
+
 	States
 	{
 	  Spawn:
 		MOR3 A 1 ParticleLife();
 		Loop;
-	 }	
+	 }
 }
 
 
@@ -1074,7 +1101,7 @@ Class DSCflatFAN1 : SwitchableDecoration
 	{
 		radius 32;
 		+Rollsprite;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		+ClientSideOnly;
 		+FLATSPRITE;
@@ -1087,14 +1114,14 @@ Class DSCflatFAN1 : SwitchableDecoration
 		GOTO Active;
 	Active:
 		FA1N A 1
-			{ 
+			{
 				A_SetRoll(roll+1,SPF_INTERPOLATE);
 				roll%=360;
 			}
 		Loop;
 	Inactive:
 		FA1N A 1;
-		Stop;	
+		Stop;
 	}
 }
 
@@ -1128,7 +1155,7 @@ Class DSCwallFAN1 : SwitchableDecoration
 	{
 		radius 32;
 		+Rollsprite;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		+ClientSideOnly;
 		+WALLSPRITE;
@@ -1141,15 +1168,15 @@ Class DSCwallFAN1 : SwitchableDecoration
 		GOTO Active;
 	Active:
 		"####" "#" 1
-			{ 
-				 
+			{
+
 				A_Playsound("world/FastFun", 1, 0.3, 1);
 				A_SetRoll(roll+8,SPF_INTERPOLATE);
 			}
 		Loop;
 	Inactive:
 		"####" "#" 1;
-		Stop;	
+		Stop;
 	}
 }
 class DSCfanLamp : Actor
@@ -1157,7 +1184,7 @@ class DSCfanLamp : Actor
 	Default
 	{
 		radius 32;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		+ClientSideOnly;
 		+FLATSPRITE;
@@ -1168,14 +1195,14 @@ class DSCfanLamp : Actor
 	Spawn:
 		FNLM A -1;
 		STOP;
-	}	
+	}
 }
 
 Class DSCinfo : SwitchableDecoration
 {
 	DestroyIterator dIt;
-	
-	
+
+
 	Default
 	{
 		radius 32;
@@ -1184,7 +1211,7 @@ Class DSCinfo : SwitchableDecoration
 		+FLATSPRITE;
 		Scale 0.1;
 	}
-	
+
 	virtual void InitDestroyer()
 	{
 		dIt.Init(self);
@@ -1192,8 +1219,8 @@ Class DSCinfo : SwitchableDecoration
 		dIt.DestroyActors("DSCinfoCircle1", 16);
 		dIt.DestroyActors("DSCinfoCircle2", 16);
 		dIt.DestroyActors("DSCinfoStend", 16);
-	}	
-	
+	}
+
 	States
 	{
 	Spawn:
@@ -1216,8 +1243,8 @@ Class DSCinfo : SwitchableDecoration
 		Stop;
 	Inactive:
 		DSCC C 1 {self.InitDestroyer();}
-		Stop;	
-	}	
+		Stop;
+	}
 }
 
 Class DSCinfoStendShade : Actor
@@ -1225,7 +1252,7 @@ Class DSCinfoStendShade : Actor
 	int spr;
 	Default{
 		+WALLSPRITE;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		RenderStyle "Subtract";
 		Alpha 0.5;
@@ -1236,13 +1263,13 @@ Class DSCinfoStendShade : Actor
 		Spawn:
 			DSCS A 1;
 			Loop;
-	}	
+	}
 }
 Class DSCinfoStend : Actor
 {
 	Default{
 		+WALLSPRITE;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		RenderStyle "Add";
 		Scale 0.1;
@@ -1255,19 +1282,19 @@ Class DSCinfoStend : Actor
 			DSCI C 1 A_Jump(256, "SpawnLoop");
 		SpawnLoop:
 			"####" "#" 1;
-			Loop; 	
-		
-	}	
+			Loop;
+
+	}
 }
 
 
 Class DSCrotator : Actor {
 	float RollSpeed;
-	
+
 	Default{
 		+Rollsprite;
 		+WALLSPRITE;
-		-SOLID;	
+		-SOLID;
 		+NoGravity;
 		RenderStyle "Add";
 		Alpha 0.3;
@@ -1280,7 +1307,7 @@ Class DSCrotator : Actor {
 		A_SetRoll(random(0, 360));
 		Super.PostBeginPlay();
 	}
-	
+
 }
 
 
@@ -1295,7 +1322,7 @@ Class DSCinfoCircle1 : DSCrotator
 	{
 	Spawn:
 		DSCC A 1
-			{ 
+			{
 				A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 				roll%=360;
 			}
@@ -1314,7 +1341,7 @@ Class DSCinfoCircle2 : DSCrotator
 	{
 	Spawn:
 		DSCC B 1
-			{ 
+			{
 				A_SetRoll(roll-RollSpeed,SPF_INTERPOLATE);
 				roll%=360;
 			}
@@ -1353,7 +1380,7 @@ Class DSCsnowGen : SwitchableDecoration
 	//Args[3] - type of clouds
 	int radius;
 	int iterationNumber;
-	
+
 	Default
 	{
 		radius 64;
@@ -1373,7 +1400,7 @@ Class DSCsnowGen : SwitchableDecoration
 		radius = Args[0]?Args[0]:256;
 		iterationNumber = Args[1]?Args[1]:1;
 		Super.PostBeginPlay();
-		
+
 	}
 
 	void SpawnClouds()
@@ -1397,18 +1424,18 @@ Class DSCsnowGen : SwitchableDecoration
 		Loop;
 	Inactive:
 		TNT1 A 1;
-		Loop;	
+		Loop;
 	}
-	
+
 }
 Class DSCsnow : Actor
 {
 	float RollSpeed;
-	
+
 	Default{
 		+Rollsprite;
 		+FORCEXYBILLBOARD;
-		-SOLID;	
+		-SOLID;
 		+DONTSPLASH;
 		+Missile;
 		+NoBlockMap;
@@ -1426,12 +1453,12 @@ Class DSCsnow : Actor
 		RollSpeed = FRandom(-RollSpeed, RollSpeed);
 		A_SetRoll(random(0, 360));
 		Super.PostBeginPlay();
-	}	
+	}
   States
   {
   Spawn:
-   SNWT A 1 
-	{ 
+   SNWT A 1
+	{
 		A_JumpIf(WaterLevel > 0, "Death");
 		A_SetRoll(roll+RollSpeed,SPF_INTERPOLATE);
 		roll%=360;
@@ -1456,7 +1483,7 @@ Class DSCcloudsGen : SwitchableDecoration
 	int radius;
 	int iterationNumber;
 	Array<string> type;
-	
+
 	Default
 	{
 		radius 64;
@@ -1478,7 +1505,7 @@ Class DSCcloudsGen : SwitchableDecoration
 		radius = Args[0]?Args[0]:256;
 		iterationNumber = Args[1]?Args[1]:1;
 		Super.PostBeginPlay();
-		
+
 	}
 
 	void SpawnClouds()
@@ -1502,9 +1529,9 @@ Class DSCcloudsGen : SwitchableDecoration
 		Loop;
 	Inactive:
 		TNT1 A 1;
-		Loop;	
+		Loop;
 	}
-	
+
 }
 
 Class DSChellwindCloud : DSCredCloud
@@ -1520,7 +1547,7 @@ Class DSChellwindCloud : DSCredCloud
 		MaxAlpha = 0.1;
 		Super.PostBeginPlay();
 		scale.X = 10.0;
-	}	
+	}
 	virtual void ParticleLife2()
 	{
 		if(startFade){
@@ -1531,15 +1558,15 @@ Class DSChellwindCloud : DSCredCloud
 
 		if(self.alpha>=MaxAlpha && !startFade){
 			startFade = true;
-		}		
+		}
 
-	}	
+	}
 	States
 	{
 	  Spawn:
 		MOR2 A 1 ParticleLife2();
 		Loop;
-	 }	
+	 }
 }
 
 Class DSCwinterCloud : DSCredCloud
@@ -1552,14 +1579,14 @@ Class DSCwinterCloud : DSCredCloud
 	{
 		MaxAlpha = 0.15;
 		Super.PostBeginPlay();
-	}	
-	
+	}
+
 	States
 	{
 	  Spawn:
 		MOR3 A 1 ParticleLife();
 		Loop;
-	 }	
+	 }
 }
 
 Class DSCredCloud : Actor
@@ -1574,14 +1601,14 @@ Class DSCredCloud : Actor
 	Default
 	{
 		Scale 10.0;
-		
+
 		+NoInteraction;
 		+Rollsprite;
 		+FORCEXYBILLBOARD;
 		-SOLID;
 		Renderstyle "Translucent";
 		alpha 0.0;
-	}	
+	}
 	Override void PostBeginPlay()
 	{
 		MaxAlpha = 0.2;
@@ -1589,7 +1616,7 @@ Class DSCredCloud : Actor
 		ScaleMultiplerMin = 1.0;
 		FadeoutSpeed = 0.002;
 		RollSpeed = 1.0;
-		A_SetScale(Frandom(scaleX*ScaleMultiplerMin, scaleX*ScaleMultiplerMax));
+		A_SetScale(Frandom(scale.X*ScaleMultiplerMin, scale.X*ScaleMultiplerMax));
 		RollSpeed = FRandom(-RollSpeed, RollSpeed);
 		A_SetRoll(random(0, 360));
 		startFade = false;
@@ -1607,10 +1634,10 @@ Class DSCredCloud : Actor
 
 		if(self.alpha>=MaxAlpha && !startFade){
 			startFade = true;
-		}		
+		}
 		//A_fadeTo(0.3, FadeoutSpeed);
 	}
-	
+
 	States
 	{
 	  Spawn:
@@ -1979,6 +2006,7 @@ Class BigDoomTorch  : Actor
 		Height 64;
 		Scale 0.12;
 		+Nogravity;
+		+FORCEYBILLBOARD;
 		//FlareBaseClass.DrawFlare true;
 		//FlareBaseClass.FlareGraphics "HALO1";
 		//FlareBaseClass.FlareZoffset 64;
@@ -2573,12 +2601,12 @@ Class DSCwindowGlowWhite : SwitchableDecoration
 		Spawn:
 			LTSU A 1;
 			Loop;
-		Active: 
+		Active:
 			LTSU A 1;
 			Loop;
 		Inactive:
 			TNT1 A 1;
-			Loop;		
+			Loop;
 	}
 }
 
@@ -2597,13 +2625,13 @@ Class DSCceilLightRay  : SwitchableDecoration
 		Spawn:
 			LTS2 A 1;
 			Loop;
-		Active: 
+		Active:
 			LTS2 A 1 A_PlaySound("world/LAMPHUM", 7, 1.0, true);
 			Loop;
 		Inactive:
 			TNT1 A 1;
-			Loop;		
-	}	
+			Loop;
+	}
 }
 Class DSCceilFlatRay  : SwitchableDecoration
 {
@@ -2620,13 +2648,13 @@ Class DSCceilFlatRay  : SwitchableDecoration
 		Spawn:
 			LTS2 B 1;
 			Loop;
-		Active: 
+		Active:
 			LTS2 B 1;
 			Loop;
 		Inactive:
 			TNT1 A 1;
-			Loop;		
-	}	
+			Loop;
+	}
 }
 Class DSCceilFlatRay2  : SwitchableDecoration
 {
@@ -2643,13 +2671,13 @@ Class DSCceilFlatRay2  : SwitchableDecoration
 		Spawn:
 			LTS2 C 1;
 			Loop;
-		Active: 
+		Active:
 			LTS2 C 1;
 			Loop;
 		Inactive:
 			TNT1 A 1;
-			Loop;		
-	}	
+			Loop;
+	}
 }
 /*
 Class DSCceilLightRay : Actor
@@ -2670,7 +2698,7 @@ LTS2 A 0 Nodelay A_SetScale(1.0,-1.0);
 Spawn2:
 LTS2 A 1 A_PlaySound("world/LAMPHUM", 7, 1.0, true);
 Loop;
-} 
+}
 
 }
 */
@@ -2739,13 +2767,13 @@ Class DSClavaSparkGenSV : SwitchableDecoration
 	float MinSpeed;
 	float Speed;
 	int iterationNumber;
-	
+
 	Default
 	{
 		+NOINTERACTION;
 		+LOOKALLAROUND;
 		+AMBUSH;
-		+QUICKTORETALIATE;	
+		+QUICKTORETALIATE;
 	}
 	Override void PostBeginPlay()
 	{
@@ -2754,7 +2782,7 @@ Class DSClavaSparkGenSV : SwitchableDecoration
 		Height = 64;
 		MinSpeed = 0.1;
 		Speed = 0.5;
-	}	
+	}
 	States
 		{
 			Spawn:
@@ -2764,14 +2792,14 @@ Class DSClavaSparkGenSV : SwitchableDecoration
 				TNT1 A 1;
 					Loop;
 			Active:
-				TNT1 A 1 
-				{		
+				TNT1 A 1
+				{
 					for (int i = 0; i < iterationNumber; i++){
 						A_SpawnItemEx("DSClavaSpark", fRandom(-Radius, Radius), fRandom(-Radius, Radius), fRandom(0, Height), fRandom(-Speed, Speed), fRandom(-Speed, Speed), fRandom(MinSpeed, Speed*3), 0, SXF_CLIENTSIDE, 0, 0);
 					}
 				}
 				Loop;
-		}	
+		}
 }
 
 Class DSClavaSparkGen : Actor
@@ -2785,7 +2813,7 @@ Class DSClavaSparkGen : Actor
 		+NOINTERACTION;
 		+LOOKALLAROUND;
 		+AMBUSH;
-		+QUICKTORETALIATE;	
+		+QUICKTORETALIATE;
 	}
 	Override void PostBeginPlay()
 	{
@@ -2793,7 +2821,7 @@ Class DSClavaSparkGen : Actor
 		Height = 64;
 		MinSpeed = 0.1;
 		Speed = 0.5;
-	}	
+	}
 	States
 		{
 			Spawn:
@@ -2804,7 +2832,7 @@ Class DSClavaSparkGen : Actor
 			Spark:
 				TNT1 A 1 A_SpawnItemEx("DSClavaSpark", fRandom(-Radius, Radius), fRandom(-Radius, Radius), fRandom(0, Height), fRandom(-Speed, Speed), fRandom(-Speed, Speed), fRandom(MinSpeed, Speed*3), 0, SXF_NOCHECKPOSITION, 0, 0);
 				Goto Spawn;
-		}	
+		}
 }
 Class DSClavaSparkGenHorizontal : DSClavaSparkGen
 {
@@ -2818,7 +2846,7 @@ Class DSClavaSparkGenHorizontal : DSClavaSparkGen
 			Spark:
 				TNT1 A 1 A_SpawnItemEx("DSClavaSpark", fRandom(-Radius, Radius), fRandom(-Radius, Radius), fRandom(0, Height), fRandom(MinSpeed, Speed*3), fRandom(-Speed, Speed), fRandom(-Speed, Speed), 0, SXF_NOCHECKPOSITION, 0, 0);
 				Goto Spawn;
-		}	
+		}
 }
 
 Class DSCtentyacleDecor : Actor
@@ -2849,7 +2877,7 @@ Class DSCtentyacleDecor : Actor
 		MaxDelay = 35*20;
 		MinSpeed = 0.01;
 		MaxSpeed = 0.1;
-	}	
+	}
 
 	States
 	{
@@ -2869,32 +2897,32 @@ Class DSCtentyacleDecor : Actor
 			GOTO Stand;
 			//GOTO Grow;
 		Stand:
-			"####" "#" 0 { 
+			"####" "#" 0 {
 				delay--;
 			}
 			"####" "#" 1 A_JumpIf(delay<=0, "SwichState");
-			Loop;	
+			Loop;
 		SwichState:
 			"####" "#" 1 A_Playsound("world/tentacle", CHAN_AUTO, 1.0, false, ATTN_NORM);
 			"####" "#" 1 A_JumpIf(scale.Y>=MaxScale, "Shrink");
-			GOTO Grow;	
+			GOTO Grow;
 		Grow:
 			"####" "#" 0 A_JumpIf(scale.Y>=MaxScale, "Live");
 			//"####" "#" 1 A_PrintBold( "Next revenant killed..." );
 			"####" "#" 1 {
 				scale.Y+=speed;
-				scale.X+=speed;	
-				
+				scale.X+=speed;
+
 			}
-			Loop;	
+			Loop;
 		Shrink:
-			
+
 			"####" "#" 0 A_JumpIf(scale.Y <= MinScale, "Live");
 			"####" "#" 1 {
 				scale.Y-=speed;
-				scale.X-=speed;				
+				scale.X-=speed;
 			}
-			Loop;			
+			Loop;
 	}
 }
 
@@ -2928,26 +2956,26 @@ Class  DSCbloodRain: SwitchableDecoration
 		+NoGravity;
 		+NoInteraction;
 		Alpha 0.0;
-		
+
 	}
 	States
 		{
 			Spawn:
-				TNT1 A 1; 
+				TNT1 A 1;
 				GOTO Inactive;
 			Inactive:
-				TNT1 A 1; 
+				TNT1 A 1;
 				Loop;
-			
+
 			Active:
 				TNT1 A 1 A_SpawnItemEx("BloodRainDrop", Random(-Args[0], Args[0]), Random(-Args[0], Args[0]), -2, 0, 0, -10, 0, 0, Args[1]);
 				Loop;
 		}
 	}
-	
+
 Class DSCunderBloodGEN : Actor{
 	int user_radius;
-	
+
 	Default
 	{
 		//+NoInteraction;
@@ -2956,18 +2984,18 @@ Class DSCunderBloodGEN : Actor{
 	Override void PostBeginPlay()
 	{
 		user_radius = args[0]?args[0]:256;
-	}	
+	}
 	States
 
 	{
 	Spawn:
-		TNT1 A 1 NODELAY; 
+		TNT1 A 1 NODELAY;
 		Goto Generate;
 
 	Generate:
 		"####" "#" 1
 		{
-				
+
 				for (int i = 0; i < 6; i++){
 					A_SpawnItemEx("DSCunderbloodItem1", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
 					A_SpawnItemEx("DSCunderbloodItem2", random(-user_radius,user_radius), random(-user_radius,user_radius), random(0,0), 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
@@ -3015,7 +3043,7 @@ Class DSCunderbloodItem3 : DSCunderbloodItem
 	}
 
 }
-	
+
 Class DSCunderbloodItem4 : DSCunderbloodItem
 {
 	States
@@ -3068,7 +3096,7 @@ Class DSCunderbloodItem8 : DSCunderbloodItem
 }
 Class DSCunderbloodItem : Actor {
 	Default
-	{	
+	{
 		+FORCEYBILLBOARD;
 		Scale 0.5;
 	}
@@ -3079,12 +3107,12 @@ Class DSCunderbloodItem : Actor {
 		"####" "#" -1;
 		Stop;
 	}
-}	
+}
 
 
 
 
-class DSCvororosl1 : Actor 
+class DSCvororosl1 : Actor
 {
 	Default
 	{
@@ -3125,7 +3153,7 @@ Class DSCmoaner1 : Actor
 				if(!delay){	SetStateLabel("Spawn"); }
 			}
 			Loop;
-			
+
 	}
 }
 
@@ -3142,26 +3170,26 @@ Class DSCwinterTree : Actor
 	States
 	{
 		Spawn:
-			
+
 			BTR1 A 0 nodelay
 			{
 				A_SetScale(frandom(0.3, 0.7));
 			}
 			WTR0 A 1  A_Jump (256, "tre1", "tre2", "tre3", "tre4", "tre5");
 			loop;
-		tre1: 
-			WTR0 A -1; 
+		tre1:
+			WTR0 A -1;
 			stop;
-		tre2: 
-			WTR1 A -1; 
+		tre2:
+			WTR1 A -1;
 			stop;
-		tre3: 
+		tre3:
 			WTR2 A -1;
 			stop;
-		tre4: 
+		tre4:
 			WTR3 A -1;
 			stop;
-		tre5: 
+		tre5:
 			WTR4 A -1;
 			stop;
 	}
@@ -3183,7 +3211,7 @@ class AngloRotator : SwitchableDecoration
 		//$Arg3Default 2
 		//$Arg4 "mode"
 		//$Arg4ToolTip "0 = pitch + angle; 1 = only pitch; 2 = only angle"
-		//$Arg4Default 0	
+		//$Arg4Default 0
 	}
 
 	Array<Actor> actors;
@@ -3192,7 +3220,7 @@ class AngloRotator : SwitchableDecoration
 	double maxRangePitch;
 	double minRangeAngle;
 	double maxRangeAngle;
-	
+
 	double initPitch;
 	double initAngle;
 	double pitchAmlitude;
@@ -3200,11 +3228,11 @@ class AngloRotator : SwitchableDecoration
 	double angleAmlitude;
 	double angleSpeed;
 	uint8 mode;
-	
+
 	bool goBackPitch;
 	bool goBackAngle;
 	bool alwaysAngle;
-	
+
 	override void PostBeginPlay()
 	{
 		bool finded = FindActors();
@@ -3216,18 +3244,18 @@ class AngloRotator : SwitchableDecoration
 		angleAmlitude = clamp(args[2] ? args[2] : 25,0,360);
 		angleSpeed = args[3] ? args[3] : 2;
 		mode = clamp(args[4] ? args[4] : 0,0,2);
-		
+
 		if(angleAmlitude == 360) alwaysAngle = true;
-		
+
 		maxRangePitch = self.pitch + pitchAmlitude;
 		minRangePitch = self.pitch - pitchAmlitude;
 		maxRangeAngle = self.angle + angleAmlitude;
 		minRangeAngle = self.angle - angleAmlitude;
-		
-		
+
+
 		Super.PostBeginPlay();
 	}
-	
+
 	override void Tick()
 	{
 		Super.Tick();
@@ -3235,16 +3263,16 @@ class AngloRotator : SwitchableDecoration
 		{
 			if(self.pitch > self.maxRangePitch) self.goBackPitch = true;
 			else if(self.pitch < self.minRangePitch) self.goBackPitch = false;
-			
+
 			if(!self.alwaysAngle)
 			{
 				if(self.angle > self.maxRangeAngle) self.goBackAngle = true;
 				else if(self.angle < self.minRangeAngle) self.goBackAngle = false;
 			}
-			
+
 			double makePitch = clamp(cos(abs(self.pitch-self.initPitch)*(self.initPitch/self.pitchAmlitude)),0.1,1.0);
 			double makeAngle = clamp(sin(abs(self.angle-self.initAngle)*(self.initAngle/self.angleAmlitude)),0.1,1.0);
-			
+
 			switch(self.mode)
 			{
 				case 0:
@@ -3253,7 +3281,7 @@ class AngloRotator : SwitchableDecoration
 					else self.pitch += makePitch * self.pitchSpeed;
 					break;
 			}
-			
+
 			switch(self.mode)
 			{
 				case 0:
@@ -3263,7 +3291,7 @@ class AngloRotator : SwitchableDecoration
 					else self.angle += makeAngle * self.angleSpeed;
 					break;
 			}
-			
+
 			for(int i = 0; i < actors.Size(); ++i)
 			{
 				if(actors[i])
@@ -3272,10 +3300,10 @@ class AngloRotator : SwitchableDecoration
 					actors[i].pitch = self.pitch;
 				}
 			}
-			
+
 		}
 	}
-	
+
 	override void Activate (Actor activator)
 	{
 		activated = true;
@@ -3286,8 +3314,8 @@ class AngloRotator : SwitchableDecoration
 	{
 		activated = false;
 		Super.Deactivate(activator);
-	}	
-	
+	}
+
 	bool FindActors()
 	{
 		ThinkerIterator ti = ThinkerIterator.Create("Actor");
@@ -3307,7 +3335,7 @@ class AngloRotator : SwitchableDecoration
 		Console.Printf("\cRWarning\cC: No Actors Founded");
 		return false;
 	}
-	
+
 	States
 	{
 		Spawn:

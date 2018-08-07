@@ -35,14 +35,16 @@ bool inDEV = false;
 if(inDEV){
 	GiveInventory("map07done", 1);
 	GiveInventory("map08done", 1);
-	GiveInventory("map09done", 1);
-	GiveInventory("map10done", 1);
+	//GiveInventory("map09done", 1);
+	//GiveInventory("map10done", 1);
 }
 
 
 	Thing_Activate(400);
 	if(CheckInventory("map07done")>0){
 		maxWaveCount = 75;
+		Thing_Activate(401);
+		Door8Locked = false;
 		//activation of atrium vaves & normalize and normalize way to first map
 		//Door10Locked = false;
 		//Thing_Activate(107);
@@ -51,12 +53,11 @@ if(inDEV){
 	}
 
 	if(CheckInventory("map08done")>0){
-		Door8Locked = false;
-		Thing_Activate(401);
+		Door9Locked = false;
+		Thing_Activate(402);
 	}
 	if(CheckInventory("map09done")>0){
-		Thing_Activate(402);
-		Door9Locked = false;
+
 		if(CheckInventory("map10cunsceneShown")==0){
 			//cutscene here
 			//GiveInventory("map10done", 1);
@@ -202,21 +203,23 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 
 	if (Time==0){Time=3;}
 
+
 	switch (HelpID) {
 		case 1:
+
 			hudmessageBold(s:"Dive into the blood pool."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 2:
 			hudmessageBold(s:"Now you can play\n\"The bloody tide\"\nWithout reset of inventory."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 3:
-			hudmessageBold(s:"Now you can travel\n\through played episodes."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"Now you can travel\n\across played episodes."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 4:
 			hudmessageBold(s:"To Crimson depths"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 5:
-			hudmessageBold(s:"To Hungar"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"To Hangar"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 6:
 			hudmessageBold(s:"To Season of Winter"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
@@ -281,3 +284,25 @@ SCRIPT "Door10" (void){
 }
 
 
+
+
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+	str CovenantTitle = StrParam(l:"TABLET_CATHEDRAL_TITLE");
+	str CovenantText = StrParam(l:"TABLET_CATHEDRAL");
+
+
+	SetHudSize(550, 380, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 275.0, 40.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 275.0, 210.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 275.0, 370.0, 0.1);
+
+}

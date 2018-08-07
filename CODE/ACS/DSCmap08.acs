@@ -229,3 +229,26 @@ script "GungarHouling" ENTER
 	delay(35*random(3, 10));
 	restart;
 }
+
+
+
+
+str finalText = "";
+int MsgID = 13131313;
+int ttlID = 13131314;
+
+
+script "Covenant" (void) {
+
+	str CovenantTitle = StrParam(l:"TABLET_HANGAR_TITLE");
+	str CovenantText = StrParam(l:"TABLET_HANGAR");
+
+	SetHudSize(550, 380, 0);
+	SetFont ("BIGFONT");
+	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 275.0, 110.0, 0.1);
+	SetFont ("SMALLFONT");
+	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 275.0, 210.0, 0.1);
+	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 275.0, 360.0, 0.1);
+
+}
+

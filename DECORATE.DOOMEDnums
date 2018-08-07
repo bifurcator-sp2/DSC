@@ -64,17 +64,17 @@ actor DSCceilLightRayDEC : DSCceilLightRay 22042 { //$Sprite LTS2A0
 actor DSCceilLightGlowDEC : DSCceilLightGlow 22043 { //$Sprite LTS3A0
 		//Scale 0.5
 }
-actor DSClavaSparkGenDEC : DSClavaSparkGen 22044 { 	
+actor DSClavaSparkGenDEC : DSClavaSparkGen 22044 {
 }
 
-actor DSCAirlockDecompressionDEC : DSCAirlockDecompression 22048 { 	
+actor DSCAirlockDecompressionDEC : DSCAirlockDecompression 22048 {
 }
 
-actor DSCairlockControllerDEC : DSCairlockController 22049 { 	
+actor DSCairlockControllerDEC : DSCairlockController 22049 {
 }
-actor DSClavaSparkGenHorizontalDEC : DSClavaSparkGenHorizontal 22050 { 	
+actor DSClavaSparkGenHorizontalDEC : DSClavaSparkGenHorizontal 22050 {
 }
-actor DSCtentyacleSwitchableDEC : DSCtentyacleSwitchable 22051 { 	
+actor DSCtentyacleSwitchableDEC : DSCtentyacleSwitchable 22051 {
 }
 actor DSCtentyacleDecorDEC : DSCtentyacleDecor 22052 { 	//$Sprite T1NTA0
 Scale 0.5
@@ -88,77 +88,77 @@ actor DSCbloodRainDEC : DSCbloodRain 22055 { 	//$Sprite RNMRA0
 //Scale 0.5
 }
 
-actor DSCunderBloodGENDEC : DSCunderBloodGEN 22056 { 	
+actor DSCunderBloodGENDEC : DSCunderBloodGEN 22056 {
 //Scale 0.5
 }
-actor DSCvororosl1DEC : DSCvororosl1 22057 { 	//$Sprite VDR1A0 
+actor DSCvororosl1DEC : DSCvororosl1 22057 { 	//$Sprite VDR1A0
 Scale 0.5
 }
-actor DSCcloudsGenDEC : DSCcloudsGen 22058 { 	
+actor DSCcloudsGenDEC : DSCcloudsGen 22058 {
 
 }
-actor DDSCdestroyerDEC : DSCdestroyer 22059 { 	
+actor DDSCdestroyerDEC : DSCdestroyer 22059 {
 
 }
-actor DSCmoaner1DEC : DSCmoaner1 22060 { 	
+actor DSCmoaner1DEC : DSCmoaner1 22060 {
 
 }
-actor DSCwinterTreeDEC : DSCwinterTree 22061 { 	
+actor DSCwinterTreeDEC : DSCwinterTree 22061 {
 //$Sprite WTR0A0
 }
 
-actor DSCsnowGenDEC : DSCsnowGen 22062 { 	
+actor DSCsnowGenDEC : DSCsnowGen 22062 {
 //$Sprite SNWTA0
 }
-actor DSCinfoDEC : DSCinfo 22063 { 	
+actor DSCinfoDEC : DSCinfo 22063 {
 //$Sprite DSCCC0
 Scale 0.17
 }
-actor DSCflatFAN1DEC : DSCflatFAN1 22064 { 	
+actor DSCflatFAN1DEC : DSCflatFAN1 22064 {
 //$Sprite FA1NA0
 Scale 1.0
 }
-actor DSCfanLampDEC : DSCfanLamp 22065 { 	
+actor DSCfanLampDEC : DSCfanLamp 22065 {
 //$Sprite FNLMA0
 Scale 1.0
 }
-actor DSCsteamSLOWgenDEC : DSCsteamSLOWgen 22066 { 	
+actor DSCsteamSLOWgenDEC : DSCsteamSLOWgen 22066 {
 //$Sprite S1MKA0
 Scale 1.0
 }
 
-actor DSCsteamFASTgenDEC : DSCsteamFASTgen 22067 { 	
+actor DSCsteamFASTgenDEC : DSCsteamFASTgen 22067 {
 //$Sprite S1MKA0
 Scale 1.0
 }
 
-actor DSCAngloRotatorDEC : AngloRotator 22068 { 	
+actor DSCAngloRotatorDEC : AngloRotator 22068 {
 Scale 1.0
 }
 
 actor DSCuacDEC : DSCuac 22069 {
-//$Sprite UACAA0 	
+//$Sprite UACAA0
 Scale 0.2
 }
 
 actor DSCwallFAN1DEC : DSCwallFAN1 22070 {
-//$Sprite FA2NA0	
+//$Sprite FA2NA0
 Scale 0.1
 }
 
 actor DSCwinterFloorDEC : DSCwinterFloor 22071 {
-//$Sprite WFL1A0	
+//$Sprite WFL1A0
 Scale 1.0
 }
 actor DSCflatFAN2DEC : DSCflatFAN2 22072 {
-//$Sprite FA2NA0	
+//$Sprite FA2NA0
 Scale 0.1
 }
 actor DSClavaSparkGenSVDEC : DSClavaSparkGenSV 22073 {
 
 }
 actor DSCwallFAN1shadeDEC : DSCwallFAN1shade 22074 {
-//$Sprite FA2NB0	
+//$Sprite FA2NB0
 Scale 0.15
 }
 
@@ -166,10 +166,10 @@ actor HeatHazeGeneratorDEC : HeatHazeGenerator 22075 {
 }
 
 actor DSCportalSparkGenDEC : DSCportalSparkGen 22076 {
-//$Sprite SRS2A0	
+//$Sprite SRS2A0
 }
 actor DSCbigPortalDEC : DSCbigPortal 22077 {
-//$Sprite CI1LB0	
+//$Sprite CI1LB0
 }
 //22078
 
@@ -259,4 +259,56 @@ actor IncomeWindGenHellDEC : IncomeWindGenHell 22097 {
 actor IncomeWindGenHellGroundDEC : IncomeWindGenHellGround 22098 {
 }
 actor SkyViewpointMoverDEC : SkyViewpointMover 22099 {
+}
+
+actor DSCintroDEC : DSCintro 22100 {
+//$Sprite INTRA0
++WALLSPRITE
+scale 0.25
+}
+
+actor DSCtitle2DEC : DSCtitle2 22101 {
+//$Sprite DSCTA0
++WALLSPRITE
+scale 0.02
+}
+
+actor DSCcast1DEC : DSCcast1 22102 {
+//$Sprite CST1A0
++WALLSPRITE
+scale 0.1
+}
+
+actor DSCcast2DEC : DSCcast2 22103 {
+//$Sprite CST2A0
++WALLSPRITE
+scale 0.1
+}
+actor DSCcast3DEC : DSCcast3 22104 {
+//$Sprite CST3A0
++WALLSPRITE
+scale 0.1
+}
+actor DSCcast4DEC : DSCcast4 22105 {
+//$Sprite CST4A0
++WALLSPRITE
+scale 0.1
+}
+actor DSCcast5DEC : DSCcast5 22106 {
+//$Sprite CST5A0
++WALLSPRITE
+scale 0.1
+}
+
+actor DSCcast6DEC : DSCcast6 22107 {
+//$Sprite CST6A0
++WALLSPRITE
+scale 0.1
+}
+
+actor DoomSlayerGliphDEC : DoomSlayerGliph 22108 {
+
+}
+actor TabletDecorDEC : TabletDecor 22109 {
+
 }
