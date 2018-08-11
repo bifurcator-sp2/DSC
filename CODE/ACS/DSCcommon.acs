@@ -672,6 +672,42 @@ script "DemogliphStarted" (void) {
 	if(demogliphStarted){ SetResultValue(1);} else {SetResultValue(0);}
 }
 
+bool ExternalCamera;
+SCRIPT "DemoMap" (int CamTID){
+	ExternalCamera = true;
+	SetPlayerProperty(1, 1, PROP_TOTALLYFROZEN);
+	AmbientSound("world/lookat3", 1.0);
+	FadeTo (0, 0, 0, 1.0, 1.5 );
+	ACS_NamedExecuteAlways("Mus_DTEMPLE", 0);
+	delay(35+17);
+	Thing_Activate(CamTID);
+	ChangeCamera(CamTID, 0 , 0);
+	FadeTo (0, 0, 0, 0.0, 1.5 );
+
+	while (TRUE) {
+		delay(1);
+			HudMessage(s:"";HUDMSG_PLAIN,776,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+			HudMessage(s:"";HUDMSG_PLAIN,777,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+			HudMessage(s:"";HUDMSG_PLAIN,778,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+			HudMessage(s:"";HUDMSG_PLAIN,779,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+			HudMessage(s:"";HUDMSG_PLAIN,780,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+
+		if(GetPlayerInput(-1, INPUT_BUTTONS)){ break;}
+	}
+	ACS_NamedExecuteAlways("RestoreMusic", 0);
+	FadeTo (0, 0, 0, 1.0, 1.5 );
+	delay(35+17);
+
+	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+	ChangeCamera(0, 0 , 0);
+	FadeTo (0, 0, 0, 0.0, 1.5 );
+	delay(35);
+	ExternalCamera = false;
+
+}
+
+
+
 SCRIPT "DemoGliph" (int CamTID, int CovenID){
 	if(WaveOnline){ Terminate;}
 	if(!CamTID){CamTID=2200;}
@@ -680,9 +716,9 @@ SCRIPT "DemoGliph" (int CamTID, int CovenID){
 	Thing_Activate(CamTID);
 	SetPlayerProperty(1, 1, PROP_TOTALLYFROZEN);
 	AmbientSound("world/lookat3", 1.0);
-	FadeTo (0, 0, 0, 1.0, 3.0 );
+	FadeTo (0, 0, 0, 1.0, 1.5 );
 	ACS_NamedExecuteAlways("Mus_DTEMPLE", 0);
-	delay(35*3);
+	delay(35+17);
 	demogliphStarted = true;
 
 		SetHudSize(320, 240, 0);
@@ -690,7 +726,7 @@ SCRIPT "DemoGliph" (int CamTID, int CovenID){
 		HudMessage(	s:"A";	HUDMSG_PLAIN, 13131315, CR_DARKRED, 160.0, 120.0, 3.0);
 
 	ChangeCamera(CamTID, 0 , 0);
-	FadeTo (0, 0, 0, 0.0, 3.0 );
+	FadeTo (0, 0, 0, 0.0, 1.5 );
 	delay(35*3);
 
 	while (TRUE) {
@@ -720,12 +756,12 @@ SCRIPT "DemoGliph" (int CamTID, int CovenID){
 		if(GetPlayerInput(-1, INPUT_BUTTONS)){ break;}
 	}
 	ACS_NamedExecuteAlways("RestoreMusic", 0);
-	FadeTo (0, 0, 0, 1.0, 3.0 );
-	delay(35*3);
+	FadeTo (0, 0, 0, 1.0, 1.5 );
+	delay(35+17);
 	demogliphStarted = false;
 	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
 	ChangeCamera(0, 0 , 0);
-	FadeTo (0, 0, 0, 0.0, 3.0 );
+	FadeTo (0, 0, 0, 0.0, 1.5 );
 	hudmessageBold(s:" "; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.95, 1.0);
 	delay(35);
 

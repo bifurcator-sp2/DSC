@@ -1467,9 +1467,9 @@ Texture "POSTER", 4096, 2307
 	Patch "POSTER", 0, 0
 }
 
-Texture "BLOOD3D", 128, 128
+Texture "DSBLD3D", 128, 128
 {
-	Patch "BLOOD3D", 0, 0
+	Patch "DSBLD3D", 0, 0
 }
 
 // End of texture definitions

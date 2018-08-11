@@ -13,6 +13,8 @@ bool TribuneTeleportsActive = false;
 
 SCRIPT "StartLevel" ENTER
 {
+
+	//ACS_NamedExecute("DemoMap", 0, 2200);//test thing
 //NOspawn = true;
 //TEST!
 

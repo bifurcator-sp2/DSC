@@ -2776,6 +2776,7 @@ Class DSCtentyacleBounder : Actor
 Class DSCtentyacleSwitchable : SwitchableDecoration
 {
 	float MaxScale;
+	bool bSloped;
 	Default
 	{
 		+SHOOTABLE;
@@ -2785,6 +2786,7 @@ Class DSCtentyacleSwitchable : SwitchableDecoration
 		Height 256;
 		DeathHeight 1;
 		Health 999999999;
+		DamageFactor 0.0;
 		Radius 16;
 		Renderstyle "Translucent";
 		+FORCEYBILLBOARD;
@@ -2797,7 +2799,28 @@ Class DSCtentyacleSwitchable : SwitchableDecoration
 		MaxScale = frandom(0.15, 0.22);
 		Super.PostBeginPlay();
 	}
-
+	override void Tick()
+	{
+		if(!bSloped)
+		{
+			AlignToSlope(self,self.angle,0.0);
+			bSloped = true;
+		}
+		Super.Tick();
+	}
+    static void AlignToSlope(Actor self, double dAng, double dPitch)
+    {
+        vector3 fNormal = self.CurSector.FloorPlane.Normal;
+        vector2 fNormalP1 = (fNormal.X != 0 || fNormal.Y != 0) ? (fNormal.X, fNormal.Y).Unit() : (0, 0);
+        vector2 fNormalP2 = ((fNormal.X, fNormal.Y).Length(), fNormal.Z);
+        double fAng = atan2(fNormalP1.Y, fNormalP1.X);
+        double fPitch = -atan2(fNormalP2.X, fNormalP2.Y);
+        double dDiff1 = sin(fAng - (dAng + dPitch));
+        double dDiff2 = cos(fAng - dAng);
+        self.Pitch = fPitch * dDiff2 + dPitch;
+        self.Roll = fPitch * dDiff1;
+        self.Angle = dAng;
+    }
 	States
 	{
 		Spawn:

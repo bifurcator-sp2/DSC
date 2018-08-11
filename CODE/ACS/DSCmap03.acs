@@ -24,6 +24,7 @@ SCRIPT "StartControl" ENTER
 	Thing_Deactivate(100);
 	PlaySound(1, "world/BFRAIN", CHAN_BODY, 1.0, TRUE, ATTN_NONE);
 	ACS_NamedExecute("CreepySounds",0);
+	//ACS_NamedExecute("DemoMap", 0, 2200);//test thing
 	//ACS_NamedExecute("OpenSecondZone",0);// test
 	//
 	while(!NextWaveReady){

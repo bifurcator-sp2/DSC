@@ -8,7 +8,7 @@ episode DSCINTRO {
 	name = "E1. Crusade in Dark Realm"
 }
 episode DSCMAP06 {
-	name = "E2. Your own way to die in hell"
+	name = "E2. Rise into the Hell Abyss"
 }
 
 

@@ -27,6 +27,13 @@ script "StartControl" ENTER
 	//ACS_NamedExecuteAlways("GotoStrafLocation", 0, 51, 52);//test thing !!!!
 	//test thing !!!!
 
+	//Thing_Activate(47);//wind
+	//Thing_Activate(55);//skybox flashes
+
+	//ACS_NamedExecute("GotoStrafLocation2", 0, 83);//test thing
+	//Thing_Activate(78);//straf2 ambient gens.
+	//ACS_NamedExecute("DemoMap", 0, 2300);//test thing
+
 	//ACS_NamedExecuteAlways("GotoStrafLocation2", 0, 83, 49);//test thing !!!!
 	//
 
@@ -491,7 +498,7 @@ function bool SpownedEnoughEYES(void){
 
 
 script "GotoStrafLocation2" (int tid, int returnTid){
-	//Thing_Activate(78);//straf2 ambient gens. Test thing remove
+	Thing_Activate(78);//straf2 ambient gens.
 	ACS_NamedTerminate("CreepRandomAmbient", 0);
 	Thing_DeActivate(72);//portal & clouds
 	ACS_NamedExecute("OxygenRegen",0, 5);
@@ -593,7 +600,7 @@ Script "Straf_2_vawe" (void){
 }
 
 script "ReturnToParent_2" (void){
-	//Thing_DeActivate(78);//straf2 ambient gens. Test thing remove
+	Thing_DeActivate(78);//straf2 ambient gens. Test thing remove
 	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
 	ACS_NamedExecute("CreepRandomAmbient", 0);
 	StrafComplete = true;

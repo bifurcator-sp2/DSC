@@ -38,7 +38,7 @@ SCRIPT "StartControl" ENTER
 	AmmoMaxRnd = 3;
 	WeaponGotID = 4;*/
 	//test!!!!!!
-
+	//ACS_NamedExecute("DemoMap", 0, 2200);//test thing
 	//SetThingSpecial(100700, ACS_NamedExecute, "ArmorWave");
 	//SetThingSpecial(100800, ACS_NamedExecute, "IamReady");
 

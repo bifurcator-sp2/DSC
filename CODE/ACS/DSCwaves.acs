@@ -248,6 +248,7 @@ Script "DisplayInfo" ENTER
 	} else { isBE = false; }
 
 	while (TRUE) {
+		if(ExternalCamera){ Delay(35); continue;}
 		int mtotal = GetTotalMonsters();
 		if(!WaveOnline && DSCscreenFade==0){
 			int progress = (currentWave * 100) / maxWaveCount;

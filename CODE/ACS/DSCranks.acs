@@ -350,7 +350,7 @@ function str getRankAchiveInfo (int rank){
 		case 2:
 			return "Player gets 50% more health.\nHealth respawns 50% faster.";
 		case 3:
-			return "20% chance to immediately recall\nall Health and Ammo spawners.";
+			return "20% chance to immediately respawn\nall health and ammo after mystic skull pickup";
 		case 4:
 			return "Ammo respawns 50% faster.";
 		case 5:
@@ -425,6 +425,7 @@ Script "DisplayRankInfo" ENTER
 {
 
 	while (TRUE) {
+		if(ExternalCamera){ Delay(35); continue;}
 		int TK = TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 		int mtotal = GetTotalMonsters();
 		if(!WaveOnline && DSCscreenFade==0){
