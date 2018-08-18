@@ -1,48 +1,244 @@
 [enu default]
 
 TABLET_ATRIUM_TITLE = "Atrium";
-TABLET_ATRIUM = "Their citadels have long been destroyed, their temples\ncorrupted and serving us, their leaders and warriors\ndecimated and turned into eternal slaves, the entire\nKingdom consumed by Hell and belonging to us. The ruins\nof this civilization, which is proof of our undeniable\npower. No one can resist the onslaught of our legions.\n \nThere are still places where the Deterrent Runes are \nstill strong and do not allow the hordes to go there. \nSoon our unholy priests will gather these runes and \nfinally destroy them, only then our order will reign \nin this undead world.";
+TABLET_ATRIUM = 
+"Their citadels have long been destroyed, their temples\n"
+"corrupted and serving us, their leaders and warriors\n"
+"decimated and turned into eternal slaves, the entire\n"
+"Kingdom consumed by Hell and belonging to us. The ruins\n"
+"of this civilization, which is proof of our undeniable\n"
+"power. No one can resist the onslaught of our legions.\n"
+" \n"
+"There are still places where the Deterrent Runes are \n"
+"still strong and do not allow the hordes to go there. \n"
+"Soon our unholy priests will gather these runes and \n"
+"finally destroy them, only then our order will reign \n"
+"in this undead world.";
 
 TABLET_CEMETERY_TITLE = "Cemetery of Fallens";
-TABLET_CEMETERY = "This place was once a sacred land that had caused us\nso much woe. Here the greatest of their leaders and\nwarriors lay rested beneath its grounds . Many came\nhere to pay homage, to be steadfast before the battles.\nThe conquest for this place was especially long and\nbloody - their warriors fought for their ancient\nancestors with unprecedented fury to the last of\ntheir kind. There is no power that could resist us. \n\nThe last of the warrior's finally fell, our glorious\ncommander Brullious Beag ordered the priests to\ndesecrate their sacred burial grounds. Once the place\nof glory has became the place of damnation. Only the\ngreatest of the leaders were raised from their graves,\nturned into dark servants, their statues and pictures\nwere ravaged, and all writings destroyed. Everything\nhad been perverted to our image and no one shall\nremember this place.";
+TABLET_CEMETERY = 
+"This place was once a sacred land that had caused us\n"
+"so much woe. Here the greatest of their leaders and\n"
+"warriors lay rested beneath its grounds . Many came\n"
+"here to pay homage, to be steadfast before the battles.\n"
+"The conquest for this place was especially long and\n"
+"bloody - their warriors fought for their ancient\n"
+"ancestors with unprecedented fury to the last of\n"
+"their kind. There is no power that could resist us. \n"
+"\n"
+"The last of the warrior's finally fell, our glorious\n"
+"commander Brullious Beag ordered the priests to\n"
+"desecrate their sacred burial grounds. Once the place\n"
+"of glory has became the place of damnation. Only the\n"
+"greatest of the leaders were raised from their graves,\n"
+"turned into dark servants, their statues and pictures\n"
+"were ravaged, and all writings destroyed. Everything\n"
+"had been perverted to our image and no one shall\n"
+"remember this place.";
 
 TABLET_PLAZA_TITLE = "Blood Rain Plaza";
-TABLET_PLAZA = "Temple of the Blood Harvest was built in the first age\nof Ascension, for the glory of the great goddess mother\nXal'Atho, living at the depths of the blood lake Angrax.\nIn the sacred bloody halls Groun'Laj reads prayers, and\nhis servants prepare up a lavish sacrifice in the coming\nof  her return. Chosen a huge area near a lake our priests\nperform carnage  among the Columns of Blood, arranging a\nmassive mound of sacrifices. \n\nBlood rains down from the black skies after the slaughter -\na generous blessing to all and a sign of her awakening.\nDevourer of souls, Mother of damned wakes from her slumber\nand goes to the shore, she begins her feast before us. \nShe shows us her true power, shares her knowledge and gives\nour army guidance for our future.";
+TABLET_PLAZA = 
+"Temple of the Blood Harvest was built in the first age\n"
+"of Ascension, for the glory of the great goddess mother\n"
+"Xal'Atho, living at the depths of the blood lake Angrax.\n"
+"In the sacred bloody halls Groun'Laj reads prayers, and\n"
+"his servants prepare up a lavish sacrifice in the coming\n"
+"of  her return. Chosen a huge area near a lake our priests\n"
+"perform carnage  among the Columns of Blood, arranging a\n"
+"massive mound of sacrifices. \n"
+"\n"
+"Blood rains down from the black skies after the slaughter -\n"
+"a generous blessing to all and a sign of her awakening.\n"
+"Devourer of souls, Mother of damned wakes from her slumber\n"
+"and goes to the shore, she begins her feast before us. \n"
+"She shows us her true power, shares her knowledge and gives\n"
+"our army guidance for our future.";
 
 TABLET_COLOSSEUM_TITLE = "Colloseum";
-TABLET_COLOSSEUM = "In the middle of the great wasteland Umbrall stands the \namphitheater of suffering - Malekhis. Created by the ascended\ndemiurge Khorg in the Twilight Times, this Arena of Hell has\nbecome a receptacle for thousands of doomed souls, but also\nfor the disgraced, unworthy of our brethren who dared to anger\nthe Dark Lords. Here the great Governor Azgalor organizes\ncolossal slaughter of gladiators to the delight of the audience,\nhoping to draw the eye to the amusement of our Master. \n\nBecause of this, unstable power flows in this region, the usual\ndemons can not get here by themselves. Therefore, they are\nbrought by the Higher Summoner to fill all tribunes of the\namphitheatre. When a combattent is not recognized, the demons\nrush from the stands, tearing it to pieces, and then arranging\na glorious final massacre. All the blood of the martyrs and demons\nleft in the arena is then absorbed by the Soulflayer Spire, and\nthe resulting energy of the blood is distributed to stabilize the\nsummoning portals on the outskirts of the wasteland.";
+TABLET_COLOSSEUM = 
+"In the middle of the great wasteland Umbrall stands the \n"
+"amphitheater of suffering - Malekhis. Created by the ascended\n"
+"demiurge Khorg in the Twilight Times, this Arena of Hell has\n"
+"become a receptacle for thousands of doomed souls, but also\n"
+"for the disgraced, unworthy of our brethren who dared to anger\n"
+"the Dark Lords. Here the great Governor Azgalor organizes\n"
+"colossal slaughter of gladiators to the delight of the audience,\n"
+"hoping to draw the eye to the amusement of our Master. \n"
+"\n"
+"Because of this, unstable power flows in this region, the usual\n"
+"demons can not get here by themselves. Therefore, they are\n"
+"brought by the Higher Summoner to fill all tribunes of the\n"
+"amphitheatre. When a combattent is not recognized, the demons\n"
+"rush from the stands, tearing it to pieces, and then arranging\n"
+"a glorious final massacre. All the blood of the martyrs and demons\n"
+"left in the arena is then absorbed by the Soulflayer Spire, and\n"
+"the resulting energy of the blood is distributed to stabilize the\n"
+"summoning portals on the outskirts of the wasteland.";
 
 TABLET_PRISON_TITLE = "Prison of Souls";
-TABLET_PRISON = "Souls - all that is left of the last three leaders of the civilization\nPrementor, the world of which we devoured with such difficulty. When \nthe outcome of the great war was already close, the last of the \nsurvivors led by the three leaders retreated to their sacred temple, \nwhere they had the last battle. Here, for their ancestors, the last\nthree warriors fought with inevitable darkness. Thousands of demons fell\nby their hands, burning with the fire of their fury. At the final hour \nof despair the best sorcerers came and realized that it was impossible \nto overcome them. \n\nThe ancient rite "Curse of Flesh" was performed – the souls of these \nspirits were separated from the bodies and captured. Soon began the \nprocess of desecration of the temple and the fall of the territories. \nThe souls of the three chiefs saw their shrines and the heart of \ncivilization being absorbed by the forces of hell, but could do nothing.\nTheir anger was unspeakable, their fury so strong that it incinerates\ndemons and was barely restrained by our most powerful spells. \nSouls were hidden in the depths of the unholy temple. Until our priests\ncould find a way to subdue their anger. To enslave or eradicate all.";
+TABLET_PRISON = 
+"Souls - all that is left of the last three leaders of the civilization\n"
+"Prementor, the world of which we devoured with such difficulty. When \n"
+"the outcome of the great war was already close, the last of the \n"
+"survivors led by the three leaders retreated to their sacred temple, \n"
+"where they had the last battle. Here, for their ancestors, the last\n"
+"three warriors fought with inevitable darkness. Thousands of demons fell\n"
+"by their hands, burning with the fire of their fury. At the final hour \n"
+"of despair the best sorcerers came and realized that it was impossible \n"
+"to overcome them. \n"
+"\n"
+"The ancient rite "Curse of Flesh" was performed – the souls of these \n"
+"spirits were separated from the bodies and captured. Soon began the \n"
+"process of desecration of the temple and the fall of the territories. \n"
+"The souls of the three chiefs saw their shrines and the heart of \n"
+"civilization being absorbed by the forces of hell, but could do nothing.\n"
+"Their anger was unspeakable, their fury so strong that it incinerates\n"
+"demons and was barely restrained by our most powerful spells. \n"
+"Souls were hidden in the depths of the unholy temple. Until our priests\n"
+"could find a way to subdue their anger. To enslave or eradicate all.";
 
 TABLET_CATHEDRAL_TITLE = "Unholy Cathedral";
-TABLET_CATHEDRAL = "Great Cathedral of the Dark Lords was raised during the First Age of \nAscension when the Undrax lake burst it's banks and the first Titan \nawoke from his slumber. From those depths of unrecorded history our \nshrine aspires to the top of the Moul'Chris mountain glorifying names \nfrom the list of those who was chosen by our Great Master. Every gifted\ndemon must pass a long service to the Cathedral if it is destined to \nbecome a priest, prophet, preacher, spirit leader or a battle caster \nin our dark warrior host. \n\nAlmost all mortals who went through Hell on their own and yet were not\nslayed by demons had to climb the top of the mountain and kneel before\nthe gates of Great Cathedral. Afterwards a high priest will open the\ngates to meet those most fortitudinous from the miserables. Blessing\nthem and giving them the brand of "the turned". Neophyte flock spreads\namong their personal alcoves and joins to the canticle accompanying\ndemons with the reading names of the Dark Lords in the right order to\nempower them.\n\nSome mortals would perrish after the reading of first two commandments\nof the Darkness when Titan's whispering fills their mind and their flesh\nbegins to burn. But most of those fortitudinous and fanatical, full of \nfaith, who read every commandment and still being alive, may stay serving\nthe Cathedral as acolyte assisting to demon-priests and overseeing the \nflock. All others not worthy will serve in rituals and sacrifices as well\nas food for praying demons.\n\nUnder the Cathedral there is a vasty ancient library that continues into\nthe depths of the mountain. This sacred place is guarded by the most \nfanatical of our priests who oversees every scroll on the shelves. Being\nunable to grasp it's greatness lesser demons will burn their eyes out\nand cut off both of their hands rather than approach this place.\nThe mightiest of demons can only get here and gaze into this abyss of the\nages. Here in the countless tomes, runes and oldest manuscripts was \nimprinted as the whole of our existence in the shadow of our \nImmortal Masters.";
+TABLET_CATHEDRAL = 
+"Great Cathedral of the Dark Lords was raised during the First Age of \n"
+"Ascension when the Undrax lake burst it's banks and the first Titan \n"
+"awoke from his slumber. From those depths of unrecorded history our \n"
+"shrine aspires to the top of the Moul'Chris mountain glorifying names \n"
+"from the list of those who was chosen by our Great Master. Every gifted\n"
+"demon must pass a long service to the Cathedral if it is destined to \n"
+"become a priest, prophet, preacher, spirit leader or a battle caster \n"
+"in our dark warrior host. \n"
+"\n"
+"Almost all mortals who went through Hell on their own and yet were not\n"
+"slayed by demons had to climb the top of the mountain and kneel before\n"
+"the gates of Great Cathedral. Afterwards a high priest will open the\n"
+"gates to meet those most fortitudinous from the miserables. Blessing\n"
+"them and giving them the brand of "the turned". Neophyte flock spreads\n"
+"among their personal alcoves and joins to the canticle accompanying\n"
+"demons with the reading names of the Dark Lords in the right order to\n"
+"empower them.\n"
+"\n"
+"Some mortals would perrish after the reading of first two commandments\n"
+"of the Darkness when Titan's whispering fills their mind and their flesh\n"
+"begins to burn. But most of those fortitudinous and fanatical, full of \n"
+"faith, who read every commandment and still being alive, may stay serving\n"
+"the Cathedral as acolyte assisting to demon-priests and overseeing the \n"
+"flock. All others not worthy will serve in rituals and sacrifices as well\n"
+"as food for praying demons.\n"
+"\n"
+"Under the Cathedral there is a vasty ancient library that continues into\n"
+"the depths of the mountain. This sacred place is guarded by the most \n"
+"fanatical of our priests who oversees every scroll on the shelves. Being\n"
+"unable to grasp it's greatness lesser demons will burn their eyes out\n"
+"and cut off both of their hands rather than approach this place.\n"
+"The mightiest of demons can only get here and gaze into this abyss of the\n"
+"ages. Here in the countless tomes, runes and oldest manuscripts was \n"
+"imprinted as the whole of our existence in the shadow of our \n"
+"Immortal Masters.";
 
 TABLET_TIDE_TITLE1 = "Crimson Depths. Part 1.";
-TABLET_TIDE1 = "We found this dead empty world long ago during the age of expansions.\nIt is unknown who populated it here before but life did exist here. \nThen we discovered an ancient God who devoured this world. Our forces\nfound it's presence on the shores of Great Bloody Sea. Without\nhesitation Csha'tel the commander of the Hell Legion was ordered to\ndestroy or capture this being. This led to a war that lasted through\nmany centuries. Enormous tentacles of this monster raised from the \nbottom of the sea and erupted from under crushing everything in it's way.\nIt was casting terrifying spells on our forces and draining vital powers\nfrom the fallen bodies. It was taking control over the mind of our\ncommanders and summoning fearsome legions of it's servants from the \ndepths. It was consuming our rage and hate and breathing out fear and \ndespair. One by one our armies had fallen before it being unable to \ndeliver any more damage.\n\nSoon our Master found out about this. In his rage he awoken the sleeping\nTitan granting him the power of thousands of fallen demons and sending\nhim at the head of the Burning Legion to slay this being and conquer this\nworld once and for all. But even our most powerful and skillful warriors\ncouldn't stand up against this monster. One by one, hundreds and thousands\nof them were falling by the infinite powers of this ancient God who's might\ncould not be matched. However the awoken Titan did not interfere while\nstanding and waiting, consuming every fallen demon's soul and growing morwe\npowerful.";
+TABLET_TIDE1 = 
+"We found this dead empty world long ago during the age of expansions.\n"
+"It is unknown who populated it here before but life did exist here. \n"
+"Then we discovered an ancient God who devoured this world. Our forces\n"
+"found it's presence on the shores of Great Bloody Sea. Without\n"
+"hesitation Csha'tel the commander of the Hell Legion was ordered to\n"
+"destroy or capture this being. This led to a war that lasted through\n"
+"many centuries. Enormous tentacles of this monster raised from the \n"
+"bottom of the sea and erupted from under crushing everything in it's way.\n"
+"It was casting terrifying spells on our forces and draining vital powers\n"
+"from the fallen bodies. It was taking control over the mind of our\n"
+"commanders and summoning fearsome legions of it's servants from the \n"
+"depths. It was consuming our rage and hate and breathing out fear and \n"
+"despair. One by one our armies had fallen before it being unable to \n"
+"deliver any more damage.\n"
+"\n"
+"Soon our Master found out about this. In his rage he awoken the sleeping\n"
+"Titan granting him the power of thousands of fallen demons and sending\n"
+"him at the head of the Burning Legion to slay this being and conquer this\n"
+"world once and for all. But even our most powerful and skillful warriors\n"
+"couldn't stand up against this monster. One by one, hundreds and thousands\n"
+"of them were falling by the infinite powers of this ancient God who's might\n"
+"could not be matched. However the awoken Titan did not interfere while\n"
+"standing and waiting, consuming every fallen demon's soul and growing morwe\n"
+"powerful.";
 
 TABLET_TIDE_TITLE2 = "Crimson Depths. Part 2.";
-TABLET_TIDE2 = "The time we were waiting has come. The Titan burning with anger had finally\nconfronted this dark creature and the epic battle began. They fought for\nseveral days and because of their battle this world was about to succumb but\nat this very moment the Titan began to collapse. The monster was draining\nTitan's powers crushing him with it's tentacles leaving him no chance for\nvictory.\n\nThen it happened what became a legend, has become a disgrace in our history.\nMonster creature arose from the depths of the sea and appeared with it's true,\nterrifying form. It opened it's all-consuming maw and devoured the fallen\nTitan. When it all ended every demon's mind was filled with a whispering of\nthe ancient God. The name was – Shub-Niggurath. Afterwards it disappeared into\nthe bloodied sea. That day it was known not as almighty and we faced forces more\npowerful than could be imagined. \n\nSearching for answers about the nature of this creature our clerics found some\ninformation from the ancient manuscripts discovered in the underground of this\nworld. It appeared that this creature is not the only one of it's kind.";
+TABLET_TIDE2 = 
+"The time we were waiting has come. The Titan burning with anger had finally\n"
+"confronted this dark creature and the epic battle began. They fought for\n"
+"several days and because of their battle this world was about to succumb but\n"
+"at this very moment the Titan began to collapse. The monster was draining\n"
+"Titan's powers crushing him with it's tentacles leaving him no chance for\n"
+"victory.\n"
+"\n"
+"Then it happened what became a legend, has become a disgrace in our history.\n"
+"Monster creature arose from the depths of the sea and appeared with it's true,\n"
+"terrifying form. It opened it's all-consuming maw and devoured the fallen\n"
+"Titan. When it all ended every demon's mind was filled with a whispering of\n"
+"the ancient God. The name was – Shub-Niggurath. Afterwards it disappeared into\n"
+"the bloodied sea. That day it was known not as almighty and we faced forces more\n"
+"powerful than could be imagined. \n"
+"\n"
+"Searching for answers about the nature of this creature our clerics found some\n"
+"information from the ancient manuscripts discovered in the underground of this\n"
+"world. It appeared that this creature is not the only one of it's kind.";
 
 TABLET_TIDE_TITLE3 = "Crimson Depths. Part 3.";
-TABLET_TIDE3 = "From the Codex of \'Twilight Times\':\nAncient Gods – are incredibly evil and mighty beings that came from distant\nblack stars that lies in the very heart of otherworldly darkness. Their tasks\nare  oblivion, spreading the chaos and insanity, destroying any life form,\ndevouring every world. It is impossible to kill them because they are not alive.\nThey are standing beyond the eternal cycle.\nFrom that day our priests, our acolytes and demons are visiting this dead world\nto serve Ancient God. They are making sacrifices, chanting the praises of it and\nmaking rituals to moderate it's anger. All to convince Him to be our ally but\nnot to destroy us all.";
+TABLET_TIDE3 = "From the Codex of \'Twilight Times\':\n"
+"Ancient Gods – are incredibly evil and mighty beings that came from distant\n"
+"black stars that lies in the very heart of otherworldly darkness. Their tasks\n"
+"are  oblivion, spreading the chaos and insanity, destroying any life form,\n"
+"devouring every world. It is impossible to kill them because they are not alive.\n"
+"They are standing beyond the eternal cycle.\n"
+"From that day our priests, our acolytes and demons are visiting this dead world\n"
+"to serve Ancient God. They are making sacrifices, chanting the praises of it and\n"
+"making rituals to moderate it's anger. All to convince Him to be our ally but\n"
+"not to destroy us all.";
 
 
 TABLET_HANGAR_TITLE = "Hangar";
-TABLET_HANGAR = "UAC hangar was one of the first facilities\nbuilt on Mars. At that time it was named as 'UAC Mars Center'\nbut nicknamed 'Mars City' by personnel. During the dawn of\nMartian colony almost all scientific researches were carried\nout here. Located here were also labs, warehouse, \ncommunications center, security barracks and living \nspaces as well as HQ.\n\nAfter complex 'Alpha' and 'Delta' were ready all activity was\nmoved to modern and more secure facilities. The obsolete \ncomplex was turned into a hangar that serves as a hub between\nother locations of UAC base. \n\nIn despite of it's age this complex remains to be very \nimportant to UAC. Useful resources, special equipment and \ntransport are still located here. As well as discovered \nartifacts and the latest research results that were \ncategorized and stored for transfer to Earth.";
+TABLET_HANGAR = "UAC hangar was one of the first facilities\n"
+"built on Mars. At that time it was named as 'UAC Mars Center'\n"
+"but nicknamed 'Mars City' by personnel. During the dawn of\n"
+"Martian colony almost all scientific researches were carried\n"
+"out here. Located here were also labs, warehouse, \n"
+"communications center, security barracks and living \n"
+"spaces as well as HQ.\n"
+"\n"
+"After complex 'Alpha' and 'Delta' were ready all activity was\n"
+"moved to modern and more secure facilities. The obsolete \n"
+"complex was turned into a hangar that serves as a hub between\n"
+"other locations of UAC base. \n"
+"\n"
+"In despite of it's age this complex remains to be very \n"
+"important to UAC. Useful resources, special equipment and \n"
+"transport are still located here. As well as discovered \n"
+"artifacts and the latest research results that were \n"
+"categorized and stored for transfer to Earth.";
 
 
 TABLET_DIE_TITLE = "Die Hard";
-TABLET_DIE_0 = "Main 3rd generation teleportation chamber is hidden in the secret sector of UAC\nresearch lab. All information about portal's operating principals and \nteleportation research locations are strictly classified. Central Panel access\nand teleportation chamber activation is allowed in to Head Quarters personnel only.";
+TABLET_DIE_0 = 
+"Main 3rd generation teleportation chamber is hidden in the secret sector of UAC\n"
+"research lab. All information about portal's operating principals and \n"
+"teleportation research locations are strictly classified. Central Panel access\n"
+"and teleportation chamber activation is allowed in to Head Quarters personnel only.";
 
 TABLET_DIE_TITLE2 = "Exultation of demons";
-TABLET_DIE_2 = "Miserable, foolish mortals! They found us on their own! \nWith the help of their machines they doomed themselves to death! \nTempting them was so easy! \nOur plan succeeded!";
+TABLET_DIE_2 = "Miserable, foolish mortals! They found us on their own! \n"
+"With the help of their machines they doomed themselves to death! \n"
+"Tempting them was so easy! \n"
+"Our plan succeeded!";
 
 TABLET_DIE_TITLE3 = "Demon anxiety";
-TABLET_DIE_3 = "Ritual is nearly finished! We must hurry! Our enemy is near!\nHe is coming! Why is he fighting for humans?! \nDo they mean something to him?";
+TABLET_DIE_3 = "Ritual is nearly finished! We must hurry! Our enemy is near!\n"
+"He is coming! Why is he fighting for humans?! \n"
+"Do they mean something to him?";
 
 TABLET_DIE_TITLE4 = "The end of Way";
-TABLET_DIE_4 = "Our time has come! \nSoon mankind will be doomed with eternal sufferings as the prophecy foretold! \nWe will devour their souls!";
+TABLET_DIE_4 = "Our time has come! \n"
+"Soon mankind will be doomed with eternal sufferings as the prophecy foretold! \n"
+"We will devour their souls!";
 
 
 

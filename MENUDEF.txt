@@ -10,5 +10,5 @@ OptionMenu "DSCMenu"
 	Option "Filmic Tonemap", dpwh_filmictonemap, "OnOff"
 	Option "Film Grain",dpwh_filmgrain, "OnOff"
 	Option "Cubic Chromatic Aberration", dpwh_chromaticAberration, "OnOff"
-	Option "Vignette", dpwh_naturalVignette, "OnOff"
+	//Option "Vignette", dpwh_naturalVignette, "OnOff"
 }
