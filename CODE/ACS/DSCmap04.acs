@@ -38,6 +38,7 @@ SCRIPT "SpawnFirstScull" (void){
 
 SCRIPT "StartControl" ENTER
 {
+
 	while(!NextWaveReady){
 		delay(1);
 	}
@@ -101,6 +102,8 @@ SCRIPT "StartControl" ENTER
 		delay(1);
 	}
 	NextWaveReady = false;
+
+
 	ACS_NamedExecuteAlways("Mus_M2", 0);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100506, 8, 100402);
 	Delay(35*15);

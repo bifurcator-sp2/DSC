@@ -225,6 +225,14 @@ script "AbsorbHealth" (int HealthAmount){
 
 script "SetConsoleRank" enter {
 
+	if(GetCVar("dsc_full_progress")>0){
+		SetCVar("dsc_full_progress", 0);
+		DSCplayerRank = 9;
+		CurrentWave = 200;
+		AmmoMaxRnd = 3;
+		WeaponGotID = 5;
+		TotalKills = 15000;
+	}
 	if(GetCVar("dsc_player_rank")>=0){
 		DSCplayerRank = GetCVar("dsc_player_rank");
 

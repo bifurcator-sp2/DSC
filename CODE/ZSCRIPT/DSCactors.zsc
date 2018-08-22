@@ -816,7 +816,7 @@ Class WaveScull : CustomInventory
 	{
 	//+INVENTORY.ALWAYSPICKUP;
 	Inventory.PickUpSound "misc/scullpickup";
-	Inventory.pickupmessage "You got a mystic scull";
+	Inventory.pickupmessage "You got a mystic Skull";
 	Scale 0.1;
 	+NOGRAVITY;
 	+DONTSPLASH;
@@ -1184,6 +1184,10 @@ Class DSCmonsterSpawnerTribune : DSCmonsterSpawner
 		RespawnChance = RespawnChance + CallACS("GetProgress",0,0,0)/3;
 		CalcRespawnRepeats();
 		Super.Activate(activator);
+		//to uncount watchers
+		let monCount = DSCMonsterPopulation.Get();
+		if(monCount) monCount.monsterCount-=Repeats;
+
 	}
 
     Override void FillMonsters()

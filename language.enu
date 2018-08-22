@@ -1,7 +1,7 @@
 [enu default]
 
 TABLET_ATRIUM_TITLE = "Atrium";
-TABLET_ATRIUM = 
+TABLET_ATRIUM =
 "Their citadels have long been destroyed, their temples\n"
 "corrupted and serving us, their leaders and warriors\n"
 "decimated and turned into eternal slaves, the entire\n"
@@ -16,7 +16,7 @@ TABLET_ATRIUM =
 "in this undead world.";
 
 TABLET_CEMETERY_TITLE = "Cemetery of Fallens";
-TABLET_CEMETERY = 
+TABLET_CEMETERY =
 "This place was once a sacred land that had caused us\n"
 "so much woe. Here the greatest of their leaders and\n"
 "warriors lay rested beneath its grounds . Many came\n"
@@ -29,33 +29,33 @@ TABLET_CEMETERY =
 "The last of the warrior's finally fell, our glorious\n"
 "commander Brullious Beag ordered the priests to\n"
 "desecrate their sacred burial grounds. Once the place\n"
-"of glory has became the place of damnation. Only the\n"
+"of glory has became the place of shame. Their\n"
 "greatest of the leaders were raised from their graves,\n"
-"turned into dark servants, their statues and pictures\n"
-"were ravaged, and all writings destroyed. Everything\n"
+"turned into pathetic servants, their statues and pictures\n"
+"were disfigured, and all writings destroyed. Everything\n"
 "had been perverted to our image and no one shall\n"
 "remember this place.";
 
 TABLET_PLAZA_TITLE = "Blood Rain Plaza";
-TABLET_PLAZA = 
+TABLET_PLAZA =
 "Temple of the Blood Harvest was built in the first age\n"
-"of Ascension, for the glory of the great goddess mother\n"
+"of Ascension, for the glory of the great foremother\n"
 "Xal'Atho, living at the depths of the blood lake Angrax.\n"
-"In the sacred bloody halls Groun'Laj reads prayers, and\n"
+"In the sacred bloody halls herald Groun'Laj reads prayers, and\n"
 "his servants prepare up a lavish sacrifice in the coming\n"
-"of  her return. Chosen a huge area near a lake our priests\n"
+"of  her return. On a huge area near a lake our priests\n"
 "perform carnage  among the Columns of Blood, arranging a\n"
-"massive mound of sacrifices. \n"
+"nice mass sacrifices. \n"
 "\n"
 "Blood rains down from the black skies after the slaughter -\n"
-"a generous blessing to all and a sign of her awakening.\n"
-"Devourer of souls, Mother of damned wakes from her slumber\n"
-"and goes to the shore, she begins her feast before us. \n"
-"She shows us her true power, shares her knowledge and gives\n"
-"our army guidance for our future.";
+"a generous blessing to all of us and a sign of her awakening.\n"
+"Devourer of youngs, Mother of thousand stillborn wakes from her\n"
+"slumber and goes to the shore, and begins to feast before us. \n"
+"She shows us her wisdom, shares her knowledge and gives\n"
+"our leaders guidance in the future achievements.";
 
 TABLET_COLOSSEUM_TITLE = "Colloseum";
-TABLET_COLOSSEUM = 
+TABLET_COLOSSEUM =
 "In the middle of the great wasteland Umbrall stands the \n"
 "amphitheater of suffering - Malekhis. Created by the ascended\n"
 "demiurge Khorg in the Twilight Times, this Arena of Hell has\n"
@@ -63,65 +63,65 @@ TABLET_COLOSSEUM =
 "for the disgraced, unworthy of our brethren who dared to anger\n"
 "the Dark Lords. Here the great Governor Azgalor organizes\n"
 "colossal slaughter of gladiators to the delight of the audience,\n"
-"hoping to draw the eye to the amusement of our Master. \n"
+"hoping to draw the eye to the amusement of our Great Master. \n"
 "\n"
 "Because of this, unstable power flows in this region, the usual\n"
 "demons can not get here by themselves. Therefore, they are\n"
 "brought by the Higher Summoner to fill all tribunes of the\n"
-"amphitheatre. When a combattent is not recognized, the demons\n"
-"rush from the stands, tearing it to pieces, and then arranging\n"
+"amphitheatre. When a winner is not recognized, the demons\n"
+"rush from the stands to arena, tearing it to pieces, and then arranging\n"
 "a glorious final massacre. All the blood of the martyrs and demons\n"
 "left in the arena is then absorbed by the Soulflayer Spire, and\n"
 "the resulting energy of the blood is distributed to stabilize the\n"
 "summoning portals on the outskirts of the wasteland.";
 
 TABLET_PRISON_TITLE = "Prison of Souls";
-TABLET_PRISON = 
+TABLET_PRISON =
 "Souls - all that is left of the last three leaders of the civilization\n"
-"Prementor, the world of which we devoured with such difficulty. When \n"
+"Praeleanthor, the world of which we devoured with such difficulty. When \n"
 "the outcome of the great war was already close, the last of the \n"
 "survivors led by the three leaders retreated to their sacred temple, \n"
 "where they had the last battle. Here, for their ancestors, the last\n"
 "three warriors fought with inevitable darkness. Thousands of demons fell\n"
-"by their hands, burning with the fire of their fury. At the final hour \n"
+"by their hands, burned in the fire of them fury. At the final hour \n"
 "of despair the best sorcerers came and realized that it was impossible \n"
 "to overcome them. \n"
 "\n"
-"The ancient rite "Curse of Flesh" was performed – the souls of these \n"
+"And then the ancient rite "Curse of Flesh" was performed – the souls of these \n"
 "spirits were separated from the bodies and captured. Soon began the \n"
 "process of desecration of the temple and the fall of the territories. \n"
 "The souls of the three chiefs saw their shrines and the heart of \n"
 "civilization being absorbed by the forces of hell, but could do nothing.\n"
-"Their anger was unspeakable, their fury so strong that it incinerates\n"
+"Their anger was terrible, their fury so strong that it incinerates\n"
 "demons and was barely restrained by our most powerful spells. \n"
 "Souls were hidden in the depths of the unholy temple. Until our priests\n"
 "could find a way to subdue their anger. To enslave or eradicate all.";
 
 TABLET_CATHEDRAL_TITLE = "Unholy Cathedral";
-TABLET_CATHEDRAL = 
+TABLET_CATHEDRAL =
 "Great Cathedral of the Dark Lords was raised during the First Age of \n"
 "Ascension when the Undrax lake burst it's banks and the first Titan \n"
-"awoke from his slumber. From those depths of unrecorded history our \n"
-"shrine aspires to the top of the Moul'Chris mountain glorifying names \n"
-"from the list of those who was chosen by our Great Master. Every gifted\n"
-"demon must pass a long service to the Cathedral if it is destined to \n"
+"awoke from his eternal slumber. From those depths of unrecorded history our \n"
+"shrine aspires to the top for millennia of the Moul'Chris mountain\n"
+"glorifying names from the list of those who was chosen by our Great Master.\n"
+"Every gifted demon must pass a long service to the Cathedral if it is destined to\n"
 "become a priest, prophet, preacher, spirit leader or a battle caster \n"
 "in our dark warrior host. \n"
 "\n"
 "Almost all mortals who went through Hell on their own and yet were not\n"
 "slayed by demons had to climb the top of the mountain and kneel before\n"
-"the gates of Great Cathedral. Afterwards a high priest will open the\n"
-"gates to meet those most fortitudinous from the miserables. Blessing\n"
-"them and giving them the brand of "the turned". Neophyte flock spreads\n"
+"the gates of Great Cathedral. Afterwards a high preacher will open the\n"
+"gates to meet those most strong from the miserables. Blessing\n"
+"them and giving them the mark of the turned. Neophyte flock spreads\n"
 "among their personal alcoves and joins to the canticle accompanying\n"
 "demons with the reading names of the Dark Lords in the right order to\n"
 "empower them.\n"
 "\n"
-"Some mortals would perrish after the reading of first two commandments\n"
+"Some mortals die after the reading of first two commandments\n"
 "of the Darkness when Titan's whispering fills their mind and their flesh\n"
-"begins to burn. But most of those fortitudinous and fanatical, full of \n"
+"begins to burn. But most of those strong and fanatical, full of \n"
 "faith, who read every commandment and still being alive, may stay serving\n"
-"the Cathedral as acolyte assisting to demon-priests and overseeing the \n"
+"the Cathedral as acolyte assisting to templar demons and overseeing the \n"
 "flock. All others not worthy will serve in rituals and sacrifices as well\n"
 "as food for praying demons.\n"
 "\n"
@@ -132,21 +132,21 @@ TABLET_CATHEDRAL =
 "and cut off both of their hands rather than approach this place.\n"
 "The mightiest of demons can only get here and gaze into this abyss of the\n"
 "ages. Here in the countless tomes, runes and oldest manuscripts was \n"
-"imprinted as the whole of our existence in the shadow of our \n"
+"imprinted whole of our history in the shadow of our \n"
 "Immortal Masters.";
 
 TABLET_TIDE_TITLE1 = "Crimson Depths. Part 1.";
-TABLET_TIDE1 = 
-"We found this dead empty world long ago during the age of expansions.\n"
+TABLET_TIDE1 =
+"We found this dead desolate world long ago during the age of expansions.\n"
 "It is unknown who populated it here before but life did exist here. \n"
-"Then we discovered an ancient God who devoured this world. Our forces\n"
-"found it's presence on the shores of Great Bloody Sea. Without\n"
+"Then we discovered an Old God who devoured this world. Our forces\n"
+"found he's presence on the shores of Great Bloody Sea. Without\n"
 "hesitation Csha'tel the commander of the Hell Legion was ordered to\n"
-"destroy or capture this being. This led to a war that lasted through\n"
+"destroy or capture this creature. This led to a war that lasted through\n"
 "many centuries. Enormous tentacles of this monster raised from the \n"
-"bottom of the sea and erupted from under crushing everything in it's way.\n"
+"bottom of the sea and erupted from ground crushing everything in it's way.\n"
 "It was casting terrifying spells on our forces and draining vital powers\n"
-"from the fallen bodies. It was taking control over the mind of our\n"
+"from the corpses. It was taking control over the mind of our\n"
 "commanders and summoning fearsome legions of it's servants from the \n"
 "depths. It was consuming our rage and hate and breathing out fear and \n"
 "despair. One by one our armies had fallen before it being unable to \n"
@@ -154,30 +154,30 @@ TABLET_TIDE1 =
 "\n"
 "Soon our Master found out about this. In his rage he awoken the sleeping\n"
 "Titan granting him the power of thousands of fallen demons and sending\n"
-"him at the head of the Burning Legion to slay this being and conquer this\n"
+"him at the head of the Burning Legion to slay this creature and conquer this\n"
 "world once and for all. But even our most powerful and skillful warriors\n"
 "couldn't stand up against this monster. One by one, hundreds and thousands\n"
-"of them were falling by the infinite powers of this ancient God who's might\n"
+"of them were falling by the infinite powers of this Old God who's might\n"
 "could not be matched. However the awoken Titan did not interfere while\n"
-"standing and waiting, consuming every fallen demon's soul and growing morwe\n"
+"standing and waiting, consuming every fallen demon's soul and growing more\n"
 "powerful.";
 
 TABLET_TIDE_TITLE2 = "Crimson Depths. Part 2.";
-TABLET_TIDE2 = 
+TABLET_TIDE2 =
 "The time we were waiting has come. The Titan burning with anger had finally\n"
 "confronted this dark creature and the epic battle began. They fought for\n"
-"several days and because of their battle this world was about to succumb but\n"
-"at this very moment the Titan began to collapse. The monster was draining\n"
-"Titan's powers crushing him with it's tentacles leaving him no chance for\n"
+"several days and because of their battle this world was about to split but\n"
+"at this very moment the Titan began to succumb. The monster was draining\n"
+"Titan's powers crushing him with tentacles leaving him no chance for\n"
 "victory.\n"
 "\n"
 "Then it happened what became a legend, has become a disgrace in our history.\n"
-"Monster creature arose from the depths of the sea and appeared with it's true,\n"
+"Monster creature arose from the depths of the sea and appeared in true,\n"
 "terrifying form. It opened it's all-consuming maw and devoured the fallen\n"
 "Titan. When it all ended every demon's mind was filled with a whispering of\n"
-"the ancient God. The name was – Shub-Niggurath. Afterwards it disappeared into\n"
-"the bloodied sea. That day it was known not as almighty and we faced forces more\n"
-"powerful than could be imagined. \n"
+"the Old God. And he said his name – Shub-Niggurath. Afterwards it disappeared\n"
+"Into the bloody sea. That day it was known not as almighty and we faced forces\n"
+"more powerful than could be imagined. \n"
 "\n"
 "Searching for answers about the nature of this creature our clerics found some\n"
 "information from the ancient manuscripts discovered in the underground of this\n"
@@ -185,14 +185,14 @@ TABLET_TIDE2 =
 
 TABLET_TIDE_TITLE3 = "Crimson Depths. Part 3.";
 TABLET_TIDE3 = "From the Codex of \'Twilight Times\':\n"
-"Ancient Gods – are incredibly evil and mighty beings that came from distant\n"
-"black stars that lies in the very heart of otherworldly darkness. Their tasks\n"
-"are  oblivion, spreading the chaos and insanity, destroying any life form,\n"
+"Old Gods – are incredibly evil and mighty beings that came from distant\n"
+"black stars from the heart of the beyond darkness. Their tasks\n"
+"are oblivion, spreading the chaos and madness, destroying any life form,\n"
 "devouring every world. It is impossible to kill them because they are not alive.\n"
 "They are standing beyond the eternal cycle.\n"
 "From that day our priests, our acolytes and demons are visiting this dead world\n"
-"to serve Ancient God. They are making sacrifices, chanting the praises of it and\n"
-"making rituals to moderate it's anger. All to convince Him to be our ally but\n"
+"to serve Old God. They are making sacrifices, chanting the praises of it and\n"
+"making rituals to moderate it's anger. All to convince Him to be our ally and\n"
 "not to destroy us all.";
 
 
@@ -203,7 +203,7 @@ TABLET_HANGAR = "UAC hangar was one of the first facilities\n"
 "Martian colony almost all scientific researches were carried\n"
 "out here. Located here were also labs, warehouse, \n"
 "communications center, security barracks and living \n"
-"spaces as well as HQ.\n"
+"spaces as well as administration.\n"
 "\n"
 "After complex 'Alpha' and 'Delta' were ready all activity was\n"
 "moved to modern and more secure facilities. The obsolete \n"
@@ -218,27 +218,30 @@ TABLET_HANGAR = "UAC hangar was one of the first facilities\n"
 
 
 TABLET_DIE_TITLE = "Die Hard";
-TABLET_DIE_0 = 
-"Main 3rd generation teleportation chamber is hidden in the secret sector of UAC\n"
-"research lab. All information about portal's operating principals and \n"
-"teleportation research locations are strictly classified. Central Panel access\n"
-"and teleportation chamber activation is allowed in to Head Quarters personnel only.";
+TABLET_DIE_0 =
+"Main third generation transfer portal is hidden in the secret sector of UAC\n"
+"research lab. All information about portal's operating principles and \n"
+"Teleporter destination are strictly classified. Only top level personel\n"
+"Have access to the central control room and activation grid for the primary\n"
+Test chamber.";
 
-TABLET_DIE_TITLE2 = "Exultation of demons";
+TABLET_DIE_TITLE2 = "Exultation";
 TABLET_DIE_2 = "Miserable, foolish mortals! They found us on their own! \n"
 "With the help of their machines they doomed themselves to death! \n"
 "Tempting them was so easy! \n"
 "Our plan succeeded!";
 
-TABLET_DIE_TITLE3 = "Demon anxiety";
+TABLET_DIE_TITLE3 = "Anxiety";
 TABLET_DIE_3 = "Ritual is nearly finished! We must hurry! Our enemy is near!\n"
 "He is coming! Why is he fighting for humans?! \n"
 "Do they mean something to him?";
 
-TABLET_DIE_TITLE4 = "The end of Way";
+TABLET_DIE_TITLE4 = "End of Days";
 TABLET_DIE_4 = "Our time has come! \n"
-"Soon mankind will be doomed with eternal sufferings as the prophecy foretold! \n"
-"We will devour their souls!";
+"Soon the humans will suffer eternal torment as spoken of in the prophesy\n"
+"We will feast upon their souls!";
+
+
 
 
 

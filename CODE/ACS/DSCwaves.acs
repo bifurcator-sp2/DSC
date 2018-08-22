@@ -512,7 +512,7 @@ Script "ScullHasCome" (void){
 		delay(1);
 	}
 	delay(35*3);//to not intersect with weapon spawn message
-	PrintBold(s:"Mystic Scull has arrived.\nPick it up for continiue.");
+	PrintBold(s:"Mystic Skull has arrived.\nPick it up for continiue.");
 }
 Script "GliphHasCome" (void){
 	while(DSCscreenFade>0){

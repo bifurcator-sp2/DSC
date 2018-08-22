@@ -6,6 +6,7 @@ user bool dpwh_filmgrain = true;
 user bool dsc_screen_blur = false;
 
 user int dsc_player_rank = -1;
+user int dsc_full_progress = 0;
 
 
 
