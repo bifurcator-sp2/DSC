@@ -1085,9 +1085,10 @@ Class DSCmonsterSpawner: SwitchableDecoration
 	int Repeats;
 	int WeaponGotID;
 
+
 	Override void PostBeginPlay()
 	{
-		RespawnChance = !args[0] ? 5 : args[0];
+		RespawnChance = !args[0] ? 5 : args[0]+10;
 		MinDelayInSec = 1;
 		MaxDelayInSec = 10;
 		Super.PostBeginPlay();
