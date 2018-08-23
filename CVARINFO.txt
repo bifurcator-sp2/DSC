@@ -7,6 +7,7 @@ user bool dsc_screen_blur = false;
 
 user int dsc_player_rank = -1;
 user int dsc_full_progress = 0;
+user float dsc_spawn_factor = 0.3;
 
 
 

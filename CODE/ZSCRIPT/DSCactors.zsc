@@ -1084,13 +1084,15 @@ Class DSCmonsterSpawner: SwitchableDecoration
 	int RespawnChance;
 	int Repeats;
 	int WeaponGotID;
-
+	int RespawnCorrectionFactor;
 
 	Override void PostBeginPlay()
 	{
 		RespawnChance = !args[0] ? 5 : args[0]+10;
 		MinDelayInSec = 1;
 		MaxDelayInSec = 10;
+		PlayerInfo players = players[consoleplayer];
+		RespawnCorrectionFactor = Cvar.GetCVar("dsc_spawn_factor", players).GetInt();
 		Super.PostBeginPlay();
 	}
 
@@ -1130,7 +1132,7 @@ Class DSCmonsterSpawner: SwitchableDecoration
 	{
 		FillMonsters();
 		RandomDelay = Random(MinDelayInSec*35, MaxDelayInSec*35);
-		RespawnChance = RespawnChance + CallACS("GetAttempt",0,0,0)*0.3;
+		RespawnChance = RespawnChance + CallACS("GetAttempt",0,0,0)*RespawnCorrectionFactor;
 		CalcRespawnRepeats();
 		let monCount = DSCMonsterPopulation.Get();
 		if(monCount) monCount.monsterCount+=Repeats;
