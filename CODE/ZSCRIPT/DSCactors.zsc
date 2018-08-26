@@ -1090,7 +1090,7 @@ Class DSCmonsterSpawner: SwitchableDecoration
 	{
 		RespawnChance = !args[0] ? 0 : args[0];
 		MinDelayInSec = 1;
-		MaxDelayInSec = 10;
+		MaxDelayInSec = 5;
 
 
 		Super.PostBeginPlay();
