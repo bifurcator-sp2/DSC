@@ -15,6 +15,24 @@ bool Door12Locked = true;
 ////// test
 bool inDEV = false;
 ////// test
+
+script "EpisodeDone" ENTER {
+	if(GetCVar("dsc_episode1_done")>0){
+		SetCVar("dsc_episode1_done", 0);
+		GiveInventory("map01done", 1);
+		GiveInventory("map02done", 1);
+		Thing_Activate(107);
+		GiveInventory("map03done", 1);
+		Thing_Activate(108);
+		GiveInventory("map04done", 1);
+		Thing_Activate(109);
+		GiveInventory("map05done", 1);
+		Thing_Activate(110);
+		ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION, -1);
+	}
+	delay(35);
+	restart;
+}
 SCRIPT "StartControl" ENTER
 {
 	//GiveInventory("PowerTimeFreezer",1);

@@ -1,5 +1,5 @@
 #define DSCbaseHealthBonus 15
-#define AIDhealthRecallBaseTime 100
+#define AIDhealthRecallBaseTime 120
 #define AmmoRecallBaseTime 120
 #define AbsorbHealthAmount 5
 #define StrongHoldChance 10

@@ -42,7 +42,7 @@ SCRIPT "StartControl" ENTER
 	//SetThingSpecial(100700, ACS_NamedExecute, "ArmorWave");
 	//SetThingSpecial(100800, ACS_NamedExecute, "IamReady");
 
-	SpawnSpotFacingForced("DoomSlayerGliph", 100800, 100600);// test thing
+	//SpawnSpotFacingForced("DoomSlayerGliph", 100800, 100600);// test thing
 
 
 	while(!NextWaveReady){
@@ -74,9 +74,10 @@ SCRIPT "StartControl" ENTER
 	Door_Close(13, 64);
 	Door_Open(14, 16);
 	ACS_NamedExecuteAlways("Mus_L1", 0);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 999999);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 12);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999);
-
+	Delay(5); while(WaveOnline){ Delay(5);}	//wait for end
+	Door_Open(13, 64);
 	while(!NextWaveReady){
 		delay(1);
 	}
