@@ -20,7 +20,7 @@ SCRIPT "ArmorWave" (void){
 }
 SCRIPT "CryptWave" (void){
 	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999);
 }
 SCRIPT "IamReady" (void){
 	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
@@ -62,7 +62,7 @@ SCRIPT "StartControl" ENTER
 	Door_Open(13, 16);
 	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
 	ACS_NamedExecuteAlways("Mus_L1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
 
 	while(!NextWaveReady){
@@ -74,7 +74,7 @@ SCRIPT "StartControl" ENTER
 	Door_Close(13, 64);
 	Door_Open(14, 16);
 	ACS_NamedExecuteAlways("Mus_L1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 999999);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 12);
 	Delay(5); while(WaveOnline){ Delay(5);}	//wait for end
 	Door_Open(13, 64);

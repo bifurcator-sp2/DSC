@@ -70,10 +70,10 @@ SCRIPT "StartControl" ENTER
 	}
 	NextWaveReady = false;
 
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 7, 100401);
 	ACS_NamedExecuteAlways("Mus_M1", 0);
 	Delay(35*30);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 7, 100401);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 888888, 888888);
 
 
 	while(!NextWaveReady){
@@ -132,9 +132,9 @@ SCRIPT "StartControl" ENTER
 	}
 	NextWaveReady = false;
 	ACS_NamedExecuteAlways("Mus_G1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 8, 100402);
 	Delay(35*30);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 8, 100402);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 888888, 888888);
 
 
 

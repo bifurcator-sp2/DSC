@@ -50,7 +50,7 @@ SCRIPT "StartControl" ENTER
 	NextWaveReady = false;
 
 	ACS_NamedExecuteAlways("Mus_L1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888); //no such tid!!!! this is right!!!
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999, 999999); //no such tid!!!! this is right!!!
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 2, 100401);
 
 	while(!NextWaveReady){
@@ -83,7 +83,7 @@ SCRIPT "StartControl" ENTER
 	}
 	NextWaveReady = false;
 	ACS_NamedExecuteAlways("Mus_M3", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 888888, 888888); //notag
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999, 999999); //notag
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 3, 100402);
 
 	while(!NextWaveReady){
@@ -101,11 +101,11 @@ SCRIPT "StartControl" ENTER
 	NextWaveReady = false;
 
 	ACS_NamedExecuteAlways("Mus_G1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 888888, 888888);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100509, 4, 100403);
 	delay(35*30);
 	//delay(1);while(WaveOnline){delay(1);}
 	//PrintBold(s:"next");
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 4, 100403); //notag
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100508, 888888, 888888); //notag
 
 
 

@@ -1141,7 +1141,7 @@ Class DSCmonsterSpawner: SwitchableDecoration
 		CalcRespawnRepeats();
 		let monCount = DSCMonsterPopulation.Get();
 		if(monCount) monCount.monsterCount+=Repeats;
-		//a_logInt(RespawnChance);
+		a_logInt(RespawnChance);
 		Super.Activate(activator);
 	}
 
