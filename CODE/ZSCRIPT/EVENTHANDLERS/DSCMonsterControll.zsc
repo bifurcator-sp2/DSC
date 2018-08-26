@@ -46,13 +46,15 @@ Class DSCMonstersEvent : EventHandler
 		Super.PlayerEntered(e);
 		PlayerInfo player = players[e.PlayerNumber];
 		CVar dsc_spawn_factor = CVar.FindCVar("dsc_spawn_factor");
+		if(dsc_spawn_factor.getInt()<1){dsc_spawn_factor.SetFloat(1.0);}
+		/*
 		if(player.mo.GetClassName()=="DoomPlayer" || player.mo.GetClassName()=="Doomer"){
 			dsc_spawn_factor.SetFloat(0.5);
 		}
 		if(player.mo.GetClassName()=="Guncaster"){
 			dsc_spawn_factor.SetFloat(1.0);
 		}
-
+		*/
 		//player.mo.giveInventory("DistanceControllerItem", 1);
 	}
 

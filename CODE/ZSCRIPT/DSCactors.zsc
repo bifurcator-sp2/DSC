@@ -1088,11 +1088,11 @@ Class DSCmonsterSpawner: SwitchableDecoration
 
 	Override void PostBeginPlay()
 	{
-		RespawnChance = !args[0] ? 5 : args[0]+10;
+		RespawnChance = !args[0] ? 0 : args[0];
 		MinDelayInSec = 1;
 		MaxDelayInSec = 10;
-		PlayerInfo players = players[consoleplayer];
-		RespawnCorrectionFactor = Cvar.GetCVar("dsc_spawn_factor", players).GetInt();
+
+
 		Super.PostBeginPlay();
 	}
 
@@ -1120,6 +1120,9 @@ Class DSCmonsterSpawner: SwitchableDecoration
 				Repeats ++;
 			}
 		}
+
+
+
 	}
 
     virtual void FillMonsters() {}
@@ -1132,10 +1135,13 @@ Class DSCmonsterSpawner: SwitchableDecoration
 	{
 		FillMonsters();
 		RandomDelay = Random(MinDelayInSec*35, MaxDelayInSec*35);
-		RespawnChance = RespawnChance + CallACS("GetAttempt",0,0,0)*RespawnCorrectionFactor;
+		PlayerInfo players = players[consoleplayer];
+		RespawnCorrectionFactor = Cvar.GetCVar("dsc_spawn_factor", players).GetInt()-1;
+		RespawnChance = RespawnChance + (CallACS("GetAttempt",0,0,0)?CallACS("GetAttempt",0,0,0):1)*RespawnCorrectionFactor*100;
 		CalcRespawnRepeats();
 		let monCount = DSCMonsterPopulation.Get();
 		if(monCount) monCount.monsterCount+=Repeats;
+		a_logInt(RespawnChance);
 		Super.Activate(activator);
 	}
 
@@ -1184,7 +1190,9 @@ Class DSCmonsterSpawnerTribune : DSCmonsterSpawner
 	{
 		FillMonsters();
 		RandomDelay = Random(MinDelayInSec*35, MaxDelayInSec*35);
-		RespawnChance = RespawnChance + CallACS("GetProgress",0,0,0)/3;
+		PlayerInfo players = players[consoleplayer];
+		RespawnCorrectionFactor = Cvar.GetCVar("dsc_spawn_factor", players).GetInt()-1;
+		RespawnChance = RespawnChance + (CallACS("GetAttempt",0,0,0)?CallACS("GetAttempt",0,0,0):1)*RespawnCorrectionFactor*100;
 		CalcRespawnRepeats();
 		Super.Activate(activator);
 		//to uncount watchers
