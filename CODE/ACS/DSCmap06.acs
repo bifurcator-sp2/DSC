@@ -128,25 +128,35 @@ Script "SatartFirstWave" (void){
 		}
 		NextWaveReady = false;
 		ACS_NamedExecuteAlways("Mus_G1", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100300, 100400);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 888888, 888888);
 		delay(35*20);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 100300, 100400);
 		while(!NextWaveReady){
 			delay(1);
 		}
 		NextWaveReady = false;
 		ACS_NamedExecuteAlways("Mus_G2", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 100300, 100400);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
+		delay(35*20);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 100300, 100400);
+		while(!NextWaveReady){
+			delay(1);
+		}
+		NextWaveReady = false;
+		ACS_NamedExecuteAlways("Mus_G2", 0);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
 		delay(35*20);
 		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 888888, 888888);
+		delay(35*20);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100300, 100400);
 		while(!NextWaveReady){
 			delay(1);
 		}
 		NextWaveReady = false;
 		ACS_NamedExecuteAlways("Mus_G3", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 100300, 100400);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 888888, 888888);
 		delay(35*20);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
+		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 100300, 100400);
 
 		while(!NextWaveReady){
 			delay(1);

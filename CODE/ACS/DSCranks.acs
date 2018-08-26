@@ -67,7 +67,7 @@ script "berserkBONUS" (void){
 script "MasterofSurvival" enter{
 	if(DSCplayerRank>=1){
 		if(GetActorProperty (0, APROP_HEALTH)<OldPlayerHealth && GetActorProperty (0, APROP_HEALTH)<25){
-			if(random(0, 100)<40){
+			if(random(0, 100)<50){
 				GiveActorInventory(0, "DSCHealthBonus", 5);
 				Log(s:"Last Breath: Health bonus 5%");
 			}
@@ -81,7 +81,7 @@ script "MasterofSurvival" enter{
 
 
 script "BoneCollector" (void){
-	if(DSCplayerRank>=3 && random(0, 4)==0)	{
+	if(DSCplayerRank>=3 && random(0, 100)<30)	{
 		Log(s:"Bone Collector: Health and Ammo respawned.");
 		SetResultValue(1);
 	}	else	{
@@ -354,11 +354,11 @@ function str getRankAchiveInfo (int rank){
 		case 0:
 			return "Mass murders restores some health and armor.";
 		case 1:
-			return "40% chance to restore 5% health\nwhen player is in critical state.";
+			return "50% chance to restore 5% health\nwhen player is in critical state.";
 		case 2:
 			return "Player gets 50% more health.\nHealth respawns 50% faster.";
 		case 3:
-			return "20% chance to immediately respawn\nall health and ammo after mystic skull pickup";
+			return "30% chance to immediately respawn all\nhealth and ammo after mystic skull pickup";
 		case 4:
 			return "Ammo respawns 50% faster.";
 		case 5:

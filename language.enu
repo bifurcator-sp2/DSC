@@ -31,10 +31,10 @@ TABLET_CEMETERY =
 "desecrate their sacred burial grounds. Once the place\n"
 "of glory has became the place of shame. Their\n"
 "greatest of the leaders were raised from their graves,\n"
-"turned into pathetic servants, their statues and pictures\n"
-"were disfigured, and all writings destroyed. Everything\n"
-"had been perverted to our image and no one shall\n"
-"remember this place.";
+"turned into pathetic servants, their statues and\n"
+"pictures were disfigured, and all writings destroyed.\n"
+"Everything had been perverted to our image and\n"
+"no one shall remember this place.";
 
 TABLET_PLAZA_TITLE = "Blood Rain Plaza";
 TABLET_PLAZA =
@@ -43,8 +43,8 @@ TABLET_PLAZA =
 "Xal'Atho, living at the depths of the blood lake Angrax.\n"
 "In the sacred bloody halls herald Groun'Laj reads prayers, and\n"
 "his servants prepare up a lavish sacrifice in the coming\n"
-"of  her return. On a huge area near a lake our priests\n"
-"perform carnage  among the Columns of Blood, arranging a\n"
+"of her return. On a huge area near a lake our priests\n"
+"perform carnage among the Columns of Blood, arranging a\n"
 "nice mass sacrifices. \n"
 "\n"
 "Blood rains down from the black skies after the slaughter -\n"
@@ -87,7 +87,7 @@ TABLET_PRISON =
 "of despair the best sorcerers came and realized that it was impossible \n"
 "to overcome them. \n"
 "\n"
-"And then the ancient rite "Curse of Flesh" was performed  the souls of these \n"
+"And then the ancient rite ‘Curse of Flesh’ was performed the souls of these \n"
 "spirits were separated from the bodies and captured. Soon began the \n"
 "process of desecration of the temple and the fall of the territories. \n"
 "The souls of the three chiefs saw their shrines and the heart of \n"
@@ -101,11 +101,11 @@ TABLET_CATHEDRAL_TITLE = "Unholy Cathedral";
 TABLET_CATHEDRAL =
 "Great Cathedral of the Dark Lords was raised during the First Age of \n"
 "Ascension when the Undrax lake burst it's banks and the first Titan \n"
-"awoke from his eternal slumber. From those depths of unrecorded history our \n"
+"awoke from his eternal slumber. From those depths of unrecorded history our\n"
 "shrine aspires to the top for millennia of the Moul'Chris mountain\n"
 "glorifying names from the list of those who was chosen by our Great Master.\n"
-"Every gifted demon must pass a long service to the Cathedral if it is destined to\n"
-"become a priest, prophet, preacher, spirit leader or a battle caster \n"
+"Every gifted demon must pass a long service to the Cathedral if it is destined\n"
+"to become a priest, prophet, preacher, spirit leader or a battle caster \n"
 "in our dark warrior host. \n"
 "\n"
 "Almost all mortals who went through Hell on their own and yet were not\n"
@@ -175,7 +175,7 @@ TABLET_TIDE2 =
 "Monster creature arose from the depths of the sea and appeared in true,\n"
 "terrifying form. It opened it's all-consuming maw and devoured the fallen\n"
 "Titan. When it all ended every demon's mind was filled with a whispering of\n"
-"the Old God. And he said his name  Shub-Niggurath. Afterwards it disappeared\n"
+"the Old God. And he said his name Shub-Niggurath. Afterwards it disappeared\n"
 "Into the bloody sea. That day it was known not as almighty and we faced forces\n"
 "more powerful than could be imagined. \n"
 "\n"
@@ -185,7 +185,7 @@ TABLET_TIDE2 =
 
 TABLET_TIDE_TITLE3 = "Crimson Depths. Part 3.";
 TABLET_TIDE3 = "From the Codex of \'Twilight Times\':\n"
-"Old Gods  are incredibly evil and mighty beings that came from distant\n"
+"Old Gods are incredibly evil and mighty beings that came from distant\n"
 "black stars from the heart of the beyond darkness. Their tasks\n"
 "are oblivion, spreading the chaos and madness, destroying any life form,\n"
 "devouring every world. It is impossible to kill them because they are not alive.\n"
@@ -238,8 +238,10 @@ TABLET_DIE_3 = "Ritual is nearly finished! We must hurry! Our enemy is near!\n"
 
 TABLET_DIE_TITLE4 = "End of Days";
 TABLET_DIE_4 = "Our time has come! \n"
-"Soon the humans will suffer eternal torment as spoken of in the prophesy\n"
+"Soon the humans will suffer eternal torment as spoken of in the prophecy\n"
 "We will feast upon their souls!";
+
+
 
 
 
