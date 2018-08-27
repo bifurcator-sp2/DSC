@@ -75,8 +75,8 @@ SCRIPT "StartControl" ENTER
 			FloorAndCeiling_RaiseByValue(16, 8, 384);
 			TagWait (16);
 			Delay(35);
-			SpawnSpotFacingForced("DSCportalToMap", 200, 201);
-			SetThingSpecial(201, ACS_NamedExecute, "GotoMinistry");
+			SpawnSpotFacingForced("DSCportalToMap", 8000, 8001);
+			SetThingSpecial(8001, ACS_NamedExecute, "GotoMinistry");
 			Thing_Activate(110);
 		//} else {
 		//	Thing_Activate(111);
@@ -129,7 +129,7 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 			hudmessageBold(s:"To\n\"Prison of souls\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 10:
-			hudmessageBold(s:"To\n\"Unholy Ministry\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"To\n\"Unholy Cathedral\""; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 11:
 			hudmessageBold(s:"Fight untill 150% of progression\nto pass further"; HUDMSG_PLAIN , 0, CR_RED, 1.5, 0.6, Time*1.1);

@@ -74,8 +74,8 @@ SCRIPT "StartControl" ENTER
 	Door_Close(13, 64);
 	Door_Open(14, 16);
 	ACS_NamedExecuteAlways("Mus_L1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 999999);
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 12);
+	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999);
 	Delay(5); while(WaveOnline){ Delay(5);}	//wait for end
 	Door_Open(13, 64);
 	while(!NextWaveReady){
@@ -86,7 +86,7 @@ SCRIPT "StartControl" ENTER
 
 	for(int i = 5; i > 0; i--)
 	{
-		Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
+		ACS_NamedExecute("LevelEndingMessage", 0, i);
 		Delay(35);
 	}
 	GiveInventory("map02done", 1);

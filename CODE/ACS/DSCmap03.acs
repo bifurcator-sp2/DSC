@@ -140,7 +140,7 @@ SCRIPT "StartControl" ENTER
 
 	for(int i = 5; i > 0; i--)
 	{
-		Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
+		ACS_NamedExecute("LevelEndingMessage", 0, i);
 		Delay(35);
 	}
 	GiveInventory("map03done", 1);

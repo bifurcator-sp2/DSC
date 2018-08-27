@@ -1144,6 +1144,7 @@ Class DSCmonsterSpawner: SwitchableDecoration
 	virtual void SpawnMonsters()
 	{
 		A_SpawnItemEx("TeleportFog", flags: SXF_NOCHECKPOSITION);
+
 	}
 
 	Override void Activate(Actor activator)
@@ -1158,9 +1159,11 @@ Class DSCmonsterSpawner: SwitchableDecoration
 		//CallACS("SetACSspawnFactor", int(Cvar.GetCVar("dsc_spawn_factor", players).GetFloat()*100), 0, 0, 0);
 
 		CalcRespawnRepeats();
+
+
 		let monCount = DSCMonsterPopulation.Get();
 		if(monCount) monCount.monsterCount+=Repeats;
-		//a_logInt(RespawnChance);
+
 		Super.Activate(activator);
 	}
 
@@ -1532,6 +1535,9 @@ Class DSCweaponSpawner   : SwitchableDecoration
 		Weapons.Push("PlasmaRifle");
 		Weapons.Push("BFG9000");
 
+			//PlayerInfo player = players[consoleplayer];
+			//a_log(player.mo.GetClassName());
+
 		Super.PostBeginPlay();
 	}
 	virtual void InitDestroyer()
@@ -1551,13 +1557,17 @@ Class DSCweaponSpawner   : SwitchableDecoration
 		Active:
 			TNT1 A 1;
 			TNT1 A 1 a_jump(200, "Active");//random delay
-			TNT1 A 1
-			{
+			TNT1 A 1 InitDestroyer();
+			TNT1 A 10;
+			TNT1 A 0 {
 				droppedWeapon = CallACS("GetWeaponGotIDforWeaponSpawner",0,0,0);
-				InitDestroyer();
 				A_SpawnItemEx( "WeaponMarker", 0, 0, 0, 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
 				A_SpawnItemEx( "ItemSpawnFog", 0, 0, 0, 0, 0, 0,0,SXF_NOCHECKPOSITION, 0, 0);
-				A_SpawnItemEx( Weapons[droppedWeapon], 0, 0, 0, 0, 0, 0,0,SXF_NOCHECKPOSITION | SXF_SETMASTER, 0, 666667);
+				//A_SpawnItemEx( Weapons[droppedWeapon], 0, 0, 0, 0, 0, 0,0,SXF_NOCHECKPOSITION | SXF_SETMASTER, 0, 666667);
+
+				Actor AspawnedWeapon = Spawn( Weapons[droppedWeapon], self.pos, ALLOW_REPLACE );
+
+
 			}
 			Goto Inactive;
 	}

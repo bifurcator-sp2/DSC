@@ -243,9 +243,15 @@ TABLET_DIE_4 = "Our time has come! \n"
 
 
 
-
-
-
-
+MAP_ENDING_TEXT1 = "Your DOOM will resume \nin ";
+MAP_ENDING_TEXT2 = "This plane of existance will be desintegrated \nin ";
+MAP_ENDING_TEXT3 = "This circle of Hell will collapse \nin ";
+MAP_ENDING_TEXT4 = "You will be teleported out \nin ";
+MAP_ENDING_TEXT5 = "Recall procedure will begin \nin ";
+MAP_ENDING_TEXT6 = "This place will be devoured \nin ";
+MAP_ENDING_TEXT7 = "Please wait for the extraction \nin ";
+MAP_ENDING_TEXT8 = "Leaving this place \nin ";
+MAP_ENDING_TEXT9 = "Preparing to teleportation \nin ";
+MAP_ENDING_TEXT10 = "Opening the return portal \nin ";
 
 

@@ -440,7 +440,7 @@ script "AllSaintsRaised" (int tid){
 	for(int i = 5; i > 0; i--)
 	{
 		allsaintsRaised = true;
-		PrintBold(s:"Well done!\nYour personal HELL will restart \nin ",d:i,s:" seconds");
+		ACS_NamedExecute("LevelEndingMessage", 0, i);
 		Delay(35);
 	}
 	TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);

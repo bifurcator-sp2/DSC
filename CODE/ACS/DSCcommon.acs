@@ -2,9 +2,12 @@ Bool WaveOnline = false;
 
 bool PlayerInVaquum = false;
 bool PlayerInAirlock = true;
+bool ExternalCamera;
+str MapEndText;
 
 script "enterfade" enter
 {
+	MapEndText = StrParam(l:"MAP_ENDING_TEXT");
 	Autosave();
 	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
 	Delay(1);
@@ -13,6 +16,7 @@ script "enterfade" enter
 	for(int i = 0; i<=9; i++){SoundVolume (0, i, 0.0);}
 }
 int totalsound=0;
+
 script "enterSOUNDin" enter
 {
 	delay(15);
@@ -184,6 +188,7 @@ script "ThingActivateBroken" (int tid, int tics, int interval){
 	Thing_Activate(tid);
 }
 script "LookAt" (int CameraTid, int TimeTics){
+	ExternalCamera = true;
 	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
 	Thing_Activate(CameraTid);
 	ChangeCamera(CameraTid, 0, 0);
@@ -194,6 +199,7 @@ script "LookAt" (int CameraTid, int TimeTics){
 	SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
 	ChangeCamera(0, 0, 0);
 	ACS_NamedExecuteAlways("FadeInMusicFast", 0);
+	ExternalCamera = false;
 }
 function bool DoorClosed(int Tid){
 	if(GetSectorCeilingZ(Tid, 0, 0)==GetSectorFloorZ(Tid, 0 ,0)){
@@ -672,7 +678,7 @@ script "DemogliphStarted" (void) {
 	if(demogliphStarted){ SetResultValue(1);} else {SetResultValue(0);}
 }
 
-bool ExternalCamera;
+
 SCRIPT "DemoMap" (int CamTID){
 	ExternalCamera = true;
 	SetPlayerProperty(1, 1, PROP_TOTALLYFROZEN);
@@ -791,5 +797,41 @@ SetPlayerProperty(1,0,PROP_TOTALLYFROZEN);
 
 
 
+SCRIPT "LevelEndingMessage" (int sec){
+	str Text;
+	switch (random(1, 10)) {
+		case 1:
+			Text = StrParam(l:"MAP_ENDING_TEXT1");
+			break;
+		case 2:
+			Text = StrParam(l:"MAP_ENDING_TEXT2");
+			break;
+		case 3:
+			Text = StrParam(l:"MAP_ENDING_TEXT3");
+			break;
+		case 4:
+			Text = StrParam(l:"MAP_ENDING_TEXT4");
+			break;
+		case 5:
+			Text = StrParam(l:"MAP_ENDING_TEXT5");
+			break;
+		case 6:
+			Text = StrParam(l:"MAP_ENDING_TEXT6");
+			break;
+		case 7:
+			Text = StrParam(l:"MAP_ENDING_TEXT7");
+			break;
+		case 8:
+			Text = StrParam(l:"MAP_ENDING_TEXT8");
+			break;
+		case 9:
+			Text = StrParam(l:"MAP_ENDING_TEXT9");
+			break;
+		case 10:
+			Text = StrParam(l:"MAP_ENDING_TEXT10");
+			break;
 
+	}
+	PrintBold(s:Text,d:sec,s:" seconds");
+}
 

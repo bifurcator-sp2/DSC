@@ -149,16 +149,19 @@ script "invuBONUS" (void){
 }
 
 script "ammoRespawnedIn" (int time){
+	int val;
 	if(GetUserCVar(0, "dsc_heroic_mode")==true){
-		int val = FixedDiv(AmmoRecallBaseTime, GetUserCVar(0, "dsc_spawn_factor"));
-		Log(s:"Ammo supply respawned in ", d:AmmoRecallBaseTime, s:" sec");
+		val = FixedDiv(AmmoRecallBaseTime, GetUserCVar(0, "dsc_spawn_factor"));
+		Log(s:"Ammo supply respawned in ", d:val, s:" sec");
 		Terminate;
 	}
 
 	if(DSCplayerRank>=4){
-		Log(s:"Gunner: Ammo supply respawned in ", d:time, s:" sec");
+		val = FixedDiv(time, GetUserCVar(0, "dsc_spawn_factor"));
+		Log(s:"Gunner: Ammo supply respawned in ", d:val, s:" sec");
 	} else {
-		Log(s:"Ammo supply respawned in ", d:AmmoRecallBaseTime, s:" sec");
+		val = FixedDiv(AmmoRecallBaseTime, GetUserCVar(0, "dsc_spawn_factor"));
+		Log(s:"Ammo supply respawned in ", d:val, s:" sec");
 	}
 }
 script "GetAmmoRecallTime" (void){
@@ -177,7 +180,8 @@ script "GetAmmoRecallTime" (void){
 }
 
 script "AidRespawned" (int time){
-	Log(s:"Healing heart respawned in ", d:time, s:" sec");
+	int val = FixedDiv(time, GetUserCVar(0, "dsc_spawn_factor"));
+	Log(s:"Healing heart respawned in ", d:val, s:" sec");
 }
 script "GetAIDhealthRecallTime" (void){
 	int val;
@@ -500,10 +504,13 @@ Script "DisplayRankInfo" ENTER
 	}
 }
 script "DisplayNextRank" (void){
-	if(GetCVar("dsc_heroic_mode")==true){ terminate;}
-
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){ terminate;}
+	if(ExternalCamera){  terminate; }
 
 	if(!RankMenueOnScreen){
+
+
+
 		Pause();
 		RankMenueOnScreen = true;
 		int NewRank = getRank();

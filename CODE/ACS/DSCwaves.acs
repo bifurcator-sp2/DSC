@@ -231,6 +231,7 @@ function int GetTotalMonsters(void)
 {
 
 	if (!BEorvanilla()){
+		if(SpawnedMonstersOnTheMap<0){SpawnedMonstersOnTheMap=0;}
 		return SpawnedMonstersOnTheMap;
 	}
 	return ThingCount(T_NONE, 666666);
@@ -316,9 +317,9 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 		}
 		if( ScullTag != 888888 ){
 			if(!NOspawn){ //debug thing
-				//PrintBold(d:WaveDelay/35);
+				//PrintBold(i:WaveDelay);
 				Delay(WaveDelay);
-
+				//PrintBold(s:"delayed");
 			}
 			while ( GetTotalMonsters()>0){ Delay(35); }
 			//AmbientSound("WAVEDONE",127);

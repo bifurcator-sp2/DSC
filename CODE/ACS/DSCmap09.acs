@@ -187,7 +187,7 @@ Script "SatartFirstWave" (void){
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
 		for(int i = 5; i > 0; i--)
 		{
-			Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
+			ACS_NamedExecute("LevelEndingMessage", 0, i);
 			Delay(35);
 		}
 		GiveInventory("map09done", 1);
