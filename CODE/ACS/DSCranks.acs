@@ -22,6 +22,7 @@ int OldPlayerHealth;
 
 //DSCplayerRank = 9;
 script "SerialKiller" (int amount){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
 	int RealAmount = random(amount, amount*3);
 	//do something with amount of kills
 	//DSCHealthBonus
@@ -32,6 +33,7 @@ script "SerialKiller" (int amount){
 	Log(s:"Killing Machine: ", d:RealAmount);
 }
 script "strongholdBonus" (void){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
 	if(DSCplayerRank>=5){
 		if(Random(1, 100)<=StrongHoldChance){
 			GiveActorInventory(0, "DSCarmorBonus10", 1);
@@ -40,6 +42,7 @@ script "strongholdBonus" (void){
 	}
 }
 script "strongholdHealArmorBonus" (void){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
 	if(DSCplayerRank>=5){
 		GiveActorInventory(0, "DSCarmorBonus5", 1);
 		Log(s:"Stronghold: Healing heart gives Armor Bonus 5%");
@@ -47,6 +50,7 @@ script "strongholdHealArmorBonus" (void){
 	}
 }
 script "strongholdScullArmorBonus" (void){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
 	if(DSCplayerRank>=5){
 		GiveActorInventory(0, "DSCarmorBonus5", 1);
 		Log(s:"Stronghold: Mystic Skull gives Armor Bonus 5%");
@@ -55,6 +59,7 @@ script "strongholdScullArmorBonus" (void){
 }
 
 script "berserkBONUS" (void){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
 	if(DSCplayerRank>=6){
 		if(Random(1, 100)<=berserkBonusChance){
 			//GiveActorInventory(0, "Berserk", 1);
@@ -65,6 +70,7 @@ script "berserkBONUS" (void){
 }
 
 script "MasterofSurvival" enter{
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){ delay(5); restart; }
 	if(DSCplayerRank>=1){
 		if(GetActorProperty (0, APROP_HEALTH)<OldPlayerHealth && GetActorProperty (0, APROP_HEALTH)<25){
 			if(random(0, 100)<50){
@@ -81,6 +87,7 @@ script "MasterofSurvival" enter{
 
 
 script "BoneCollector" (void){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
 	if(DSCplayerRank>=3 && random(0, 100)<30)	{
 		Log(s:"Bone Collector: Health and Ammo respawned.");
 		SetResultValue(1);
@@ -91,6 +98,7 @@ script "BoneCollector" (void){
 
 
 script "invisBONUS" (void){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
 	if(DSCplayerRank>=6){
 		if(Random(1, 100)<=invisBonusChance){
 			SpawnSpotFacingForced ("BlurSphere", 0, 0);
@@ -102,6 +110,7 @@ script "invisBONUS" (void){
 
 bool TimeFreezed = 0;
 script "TimeStopAmbience" enter {
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){ delay(5); restart; }
 	if(TimeFreezed){
 		PlaySound(0, "misc/TimestopLoop", CHAN_ITEM, 1.0, true, ATTN_NONE);
 		while(TimeFreezed){
@@ -114,6 +123,7 @@ script "TimeStopAmbience" enter {
 }
 
 script "timeFreezeBONUS" (void){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
 	if(DSCplayerRank>=7){
 		if(Random(1, 100)<=PowerTimeFreezerChance){
 			GiveInventory("PowerTimeFreezer",1);
@@ -128,6 +138,7 @@ script "timeFreezeBONUS" (void){
 
 
 script "invuBONUS" (void){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
 	if(DSCplayerRank>=8){
 		if(Random(1, 100)<=invuBonusChance){
 			//GiveActorInventory(0, "InvulnerabilitySphere", 1);
@@ -138,6 +149,12 @@ script "invuBONUS" (void){
 }
 
 script "ammoRespawnedIn" (int time){
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){
+		int val = FixedDiv(AmmoRecallBaseTime, GetUserCVar(0, "dsc_spawn_factor"));
+		Log(s:"Ammo supply respawned in ", d:AmmoRecallBaseTime, s:" sec");
+		Terminate;
+	}
+
 	if(DSCplayerRank>=4){
 		Log(s:"Gunner: Ammo supply respawned in ", d:time, s:" sec");
 	} else {
@@ -145,8 +162,14 @@ script "ammoRespawnedIn" (int time){
 	}
 }
 script "GetAmmoRecallTime" (void){
+	int val;
+
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){
+		SetResultValue(AmmoRecallBaseTime); Terminate;
+	}
+
 	if(DSCplayerRank>=4){
-		int val = AmmoRecallBaseTime - fixedmul(AmmoRecallBaseTime, 0.5);
+		val = AmmoRecallBaseTime - fixedmul(AmmoRecallBaseTime, 0.5);
 		SetResultValue(val);
 	} else {
 		SetResultValue(AmmoRecallBaseTime);
@@ -158,22 +181,11 @@ script "AidRespawned" (int time){
 }
 script "GetAIDhealthRecallTime" (void){
 	int val;
-	/*if(DSCplayerRank==0){
-		//Log(s:"Health respawned in ", d:AIDhealthRecallBaseTime);
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){
 		SetResultValue(AIDhealthRecallBaseTime);
+		Terminate;
 	}
-	if(DSCplayerRank==1){
-		//val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.15) >> 16);
-		//Log(s:"Vitality 3/1: Health respawned in ", d:val);
-		//SetResultValue(val);
-		SetResultValue(AIDhealthRecallBaseTime);
-	}
-	if(DSCplayerRank==2){
-		//val = AIDhealthRecallBaseTime - ((AIDhealthRecallBaseTime * 0.3) >> 16);
-		//Log(s:"Vitality 3/2: Health respawned in ", d:val);
-		//SetResultValue(val);
-		SetResultValue(AIDhealthRecallBaseTime);
-	}*/
+
 	if(DSCplayerRank>=2){
 		val = AIDhealthRecallBaseTime - FixedMul(AIDhealthRecallBaseTime, 0.5);
 		//Log(s:"Vitality 3/3: Health respawned in ", d:val);
@@ -199,6 +211,12 @@ script "GetAIDhealthAmount" (void){
 		Log(s:"Vitality 2/3: Health bonus ", d:val);
 		SetResultValue(val);
 	}*/
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){
+		Log(s:"Health bonus ", i:DSCbaseHealthBonus, s:"%");
+		SetResultValue(DSCbaseHealthBonus);
+		Terminate;
+	}
+
 	if(DSCplayerRank>=2){
 		val = DSCbaseHealthBonus + ((DSCbaseHealthBonus * 0.5) >> 16);
 		Log(s:"Vitality: Health bonus ", d:val, s:"%");
@@ -210,6 +228,9 @@ script "GetAIDhealthAmount" (void){
 }
 script "AbsorbHealth" (int HealthAmount){
 	//HealthAmount  = killed monster default health
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){
+		Terminate;
+	}
 	switch (DSCplayerRank) {
 		case 9:
 			int val = FixedMul(HealthAmount, 0.05);
@@ -232,6 +253,11 @@ script "SetConsoleRank" enter {
 		AmmoMaxRnd = 3;
 		WeaponGotID = 5;
 		TotalKills = 15000;
+	}
+	if(GetUserCVar(0, "dsc_heroic_mode")==true){
+		SetCVar("dsc_player_rank", -1);
+		delay(1);
+		restart;
 	}
 	if(GetCVar("dsc_player_rank")>=0){
 		DSCplayerRank = GetCVar("dsc_player_rank");
@@ -434,6 +460,14 @@ Script "DisplayRankInfo" ENTER
 
 	while (TRUE) {
 		if(ExternalCamera){ Delay(35); continue;}
+
+		if(GetCVar("dsc_heroic_mode")==true){
+			HudMessage(s:"";HUDMSG_PLAIN,776,CR_DARKRED,0.2,0.02,1,0);
+			HudMessage(s:"";HUDMSG_PLAIN,777,CR_DARKRED,0.2,0.02,1,0);
+			HudMessage(s:"";HUDMSG_PLAIN,778,CR_DARKRED,0.2,0.02,1,0);
+			Delay(35); continue;
+		}
+
 		int TK = TotalKills+GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
 		int mtotal = GetTotalMonsters();
 		if(!WaveOnline && DSCscreenFade==0){
@@ -466,6 +500,9 @@ Script "DisplayRankInfo" ENTER
 	}
 }
 script "DisplayNextRank" (void){
+	if(GetCVar("dsc_heroic_mode")==true){ terminate;}
+
+
 	if(!RankMenueOnScreen){
 		Pause();
 		RankMenueOnScreen = true;

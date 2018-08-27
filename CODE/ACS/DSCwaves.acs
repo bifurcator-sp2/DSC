@@ -31,6 +31,7 @@ bool waitForScullSpawnedMassage = false;
 int KilledWaveStart = 0;
 int killedPerWave = 0;
 bool LastWave = false;//indicator for DoomSlayerGliph spawn
+int WaveDelay = 350;//time of wave spawn with iterations
 
 bool NOspawn = false; //dev staff
 
@@ -284,7 +285,10 @@ Script "DisplayInfo" ENTER
 		Delay(35);
 	}
 }
-//TotalKills
+
+script "SetWaveDelay" (int WDelay) { //setter from z-script
+	WaveDelay = WDelay;
+}
 
 script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 {
@@ -312,7 +316,9 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag)
 		}
 		if( ScullTag != 888888 ){
 			if(!NOspawn){ //debug thing
-				Delay(35*30);
+				//PrintBold(d:WaveDelay/35);
+				Delay(WaveDelay);
+
 			}
 			while ( GetTotalMonsters()>0){ Delay(35); }
 			//AmbientSound("WAVEDONE",127);

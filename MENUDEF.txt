@@ -10,7 +10,13 @@ OptionMenu "DSCMenu"
 	Slider "Monster spawn factor", dsc_spawn_factor, 1, 5, 0.1
 	StaticText "Amount of monsters"
 	StaticText "to spawn from each spawner"
+	StaticText "Recomended value for most MODS is 1.3"
 	StaticText ""
+	Option "Heroic mode", dsc_heroic_mode, "OnOff"
+	StaticText "disables DSC system of ranks and abilities"
+	StaticText "Gameplay becomes more difficult"
+	StaticText ""
+
 	Option "Filmic Tonemap", dpwh_filmictonemap, "OnOff"
 	Option "Film Grain",dpwh_filmgrain, "OnOff"
 	Option "Cubic Chromatic Aberration", dpwh_chromaticAberration, "OnOff"

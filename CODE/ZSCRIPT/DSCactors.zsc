@@ -731,7 +731,11 @@ Class AIDSpawner : Actor
 	{
 		giveHealthCount = 1;
 		timerCount = 0;
-		timerWaitForAgainHealingInSec = 35*CallACS("GetAIDhealthRecallTime",0,0,0);
+
+		PlayerInfo players = players[consoleplayer];
+		int spawnFactor =  Cvar.GetCVar("dsc_spawn_factor", players).GetInt();
+
+		timerWaitForAgainHealingInSec = 35*CallACS("GetAIDhealthRecallTime",0,0,0)/spawnFactor;
 		alreadyHealed = false;
 		Super.PostBeginPlay();
 	}
@@ -748,7 +752,11 @@ Class AIDSpawner : Actor
 	{
 		if(alreadyHealed)
 		{
-			timerWaitForAgainHealingInSec = 35*CallACS("GetAIDhealthRecallTime",0,0,0);
+			PlayerInfo players = players[consoleplayer];
+			int spawnFactor =  Cvar.GetCVar("dsc_spawn_factor", players).GetInt();
+
+			timerWaitForAgainHealingInSec = 35*CallACS("GetAIDhealthRecallTime",0,0,0)/spawnFactor;
+
 			if(timerCount > timerWaitForAgainHealingInSec)
 			{
 				CallACS("AidRespawned",CallACS("GetAIDhealthRecallTime",0,0,0),0,0);
@@ -984,7 +992,8 @@ Class DSCammoSpawner : Actor
 	}
 	Override void PostBeginPlay()
 	{
-		timerWaitForAgainGiveAmmo= 35*CallACS("GetAmmoRecallTime",0,0,0);
+		//timerWaitForAgainGiveAmmo= 35*CallACS("GetAmmoRecallTime",0,0,0);
+		//a_logInt(CallACS("GetAmmoRecallTime",0,0,0));
 		clockForAmmo = 0;
 		AMMOgived = false;
 
@@ -1012,6 +1021,11 @@ Class DSCammoSpawner : Actor
 
 	Override void Tick()
 	{
+		PlayerInfo players = players[consoleplayer];
+		int spawnFactor =  Cvar.GetCVar("dsc_spawn_factor", players).GetInt();
+
+			timerWaitForAgainGiveAmmo = 35*CallACS("GetAmmoRecallTime",0,0,0)/spawnFactor;
+			//a_logFloat(timerWaitForAgainGiveAmmo);
 			if(AMMOgived){
 				clockForAmmo = clockForAmmo+1;
 				if(clockForAmmo == timerWaitForAgainGiveAmmo){
@@ -1023,7 +1037,8 @@ Class DSCammoSpawner : Actor
 				}
 			} else {
 
-				if(CheckSight(players[0].mo, 0)){
+				//if(CheckSight(players[0].mo, 0)){
+				if(CheckSight(players.mo, 0)){
 					A_SpawnItemEx("GiveAMMOsparckle", random(-4, 4), random(-4, 4), random(32, 40), frandom(-0.5,0.5), frandom(-0.5,0.5), frandom(1,2),128,SXF_NOCHECKPOSITION);
 				}
 			}
@@ -1090,7 +1105,7 @@ Class DSCmonsterSpawner: SwitchableDecoration
 	{
 		RespawnChance = !args[0] ? 0 : args[0];
 		MinDelayInSec = 1;
-		MaxDelayInSec = 5;
+		MaxDelayInSec = 10;
 
 
 		Super.PostBeginPlay();
@@ -1136,12 +1151,16 @@ Class DSCmonsterSpawner: SwitchableDecoration
 		FillMonsters();
 		RandomDelay = Random(MinDelayInSec*35, MaxDelayInSec*35);
 		PlayerInfo players = players[consoleplayer];
-		RespawnCorrectionFactor = Cvar.GetCVar("dsc_spawn_factor", players).GetInt()-1;
+		RespawnCorrectionFactor = Cvar.GetCVar("dsc_spawn_factor", players).GetFloat()-1;
 		RespawnChance = RespawnChance + (CallACS("GetAttempt",0,0,0)?CallACS("GetAttempt",0,0,0):1)*RespawnCorrectionFactor*100;
+
+		CallACS("SetWaveDelay", (RespawnChance/100+1)*MaxDelayInSec*35, 0, 0, 0);
+		//CallACS("SetACSspawnFactor", int(Cvar.GetCVar("dsc_spawn_factor", players).GetFloat()*100), 0, 0, 0);
+
 		CalcRespawnRepeats();
 		let monCount = DSCMonsterPopulation.Get();
 		if(monCount) monCount.monsterCount+=Repeats;
-		a_logInt(RespawnChance);
+		//a_logInt(RespawnChance);
 		Super.Activate(activator);
 	}
 
