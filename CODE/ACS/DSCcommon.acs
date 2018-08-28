@@ -17,7 +17,8 @@ script "ResetControl" ENTER
 		SetUserCVar(0, "dpwh_naturalVignette", false);
 
 	}
-
+	delay(1);
+	restart;
 }
 
 script "enterfade" enter

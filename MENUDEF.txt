@@ -24,7 +24,8 @@ OptionMenu "DSCMenu"
 	Option "Cubic Chromatic Aberration", dpwh_chromaticAberration, "OnOff"
 
 	StaticText ""
-	SafeCommand "Reset to defaults", "dsc_restore_defaults 1" , "Do you really want to restore default settings?"
+	SafeCommand "Reset to defaults", "set dsc_restore_defaults 1" , "Do you really want to restore default settings?"
+	StaticText "Need back to game to apply"
 
 	//Option "Vignette", dpwh_naturalVignette, "OnOff"
 }
