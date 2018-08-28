@@ -33,6 +33,7 @@ SCRIPT "SpawnFirstScull" (void){
 }
 SCRIPT "StartControl" ENTER
 {
+
 	//test!!!!!!!!!!
 	/*CurrentWave = 35;
 	AmmoMaxRnd = 3;

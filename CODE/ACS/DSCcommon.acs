@@ -5,9 +5,24 @@ bool PlayerInAirlock = true;
 bool ExternalCamera;
 str MapEndText;
 
+script "ResetControl" ENTER
+{
+	if(GetUserCVar(0, "dsc_restore_defaults")==true){
+		SetUserCVar(0, "dsc_restore_defaults", false);
+
+		SetUserCVar(0, "dsc_spawn_factor", 1.3);
+		SetUserCVar(0, "dsc_heroic_mode", false);
+		SetUserCVar(0, "dpwh_filmictonemap", true);
+		SetUserCVar(0, "dpwh_chromaticAberration", true);
+		SetUserCVar(0, "dpwh_naturalVignette", false);
+
+	}
+
+}
+
 script "enterfade" enter
 {
-	MapEndText = StrParam(l:"MAP_ENDING_TEXT");
+	//MapEndText = StrParam(l:"MAP_ENDING_TEXT");
 	Autosave();
 	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
 	Delay(1);
@@ -798,6 +813,8 @@ SetPlayerProperty(1,0,PROP_TOTALLYFROZEN);
 
 
 SCRIPT "LevelEndingMessage" (int sec){
+
+	if(MapEndText){PrintBold(s:MapEndText,d:sec,s:" seconds");Terminate;}
 	str Text;
 	switch (random(1, 10)) {
 		case 1:
@@ -832,6 +849,7 @@ SCRIPT "LevelEndingMessage" (int sec){
 			break;
 
 	}
+	MapEndText = Text;
 	PrintBold(s:Text,d:sec,s:" seconds");
 }
 
