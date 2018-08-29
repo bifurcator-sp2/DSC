@@ -1,3 +1,5 @@
 addmenukey "DSC Rank menu" dscRankMenu
 alias dscRankMenu"pukename DisplayNextRank"
 defaultbind I dscRankMenu
+
+Alias "DcsRestoreDefaults" "dsc_spawn_factor 1.5; dsc_heroic_mode false; dpwh_filmictonemap true; dpwh_chromaticAberration true; dpwh_filmgrain false; dpwh_naturalVignette false"

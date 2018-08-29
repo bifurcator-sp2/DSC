@@ -12,7 +12,7 @@ OptionMenu "DSCMenu"
 	StaticText "Amount of monsters"
 	StaticText "to spawn from each spawner."
 	StaticText "Accelerates ammo and health respawn ."
-	StaticText "Recomended value for most MODS is 1.3"
+	StaticText "Recomended value for most MODS is 1.5"
 	StaticText ""
 	Option "Heroic mode", dsc_heroic_mode, "OnOff"
 	StaticText "disables DSC system of ranks and abilities"
@@ -24,8 +24,8 @@ OptionMenu "DSCMenu"
 	Option "Cubic Chromatic Aberration", dpwh_chromaticAberration, "OnOff"
 
 	StaticText ""
-	SafeCommand "Reset to defaults", "set dsc_restore_defaults 1" , "Do you really want to restore default settings?"
-	StaticText "Need back to game to apply"
+	SafeCommand "Reset to defaults", "DcsRestoreDefaults" , "Do you really want to restore default settings?"
+
 
 	//Option "Vignette", dpwh_naturalVignette, "OnOff"
 }

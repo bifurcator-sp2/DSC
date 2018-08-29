@@ -343,9 +343,9 @@ function str getRankString (int rank){
 		case 5:
 			return "Tyrant";
 		case 6:
-			return "Hell Walker";
+			return "Demon Hunter";
 		case 7:
-			return "Timelord";
+			return "Hell Walker";
 		case 8:
 			return "Doom Slayer";
 		case 9:
@@ -794,7 +794,7 @@ SCRIPT "AchiveKillInSEc1Counter" (void)
 
 
 Script "TimeKillVoiceSec1" (int soundID){
-	ACS_NamedExecuteAlways("MuteMusic", 0, 35+15);
+	//ACS_NamedExecuteAlways("MuteMusic", 0, 35+15);
 	delay(15);
 	for(int i = 0; i<=9; i++){
 		SoundVolume (0, i, 0.0);
