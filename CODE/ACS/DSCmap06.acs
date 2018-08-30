@@ -217,10 +217,10 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 	switch (HelpID) {
 		case 1:
 
-			hudmessageBold(s:"Dive into the blood pool."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"Dive into the blood pool.\nIn first time you lose your equipment."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*2.1);
 			break;
 		case 2:
-			hudmessageBold(s:"Now you can play\n\"The bloody tide\"\nWithout reset of inventory."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+			hudmessageBold(s:"Now you can play\n\"Crimson depths\"\nWithout reset of inventory."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
 			break;
 		case 3:
 			hudmessageBold(s:"Now you can travel\n\across played episodes."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);

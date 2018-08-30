@@ -99,7 +99,7 @@ script "BoneCollector" (void){
 
 script "invisBONUS" (void){
 	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
-	if(DSCplayerRank>=6){
+	if(DSCplayerRank>=7){
 		if(Random(1, 100)<=invisBonusChance){
 			SpawnSpotFacingForced ("BlurSphere", 0, 0);
 			//GiveActorInventory(0, "BlurSphere", 1);
@@ -124,7 +124,7 @@ script "TimeStopAmbience" enter {
 
 script "timeFreezeBONUS" (void){
 	if(GetUserCVar(0, "dsc_heroic_mode")==true){terminate;}
-	if(DSCplayerRank>=7){
+	if(DSCplayerRank>=6){
 		if(Random(1, 100)<=PowerTimeFreezerChance){
 			GiveInventory("PowerTimeFreezer",1);
 			AmbientSound("misc/TimestopStart", 1.0);
@@ -369,9 +369,9 @@ function str getRankAchive (int rank){
 		case 5:
 			return "Stronghold";
 		case 6:
-			return "Spectre";
-		case 7:
 			return "Timelord";
+		case 7:
+			return "Spectre";
 		case 8:
 			return "Iron Will";
 		case 9:
@@ -394,9 +394,9 @@ function str getRankAchiveInfo (int rank){
 		case 5:
 			return "10% chance to get 10% armor for kill.\nHealing Heart and Mystic Skull gives 5% armor";
 		case 6:
-			return "3% chance to get INVISIBILITY\nfor each kill.";
-		case 7:
 			return "2% chance to stop time\nfor 12 seconds for each kill.";
+		case 7:
+			return "3% chance to get INVISIBILITY\nfor each kill.";
 		case 8:
 			return "3% chance to get INVULNERABILITY\nfor each kill.";
 		case 9:

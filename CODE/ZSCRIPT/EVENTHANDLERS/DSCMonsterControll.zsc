@@ -119,6 +119,20 @@ Class DSCMonstersEvent : EventHandler
 		monsterCounter = monCount.monsterCount;
 		//if ( !(level.mapName == "TITLEMAP") ) players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
 		if ( !(level.mapName == "TITLEMAP") && level.mapName.Left(6) == "DSCMAP" ) players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
+
+
+		if(Cvar.GetCVar("dsc_zfinish_wave", players).GetInt()){
+			Cvar.GetCVar("dsc_zfinish_wave", players).SetInt(0);
+			let monCount = DSCMonsterPopulation.Get();
+			if(monCount) monCount.monsterCount = 0;
+
+			ThinkerIterator it = ThinkerIterator.Create("DSCmonsterSpawner");
+			DSCmonsterSpawner this;
+			while(this = DSCmonsterSpawner(it.Next())){
+				this.Repeats = 0;
+			}
+
+		}
 	}
 
 /*	override void WorldThingRevived(WorldEvent e)

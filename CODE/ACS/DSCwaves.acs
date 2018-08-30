@@ -57,7 +57,18 @@ script "DeathBufFIX" DEATH  {
 }
 
 
-
+script  "FinishWaveFromMenue" enter
+{
+	if(GetUserCVar(0, "dsc_finish_wave")==true){
+		SetUserCVar(0, "dsc_finish_wave", false);
+		SpawnedMonstersOnTheMap = 0;
+		Log(s:"You used an emergency stop of the wave.");
+		Log(s:"You may have to wait for the mystical skull to appear.");
+		PrintBold(s:"You used an emergency stop of the wave.\nYou may have to wait for the mystical skull to appear.");
+	}
+	delay(1);
+	restart;
+}
 
 Script "GetAmmoSlot" (void)
 {
@@ -147,32 +158,32 @@ Script "GetWeaponGotIDforWeaponSpawner" (void)
 Script "DisplaySpawnedWeaponMessage" (int WeaponID){
 	switch (WeaponID) {
 		case 1:
-			HudMessageBold(s:"Shotgun spawned";
+			HudMessageBold(s:"Slot 3 weapon spawned";
 				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
 			//PrintBold(s:"Shotgun spawned");
 			break;
 		case 2:
-			HudMessageBold(s:"SuperShotgun spawned";
+			HudMessageBold(s:"Slot 3-1 weapon spawned";
 				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
 			//PrintBold(s:"SuperShotgun spawned");
 			break;
 		case 3:
-			HudMessageBold(s:"Chaingun spawned";
+			HudMessageBold(s:"Slot 4 weapon spawned";
 				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
 			//PrintBold(s:"Chaingun spawned");
 			break;
 		case 4:
-			HudMessageBold(s:"RocketLauncher spawned";
+			HudMessageBold(s:"Slot 5 weapon spawned";
 				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
 			//PrintBold(s:"RocketLauncher spawned");
 			break;
 		case 5:
-			HudMessageBold(s:"PlasmaRifle spawned";
+			HudMessageBold(s:"Slot 6 weapon spawned";
 				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
 			//PrintBold(s:"PlasmaRifle spawned");
 			break;
 		case 6:
-			HudMessageBold(s:"BFG9000 spawned";
+			HudMessageBold(s:"Slot 7 weapon spawned";
 				HUDMSG_PLAIN, 8005, CR_ORANGE, 0.5, 0.6, 5.0);
 			//PrintBold(s:"BFG9000 spawned");
 			break;

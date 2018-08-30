@@ -11,7 +11,8 @@ user float dsc_spawn_factor = 1.3;
 user int dsc_episode1_done  = 0;
 user bool dsc_heroic_mode = false;
 user bool dsc_restore_defaults = false;
-
+user bool dsc_finish_wave = false;
+user bool dsc_zfinish_wave = false;
 
 server int user_MaxDrawDistanceAMMOsparks = 1024;
 server int user_MaxDrawDistanceHaze = 4096;

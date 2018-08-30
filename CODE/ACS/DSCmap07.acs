@@ -10,6 +10,12 @@ bool water_lowered2 = false;
 bool WayToUnderbloodUnblocked = false;
 script "StartControl" ENTER
 {
+
+		if(TotalKills >0 && TotalKills < 800){
+			DSCplayerRank = 5;
+			TotalKills = 850;
+		}
+
 	//HellThunderPaused = true;
 
 	Thing_Deactivate(100);
