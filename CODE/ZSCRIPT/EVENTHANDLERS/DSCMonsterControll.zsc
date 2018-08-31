@@ -121,10 +121,12 @@ Class DSCMonstersEvent : EventHandler
 		if ( !(level.mapName == "TITLEMAP") && level.mapName.Left(6) == "DSCMAP" ) players.mo.Acs_NamedExecuteAlways("NewMonsterIsSpawned",0,monsterCounter);
 
 
-		if(Cvar.GetCVar("dsc_zfinish_wave", players).GetInt()){
+		if(Cvar.GetCVar("dsc_zfinish_wave", players).GetInt()>0){
+			//players.a_logINT(Cvar.GetCVar("dsc_zfinish_wave", players).GetInt());
 			Cvar.GetCVar("dsc_zfinish_wave", players).SetInt(0);
 			let monCount = DSCMonsterPopulation.Get();
 			if(monCount) monCount.monsterCount = 0;
+			//players.a_logINT(Cvar.GetCVar("dsc_zfinish_wave", players).GetInt());
 
 			ThinkerIterator it = ThinkerIterator.Create("DSCmonsterSpawner");
 			DSCmonsterSpawner this;
