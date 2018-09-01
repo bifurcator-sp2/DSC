@@ -152,16 +152,16 @@ script "ammoRespawnedIn" (int time){
 	int val;
 	if(GetUserCVar(0, "dsc_heroic_mode")==true){
 		val = FixedDiv(AmmoRecallBaseTime, GetUserCVar(0, "dsc_spawn_factor"));
-		Log(s:"Ammo supply respawned in ", d:val, s:" sec");
+		//Log(s:"Ammo supply respawned in ", d:val, s:" sec");
 		Terminate;
 	}
 
 	if(DSCplayerRank>=4){
 		val = FixedDiv(time, GetUserCVar(0, "dsc_spawn_factor"));
-		Log(s:"Gunner: Ammo supply respawned in ", d:val, s:" sec");
+		//Log(s:"Gunner: Ammo supply respawned in ", d:val, s:" sec");
 	} else {
 		val = FixedDiv(AmmoRecallBaseTime, GetUserCVar(0, "dsc_spawn_factor"));
-		Log(s:"Ammo supply respawned in ", d:val, s:" sec");
+		//Log(s:"Ammo supply respawned in ", d:val, s:" sec");
 	}
 }
 script "GetAmmoRecallTime" (void){
@@ -181,7 +181,7 @@ script "GetAmmoRecallTime" (void){
 
 script "AidRespawned" (int time){
 	int val = FixedDiv(time, GetUserCVar(0, "dsc_spawn_factor"));
-	Log(s:"Healing heart respawned in ", d:val, s:" sec");
+	//Log(s:"Healing heart respawned in ", d:val, s:" sec");
 }
 script "GetAIDhealthRecallTime" (void){
 	int val;
