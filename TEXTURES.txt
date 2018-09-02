@@ -189,13 +189,6 @@ Texture "BFROCK2", 1024, 1024
 	Patch "BFROCK2", 0, 0
 }
 
-Texture "SERAPH1", 1600, 1600
-{
-	WorldPanning
-	NoDecals
-	Patch "SERAPH1", 0, 0
-}
-
 Flat "BFROCK3", 512, 512
 {
 	XScale 4.000
@@ -851,12 +844,6 @@ Texture "DDOOR1", 512, 512
 	YScale 4.000
 	WorldPanning
 	Patch "DDOOR1", 0, 0
-}
-
-Texture "BSEWALL1", 0, 0
-{
-	WorldPanning
-	Patch "BSEWALL1", 0, 0
 }
 
 Texture "BSWAL1N", 512, 1024
