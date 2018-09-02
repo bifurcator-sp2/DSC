@@ -811,7 +811,7 @@ script "TrapWaveYellowKey_1" (void){
 }
 
 
-int TowerContDown = 60*5;
+int TowerContDown = 180;
 Script "TowerContDown" (void){
 	if(TowerContDown>0){
 		Delay(35);

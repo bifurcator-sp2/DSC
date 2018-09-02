@@ -286,6 +286,7 @@ script "Sequence1" (void){
 	Thing_Activate(24);
 
 	while(!NextWaveReady){ delay(1); } NextWaveReady = false;
+	ACS_NamedExecuteAlways("LockDoor5", 0);
 
 	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100101, 100401);
 	Delay(35*5);
