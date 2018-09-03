@@ -266,7 +266,7 @@ Class SkyViewpointMover : SwitchableDecoration
 			Loop;
 		Active:
 			TNT1 A 1 InitMover();
-			Goto Incative;
+			Goto Inactive;
 		Inactive:
 			TNT1 A 1;
 			Loop;
@@ -563,7 +563,7 @@ Class SkyViewpointDestroyer : SwitchableDecoration
 			Loop;
 		Active:
 			TNT1 A 1 InitDestroyer();
-			Goto Incative;
+			Goto Inactive;
 		Inactive:
 			TNT1 A 1;
 			Loop;
