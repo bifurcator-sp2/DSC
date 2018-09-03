@@ -72,6 +72,7 @@ script "StartControl" ENTER
 	Thing_DeActivate(216);//open hellgate ambient
 	Thing_DeActivate(226);//last strong wind
 	Thing_DeActivate(227);//final light
+	Thing_Activate(250);//info portal helper
 
 	SetLineActivation (31, SPAC_None);//first door
 	SetLineActivation (230, SPAC_None);//door to second floor from outside
@@ -1352,7 +1353,7 @@ script "RestartHELL" (void){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+int CovenStarted = 0;
 
 script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 
@@ -1398,6 +1399,12 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 		case 13:
 			hudmessageBold(i:EYESleft, s:" EYES left"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
 			break;
+		case 14:
+			ACS_NamedExecute("DemoGliph", 0, 2200, 0);
+			CovenStarted = 15;
+			break;
+
+
 		default:
 			PrintBold(s:"Be strong!");
 
@@ -1529,7 +1536,17 @@ int MsgID = 13131313;
 int ttlID = 13131314;
 
 
-
+script "Cwait" enter {
+	if(CovenStarted>0 && !demogliphStarted){
+		CovenStarted--;
+		if(CovenStarted<=0){
+			Thing_Activate(250);//info portal helper
+			CovenStarted=0;
+		}
+	}
+	delay(35);
+	restart;
+}
 
 
 script "Covenant" (void) {

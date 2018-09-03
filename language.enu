@@ -219,11 +219,13 @@ TABLET_HANGAR = "UAC hangar was one of the first facilities\n"
 
 TABLET_DIE_TITLE = "Die Hard";
 TABLET_DIE_0 =
-"Main third generation transfer portal is hidden in the secret sector of UAC\n"
-"research lab. All information about portal's operating principles and\n"
-"Teleporter destination are strictly classified. Only top level personel\n"
-"Have access to the central control room and activation grid for the primary\n"
-"Test chamber.";
+"Main third generation transfer portal is hidden in the\n"
+"secret sector of UAC research lab. All information\n"
+"about portal's operating principles and Teleporter\n"
+"destination are strictly classified.\n"
+"Only top level personel\n"
+"Have access to the central control room and\n"
+"activation grid for the primary Test chamber.";
 
 TABLET_DIE_TITLE2 = "Exultation";
 TABLET_DIE_2 = "Miserable, foolish mortals! They found us on their own!\n"

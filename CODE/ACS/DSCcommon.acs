@@ -731,12 +731,13 @@ SCRIPT "DemoMap" (int CamTID){
 
 
 SCRIPT "DemoGliph" (int CamTID, int CovenID){
+	SetActivator (0);
 	if(WaveOnline){ Terminate;}
 	if(!CamTID){CamTID=2200;}
 	if(!CovenID){CovenID=0;}
 	delay(2);
 	Thing_Activate(CamTID);
-	SetPlayerProperty(1, 1, PROP_TOTALLYFROZEN);
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
 	AmbientSound("world/lookat3", 1.0);
 	FadeTo (0, 0, 0, 1.0, 1.5 );
 	ACS_NamedExecuteAlways("Mus_DTEMPLE", 0);
@@ -775,7 +776,7 @@ SCRIPT "DemoGliph" (int CamTID, int CovenID){
 		}
 
 
-		if(GetPlayerInput(-1, INPUT_BUTTONS)){ break;}
+		if(GetPlayerInput(0, INPUT_BUTTONS)){ break;}
 	}
 	ACS_NamedExecuteAlways("RestoreMusic", 0);
 	FadeTo (0, 0, 0, 1.0, 1.5 );
