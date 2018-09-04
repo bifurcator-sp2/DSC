@@ -2883,6 +2883,7 @@ Class DSCtentyacleSwitchable : SwitchableDecoration
 		Inactive:
 			"####" "#" 1
 			{
+				A_ChangeFlag("NOBLOCKMAP", 1);
 				if(scale.Y>0.0){
 					scale.Y-=0.001;
 					A_SpawnItemEx("DSCbloodTrail", random(-8, 8), random(-8, 8), random(0, 32), random(-5, 5), random(-5, 5), random(1, 8),0,SXF_NOCHECKPOSITION, 200);
@@ -2891,6 +2892,7 @@ Class DSCtentyacleSwitchable : SwitchableDecoration
 					scale.X-=0.001;
 				}
 				if(scale.Y<0.0){
+					//
 					bSolid = False;
 				}
 			}
@@ -2898,6 +2900,7 @@ Class DSCtentyacleSwitchable : SwitchableDecoration
 		Active:
 			"####" "#" 1
 			{
+				A_ChangeFlag("NOBLOCKMAP", 0);
 				bSolid = True;
 				if(scale.Y<MaxScale){
 					scale.Y+=0.01;

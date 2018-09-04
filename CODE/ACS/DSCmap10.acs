@@ -13,6 +13,9 @@ int puzzleSwitchesON = 0;
 int ParentSpotToReturnTID;
 script "StartControl" ENTER
 {
+
+
+
 	//Thing_Activate(43);//test thing. remove it!!!
 	/////////////test
 	/*
@@ -1340,6 +1343,20 @@ script "RestartHELL" (void){
 	AmmoMaxRnd = 0;
 	WeaponGotID = 0;
 	GlobalAttempt++;
+	delay(5);
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	FadeTo (0, 0, 0, 1.0, 1.0 );
+	delay(35);
+	str Text1 = StrParam(l:"GAME_ENDING_TEXT1");
+	str Text2 = StrParam(l:"GAME_ENDING_TEXT2");
+	str Text3 = StrParam(l:"GAME_ENDING_TEXT3");
+	SetFont("BIGFONT");
+	hudmessageBold(s:Text1; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, 5.0);
+	delay(35*5);
+	hudmessageBold(s:Text2; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, 5.0);
+	delay(35*5);
+	hudmessageBold(s:Text3; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, 5.0);
+	delay(35*5);
 	ChangeLevel ("DSCOUTRO", 0, CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION, -1);
 
 }

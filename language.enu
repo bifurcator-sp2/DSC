@@ -256,4 +256,6 @@ MAP_ENDING_TEXT8 = "Leaving this place \nin ";
 MAP_ENDING_TEXT9 = "Preparing to teleportation \nin ";
 MAP_ENDING_TEXT10 = "Opening the return portal \nin ";
 
-
+GAME_ENDING_TEXT1 = "You chose the path of endless vengeance\n";
+GAME_ENDING_TEXT2 = "It's your story\n";
+GAME_ENDING_TEXT3 = "Doom Slayer Chronicles";
