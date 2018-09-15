@@ -1,5 +1,4 @@
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
-
+#import "DSCLIB01.acs"
 
 script "StartControl" ENTER
 {

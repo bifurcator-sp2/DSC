@@ -1,0 +1,55 @@
+#import "DSCLIB01.acs"
+
+script "displayskipIntro" ENTER {
+	delay(35*5);
+	ACS_NamedExecute("skipIntro", 0);
+	HudMessageBold(s:"Press any key to skip";	HUDMSG_PLAIN, 802, CR_RED, 0.5, 0.95, 3.0);
+}
+script "skipIntro" (void){
+	if(GetPlayerInput(-1, INPUT_BUTTONS)){
+		ACS_NamedExecuteAlways("map01", 0);
+	}
+	delay(1);
+	restart;
+}
+script "intro" enter{
+//Thing_Activate(7);
+
+	AmbientSound("CREDITS", 1.0);
+	Thing_ChangeTID (0, 200+PlayerNumber());
+	ChangeCamera(100, 0, 0);
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	Thing_Activate(90);
+	Thing_Activate(100);
+}
+
+
+script "activate" (int tid) {
+	Thing_Activate(tid);
+}
+int ttlsound = 100;
+
+script "DelayMap01" (void){
+	Thing_Activate(12);
+	delay(35*15);
+	ACS_NamedExecuteAlways("map01", 0);
+}
+
+
+script "map01" (void) {
+	SetActivator(200+PlayerNumber());
+	FadeTo (0, 0, 0, 1.0, 3.0 );
+	while(ttlsound>0){
+		ttlsound--;
+		for(int i = 0; i<=128; i++){
+			SoundVolume (200+PlayerNumber(), i, FixedDiv(ttlsound, 100));
+		}
+		delay(1);
+	}
+
+	delay(35*3);
+
+	SetPlayerProperty(200+PlayerNumber(), 0, PROP_TOTALLYFROZEN);
+
+	ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION, -1);
+}

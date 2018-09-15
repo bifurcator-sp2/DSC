@@ -236,10 +236,21 @@ $random PickupHealth { Health1 Health2 }
 Health1	HEALTHB
 Health2	HEALTHS
 
-$random Howling { PickupScull1 PickupScull2 PickupScull3 }
-PickupScull1	HOWL1
-PickupScull2	HOWL2
-PickupScull3	HOWL3
+$random Howling { PickupScull1 PickupScull2 PickupScull3 PickupScull4 PickupScull5 PickupScull6 PickupScull7 PickupScull8 PickupScull9 PickupScull10 PickupScull11 PickupScull12 PickupScull13 PickupScull14 }
+PickupScull1	HOWL01
+PickupScull2	HOWL02
+PickupScull3	HOWL03
+PickupScull4	HOWL04
+PickupScull5	HOWL05
+PickupScull6	HOWL06
+PickupScull7	HOWL07
+PickupScull8	HOWL08
+PickupScull9	HOWL09
+PickupScull10	HOWL10
+PickupScull11	HOWL11
+PickupScull12	HOWL12
+PickupScull13	HOWL13
+PickupScull14	HOWL14
 
 $random BloodSpawn { BloodSpawn1 BloodSpawn2 BloodSpawn3 }
 BloodSpawn1	BLDCVK1

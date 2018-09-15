@@ -1,18 +1,19 @@
-//episode wave count definition
-int maxWaveCount = 75;//--------------------------
-//episode wave count definition
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
-//25WAVES
+#import "DSCLIB01.acs"
+
 bool silence = false;
 int Puzzle_1_bad_attempts = 0;
 bool StrafComplete = false;
 int startSwitchesON = 0;
 int puzzleSwitchesON = 0;
 int ParentSpotToReturnTID;
+
 script "StartControl" ENTER
 {
+
+    maxWaveCount = 75; //episode wave count definition
+    //27 WAVES
+    ACS_NamedExecute("DisplayInfo", 0);
+
 	//Thing_Activate(43);//test thing. remove it!!!
 	/////////////test
 	/*
@@ -26,6 +27,13 @@ script "StartControl" ENTER
 	//Thing_Move (60, 58, true);//skybox HELL
 	//ACS_NamedExecuteAlways("GotoStrafLocation", 0, 51, 52);//test thing !!!!
 	//test thing !!!!
+
+	//Thing_Activate(47);//wind
+	//Thing_Activate(55);//skybox flashes
+
+	//ACS_NamedExecute("GotoStrafLocation2", 0, 83);//test thing
+	//Thing_Activate(78);//straf2 ambient gens.
+	//ACS_NamedExecute("DemoMap", 0, 2300);//test thing
 
 	//ACS_NamedExecuteAlways("GotoStrafLocation2", 0, 83, 49);//test thing !!!!
 	//
@@ -65,6 +73,7 @@ script "StartControl" ENTER
 	Thing_DeActivate(216);//open hellgate ambient
 	Thing_DeActivate(226);//last strong wind
 	Thing_DeActivate(227);//final light
+	Thing_Activate(250);//info portal helper
 
 	SetLineActivation (31, SPAC_None);//first door
 	SetLineActivation (230, SPAC_None);//door to second floor from outside
@@ -167,7 +176,7 @@ script "puzzle_1" (int tid){
 			silence = true;
 			ACS_NamedExecuteAlways("FadeOutMusic", 0);
 			delay(35*2);
-			Radius_Quake2 (30, 4, 35*5, 0, 2048, "world/pumm");
+			Radius_Quake2 (30, 4, 35*5, 0, 2048, "Ambient/hardelec");
 			ACS_NamedExecuteAlways("ThingActivateBroken", 0, 29);
 			ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 40, 35*3);
 			ACS_NamedExecuteAlways("ThingDeActivateBroken", 0, 41, 35*3);
@@ -491,7 +500,7 @@ function bool SpownedEnoughEYES(void){
 
 
 script "GotoStrafLocation2" (int tid, int returnTid){
-	//Thing_Activate(78);//straf2 ambient gens. Test thing remove
+	Thing_Activate(78);//straf2 ambient gens.
 	ACS_NamedTerminate("CreepRandomAmbient", 0);
 	Thing_DeActivate(72);//portal & clouds
 	ACS_NamedExecute("OxygenRegen",0, 5);
@@ -593,7 +602,7 @@ Script "Straf_2_vawe" (void){
 }
 
 script "ReturnToParent_2" (void){
-	//Thing_DeActivate(78);//straf2 ambient gens. Test thing remove
+	Thing_DeActivate(78);//straf2 ambient gens. Test thing remove
 	ACS_NamedExecuteAlways("Mus_FASTBASS", 0);
 	ACS_NamedExecute("CreepRandomAmbient", 0);
 	StrafComplete = true;
@@ -804,7 +813,7 @@ script "TrapWaveYellowKey_1" (void){
 }
 
 
-int TowerContDown = 60*5;
+int TowerContDown = 180;
 Script "TowerContDown" (void){
 	if(TowerContDown>0){
 		Delay(35);
@@ -1332,6 +1341,20 @@ script "RestartHELL" (void){
 	AmmoMaxRnd = 0;
 	WeaponGotID = 0;
 	GlobalAttempt++;
+	delay(5);
+	SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	FadeTo (0, 0, 0, 1.0, 1.0 );
+	delay(35);
+	str Text1 = StrParam(l:"GAME_ENDING_TEXT1");
+	str Text2 = StrParam(l:"GAME_ENDING_TEXT2");
+	str Text3 = StrParam(l:"GAME_ENDING_TEXT3");
+	SetFont("BIGFONT");
+	hudmessageBold(s:Text1; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, 5.0);
+	delay(35*5);
+	hudmessageBold(s:Text2; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, 5.0);
+	delay(35*5);
+	hudmessageBold(s:Text3; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, 5.0);
+	delay(35*5);
 	ChangeLevel ("DSCOUTRO", 0, CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY|CHANGELEVEL_NOINTERMISSION, -1);
 
 }
@@ -1345,7 +1368,7 @@ script "RestartHELL" (void){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+int CovenStarted = 0;
 
 script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 
@@ -1391,6 +1414,12 @@ script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 		case 13:
 			hudmessageBold(i:EYESleft, s:" EYES left"; HUDMSG_PLAIN , 0, CR_WHITE, 1.5, 0.6, Time*1.1);
 			break;
+		case 14:
+			ACS_NamedExecute("DemoGliph", 0, 2200, 0);
+			CovenStarted = 15;
+			break;
+
+
 		default:
 			PrintBold(s:"Be strong!");
 
@@ -1522,7 +1551,17 @@ int MsgID = 13131313;
 int ttlID = 13131314;
 
 
-
+script "Cwait" enter {
+	if(CovenStarted>0 && !demogliphStarted){
+		CovenStarted--;
+		if(CovenStarted<=0){
+			Thing_Activate(250);//info portal helper
+			CovenStarted=0;
+		}
+	}
+	delay(35);
+	restart;
+}
 
 
 script "Covenant" (void) {

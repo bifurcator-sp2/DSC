@@ -1,17 +1,16 @@
 Material ProcessMaterial()
 {
-	const vec4 vShadowColor = vec4(0.541,0.028,0.028,1.0);
-	const float fTileFactor = 10.0;
+	const float fTileFactor = 3.0;
 	const float fAspectRatio = 0.5;
-	const vec2 vTexOffsetScale = vec2(0.2, 0.2);
-	const float fTexOffsetHeight = 0.1;
+	const vec2 vTexOffsetScale = vec2(0.5, 0.5);
+	const float fTexOffsetHeight = 0.07;
 	const float fTexOffsetTimeScale = 0.05;
-	const float fSineTimeScale = 0.03;
+	const float fSineTimeScale = 2.0; 
 	const vec2 vSineOffsetScale = vec2(0.4, 0.4);
-	const float fSineWaveSize = 0.4;
+	const float fSineWaveSize = 0.08;
 	
 	vec2 uv = vTexCoord.st;
-
+	vec4 vShadowColor = getTexel(uv);
 	vec2 vBaseUvOffset = uv * vTexOffsetScale;
 	vBaseUvOffset += timer * fTexOffsetTimeScale;
 
@@ -32,7 +31,8 @@ Material ProcessMaterial()
 
 	Material material;
 	material.Base = mix(getTexel(adjustedUV), vShadowColor, fWaterHeight * 0.4);
-	material.Normal = ApplyNormalMap(adjustedUV / 5.0);
+	
+	material.Normal = ApplyNormalMap(adjustedUV).xyz;
 	material.Specular = texture(speculartexture, adjustedUV).rgb;
 	material.Glossiness = uSpecularMaterial.x;
 	material.SpecularLevel = uSpecularMaterial.y;

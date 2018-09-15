@@ -1,131 +1,125 @@
-//episode wave count definition
-int maxWaveCount = 40;//--------------------------
-//episode wave count definition
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+#import "DSCLIB01.acs"
 
+int MapWave = 0;
+bool ArmorTook = false;
 
-
-INT MapWave = 0;
-BOOL ArmorTook = false;
-
-
-SCRIPT "ArmorWave" (void){
-	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-	if(!ArmorTook ){
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100550, 888888, 888888);
-		ArmorTook = true;
-	}
-}
-SCRIPT "CryptWave" (void){
-	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999);
-}
-SCRIPT "IamReady" (void){
-	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-	NextWaveReady = true;
+script "ArmorWave" (void){
+    
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    if ( !ArmorTook ){
+    
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100550, 888888, 888888);
+        ArmorTook = true;
+    }
 }
 
-SCRIPT "SpawnFirstScull" (void){
-		SpawnSpotFacingForced("WaveScullDEC", 12, 100600);
-		SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
-}
-SCRIPT "StartControl" ENTER
-{
-	//test!!!!!!!!!!
-	/*CurrentWave = 35;
-	AmmoMaxRnd = 3;
-	WeaponGotID = 4;*/
-	//test!!!!!!
-
-	//SetThingSpecial(100700, ACS_NamedExecute, "ArmorWave");
-	//SetThingSpecial(100800, ACS_NamedExecute, "IamReady");
-
-	SpawnSpotFacingForced("DoomSlayerGliph", 100800, 100600);// test thing
-
-
-	while(!NextWaveReady){
-		delay(1);
-	}
-	NextWaveReady = false;
-
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
-	ACS_NamedExecuteAlways("Mus_L1", 0);
-
-
-
-	while(!NextWaveReady){
-		delay(1);
-	}
-	NextWaveReady = false;
-	Door_Open(13, 16);
-	//ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-	ACS_NamedExecuteAlways("Mus_L1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
-
-	while(!NextWaveReady){
-		delay(1);
-	}
-	NextWaveReady = false;
-
-	LastWave = true;
-	Door_Close(13, 64);
-	Door_Open(14, 16);
-	ACS_NamedExecuteAlways("Mus_L1", 0);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 12);
-	ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999);
-
-	while(!NextWaveReady){
-		delay(1);
-	}
-	NextWaveReady = false;
-
-
-	for(int i = 5; i > 0; i--)
-	{
-		Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
-		Delay(35);
-	}
-	GiveInventory("map02done", 1);
-	TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
-	Atrium1Active = true;
-	Exit_Normal(0);
+script "CryptWave" (void){
+    
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999);
 }
 
-
-
-
-
-
-Script "MapWaveControll" (void){
-	MapWave++;
+script "IamReady" (void){
+    
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    NextWaveReady = true;
 }
 
+script "SpawnFirstScull" (void){
+    
+    SpawnSpotFacingForced("WaveScullDEC", 12, 100600);
+    SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
+}
 
+script "StartControl" enter {
 
+    maxWaveCount = 40; //episode wave count definition
+    ACS_NamedExecute("DisplayInfo", 0);
+    
+    //test!!!!!!!!!!
+    /*CurrentWave = 35;
+    AmmoMaxRnd = 3;
+    WeaponGotID = 4;*/
+    //test!!!!!!
+    //ACS_NamedExecute("DemoMap", 0, 2200);//test thing
+    //SetThingSpecial(100700, ACS_NamedExecute, "ArmorWave");
+    //SetThingSpecial(100800, ACS_NamedExecute, "IamReady");
+    //SpawnSpotFacingForced("DoomSlayerGliph", 100800, 100600);// test thing
 
+    while( !NextWaveReady ){
 
+        delay(1);
+    }
+    NextWaveReady = false;
 
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
+    ACS_NamedExecuteAlways("Mus_L1", 0);
 
+    while ( !NextWaveReady ){
+        
+        delay(1);
+    }
+    NextWaveReady = false;
+    Door_Open(13, 16);
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    ACS_NamedExecuteAlways("Mus_L1", 0);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
 
+    while( !NextWaveReady ){
+        
+        delay(1);
+    }
+    NextWaveReady = false;
 
+    LastWave = true;
+    Door_Close(13, 64);
+    Door_Open(14, 16);
+    ACS_NamedExecuteAlways("Mus_L1", 0);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 12);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999);
+    
+    delay(5); 
+    
+    while ( WaveOnline ){ delay(5); }	//wait for end
+    
+    Door_Open(13, 64);
+    
+    while ( !NextWaveReady ){ delay(1); }
+    
+    NextWaveReady = false;
+
+    for ( int i = 5; i > 0; i-- ){
+        
+        ACS_NamedExecute("LevelEndingMessage", 0, i);
+        delay(35);
+    }
+    
+    GiveInventory("map02done", 1);
+    TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+    Atrium1Active = true;
+    Exit_Normal(0);
+}
+
+script "MapWaveControll" (void){
+    
+    MapWave++;
+}
 
 str finalText = "";
 int MsgID = 13131313;
 int ttlID = 13131314;
 
-
 script "Covenant" (void) {
-	str CovenantTitle = StrParam(l:"TABLET_CEMETERY_TITLE");
-	str CovenantText = StrParam(l:"TABLET_CEMETERY");
-	SetHudSize(400, 300, 0);
-	SetFont ("BIGFONT");
-	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 50.0, 0.1);
-	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
-
+    
+    str CovenantTitle = StrParam(l:"TABLET_CEMETERY_TITLE");
+    str CovenantText = StrParam(l:"TABLET_CEMETERY");
+    
+    SetHudSize(400, 300, 0);
+    SetFont ("BIGFONT");
+    HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 200.0, 50.0, 0.1);
+    SetFont ("SMALLFONT");
+    HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 200.0, 150.0, 0.1);
+    hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
 }
 

@@ -6,8 +6,13 @@ user bool dpwh_filmgrain = true;
 user bool dsc_screen_blur = false;
 
 user int dsc_player_rank = -1;
-
-
+user int dsc_full_progress = 0;
+user float dsc_spawn_factor = 1.5;
+user int dsc_episode1_done  = 0;
+user bool dsc_heroic_mode = false;
+user bool dsc_restore_defaults = false;
+user bool dsc_finish_wave = false;
+user int dsc_zfinish_wave = 0;
 
 server int user_MaxDrawDistanceAMMOsparks = 1024;
 server int user_MaxDrawDistanceHaze = 4096;

@@ -1,18 +1,17 @@
-//episode wave count definition
-int maxWaveCount = 75;//--------------------------
-//episode wave count definition
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
-//25WAVES
+#import "DSCLIB01.acs"
 
 bool DOOR_161on = false;
 bool DOOR_171on = false;
 bool DOOR_172on = false;
 bool AIR_DOOR_3_on = false;
 int EayesKilled = 0;
+
 script "StartControl" ENTER
 {
+    maxWaveCount = 75; //episode wave count definition
+    //27 WAVES
+    ACS_NamedExecute("DisplayInfo", 0);
+
 	delay(5);
 	Thing_Activate(1);
 	Thing_DeActivate(96);//red alarm top of lift
@@ -187,7 +186,7 @@ Script "SatartFirstWave" (void){
 		while(!NextWaveReady){delay(1);} NextWaveReady = false;
 		for(int i = 5; i > 0; i--)
 		{
-			Print(s:"Your personal HELL will restart \nin ",d:i,s:" seconds");
+			ACS_NamedExecute("LevelEndingMessage", 0, i);
 			Delay(35);
 		}
 		GiveInventory("map09done", 1);

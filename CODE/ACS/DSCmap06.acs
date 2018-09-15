@@ -1,9 +1,4 @@
-//episode wave count definition
-int maxWaveCount = 40;//--------------------------
-//episode wave count definition
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCcommon.acs"
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCwaves.acs"
-#include "F:\Games\gzdoom\mywads\DSC\DSC.git\DSC\CODE\ACS\DSCranks.acs"
+#import "DSCLIB01.acs"
 
 bool DeadPoolHelped;
 bool FirstWaveDone = false;
@@ -12,182 +7,215 @@ bool Door8Locked = true;
 bool Door9Locked = true;
 bool Door10Locked = true;
 
-script "StartControl" ENTER
-{
+script "StartControl" enter {
+    
+    maxWaveCount = 40; //episode wave count definition
+    ACS_NamedExecute("DisplayInfo", 0);
+    
+    Thing_Deactivate(100);
+    //TEST!
+    //CurrentWave = 40;
+    //NOspawn = true;
+    /*DSCplayerRank = 7;
+    CurrentWave = 100;
+    AmmoMaxRnd = 3;
+    WeaponGotID = 5;
+    */
 
-Thing_Deactivate(100);
-//TEST!
-//CurrentWave = 40;
-//NOspawn = true;
-/*DSCplayerRank = 7;
-CurrentWave = 100;
-AmmoMaxRnd = 3;
-WeaponGotID = 5;
-*/
+    SpawnSpotFacingForced("DSCportalToMap", 206, 207);
+    SetThingSpecial(207, ACS_NamedExecute, "GotoHungar");
 
-SpawnSpotFacingForced("DSCportalToMap", 206, 207);
-SetThingSpecial(207, ACS_NamedExecute, "GotoHungar");
+    bool inDEV = false;
+    //TEST!
+    if (inDEV){
+        
+        GiveInventory("map07done", 1);
+        GiveInventory("map08done", 1);
+        //GiveInventory("map09done", 1);
+        //GiveInventory("map10done", 1);
+    }
 
+    Thing_Activate(400);
+    if ( CheckInventory("map07done") > 0 ){
 
+        maxWaveCount = 75;
+        Thing_Activate(401);
+        Door8Locked = false;
+        //activation of atrium vaves & normalize and normalize way to first map
+        //Door10Locked = false;
+        //Thing_Activate(107);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 888888, 888888); //notag nocount
+    }
 
-bool inDEV = false;
-//TEST!
-if(inDEV){
-	GiveInventory("map07done", 1);
-	GiveInventory("map08done", 1);
-	//GiveInventory("map09done", 1);
-	//GiveInventory("map10done", 1);
+    if ( CheckInventory("map08done") > 0 ){
+        
+        Door9Locked = false;
+        Thing_Activate(402);
+    }
+    
+    if ( CheckInventory("map09done") > 0 ){
+
+        if ( CheckInventory("map10cunsceneShown") == 0 ){
+            
+            //cutscene here
+            //GiveInventory("map10done", 1);
+            GiveInventory("map10cunsceneShown", 1);
+            ACS_NamedExecuteAlways("LookAt", 0, 500, 35*15);
+            SpawnSpotFacingForced("DSCportalToMap", 5, 100302);
+            SetThingSpecial(100302, ACS_NamedExecute, "GotoDieHard");
+            
+            delay(35 * 7);
+            ACS_NamedExecute("Door10", 0);
+        }
+        
+        if ( CheckInventory("map10cunsceneShown") > 0 ){
+            
+            ACS_NamedExecute("Door10", 0);
+        }
+    }
+    
+    if ( CheckInventory("map10done") > 0 ){
+        
+        Thing_Activate(403);
+        Door10Locked = false;
+    }
+    
+    if(Atrium1Active){
+
+    }
 }
-
-
-	Thing_Activate(400);
-	if(CheckInventory("map07done")>0){
-		maxWaveCount = 75;
-		Thing_Activate(401);
-		Door8Locked = false;
-		//activation of atrium vaves & normalize and normalize way to first map
-		//Door10Locked = false;
-		//Thing_Activate(107);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100505, 888888, 888888); //notag nocount
-
-	}
-
-	if(CheckInventory("map08done")>0){
-		Door9Locked = false;
-		Thing_Activate(402);
-	}
-	if(CheckInventory("map09done")>0){
-
-		if(CheckInventory("map10cunsceneShown")==0){
-			//cutscene here
-			//GiveInventory("map10done", 1);
-			GiveInventory("map10cunsceneShown", 1);
-			ACS_NamedExecuteAlways("LookAt", 0, 500, 35*15);
-			SpawnSpotFacingForced("DSCportalToMap", 5, 100302);
-			SetThingSpecial(100302, ACS_NamedExecute, "GotoDieHard");
-			delay(35*7);
-			ACS_NamedExecute("Door10", 0);
-		}
-		if(CheckInventory("map10cunsceneShown")>0){
-			ACS_NamedExecute("Door10", 0);
-		}
-
-	}
-	if(CheckInventory("map10done")>0){
-		Thing_Activate(403);
-		Door10Locked = false;
-	}
-	if(Atrium1Active){
-
-	}
-//
-
-
-}
-
-
-
-
 
 script "ActivadeDeadPoolHelper"(void){
-	if(CheckInventory("map07done")==0){
-		if(!DeadPoolHelped){
-			DeadPoolHelped = true;
-			Thing_Activate(201);
-			SpawnSpotFacingForced("DSCportalToMap", 202, 203);
-			SetThingSpecial(203, ACS_NamedExecute, "GotoDeadPool_clearinventory");
-		}
-	} else {
-		if(!DeadPoolHelped){
-			DeadPoolHelped = true;
-			SpawnSpotFacingForced("DSCportalToMap", 202, 203);
-			SetThingSpecial(203, ACS_NamedExecute, "GotoDeadPool");
-			Floor_RaiseByValue(44, 8, 230);
-			Thing_Activate(204);
-		}
-	}
+    
+    if ( CheckInventory("map07done") == 0 ){
+        
+        if (!DeadPoolHelped){
+            
+            DeadPoolHelped = true;
+            Thing_Activate(201);
+            SpawnSpotFacingForced("DSCportalToMap", 202, 203);
+            SetThingSpecial(203, ACS_NamedExecute, "GotoDeadPool_clearinventory");
+        }
+        
+    } else {
+        
+        if (!DeadPoolHelped){
+            
+            DeadPoolHelped = true;
+            SpawnSpotFacingForced("DSCportalToMap", 202, 203);
+            SetThingSpecial(203, ACS_NamedExecute, "GotoDeadPool");
+            Floor_RaiseByValue(44, 8, 230);
+            Thing_Activate(204);
+        }
+    }
 }
 
+script "SatartFirstWave" (void){
+    
+    if(CheckInventory("map06done")==0){
 
-Script "SatartFirstWave" (void){
+        ACS_NamedExecuteAlways("Mus_M2", 0);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999, 100400);
+        
+        delay(5);
+        
+        while (WaveOnline){ delay(5);}
+        
+        ACS_NamedExecuteAlways("Mus_M2", 0);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999, 100400);
+        
+        delay(5);
+        
+        while (WaveOnline){ delay(5);}
+        
+        ACS_NamedExecuteAlways("Mus_M3", 0);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 100300, 100400);
+        
+        while (!NextWaveReady){ delay(1); }
+        
+        NextWaveReady = false;
+        ACS_NamedExecuteAlways("Mus_G1", 0);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 888888, 888888);
+        
+        delay(35 * 20);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 100300, 100400);
+        
+        while (!NextWaveReady){ delay(1); }
+        
+        NextWaveReady = false;
+        ACS_NamedExecuteAlways("Mus_G2", 0);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 888888, 888888);
+        
+        delay(35 * 20);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 100300, 100400);
+        
+        while (!NextWaveReady){ delay(1); }
+        
+        NextWaveReady = false;
+        ACS_NamedExecuteAlways("Mus_G2", 0);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
+        
+        delay(35 * 20);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 888888, 888888);
+        
+        delay(35 * 20);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100300, 100400);
+        
+        while (!NextWaveReady){ delay(1); }
+        
+        NextWaveReady = false;
+        ACS_NamedExecuteAlways("Mus_G3", 0);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 888888, 888888);
+        
+        delay(35 * 20);
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 100300, 100400);
 
-	if(CheckInventory("map06done")==0){
+        while (!NextWaveReady){ delay(1); }
+        
+        NextWaveReady = false;
+        
+        delay(35 * 5);
+        TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+        Thing_Activate(300);
+        ChangeCamera(300, 0, 0);
 
-		ACS_NamedExecuteAlways("Mus_M2", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999, 100400);
-		Delay(5);
-		while(WaveOnline){ Delay(5);}
-		ACS_NamedExecuteAlways("Mus_M2", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999, 100400);
-		Delay(5);
-		while(WaveOnline){ Delay(5);}
-		ACS_NamedExecuteAlways("Mus_M3", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 100300, 100400);
-		while(!NextWaveReady){
-			delay(1);
-		}
-		NextWaveReady = false;
-		ACS_NamedExecuteAlways("Mus_G1", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 100300, 100400);
-		delay(35*20);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
-		while(!NextWaveReady){
-			delay(1);
-		}
-		NextWaveReady = false;
-		ACS_NamedExecuteAlways("Mus_G2", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 100300, 100400);
-		delay(35*20);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 888888, 888888);
-		while(!NextWaveReady){
-			delay(1);
-		}
-		NextWaveReady = false;
-		ACS_NamedExecuteAlways("Mus_G3", 0);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100504, 100300, 100400);
-		delay(35*20);
-		ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 888888, 888888);
+        for (int i = 0; i<=9; i++){ SoundVolume (0, i, 0.0); }
+        PlaySound (0, "world/HAPPEN1" , 64, 1.0, false, ATTN_NONE);
 
-		while(!NextWaveReady){
-			delay(1);
-		}
-		NextWaveReady = false;
-		delay(35*5);
-		TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
-		Thing_Activate(300);
-		ChangeCamera(300, 0, 0);
+        delay(5 * 35);
+        Thing_DeActivate(300);
+        ChangeCamera(0, 0, 0);
 
-		for(int i = 0; i<=9; i++){	SoundVolume (0, i, 0.0); }
-		PlaySound (0, "world/HAPPEN1" , 64, 1.0, false, ATTN_NONE);
+        for (i = 0; i<=9; i++){ SoundVolume (0, i, 1.0); }
 
-		delay(5*35);
-		Thing_DeActivate(300);
-		ChangeCamera(0, 0, 0);
-
-		for(i = 0; i<=9; i++){	SoundVolume (0, i, 1.0); }
-
-		GiveInventory("map06done", 1);
-		FirstWaveDone = true;
-		/*ACS_NamedExecuteAlways("Mus_TITLEMAP", 0);
-		Thing_Activate(200);
-		ChangeCamera(200, 0, 0);
-		SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);*/
-		//TODO: open gates to yard
-	} else {
-			SpawnSpotFacingForced("DSCportalToMap", 100300, 100301);
-			SetThingSpecial(100301, ACS_NamedExecute, "GotoAtrium1");
-			Thing_Activate(205);
-	}
-	//
+        GiveInventory("map06done", 1);
+        FirstWaveDone = true;
+        /*ACS_NamedExecuteAlways("Mus_TITLEMAP", 0);
+        Thing_Activate(200);
+        ChangeCamera(200, 0, 0);
+        SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);*/
+        // @TODO: open gates to yard
+            
+    } else {
+        
+        SpawnSpotFacingForced("DSCportalToMap", 100300, 100301);
+        SetThingSpecial(100301, ACS_NamedExecute, "GotoAtrium1");
+        Thing_Activate(205);
+    }
+    //
 }
 
 script "YardDoorOpen" (void){
-	if(!YardDoorOpen){
-		YardDoorOpen = true;
-		if(CheckInventory("map06done")>0 && FirstWaveDone!=true){
-			ACS_NamedExecuteAlways("RotateDoorLeftNoReturn", 0, 1, 8, 64);
-		}
-	}
+    
+    if (!YardDoorOpen){
+        
+        YardDoorOpen = true;
+        
+        if ( CheckInventory("map06done") > 0 && FirstWaveDone != true ){
+            
+            ACS_NamedExecuteAlways("RotateDoorLeftNoReturn", 0, 1, 8, 64);
+        }
+    }
 }
 
 /*
@@ -198,111 +226,122 @@ script "openDoorToYard" (void){
 }
 */
 
-
 script "DrawHelp" (int HelpID, int Time, int NextHelpTag){
 
-	if (Time==0){Time=3;}
+    if ( Time == 0 ){ Time = 3; }
 
+    switch (HelpID) {
 
-	switch (HelpID) {
-		case 1:
-
-			hudmessageBold(s:"Dive into the blood pool."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
-			break;
-		case 2:
-			hudmessageBold(s:"Now you can play\n\"The bloody tide\"\nWithout reset of inventory."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
-			break;
-		case 3:
-			hudmessageBold(s:"Now you can travel\n\across played episodes."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
-			break;
-		case 4:
-			hudmessageBold(s:"To Crimson depths"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
-			break;
-		case 5:
-			hudmessageBold(s:"To Hangar"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
-			break;
-		case 6:
-			hudmessageBold(s:"To Season of Winter"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
-			break;
-		case 7:
-			hudmessageBold(s:"To Die Hard"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
-			break;
-		default:
-			PrintBold(s:"Be strong!");
-
-	}
-	Delay((Time+2)*35);
-	if(NextHelpTag>0){
-		Thing_Activate(NextHelpTag);
-	}
+        case 1:
+                hudmessageBold(s:"Dive into the blood pool.\nIn first time you lose your equipment."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*2.1);
+                break;
+        case 2:
+                hudmessageBold(s:"Now you can play\n\"Crimson depths\"\nWithout reset of inventory."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+                break;
+        case 3:
+                hudmessageBold(s:"Now you can travel\n\across played episodes."; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+                break;
+        case 4:
+                hudmessageBold(s:"To Crimson depths"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+                break;
+        case 5:
+                hudmessageBold(s:"To Hangar"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+                break;
+        case 6:
+                hudmessageBold(s:"To Season of Winter"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+                break;
+        case 7:
+                hudmessageBold(s:"To Die Hard"; HUDMSG_PLAIN, 0, CR_RED, 1.5, 0.6, Time*1.1);
+                break;
+        default:
+                PrintBold(s:"Be strong!");
+    }
+    
+    delay( (Time+2) * 35 );
+    
+    if ( NextHelpTag > 0){
+        
+        Thing_Activate(NextHelpTag);
+    }
 }
 
 script "GotoDeadPool_clearinventory" (void){
-	delay(15);
-			CurrentWave = 0;
-			AmmoMaxRnd = 0;
-			WeaponGotID = 0;
-	ChangeLevel ("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
-	//deadpool enter script mus give to player all previous map#done items
+    
+    delay(15);
+    CurrentWave = 0;
+    AmmoMaxRnd = 0;
+    WeaponGotID = 0;
+    
+    ChangeLevel("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
+    //deadpool enter script mus give to player all previous map#done items
 }
+
 script "GotoAtrium1" (void){
-	delay(15);
-	ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION, -1);
+    
+    delay(15);
+    ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
+
 script "GotoDeadPool" (void){
-	delay(15);
-	ChangeLevel ("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION, -1);
+    
+    delay(15);
+    ChangeLevel ("DSCMAP07", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 
 script "GotoHungar" (void){
-	delay(15);
-	ChangeLevel ("DSCMAP08", 0, CHANGELEVEL_NOINTERMISSION, -1);
+    
+    delay(15);
+    ChangeLevel ("DSCMAP08", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
+
 script "GotoWinter" (void){
-	delay(15);
-	ChangeLevel ("DSCMAP09", 0, CHANGELEVEL_NOINTERMISSION, -1);
+    
+    delay(15);
+    ChangeLevel ("DSCMAP09", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
+
 script "GotoDieHard" (void){
-	delay(15);
-	ChangeLevel ("DSCMAP10", 0, CHANGELEVEL_NOINTERMISSION, -1);
+    
+    delay(15);
+    ChangeLevel ("DSCMAP10", 0, CHANGELEVEL_NOINTERMISSION, -1);
 }
 
-SCRIPT "Door8" (void){
-	if(!Door8Locked){
-		Generic_Door(401, 16, 0, 34, 0);
-	}
-}
-SCRIPT "Door9" (void){
-	if(!Door9Locked){
-		Generic_Door(402, 16, 0, 34, 0);
-	}
-}
-SCRIPT "Door10" (void){
-	Ceiling_LowerByValue(8, 16, 124);
-	floor_Lowerbyvalue(8, 16, 124);
-
+script "Door8" (void){
+    
+    if (!Door8Locked){
+        
+        Generic_Door(401, 16, 0, 34, 0);
+    }
 }
 
+script "Door9" (void){
+    
+    if (!Door9Locked){
+        
+        Generic_Door(402, 16, 0, 34, 0);
+    }
+}
 
+script "Door10" (void){
 
-
-
+    Ceiling_LowerByValue(8, 16, 124);
+    floor_Lowerbyvalue(8, 16, 124);
+}
 
 str finalText = "";
 int MsgID = 13131313;
 int ttlID = 13131314;
 
-
 script "Covenant" (void) {
-	str CovenantTitle = StrParam(l:"TABLET_CATHEDRAL_TITLE");
-	str CovenantText = StrParam(l:"TABLET_CATHEDRAL");
 
+    str CovenantTitle = StrParam(l:"TABLET_CATHEDRAL_TITLE");
+    str CovenantText = StrParam(l:"TABLET_CATHEDRAL");
 
-	SetHudSize(550, 380, 0);
-	SetFont ("BIGFONT");
-	HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 275.0, 40.0, 0.1);
-	SetFont ("SMALLFONT");
-	HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 275.0, 210.0, 0.1);
-	hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 275.0, 370.0, 0.1);
-
+    SetHudSize(550, 380, 0);
+    SetFont ("BIGFONT");
+    HudMessage(s:CovenantTitle;HUDMSG_PLAIN,ttlID,CR_YELLOW, 275.0, 40.0, 0.1);
+    
+    SetFont ("SMALLFONT");
+    HudMessage(s:CovenantText;HUDMSG_PLAIN,MsgID,CR_GRAY, 275.0, 210.0, 0.1);
+    hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 275.0, 370.0, 0.1);
 }
