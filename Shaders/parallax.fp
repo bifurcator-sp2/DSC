@@ -1,74 +1,114 @@
-
-vec2 parallaxMapping(in vec3 V, in vec2 T);
+mat3 GetTBN();
+vec3 GetBumpedNormal(mat3 tbn, vec2 texcoord);
+vec2 ParallaxMap(mat3 tbn);
 
 Material ProcessMaterial()
 {
-	vec2 texCoord = vTexCoord.st;
-	//const float pi = 3.14159265358979323846;
-	//vec2 offset = vec2(0.0,0.0);
-	//offset.y = 0.5 + sin(pi * 2.0 * (texCoord.y + timer * 0.61 + 900.0/8192.0)) + sin(pi * 2.0 * (texCoord.x * 2.0 + timer * 0.36 + 300.0/8192.0));
-	//offset.x = 0.5 + sin(pi * 2.0 * (texCoord.y + timer * 0.49 + 700.0/8192.0)) + sin(pi * 2.0 * (texCoord.x * 2.0 + timer * 0.49 + 1200.0/8192.0));
-	//texCoord += offset * 0.025;
+    mat3 tbn = GetTBN();
+    vec2 texCoord = ParallaxMap(tbn);
 
-	vec3 V = normalize(vEyeNormal).xyz;
-	V.x = -V.x;
-
-	texCoord = parallaxMapping(V, fract(texCoord));
-
-	Material material;
-	material.Base = getTexel(texCoord);
-	material.Normal = ApplyNormalMap(texCoord);
-	material.Specular = texture(speculartexture, texCoord).rgb;
-	material.Glossiness = uSpecularMaterial.x;
-	material.SpecularLevel = uSpecularMaterial.y;
-#if defined(BRIGHTMAP)
-	material.Bright = texture(brighttexture, texCoord);
+    Material material;
+    material.Base = getTexel(texCoord);
+    material.Normal = GetBumpedNormal(tbn, texCoord);
+#if defined(SPECULAR)
+    material.Specular = texture(speculartexture, texCoord).rgb;
+    material.Glossiness = uSpecularMaterial.x;
+    material.SpecularLevel = uSpecularMaterial.y;
 #endif
-	return material;
+#if defined(PBR)
+    material.Metallic = texture(metallictexture, texCoord).r;
+    material.Roughness = texture(roughnesstexture, texCoord).r;
+    material.AO = texture(aotexture, texCoord).r;
+#endif
+#if defined(BRIGHTMAP)
+    material.Bright = texture(brighttexture, texCoord);
+#endif
+    return material;
 }
 
-vec2 parallaxMapping(in vec3 V, in vec2 T)
+// Tangent/bitangent/normal space to world space transform matrix
+mat3 GetTBN()
 {
-	const float	parallaxScale = 0.25;
-	const float minLayers = 8.0;
-	const float maxLayers = 24.0;
+    vec3 n = normalize(vWorldNormal.xyz);
+    vec3 p = pixelpos.xyz;
+    vec2 uv = vTexCoord.st;
 
-	float numLayers = mix(maxLayers, minLayers, abs(V.z));  
+    // get edge vectors of the pixel triangle
+    vec3 dp1 = dFdx(p);
+    vec3 dp2 = dFdy(p);
+    vec2 duv1 = dFdx(uv);
+    vec2 duv2 = dFdy(uv);
 
-	// calculate the size of each layer
-	float layerDepth = 1.0 / numLayers;
+    // solve the linear system
+    vec3 dp2perp = cross(n, dp2); // cross(dp2, n);
+    vec3 dp1perp = cross(dp1, n); // cross(n, dp1);
+    vec3 t = dp2perp * duv1.x + dp1perp * duv2.x;
+    vec3 b = dp2perp * duv1.y + dp1perp * duv2.y;
 
-	// depth of current layer
-	float currentLayerDepth = 0.0;
+    // construct a scale-invariant frame
+    float invmax = inversesqrt(max(dot(t,t), dot(b,b)));
+    return mat3(t * invmax, b * invmax, n);
+}
 
-	// the amount to shift the texture coordinates per layer (from vector P)
-	vec2 P = V.xy * parallaxScale; 
-	vec2 deltaTexCoords = P / numLayers;
-	vec2  currentTexCoords = T;
-	float currentDepthMapValue = texture(tex_heightmap, currentTexCoords).r;
+vec3 GetBumpedNormal(mat3 tbn, vec2 texcoord)
+{
+#if defined(NORMALMAP)
+    vec3 map = texture(normaltexture, texcoord).xyz;
+    map = map * 255./127. - 128./127.; // Math so "odd" because 0.5 cannot be precisely described in an unsigned format
+    map.y = -map.y;
+    return normalize(tbn * map);
+#else
+    return normalize(vWorldNormal.xyz);
+#endif
+}
 
-	while(currentLayerDepth < currentDepthMapValue)
-	{
-		// shift texture coordinates along direction of P
-		currentTexCoords -= deltaTexCoords;
+vec2 ParallaxMap(mat3 tbn)
+{
+    const float parallaxScale = 0.125;
+    const float minLayers = 8.0;
+    const float maxLayers = 16.0;
 
-		// get depthmap value at current texture coordinates
-		currentDepthMapValue = texture(tex_heightmap, currentTexCoords).r;  
+    // Calculate fragment view direction in tangent space
+    mat3 invTBN = transpose(tbn);
+    vec3 V = normalize(invTBN * (uCameraPos.xyz - pixelpos.xyz));
+    vec2 T = vTexCoord.st;
 
-		// get depth of next layer
-		currentLayerDepth += layerDepth;  
-	}
+    float numLayers = mix(maxLayers, minLayers, clamp(abs(V.z), 0.0, 1.0)); // clamp is required due to precision loss
 
-	// get texture coordinates before collision (reverse operations)
-	vec2 prevTexCoords = currentTexCoords + deltaTexCoords;
+    // calculate the size of each layer
+    float layerDepth = 1.0 / numLayers;
 
-	// get depth after and before collision for linear interpolation
-	float afterDepth  = currentDepthMapValue - currentLayerDepth;
-	float beforeDepth = texture(tex_heightmap, prevTexCoords).r - currentLayerDepth + layerDepth;
-	 
-	// interpolation of texture coordinates
-	float weight = afterDepth / (afterDepth - beforeDepth);
-	vec2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
+    // depth of current layer
+    float currentLayerDepth = 0.0;
 
-	return finalTexCoords;  
+    // the amount to shift the texture coordinates per layer (from vector P)
+    vec2 P = V.xy * parallaxScale;
+    vec2 deltaTexCoords = P / numLayers;
+    vec2 currentTexCoords = T;
+    float currentDepthMapValue = texture(tex_heightmap, currentTexCoords).r;
+
+    while (currentLayerDepth < currentDepthMapValue)
+    {
+        // shift texture coordinates along direction of P
+        currentTexCoords -= deltaTexCoords;
+
+        // get depthmap value at current texture coordinates
+        currentDepthMapValue = texture(tex_heightmap, currentTexCoords).r; 
+
+        // get depth of next layer
+        currentLayerDepth += layerDepth; 
+    }
+
+    // get texture coordinates before collision (reverse operations)
+    vec2 prevTexCoords = currentTexCoords + deltaTexCoords;
+
+    // get depth after and before collision for linear interpolation
+    float afterDepth  = currentDepthMapValue - currentLayerDepth;
+    float beforeDepth = texture(tex_heightmap, prevTexCoords).r - currentLayerDepth + layerDepth;
+     
+    // interpolation of texture coordinates
+    float weight = afterDepth / (afterDepth - beforeDepth);
+    vec2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
+
+    return finalTexCoords; 
 }

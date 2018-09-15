@@ -1,4 +1,15 @@
 #import "DSCLIB01.acs"
+script "SootDownStats" ENTER {
+		ExternalCamera = 1;
+        HudMessage(s:"";HUDMSG_PLAIN,776,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+        HudMessage(s:"";HUDMSG_PLAIN,777,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+        HudMessage(s:"";HUDMSG_PLAIN,778,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+        HudMessage(s:"";HUDMSG_PLAIN,779,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+        HudMessage(s:"";HUDMSG_PLAIN,780,CR_DARKRED,0.2, 0.02, FixedDiv(1, 35));
+		delay(1);
+		restart;
+
+}
 
 script "displayskipIntro" ENTER {
 	delay(35*5);
