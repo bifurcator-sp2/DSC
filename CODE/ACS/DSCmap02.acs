@@ -3,34 +3,6 @@
 int MapWave = 0;
 bool ArmorTook = false;
 
-script "ArmorWave" (void){
-    
-    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-    if ( !ArmorTook ){
-    
-        ACS_NamedExecuteAlways("SpawnWave", 0, 100550, 888888, 888888);
-        ArmorTook = true;
-    }
-}
-
-script "CryptWave" (void){
-    
-    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999);
-}
-
-script "IamReady" (void){
-    
-    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-    NextWaveReady = true;
-}
-
-script "SpawnFirstScull" (void){
-    
-    SpawnSpotFacingForced("WaveScullDEC", 12, 100600);
-    SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
-}
-
 script "StartControl" enter {
 
     maxWaveCount = 40; //episode wave count definition
@@ -46,50 +18,56 @@ script "StartControl" enter {
     //SetThingSpecial(100800, ACS_NamedExecute, "IamReady");
     //SpawnSpotFacingForced("DoomSlayerGliph", 100800, 100600);// test thing
 
-    while( !NextWaveReady ){
-
-        delay(1);
-    }
+    while (!NextWaveReady){ delay(1); } // wait for the first scull to be picked
+    
     NextWaveReady = false;
 
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
-    ACS_NamedExecuteAlways("Mus_L1", 0);
+    //ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12); // spawn first wave
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999);
+    ACS_NamedExecuteAlways("Mus_L1", 0); // play battle music
 
-    while ( !NextWaveReady ){
-        
-        delay(1);
-    }
+    delay(5);
+    
+    // WAVE 2
+    //
+    while (WaveOnline){ delay(5); }
+    
     NextWaveReady = false;
-    Door_Open(13, 16);
-    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
     ACS_NamedExecuteAlways("Mus_L1", 0);
     ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999);
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
+    Door_Open(13, 16);
 
-    while( !NextWaveReady ){
-        
-        delay(1);
-    }
+    delay(5);
+    
+    // WAVE 3
+    //
+    while (WaveOnline){ delay(2); }
+    
     NextWaveReady = false;
-
-    LastWave = true;
-    Door_Close(13, 64);
-    Door_Open(14, 16);
     ACS_NamedExecuteAlways("Mus_L1", 0);
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 12);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 999999);  
+    Door_Open(14, 64);
+    
+    delay(5);
+    
+    // WAVE 4
+    //
+    while (WaveOnline){ delay(2); }    
+    
+    NextWaveReady = false;
+    LastWave = true;
     ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
     
     delay(5); 
     
-    while ( WaveOnline ){ delay(5); }	//wait for end
+    while (WaveOnline){ delay(2); }	//wait for end
     
-    Door_Open(13, 64);
-    
-    while ( !NextWaveReady ){ delay(1); }
-    
+    while (!NextWaveReady){ delay(1); } // wait for glyph to be picked up
+
     NextWaveReady = false;
 
-    for ( int i = 5; i > 0; i-- ){
+    for (int i = 5; i > 0; i--){
         
         ACS_NamedExecute("LevelEndingMessage", 0, i);
         delay(35);
@@ -99,6 +77,34 @@ script "StartControl" enter {
     TotalKills = TotalKills + GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
     Atrium1Active = true;
     Exit_Normal(0);
+}
+
+script "ArmorWave" (void){
+    
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    if ( !ArmorTook ){
+    
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100550, 888888, 888888);
+        ArmorTook = true;
+    }
+}
+
+script "CryptWave" (void){
+    
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    //ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999);
+}
+
+script "IamReady" (void){
+    
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    NextWaveReady = true;
+}
+
+script "SpawnFirstScull" (void){
+    
+    SpawnSpotFacingForced("WaveScullDEC", 12, 100600);
+    SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
 }
 
 script "MapWaveControll" (void){

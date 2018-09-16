@@ -1104,7 +1104,7 @@ script "DeathBufFIX" death  {
     ChangeLevel ("DSCMAP01", 0, CHANGELEVEL_NOINTERMISSION|CHANGELEVEL_RESETHEALTH|CHANGELEVEL_RESETINVENTORY, -1);
 }
 
-script  "FinishWaveFromMenue" enter {
+script "FinishWaveFromMenue" enter {
 
     if ( GetUserCVar(0, "dsc_finish_wave") == true ){
 
@@ -1459,7 +1459,7 @@ script "SetWaveDelay" (int WDelay) { //setter from z-script
  */
 script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag){
 
-    if( ScullTag != 888888 ){
+    if ( ScullTag != 888888 ){
 
         WaveOnline = true;
         KilledWaveStart = GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
@@ -1488,7 +1488,7 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag){
 
     if ( ScullTag != 888888 ){
 
-        if(!NOspawn){ //debug thing
+        if (!NOspawn){ //debug thing
 
             //PrintBold(i:WaveDelay);
             delay(WaveDelay);
@@ -1505,23 +1505,24 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag){
 
         CurrentWave ++;
 
-        if(!NOspawn){//debug thing
+        if (!NOspawn){//debug thing
 
-            delay( 35 * 3 );
+            delay( 35 * 1 ); // 3
         }
 
-        Thing_Destroy(666667,0,0);//Previusly spawned vanilla weapon
+        // @FIXME: not always working
+        Thing_Destroy(666667,0,0); //Previously spawned vanilla weapon
 
-        if(!NOspawn){//debug thing
+        if (!NOspawn){//debug thing
 
             delay( 35 * 1 );
         }
 
         ACS_NamedExecute("SpawnWeapon", 0, WeaponTag);
 
-        if(!NOspawn){//debug thing
+        if (!NOspawn){//debug thing
 
-            delay( 35 * 3 );
+            delay( 35 * 1 ); // 3
         }
 
         ACS_NamedExecuteAlways("RestoreMusic", 0);
@@ -1569,7 +1570,7 @@ script "DisplayWaveStats" (int PerWave, int Total){
     ACS_NamedExecuteAlways("DisplayLeftGliph", 0, PerWave);
     ACS_NamedExecuteAlways("DisplayRightsGliph", 0, Total);
 
-    delay( 35 * 7 );
+    delay( 35 * 4 ); // * 7
     HudMessageBold(s:""; HUDMSG_PLAIN, 399, CR_GOLD, 0.5, 0.3, 0);
     HudMessageBold(s:""; HUDMSG_PLAIN, 400, CR_GOLD, 0.5, 0.3, 0);
     HudMessageBold(s:""; HUDMSG_PLAIN, 401, CR_GOLD, 0.5, 0.3, 0);
@@ -1716,7 +1717,8 @@ script "ScullHasCome" (void){
     while ( DSCscreenFade > 0 ){ delay(1); }
 
     delay( 35 * 3 ); //to not intersect with weapon spawn message
-    PrintBold(s:"Mystic Skull has arrived.\nPick it up for continiue.");
+    // @TODO: add localization support
+    PrintBold(s:"Mystic Skull has arrived.\nPick it up for continue.");
 }
 
 script "GliphHasCome" (void){
@@ -2525,8 +2527,9 @@ script "DisplayAchives" (int disp){
 
 script "DisplayRankInfo" enter {
 
-    // @TODO: check if in game
     while (true) {
+        
+        // check if in game
         if (ExternalCamera){
 
             delay(35);
