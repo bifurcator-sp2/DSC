@@ -2168,6 +2168,9 @@ Class DSCprisonedSaintBIG : DSCprisonedSaint
 	}
 }
 
+/**
+ * Saint made silent
+ */
 Class DSCprisonedSaint : Actor
 {
 	int RollSpeed;
@@ -2245,7 +2248,7 @@ Class DSCprisonedSaint : Actor
 		if(NopainCounter>0){
 			PainChance = 0;
 			Speed = NopainSpeed;
-			A_Log("Prisoned Saint: Help! Help! Help!");
+			//A_Log("Prisoned Saint: Help! Help! Help!");
 			NopainCounter++;
 			if(NopainCounter>NopainCounterMAX){
 				NopainCounter = 0;
@@ -2309,7 +2312,7 @@ Class DSCprisonedSaint : Actor
 			if(SaintHealthUp>0){
 				health = health+SaintHealthUp+HealthCombatMultipler*LiveMonstersNum;
 				if(health>default.health){health = default.health;}
-				A_Log("Prisoned Saint: Thank You for help!");
+				//A_Log("Prisoned Saint: Thank You for help!");
 				SpawnBurstAidi();
 			}
 			/////////////
@@ -2319,7 +2322,7 @@ Class DSCprisonedSaint : Actor
 					health = health+1;
 				} else {
 					health = health+20;
-					A_Log("Prisoned Saint fast regenerate");
+					//A_Log("Prisoned Saint fast regenerate");
 				}
 				if(health>default.health){health = default.health;}
 				//A_Log("Prisoned Saint: Regenerate.");
