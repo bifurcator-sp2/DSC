@@ -17,12 +17,12 @@ global int 6:MonsterCountMethod;
 global int 7:DSCplayerRank;
 global int 8:GlobalAttempt;//iteration of hell
 
-#define shotGunSpawnProgressInPercent 3
-#define SSGSpawnProgressInPercent 15
-#define ChaingunSpawnProgressInPercent 30
-#define RLSpawnProgressInPercent 50
+#define shotGunSpawnProgressInPercent   3
+#define SSGSpawnProgressInPercent       15
+#define ChaingunSpawnProgressInPercent  30
+#define RLSpawnProgressInPercent        50
 #define PlasmaGunSpawnProgressInPercent 70
-#define BFG9000SpawnProgressInPercent 80
+#define BFG9000SpawnProgressInPercent   80
 
 bool isBE = false;
 bool NextWaveReady = false;
@@ -60,11 +60,13 @@ bool OverrideDeathBugFIX = false;
 //#define invisBonusChance 5
 //#define invuBonusChance 5
 
-int AchiveKillInSEc1 = 0;
-int AchiveDieInSec1 = 0;
-int AchiveKillInSEc10 = 0;
-bool RankMenueOnScreen = false;
 int OldPlayerHealth;
+int AchiveKillInSEc1    = 0;
+int AchiveDieInSec1     = 0;
+int AchiveKillInSEc10   = 0;
+bool RankMenueOnScreen  = false;
+bool HellThunderPaused  = false;
+bool demogliphStarted;
 
 //
 // COMMON
@@ -466,8 +468,6 @@ script "AirlockOuterDoor" (int thisTid, int InTid, int ControllerTag){
     //PlayerInVaquum = 0;
 }
 
-bool HellThunderPaused = false;
-
 script "HellThunder" (void){
 
     if ( !HellThunderPaused ){
@@ -839,7 +839,6 @@ script "slideTECdoor" (int po, int angle, int dist) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-
 //Original code by Isle
 function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOffset, int yOffset, int range, str sprite, str text, int holdTime, str colour)
 {
@@ -899,8 +898,6 @@ function void HudMessageOnActor(int tid, int msgID, int hudX, int hudY, int xOff
 script "Thing_Activate" (int tid){ Thing_Activate(tid); }
 
 script "Thing_DeActivate" (int tid){ Thing_DeActivate(tid); }
-
-bool demogliphStarted;
 
 script "PressUse" (void){
 
@@ -1457,9 +1454,9 @@ script "SetWaveDelay" (int WDelay) { //setter from z-script
 /**
  * Delay disabled, Countdown disabled
  */
-script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag){
+script "SpawnWave" (int zoneTid, int SkullTag, int WeaponTag){
 
-    if ( ScullTag != 888888 ){
+    if ( SkullTag != 888888 ){
 
         WaveOnline = true;
         KilledWaveStart = GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
@@ -1486,7 +1483,7 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag){
         Thing_Activate(zoneTid);
     }
 
-    if ( ScullTag != 888888 ){
+    if ( SkullTag != 888888 ){
 
         if (!NOspawn){ //debug thing
 
@@ -1495,7 +1492,7 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag){
             //PrintBold(s:"delayed");
         }
 
-        while ( GetTotalMonsters() > 0 ){ delay(35); }
+        while ( GetTotalMonsters() > 0 ){ delay(35); } // wait until no more monsters
 
         //AmbientSound("WAVEDONE",127);
         PlaySound(0, "WAVEDONE", CHAN_AUTO, 1.0,  false, ATTN_NONE );
@@ -1530,11 +1527,11 @@ script "SpawnWave" (int zoneTid, int ScullTag, int WeaponTag){
 
         if (!LastWave){
 
-            SpawnSpotFacingForced("WaveScullDEC", ScullTag, 100600);
+            SpawnSpotFacingForced("WaveScullDEC", SkullTag, 100600);
 
         } else {
 
-            SpawnSpotFacingForced("DoomSlayerGliph", ScullTag, 100600);
+            SpawnSpotFacingForced("DoomSlayerGliph", SkullTag, 100600);
         }
 
         SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
@@ -1586,10 +1583,10 @@ script "DisplayLeftGliph" (int num){
     int cat = GetCat(num);
     int catNum = GetCatNum(num);
     HudMessageBold(d:catNum, s:" X ", d:cat;
-    HUDMSG_PLAIN, 403, CR_RED, 150.0, 250.0, 7.0);
+        HUDMSG_PLAIN, 403, CR_RED, 150.0, 250.0, 4.0);
 
     SetFont( GetGliph(num) );
-    HudMessageBold(s:"A"; HUDMSG_PLAIN, 404, CR_RED, 150.0, 175.0, 7.0);
+    HudMessageBold(s:"A"; HUDMSG_PLAIN, 404, CR_RED, 150.0, 175.0, 4.0);
     SetHudSize(0, 0, 0);
 }
 
@@ -1600,10 +1597,10 @@ script "DisplayRightsGliph" (int num){
     int cat = GetCat(num);
     int catNum = GetCatNum(num);
     HudMessageBold(d:catNum, s:" X ", d:cat;
-    HUDMSG_PLAIN, 405, CR_RED, 800.0-150.0, 250.0, 7.0);
+        HUDMSG_PLAIN, 405, CR_RED, 800.0-150.0, 250.0, 4.0);
 
     SetFont(GetGliph (num));
-    HudMessageBold(s:"A"; HUDMSG_PLAIN, 406, CR_RED, 800.0-150.0, 175.0, 7.0);
+    HudMessageBold(s:"A"; HUDMSG_PLAIN, 406, CR_RED, 800.0-150.0, 175.0, 4.0);
     SetHudSize(0, 0, 0);
 }
 
@@ -2584,9 +2581,7 @@ script "DisplayRankInfo" enter {
 
 script "DisplayNextRank" (void){
 
-    if ( GetUserCVar(0, "dsc_heroic_mode") == true ){ terminate; }
-
-    if (ExternalCamera){  terminate; }
+    if ( GetUserCVar(0, "dsc_heroic_mode") || ExternalCamera ){ terminate; }
 
     if (!RankMenueOnScreen){
 
