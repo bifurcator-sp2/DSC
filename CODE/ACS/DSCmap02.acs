@@ -1,35 +1,18 @@
 #import "DSCLIB01.acs"
 
-int MapWave = 0;
-bool ArmorTook = false;
+/**
+ * @name DSCMAP02
+ * @title Cemetery of the Fallen
+ * 
+ */
 
-script "ArmorWave" (void){
-    
-    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-    if ( !ArmorTook ){
-    
-        ACS_NamedExecuteAlways("SpawnWave", 0, 100550, 888888, 888888);
-        ArmorTook = true;
-    }
-}
+#define NO_SKULL      999999
 
-script "CryptWave" (void){
-    
-    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999);
-}
-
-script "IamReady" (void){
-    
-    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-    NextWaveReady = true;
-}
-
-script "SpawnFirstScull" (void){
-    
-    SpawnSpotFacingForced("WaveScullDEC", 12, 100600);
-    SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
-}
+int MapWave         = 0;
+int MsgID           = 13131313;
+int ttlID           = 13131314;
+bool ArmorTook      = false;
+str finalText       = "";
 
 script "StartControl" enter {
 
@@ -46,50 +29,52 @@ script "StartControl" enter {
     //SetThingSpecial(100800, ACS_NamedExecute, "IamReady");
     //SpawnSpotFacingForced("DoomSlayerGliph", 100800, 100600);// test thing
 
-    while( !NextWaveReady ){
-
-        delay(1);
-    }
+    while (!NextWaveReady){ delay(1); } // first skull taken
+    
     NextWaveReady = false;
 
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, NO_SKULL); // spawn first wave
+    ACS_NamedExecuteAlways("Mus_L1", 0); // play battle music
+
+    delay(5);
+    
+    // WAVE 2
+    //
+    while (WaveOnline){ delay(1); }
+    
+    NextWaveReady = false;
     ACS_NamedExecuteAlways("Mus_L1", 0);
-
-    while ( !NextWaveReady ){
-        
-        delay(1);
-    }
-    NextWaveReady = false;
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100501, NO_SKULL);
     Door_Open(13, 16);
-    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
-    ACS_NamedExecuteAlways("Mus_L1", 0);
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100501, 999999);
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
 
-    while( !NextWaveReady ){
-        
-        delay(1);
-    }
+    delay(5);
+    
+    // WAVE 3
+    //
+    while (WaveOnline){ delay(1); }
+    
     NextWaveReady = false;
-
+    ACS_NamedExecuteAlways("Mus_L1", 0);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100502, NO_SKULL);  
+    Door_Open(14, 64);
+    
+    delay(5);
+    
+    // WAVE 4
+    //
+    while (WaveOnline){ delay(1); }    
+    
+    NextWaveReady = false;
     LastWave = true;
-    Door_Close(13, 64);
-    Door_Open(14, 16);
     ACS_NamedExecuteAlways("Mus_L1", 0);
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100502, 12);
-    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 999999);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, NO_SKULL);
+    ACS_NamedExecuteAlways("SpawnWave", 0, 100500, 12);
     
-    delay(5); 
-    
-    while ( WaveOnline ){ delay(5); }	//wait for end
-    
-    Door_Open(13, 64);
-    
-    while ( !NextWaveReady ){ delay(1); }
-    
+    while (!NextWaveReady){ delay(1); } // wait for glyph taken
+
     NextWaveReady = false;
 
-    for ( int i = 5; i > 0; i-- ){
+    for (int i = 5; i > 0; i--){
         
         ACS_NamedExecute("LevelEndingMessage", 0, i);
         delay(35);
@@ -101,14 +86,22 @@ script "StartControl" enter {
     Exit_Normal(0);
 }
 
-script "MapWaveControll" (void){
+script "SpawnFirstScull" (void){
     
-    MapWave++;
+    SpawnSpotFacingForced("WaveScullDEC", 12, 100600);
+    SetThingSpecial(100600, ACS_NamedExecute, "NextWaveReady");
 }
 
-str finalText = "";
-int MsgID = 13131313;
-int ttlID = 13131314;
+
+script "ArmorWave" (void){
+    
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    if ( !ArmorTook ){
+    
+        ACS_NamedExecuteAlways("SpawnWave", 0, 100550, 888888, 888888);
+        ArmorTook = true;
+    }
+}
 
 script "Covenant" (void) {
     
@@ -123,3 +116,19 @@ script "Covenant" (void) {
     hudmessageBold(s:"Press any key to continue"; HUDMSG_PLAIN , 0, CR_RED, 200.0, 280.0, 0.1);
 }
 
+script "CryptWave" (void){
+    
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    //ACS_NamedExecuteAlways("SpawnWave", 0, 100503, 999999);
+}
+
+script "IamReady" (void){
+    
+    //ACS_NamedExecuteAlways("SetBattleMusic1", 0);
+    NextWaveReady = true;
+}
+
+script "MapWaveControll" (void){
+    
+    MapWave++;
+}
